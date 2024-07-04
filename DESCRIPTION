@@ -1,0 +1,16 @@
+Package: SpaceFillingCurve
+Type: Package
+Title: 2k x 2k Space-Filling Curve
+Version: 1.99.0
+Date: 2024-06-18
+Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
+                  comment = c('ORCID'="0000-0002-7395-8709"))
+Depends: R (>= 4.0.0)
+Imports: ...
+Suggests: ...
+VignetteBuilder: knitr
+Description: ...
+URL: https://github.com/jokergoo/SpaceFillingCurve
+License: MIT + file LICENSE
+LinkingTo: Rcpp
+

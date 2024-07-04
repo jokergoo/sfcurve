@@ -1,0 +1,5 @@
+sample.interval=20000
+"sfc_extend" "sfc" "sfc" 
+"[[" "sfc_extend" "sfc" "sfc" 
+"lapply" "do.call" "c.sfc_pattern" "c" "c" "do.call" "sfc_extend" "sfc" "sfc" 
+"grep" "ls" "apropos" "normalCompletions" ".completeToken" 
