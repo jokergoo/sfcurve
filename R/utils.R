@@ -1,7 +1,32 @@
-draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE) {
+
+#' Draw multiple curves
+#' 
+#' @param ... A list of `sfc_nxn` objects.
+#' @param nrow Number of rows in the layout.
+#' @param ncol Number of columns in the layout.
+#' @param extend Whether to draw the entering and leaving segments?
+#' @param title Whether to add titles on each panel? The title is constructed in the form of initial_seed|transverse_code, e.g. `I|111`.
+#' 
+#' @export
+#' @examples
+#' # for all forms of curves initialized by 'R', rotation 0, and in level 3
+#' draw_multiple_curves(
+#'     sfc_hilbert("R", code = c(1, 1, 1)),
+#'     sfc_hilbert("R", code = c(1, 1, 2)),
+#'     sfc_hilbert("R", code = c(1, 2, 1)),
+#'     sfc_hilbert("R", code = c(1, 2, 2)),
+#'     sfc_hilbert("R", code = c(2, 1, 1)),
+#'     sfc_hilbert("R", code = c(2, 1, 2)),
+#'     sfc_hilbert("R", code = c(2, 2, 1)),
+#'     sfc_hilbert("R", code = c(2, 2, 2)),
+#'     nrow = 2, title = TRUE)
+draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE) {
 	pl = list(...)
 
 	n = length(pl)
+	if(n < 1) {
+		stop_wrap("No curve is specified.")
+	}
 
 	if(is.null(nrow) && is.null(ncol)) {
 		nrow = ceiling(sqrt(n))
@@ -14,7 +39,92 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE) {
 		ncol = ceiling(n/nrow)
 	}
 
-	gbl = lapply(pl, grob_sfc_sequence, extend = extend)
+	gbl = lapply(pl, sfc_grob, extend = extend, title = title)
 
-	plot_grid(plotlist = gbl, nrow = nrow, ncol = ncol)
+	grid.newpage()
+	pushViewport(viewport(layout = grid.layout(nrow = nrow, ncol = ncol)))
+	for(i in seq_len(nrow)) {
+		for(j in seq_len(ncol)) {
+			pushViewport(viewport(layout.pos.row = i, layout.pos.col = j))
+			ind = (i-1)*ncol + j
+			grid.draw(gbl[[ind]])
+			popViewport()
+		}
+	}
+	popViewport()
+}
+
+
+rotate_coord = function(x, theta, center = c(0, 0)) {
+	if(length(x) == 2) {
+		dim(x) = c(1, 2)
+	}
+
+	y = x[, 2]
+	x = x[, 1]
+
+	x = x - center[1]
+	y = y - center[2]
+
+	theta = theta/180*pi
+	x2 = x*cos(theta) - y*sin(theta)
+	y2 = x*sin(theta) + y*cos(theta)
+
+	x2 = x2 + center[1]
+	y2 = y2 + center[2]
+
+	cbind(x2, y2)
+}
+
+reverse_coord = function(x) {
+	if(length(x) == 2) {
+		dim(x) = c(1, 2)
+	}
+	x[seq(nrow(x), 1), , drop = FALSE]
+}
+
+move_coord = function(x, offset) {
+	if(length(x) == 2) {
+		dim(x) = c(1, 2)
+	}
+	x[, 1] = x[, 1] + offset[1]
+	x[, 2] = x[, 2] + offset[2]
+	x
+}
+
+
+get_circular_index = function(ind, n) {
+	(ind-1) %% n + 1
+}
+
+
+stop_wrap = function (...) {
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    stop(x, call. = FALSE)
+}
+
+warning_wrap = function (...) {
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    warning(x, call. = FALSE)
+}
+
+message_wrap = function (...) {
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    message(x)
+}
+
+equal_to = function(x, y) {
+	abs(x - y) < 1e-6
+}
+
+
+convert_to_child_class = function(x, class) {
+	x2 = new(class)
+	for(nm in slotNames(x)) {
+		slot(x2, nm) = slot(x, nm)
+	}
+	x2
 }

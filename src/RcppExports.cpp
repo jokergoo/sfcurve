@@ -10,24 +10,51 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// hilbert_curve_cpp
-List hilbert_curve_cpp(int level);
-RcppExport SEXP _HilbertCurve_hilbert_curve_cpp(SEXP levelSEXP) {
+// hilbert_curve_3d_cpp
+List hilbert_curve_3d_cpp(int level);
+RcppExport SEXP _SpaceFillingCurve_hilbert_curve_3d_cpp(SEXP levelSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type level(levelSEXP);
-    rcpp_result_gen = Rcpp::wrap(hilbert_curve_cpp(level));
+    rcpp_result_gen = Rcpp::wrap(hilbert_curve_3d_cpp(level));
+    return rcpp_result_gen;
+END_RCPP
+}
+// expand_by_rules_cpp
+List expand_by_rules_cpp(List rules, IntegerVector letters, IntegerVector code);
+RcppExport SEXP _SpaceFillingCurve_expand_by_rules_cpp(SEXP rulesSEXP, SEXP lettersSEXP, SEXP codeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type rules(rulesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type code(codeSEXP);
+    rcpp_result_gen = Rcpp::wrap(expand_by_rules_cpp(rules, letters, code));
+    return rcpp_result_gen;
+END_RCPP
+}
+// int_to_binary
+IntegerVector int_to_binary(int x, int len);
+RcppExport SEXP _SpaceFillingCurve_int_to_binary(SEXP xSEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(int_to_binary(x, len));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_HilbertCurve_hilbert_curve_cpp", (DL_FUNC) &_HilbertCurve_hilbert_curve_cpp, 1},
+    {"_SpaceFillingCurve_hilbert_curve_3d_cpp", (DL_FUNC) &_SpaceFillingCurve_hilbert_curve_3d_cpp, 1},
+    {"_SpaceFillingCurve_expand_by_rules_cpp", (DL_FUNC) &_SpaceFillingCurve_expand_by_rules_cpp, 3},
+    {"_SpaceFillingCurve_int_to_binary", (DL_FUNC) &_SpaceFillingCurve_int_to_binary, 2},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_HilbertCurve(DllInfo *dll) {
+RcppExport void R_init_SpaceFillingCurve(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

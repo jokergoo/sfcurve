@@ -1,16 +1,18 @@
-Package: SpaceFillingCurve
+Package: sfcurve
 Type: Package
 Title: 2k x 2k Space-Filling Curve
-Version: 1.99.0
+Version: 0.99.0
 Date: 2024-06-18
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
-Imports: ...
-Suggests: ...
+Imports: grid, Rcpp, methods, colorRamp2
+Suggests: rmarkdown, knitr, rgl
 VignetteBuilder: knitr
-Description: ...
-URL: https://github.com/jokergoo/SpaceFillingCurve
+Description: This package codes all possible forms of general Hilbert curves that fill a 2D grid by Gassian integers.
+URL: https://github.com/jokergoo/sfcurve
 License: MIT + file LICENSE
 LinkingTo: Rcpp
-
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

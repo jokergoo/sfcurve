@@ -1,0 +1,152 @@
+
+#' The graphics object from the sfc_nxn object
+#' @aliases sfc_grob
+#' @rdname sfc_grob
+#' @param p A `sfc_nxn` object.
+#' @param bases A list of base patterns, consider to use `BASE_LIST`.
+#' @param extend Whether to add the entering and leaving segments?
+#' @param title Whether to add title on top of the curve?
+#' @param ... Other arguments passed to [`grid::viewport()`].
+#' 
+#' @export
+#' @import colorRamp2
+#' @return
+#' A [`grid::grob()`] object.
+setMethod("sfc_grob",
+	signature = "sfc_sequence",
+	definition = function(p, bases, extend = FALSE, title = FALSE, ...) {
+
+	loc = sfc_segments(p, bases)
+
+	n = nrow(loc)
+
+	rgx = range(loc[, 1])
+	rgx[1] = rgx[1] - 1; rgx[2] = rgx[2] + 1
+	rgy = range(loc[, 2])
+	rgy[1] = rgy[1] - 1; rgy[2] = rgy[2] + 1
+	
+	r = (diff(rgx) + 1)/(diff(rgy) + 1)
+
+	vp = viewport(xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
+
+	gbl = list()
+
+	if(n > 1) {
+		col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+		gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = 4))
+	} else {
+		gbl[[1]] = pointsGrob(loc[, 1], loc[, 2], pch = 16, size = unit(4, "pt"), gp = gpar(col = "#9E0142"))
+	}
+
+	if(extend) {
+		seq = as.character(p@seq)
+		rot = p@rot
+
+		b = bases[[ seq[1] ]]
+
+		if(is.na(b@in_direction)) {
+			gbl[[2]] = pointsGrob(loc[1, 1], loc[1, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
+		} else {
+			prev = sfc_previous_point(b, loc[1, ], rot[1], length = 0.6)
+			gbl[[2]] = segmentsGrob(prev[1], prev[2], 0, 0, default.units = "native", gp = gpar(col = "grey", lwd = 2))
+		}
+
+		b = bases[[ seq[n] ]]
+
+		if(is.na(b@out_direction)) {
+			gbl[[3]] = pointsGrob(loc[n, 1], loc[n, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
+		} else {
+			last = sfc_next_point(b, loc[n, ], rot[n], length = 0.6)
+			gbl[[3]] = segmentsGrob(loc[n, 1], loc[n, 2], last[1], last[2], default.units = "native", gp = gpar(col = "grey", lwd = 2), arrow = arrow(length = unit(0.2, "native"), angle = 15))
+		}
+
+		gbl = gbl[c(2, 3, 1)]
+	}
+
+	if(title) {
+		seed = p@seed
+		pt = paste0("paste(", paste("italic(", seed@seq, ")^", seed@rot, sep = "", collapse = ","), ")")
+		pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
+		gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+	}
+
+	args = gbl
+	args$vp = vp
+	args$cl = "grob_sfc_sequence"
+
+	do.call(grobTree, args)
+})
+
+#' @export
+plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, ...) {
+
+	if(is.null(bases)) {
+		bases = BASE_LIST[sfc_universe(x)]
+	}
+
+	gb = sfc_grob(x, bases, ...)
+	grid.newpage()
+	grid.draw(gb)
+
+	if(grid) {
+		add_grid_lines()
+	}
+}
+
+#' @rdname sfc_grob
+#' @export
+setMethod("sfc_grob",
+	signature = "sfc_nxn",
+	definition = function(p, bases = p@rules@bases, extend = FALSE, title = FALSE, ...) {
+
+	callNextMethod(p, bases, extend = extend, title = title, ...)
+})
+
+#' @export
+makeContext.grob_sfc_sequence = function(x) {
+    vp_width = convertWidth(unit(1, "npc"), "in", valueOnly = TRUE)
+    vp_height = convertHeight(unit(1, "npc"), "in", valueOnly = TRUE)
+
+    r = as.numeric(x$vp$width)
+
+    if(length(r)) {
+	    if(vp_width > r*vp_height) {
+	        x$vp$width = unit(r*vp_height, "in")
+	        x$vp$height = unit(vp_height, "in")
+	    } else {
+	        x$vp$width = unit(vp_width, "in")
+	        x$vp$height = unit(vp_width/r, "in")
+	    }
+	   }
+    x
+}
+
+#' @export
+plot.sfc_nxn = function(x, grid = FALSE, ...) {
+	gb = sfc_grob(x, ...)
+	grid.newpage()
+	grid.draw(gb)
+
+	if(grid) {
+		add_grid_lines()
+	}
+}
+
+
+add_grid_lines = function() {
+	vp = current.vpTree()$children[[1]]
+	downViewport(vp$name)
+	xscale = vp$xscale
+	yscale = vp$yscale
+
+	nx = xscale[2] - xscale[1] - 1
+	ny = yscale[2] - yscale[1] - 1
+
+	grid.segments(seq(xscale[1] + 0.5, xscale[2] - 0.5, by = 1), rep(yscale[1] + 0.5, ny), 
+		          seq(xscale[1] + 0.5, xscale[2] - 0.5, by = 1), rep(yscale[2] - 0.5, ny), 
+		          default.units = "native", gp = gpar(col = "#CCCCCC", lty = 2))
+	grid.segments(rep(xscale[1] + 0.5, ny), seq(yscale[1] + 0.5, yscale[2] - 0.5, by = 1),
+		          rep(xscale[2] - 0.5, ny), seq(yscale[1] + 0.5, yscale[2] - 0.5, by = 1), 
+		          default.units = "native", gp = gpar(col = "#CCCCCC", lty = 2))
+	upViewport()
+}
