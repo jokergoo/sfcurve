@@ -165,7 +165,7 @@ flip_unit = function(p, index) {
 		stop_wrap("Cannot identify the orientation of the unit")
 	}
 
-	p[index] = unit
+	p[sfc_index(p, index)] = unit
 	p
 
 }
