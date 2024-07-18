@@ -21,8 +21,4 @@
 }
 \description{
 Print the object
-
-Print the object
-
-Print the object
 }

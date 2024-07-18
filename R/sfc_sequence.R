@@ -107,25 +107,39 @@ next_rotation = function(letter, rot) {
 
 # subset allows an incomplete curve
 
+#' Utility functions
+#' @rdname utility
+#' @param x An `sfc_sequence` object.
+#' @param i Index.
+#' @param value An `sfc_sequence` object.
+#' @param ... A list of `sfc_sequence` objects.
+#' 
 #' @export
 `[.sfc_sequence` = function(x, i) {
-	x2 = x
+	x2 = new("sfc_sequence")
 	x2@seq = x@seq[i]
-	x2@rot = x2@rot[i]
+	x2@rot = x@rot[i]
+	x2@universe = x@universe
 	x2
 }
 
+#' @rdname utility
 #' @export
 `[<-.sfc_sequence` = function(x, i, value) {
 	x@seq[i] = value@seq
 	x@rot[i] = value@rot
+	x
 }
 
+#' @rdname utility
 #' @export
 length.sfc_sequence = function(x) {
 	length(x@seq)
 }
 
+#' @rdname utility
+#' @details
+#' For efficiency, `c.sfc_sequence()` does not check whether the input `sfc_sequence` objects are compatible.
 #' @export
 c.sfc_sequence = function(...) {
 	lt = list(...)
@@ -135,12 +149,12 @@ c.sfc_sequence = function(...) {
 	p = new("sfc_sequence")
 	p@seq = seq
 	p@rot = rot
+	p@universe = lt[[1]]@universe
 
 	p
 }
 
-#' Print the object
-#' 
+
 #' @param object The corresponding object.
 #' @rdname show
 #' @export
@@ -204,12 +218,20 @@ setMethod("sfc_universe",
 #' Whether two sfc_sequences objects are compatible
 #' @aliases sfc_is_compatible
 #' @rdname sfc_is_compatible
-#' @param p A `sfc_sequence` object.
-#' @param p2 A `sfc_sequence` object.
+#' @param p An `sfc_sequence` object.
+#' @param p2 An `sfc_sequence` object.
 #' 
 #' @details
 #' The function compares whether the two universe base pattern sets are identical.
-#' @export
+#' Note the order of universe base patterns should also be identical.
+#' @examples
+#' p1 = sfc_hilbert("I")
+#' p2 = sfc_hilbert("R")
+#' sfc_is_compatible(p1, p2)
+#' 
+#' p1 = sfc_sequence("ABC")
+#' p2 = sfc_sequence("DEF")
+#' sfc_is_compatible(p1, p2)
 setMethod("sfc_is_compatible",
 	signature = "sfc_sequence",
 	definition = function(p, p2) {

@@ -6,9 +6,9 @@
 \alias{sfc_segments,sfc_sequence-method}
 \title{Coordinates of the points on the curve}
 \usage{
-\S4method{sfc_segments}{sfc_nxn}(p, bases = p@rules@bases, start = c(0, 0))
+\S4method{sfc_segments}{sfc_nxn}(p, bases = p@rules@bases, start = c(0, 0), ...)
 
-\S4method{sfc_segments}{sfc_sequence}(p, bases, start = c(0, 0))
+\S4method{sfc_segments}{sfc_sequence}(p, bases = NULL, start = c(0, 0), by = "Cpp")
 }
 \arguments{
 \item{p}{An \code{sfc_nxn} or \code{sfc_sequence} object.}
@@ -16,12 +16,20 @@
 \item{bases}{A list of base patterns, consider to use \code{BASE_LIST}.}
 
 \item{start}{Coordinate of the start point.}
+
+\item{...}{Other argument.}
+
+\item{by}{Which implementation? Only for the testing purpose.}
 }
 \value{
 A two-column matrix.
 }
 \description{
 Coordinates of the points on the curve
+}
+\details{
+For the \code{sfc_segments()} on the \code{sfc_sequence} object, if \code{bases} is not set,
+it uses \code{\link{BASE_LIST}} internally. Make sure the sequence only contains the pre-defined base patterns.
 }
 \examples{
 p = sfc_hilbert("I", "11")

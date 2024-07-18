@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // hilbert_curve_3d_cpp
 List hilbert_curve_3d_cpp(int level);
-RcppExport SEXP _SpaceFillingCurve_hilbert_curve_3d_cpp(SEXP levelSEXP) {
+RcppExport SEXP _sfcurve_hilbert_curve_3d_cpp(SEXP levelSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // expand_by_rules_cpp
 List expand_by_rules_cpp(List rules, IntegerVector letters, IntegerVector code);
-RcppExport SEXP _SpaceFillingCurve_expand_by_rules_cpp(SEXP rulesSEXP, SEXP lettersSEXP, SEXP codeSEXP) {
+RcppExport SEXP _sfcurve_expand_by_rules_cpp(SEXP rulesSEXP, SEXP lettersSEXP, SEXP codeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -34,9 +34,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sfc_segments_cpp
+NumericMatrix sfc_segments_cpp(IntegerVector seq, NumericVector rot, List bases, NumericVector start);
+RcppExport SEXP _sfcurve_sfc_segments_cpp(SEXP seqSEXP, SEXP rotSEXP, SEXP basesSEXP, SEXP startSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type seq(seqSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rot(rotSEXP);
+    Rcpp::traits::input_parameter< List >::type bases(basesSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type start(startSEXP);
+    rcpp_result_gen = Rcpp::wrap(sfc_segments_cpp(seq, rot, bases, start));
+    return rcpp_result_gen;
+END_RCPP
+}
 // int_to_binary
 IntegerVector int_to_binary(int x, int len);
-RcppExport SEXP _SpaceFillingCurve_int_to_binary(SEXP xSEXP, SEXP lenSEXP) {
+RcppExport SEXP _sfcurve_int_to_binary(SEXP xSEXP, SEXP lenSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -48,13 +62,14 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_SpaceFillingCurve_hilbert_curve_3d_cpp", (DL_FUNC) &_SpaceFillingCurve_hilbert_curve_3d_cpp, 1},
-    {"_SpaceFillingCurve_expand_by_rules_cpp", (DL_FUNC) &_SpaceFillingCurve_expand_by_rules_cpp, 3},
-    {"_SpaceFillingCurve_int_to_binary", (DL_FUNC) &_SpaceFillingCurve_int_to_binary, 2},
+    {"_sfcurve_hilbert_curve_3d_cpp", (DL_FUNC) &_sfcurve_hilbert_curve_3d_cpp, 1},
+    {"_sfcurve_expand_by_rules_cpp", (DL_FUNC) &_sfcurve_expand_by_rules_cpp, 3},
+    {"_sfcurve_sfc_segments_cpp", (DL_FUNC) &_sfcurve_sfc_segments_cpp, 4},
+    {"_sfcurve_int_to_binary", (DL_FUNC) &_sfcurve_int_to_binary, 2},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_SpaceFillingCurve(DllInfo *dll) {
+RcppExport void R_init_sfcurve(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

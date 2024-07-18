@@ -11,8 +11,8 @@
 \alias{BASE_D}
 \alias{BASE_P}
 \alias{BASE_Q}
-\alias{BASE_LIST}
 \alias{BASE_C}
+\alias{BASE_LIST}
 \title{Base patterns}
 \format{
 An object of class \code{sfc_base} of length 1.
@@ -33,9 +33,9 @@ An object of class \code{sfc_base} of length 1.
 
 An object of class \code{sfc_base} of length 1.
 
-An object of class \code{list} of length 10.
-
 An object of class \code{sfc_base} of length 1.
+
+An object of class \code{list} of length 10.
 }
 \usage{
 BASE_I
@@ -56,11 +56,28 @@ BASE_P
 
 BASE_Q
 
-BASE_LIST
-
 BASE_C
+
+BASE_LIST
 }
 \description{
-Base patterns
+A list of pre-defined base patterns. See the \strong{Examples} section.
+}
+\details{
+\code{BASE_I} and \code{BASE_J} are identical. They are only used to distinguish the two
+"going forward" patterns in the 3x3 mode, i.e. bottom-left to top-right, and bottom-right
+to top-left.
+}
+\examples{
+BASE_I
+BASE_J
+BASE_R
+BASE_L
+BASE_U
+BASE_B
+BASE_D
+BASE_P
+BASE_Q
+BASE_C
 }
 \keyword{datasets}

@@ -2,14 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 hilbert_curve_3d_cpp <- function(level) {
-    .Call('_SpaceFillingCurve_hilbert_curve_3d_cpp', PACKAGE = 'SpaceFillingCurve', level)
+    .Call(`_sfcurve_hilbert_curve_3d_cpp`, level)
 }
 
 expand_by_rules_cpp <- function(rules, letters, code) {
-    .Call('_SpaceFillingCurve_expand_by_rules_cpp', PACKAGE = 'SpaceFillingCurve', rules, letters, code)
+    .Call(`_sfcurve_expand_by_rules_cpp`, rules, letters, code)
+}
+
+sfc_segments_cpp <- function(seq, rot, bases, start) {
+    .Call(`_sfcurve_sfc_segments_cpp`, seq, rot, bases, start)
 }
 
 int_to_binary <- function(x, len) {
-    .Call('_SpaceFillingCurve_int_to_binary', PACKAGE = 'SpaceFillingCurve', x, len)
+    .Call(`_sfcurve_int_to_binary`, x, len)
 }
 

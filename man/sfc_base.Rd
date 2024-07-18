@@ -14,7 +14,7 @@ sfc_base(
 )
 }
 \arguments{
-\item{letter}{A single letter to represent the base pattern.}
+\item{letter}{A single letter (not necessarily) to represent the base pattern.}
 
 \item{in_direction}{The direction of the segment that enters the point, measured in the polar coordinate system, in degrees.}
 
@@ -22,7 +22,7 @@ sfc_base(
 
 \item{grob}{A \code{\link[grid:grid.grob]{grid::grob()}} object of this base pattern. If it is not set, it is generated according to \code{in_direction} and \code{out_direction}.}
 
-\item{primary}{Currently, going direct, turning left and turning right can be set as primary base patterns because other high-level patterns
+\item{primary}{Currently, going forward, turning left and turning right can be set as primary base patterns because other high-level patterns
 can be built from them.}
 
 \item{open}{Can the base pattern be connected to other base patterns?}
@@ -35,10 +35,10 @@ Constructor of the sfc_base class
 }
 \details{
 The "base pattern" is designed not only for single point but also for combination of points that form a "base curve". However,
-currently, it is fixed to single point base patterns.
+currently, it is fixed to the single point base pattern.
 
-Currently, this package supports 2x2 and 3x3 space-filling curves that fills grids in 2D space constructed by gaussian integers.
-And when the curve expands, we only allow the segments go forward, backward, left and right. Thus there are the following base patterns
+Currently, this package supports 2x2 and 3x3 space-filling curves that fills grids in 2D space constructed by the Gaussian integers.
+And when the curve expands, we only allow the segments to go forward, backward, left and right. Thus there are the following base patterns
 pre-defined in this package:
 \itemize{
 \item \code{\link{BASE_I}}

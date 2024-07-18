@@ -3,6 +3,7 @@
 \name{sfc_rotate,sfc_sequence-method}
 \alias{sfc_rotate,sfc_sequence-method}
 \alias{sfc_rotate}
+\alias{^.sfc_sequence}
 \alias{sfc_hflip,sfc_sequence-method}
 \alias{sfc_hflip}
 \alias{sfc_vflip,sfc_sequence-method}
@@ -11,9 +12,12 @@
 \alias{sfc_dflip}
 \alias{sfc_reverse,sfc_sequence-method}
 \alias{sfc_reverse}
+\alias{rev.sfc_pattern}
 \title{Transformations of a sequence}
 \usage{
 \S4method{sfc_rotate}{sfc_sequence}(p, rot)
+
+\method{^}{sfc_sequence}(e1, e2)
 
 \S4method{sfc_hflip}{sfc_sequence}(p, fix_ends = FALSE)
 
@@ -22,15 +26,26 @@
 \S4method{sfc_dflip}{sfc_sequence}(p, slop = 1, fix_ends = FALSE)
 
 \S4method{sfc_reverse}{sfc_sequence}(p)
+
+\method{rev}{sfc_pattern}(x)
 }
 \arguments{
 \item{p}{An \code{sfc_sequence} object.}
 
 \item{rot}{Rotation measured in the polar coordinate system, in degree.}
 
+\item{e1}{An \code{sfc_sequence} object.}
+
+\item{e2}{The rotation.}
+
 \item{fix_ends}{Whether to keep the rotations of the two end base patterns?}
 
 \item{slop}{Slop of the diagonal.}
+
+\item{x}{An \code{sfc_sequence} object.}
+}
+\value{
+An \code{sfc_sequence} object.
 }
 \description{
 Transformations of a sequence
@@ -40,6 +55,6 @@ Transformations of a sequence
 \item \code{sfc_rotate()} rotates each base pattern.
 \item \code{sfc_hflip()} flips a sequence horizontally.
 \item \code{sfc_vflip()} flips a sequence vertically.
-\item \code{sfc_dflio()} flips a sequence against a diagonal line.
+\item \code{sfc_dflip()} flips a sequence against a diagonal line (with slop 1 or -1).
 }
 }

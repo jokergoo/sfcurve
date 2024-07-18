@@ -31,6 +31,13 @@ SFC_RULES_MEANDER
 SFC_RULES_MEANDER_FLIP
 }
 \description{
-Rules
+A list of pre-defined expansion rules for different curves.
+}
+\examples{
+SFC_RULES_HILBERT
+SFC_RULES_PEANO
+SFC_RULES_PEANO_FLIP
+SFC_RULES_MEANDER
+SFC_RULES_MEANDER_FLIP
 }
 \keyword{datasets}

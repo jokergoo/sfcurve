@@ -15,7 +15,7 @@ sfc_meander(seed, code = integer(0), rot = 0L, flip_rules = FALSE)
 \arguments{
 \item{seed}{The seed sequence. In most cases, the seed sequence is a single base pattern, which can be specified as a single letter, then \code{rot} controls
 the initial rotation of the base pattern. It also supports a sequence with more than one base patterns as the seed sequence. In this case,
-it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scale which controls the rotation of the
+it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scalar which controls the rotation of the
 first letter, or a vector with the same length as the number of base letters.}
 
 \item{code}{A vector of the transverse code. The left side corresponds to the lower levels of the curve and the right side corresponds to the higher level of the curve.

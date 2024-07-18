@@ -1,5 +1,5 @@
 ---
-title: "Construction of the 2k x 2k space-filling curve"
+title: "Generalized Hilbert Curve"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 
@@ -9,10 +9,6 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: false
-vignette: >
-  %\VignetteIndexEntry{Construction of the 2k x 2k space-filling curve}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo = FALSE}
@@ -26,7 +22,7 @@ knitr::opts_chunk$set(
     fig.align = "center")
 
 library(grid)
-library(SpaceFillingCurve)
+library(sfcurve)
 ```
 
 We only consider the type of space-filling curve that has a $2^k \times 2^k$ rate. The growth of the curve
@@ -475,7 +471,7 @@ $$
 \mathcal{C}_k = X^{(0)}|\pi_1 | \pi_2 | ... | \pi_k
 $$
 
-```{r, fig.width= 12, fig.height = 2}
+```{r, fig.width= 12, fig.height = 2.5}
 initial = sfc_seed("R")
 draw_multiple_curves(
 	sfc_hilbert(initial, "1212"),
@@ -506,7 +502,7 @@ $$
 \end{matrix}\right.
 $$
 
-$$$
+$$
 X|\lambda_1 lambda_2 ... = X|\pi_1\pi_1' \pi_2 \pi_2' ...
 $$
 

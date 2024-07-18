@@ -8,7 +8,7 @@
 #' @param by One of `sfc_hilbert`, `sfc_peano` and `sfc_meander`.
 #' 
 #' @details
-#' It is mainly used to validate a seed sequence whether they follow the forward-left-right growth pattern.
+#' It is mainly used to validate a seed sequence whether they follow the forward-left-right growth rule
 #' 
 #' @export
 setMethod("sfc_validate",
@@ -62,7 +62,7 @@ setMethod("sfc_validate",
 		}
 	}
 
-	pos = sfc_segments(p, c(0, 0))
+	pos = sfc_segments(p)
 	n = nrow(pos)
 
 	if(n > 1) {
@@ -70,11 +70,11 @@ setMethod("sfc_validate",
 			stop_wrap("Crossing is not allowed in the sequence.")
 		} 
 
-		# two points should be in the same row or the same column
-		l = pos[1:(n-1), 1] == pos[2:n, 1] | pos[1:(n-1), 2] == pos[2:n, 2]
-		if(any(!l)) {
-			stop_wrap("Found gaps in the sequences.")
-		}
+		# # two points should be in the same row or the same column
+		# l = pos[1:(n-1), 1] == pos[2:n, 1] | pos[1:(n-1), 2] == pos[2:n, 2]
+		# if(any(!l)) {
+		# 	stop_wrap("Found gaps in the sequences.")
+		# }
 	}
 
 	return(TRUE)

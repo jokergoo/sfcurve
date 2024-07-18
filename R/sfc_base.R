@@ -17,20 +17,20 @@ setClass("sfc_base",
 
 #' Constructor of the sfc_base class
 #' 
-#' @param letter A single letter to represent the base pattern.
+#' @param letter A single letter (not necessarily) to represent the base pattern.
 #' @param in_direction The direction of the segment that enters the point, measured in the polar coordinate system, in degrees.
 #' @param out_direction The direction of the segment that leaves the point, measured in the polar coordinate system, in degrees.
 #' @param grob A [`grid::grob()`] object of this base pattern. If it is not set, it is generated according to `in_direction` and `out_direction`.
-#' @param primary Currently, going direct, turning left and turning right can be set as primary base patterns because other high-level patterns
+#' @param primary Currently, going forward, turning left and turning right can be set as primary base patterns because other high-level patterns
 #'        can be built from them.
 #' @param open Can the base pattern be connected to other base patterns?
 #' 
 #' @details
 #' The "base pattern" is designed not only for single point but also for combination of points that form a "base curve". However,
-#' currently, it is fixed to single point base patterns. 
+#' currently, it is fixed to the single point base pattern. 
 #' 
-#' Currently, this package supports 2x2 and 3x3 space-filling curves that fills grids in 2D space constructed by gaussian integers.
-#' And when the curve expands, we only allow the segments go forward, backward, left and right. Thus there are the following base patterns
+#' Currently, this package supports 2x2 and 3x3 space-filling curves that fills grids in 2D space constructed by the Gaussian integers.
+#' And when the curve expands, we only allow the segments to go forward, backward, left and right. Thus there are the following base patterns
 #' pre-defined in this package:
 #' 
 #' - [`BASE_I`]
@@ -127,10 +127,10 @@ setMethod("show",
 	}
 })
 
-#' The graphics object from the sfc_base object
+#' The graphics object
 #' 
 #' @rdname sfc_grob
-#' @param p An `sfc_base` object.
+#' @param p The corresponding object.
 #' 
 #' @return A [`grid::grob()`] object.
 #' @export
@@ -143,13 +143,13 @@ setMethod("sfc_grob",
 })
 
 
-#' The previous point
+#' The previous and the next point
 #' @aliases sfc_previous_point
 #' @rdname sfc_previous_point
 #' @param p An `sfc_base` object.
 #' @param x The coordinate of the current point.
 #' @param rot Rotation of the current point.
-#' @param length Length of the segment from the previous point to the current point.
+#' @param length Length of the segment between the previous/next point and the current point.
 #'
 #' @return A vector of length two.
 #' @export
@@ -175,15 +175,8 @@ setMethod("sfc_previous_point",
 })
 
 
-#' The next point
 #' @aliases sfc_next_point
-#' @rdname sfc_next_point
-#' @param p An `sfc_base` object.
-#' @param x The coordinate of the current point.
-#' @param rot Rotation of the current point.
-#' @param length Length of the segment from the current point to the next point.
-#'
-#' @return A vector of length two.
+#' @rdname sfc_previous_point
 #' @export
 #' @examples
 #' sfc_next_point(BASE_R, c(0, 0), 0)
@@ -204,3 +197,36 @@ setMethod("sfc_next_point",
 	pos
 })
 
+
+# are two base patterns horizontally or vertically connected?
+connected_patterns = function(x1, rot1, pos1, x2, rot2, pos2, bases) {
+	p2 = sfc_next_points(bases[[ x1 ]], pos1, rot1)
+	p1 = sfc_previous_points(bases[[ x2 ]], pos2, rot2)
+
+	all(equal_to(p1, pos1) & equal_to(p2, pos2))
+}
+
+
+
+# given a previous point, a next point, a current point, choose the base pattern and rotation
+guess_base_pattern = function(bases, in_direction, out_direction) {
+	diff = out_direction - in_direction
+	diff = diff %% 360L
+	for(i in seq_along(bases)) {
+		b = bases[[i]]
+		diff2 = (b@out_direction - b@in_direction) %% 360L
+		if(equal_to(diff, diff2)) {
+			return(list(letter = b@letter, rot = (in_direction - b@in_direction) %% 360L))
+		}
+	}
+	return(NULL)
+}
+
+
+base_in_direction = function(b, rot) {
+	(b@in_direction + rot) %% 360L
+}
+
+base_out_direction = function(b, rot) {
+	(b@out_direction + rot) %% 360L
+}

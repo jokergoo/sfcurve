@@ -1,0 +1,20 @@
+destination: docs
+
+navbar:
+  title: "sfcurve"
+  left:
+    - text: "Articles"
+      menu:
+        - text: "Generalized Hilbert Curve"
+          href: articles/hilbert_curve.html
+        - text: "Generalized Peano Curve"
+          href: articles/peano_curve.html
+        - text: "Generalized Meander Curve"
+          href: articles/meander_curve.html
+    - text: "Reference"
+      href: reference/index.html
+
+
+template:
+  includes:
+    after_body: "<style>nav[data-toggle='toc'] .nav .nav {display: block;}</style>"

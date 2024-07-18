@@ -4,17 +4,23 @@
 \alias{sfc_grob,sfc_base-method}
 \alias{sfc_grob,sfc_sequence-method}
 \alias{sfc_grob}
+\alias{plot.sfc_sequence}
 \alias{sfc_grob,sfc_nxn-method}
-\title{The graphics object from the sfc_base object}
+\alias{plot.sfc_nxn}
+\title{The graphics object from the sfc_* object}
 \usage{
 \S4method{sfc_grob}{sfc_base}(p)
 
-\S4method{sfc_grob}{sfc_sequence}(p, bases, extend = FALSE, title = FALSE, ...)
+\S4method{sfc_grob}{sfc_sequence}(p, bases = NULL, extend = FALSE, title = FALSE, ...)
+
+\method{plot}{sfc_sequence}(x, bases = NULL, grid = FALSE, ...)
 
 \S4method{sfc_grob}{sfc_nxn}(p, bases = p@rules@bases, extend = FALSE, title = FALSE, ...)
+
+\method{plot}{sfc_nxn}(x, grid = FALSE, ...)
 }
 \arguments{
-\item{p}{A \code{sfc_nxn} object.}
+\item{p}{The corresponding object.}
 
 \item{bases}{A list of base patterns, consider to use \code{BASE_LIST}.}
 
@@ -22,18 +28,25 @@
 
 \item{title}{Whether to add title on top of the curve?}
 
-\item{...}{Other arguments passed to \code{\link[grid:viewport]{grid::viewport()}}.}
+\item{...}{Other arguments passed to \code{\link[grid:viewport]{grid::viewport()}} or \code{sfc_grob()}.}
+
+\item{x}{The corresponding object.}
+
+\item{grid}{Whether to add grid lines on the plot?}
 }
 \value{
 A \code{\link[grid:grid.grob]{grid::grob()}} object.
-
-A \code{\link[grid:grid.grob]{grid::grob()}} object.
 }
 \description{
-The graphics object from the sfc_base object
-
-The graphics object from the sfc_nxn object
+The graphics object from the sfc_* object
+}
+\details{
+If \code{p} is an \code{sfc_sequence} and if \code{p} contains base patterns defined in \code{"I/J/R/L/U/B/D/P/Q/C"},
+the default \code{\link{BASE_LIST}} is automatically used for \code{bases}. If \code{p} is an \code{sfc_nxn} object, \code{bases}
+is already stored in \code{p} and it is passed to this function automatically.
 }
 \examples{
 sfc_grob(BASE_I)
+plot(sfc_hilbert("I", "11"))
+plot(sfc_sequence("IIIRRR"))
 }

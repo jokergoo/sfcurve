@@ -261,8 +261,26 @@ SFC_RULES_MEANDER_FLIP = sfc_rules(rules = RULES_MEANDERL_FLIP, name = "Meander_
 
 
 #' Base patterns
+#' 
+#' A list of pre-defined base patterns. See the **Examples** section.
+#' 
+#' `BASE_I` and `BASE_J` are identical. They are only used to distinguish the two
+#' "going forward" patterns in the 3x3 mode, i.e. bottom-left to top-right, and bottom-right
+#' to top-left.
+#' 
 #' @rdname base_patterns
 #' @export
+#' @examples
+#' BASE_I
+#' BASE_J
+#' BASE_R
+#' BASE_L
+#' BASE_U
+#' BASE_B
+#' BASE_D
+#' BASE_P
+#' BASE_Q
+#' BASE_C
 "BASE_I"
 
 #' @rdname base_patterns
@@ -299,16 +317,25 @@ SFC_RULES_MEANDER_FLIP = sfc_rules(rules = RULES_MEANDERL_FLIP, name = "Meander_
 
 #' @rdname base_patterns
 #' @export
-"BASE_LIST"
+"BASE_C"
 
 #' @rdname base_patterns
 #' @export
-"BASE_C"
+"BASE_LIST"
 
 
 #' Rules
+#' 
+#' A list of pre-defined expansion rules for different curves.
+#' 
 #' @rdname pre_defined_rules
 #' @export
+#' @examples
+#' SFC_RULES_HILBERT
+#' SFC_RULES_PEANO
+#' SFC_RULES_PEANO_FLIP
+#' SFC_RULES_MEANDER
+#' SFC_RULES_MEANDER_FLIP
 "SFC_RULES_HILBERT"
 
 #' @rdname pre_defined_rules

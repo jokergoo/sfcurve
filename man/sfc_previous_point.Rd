@@ -3,9 +3,13 @@
 \name{sfc_previous_point,sfc_base-method}
 \alias{sfc_previous_point,sfc_base-method}
 \alias{sfc_previous_point}
-\title{The previous point}
+\alias{sfc_next_point,sfc_base-method}
+\alias{sfc_next_point}
+\title{The previous and the next point}
 \usage{
 \S4method{sfc_previous_point}{sfc_base}(p, x, rot, length = 1)
+
+\S4method{sfc_next_point}{sfc_base}(p, x, rot, length = 1)
 }
 \arguments{
 \item{p}{An \code{sfc_base} object.}
@@ -14,13 +18,13 @@
 
 \item{rot}{Rotation of the current point.}
 
-\item{length}{Length of the segment from the previous point to the current point.}
+\item{length}{Length of the segment between the previous/next point and the current point.}
 }
 \value{
 A vector of length two.
 }
 \description{
-The previous point
+The previous and the next point
 }
 \examples{
 sfc_previous_point(BASE_R, c(0, 0), 0)
@@ -29,4 +33,10 @@ sfc_previous_point(BASE_R, c(0, 0), 180)
 sfc_previous_point(BASE_R, c(1, 0), 0)
 sfc_previous_point(BASE_R, c(1, 0), 90)
 sfc_previous_point(BASE_R, c(1, 0), 180)
+sfc_next_point(BASE_R, c(0, 0), 0)
+sfc_next_point(BASE_R, c(0, 0), 90)
+sfc_next_point(BASE_R, c(0, 0), 180)
+sfc_next_point(BASE_R, c(1, 0), 0)
+sfc_next_point(BASE_R, c(1, 0), 90)
+sfc_next_point(BASE_R, c(1, 0), 180)
 }

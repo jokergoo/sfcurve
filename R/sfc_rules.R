@@ -144,6 +144,7 @@ setMethod("show",
         }
     }
 
+    cat("Name: ", object@name, "\n", sep = "")
     max_nchar = sapply(output, function(x) max(nchar(x)))
     for(i in seq_along(output[[1]])) {
         cat(output[[1]][i]); cat(strrep(" ", max_nchar[1] - nchar(output[[1]][i]))); cat(" ")
@@ -154,13 +155,13 @@ setMethod("show",
     }
 })
 
-#' The universe pattern set
+#' The universe base pattern set
 #' 
 #' @param p The corresponding object.
 #' @aliases sfc_universe
 #' @rdname sfc_universe
 #' @return
-#' A vector of letters
+#' A vector of base patterns.
 #' @export
 #' @examples
 #' sfc_universe(SFC_RULES_HILBERT)
@@ -172,15 +173,12 @@ setMethod("sfc_universe",
     p@universe
 })
 
-#' Expand the patterns to the next level
 #' @rdname sfc_expand
 #' @param p An `sfc_rules` object.
 #' @param letters A list patterns, must be a factor.
 #' @param code The transverse code.
-#' @param by Which implementation?
+#' @param by Which implemnetation, only for the testing purpose.
 #' 
-#' @details
-#' It is mainly used internally.
 #' @export
 #' @examples
 #' sfc_expand(SFC_RULES_HILBERT, 
@@ -244,9 +242,17 @@ grob_single_base_rule = function(p, bp, ...) {
     if(inherits(p, "sfc_hilbert")) {
         level0 = sfc_hilbert(bp)
     } else if(inherits(p, "sfc_peano")) {
-        level0 = sfc_peano(bp)
+        if(grepl("flip", rules@name)) {
+            level0 = sfc_peano(bp, flip_rules = TRUE)
+        } else {
+            level0 = sfc_peano(bp)
+        }
     } else if(inherits(p, "sfc_meander")) {
-        level0 = sfc_meander(bp)
+        if(grepl("flip", rules@name)) {
+            level0 = sfc_meander(bp, flip_rules = TRUE)
+        } else {
+            level0 = sfc_meander(bp)
+        }
     }
 
     pl = rules@rules[[bp]]
@@ -315,6 +321,8 @@ grob_single_base_rule = function(p, bp, ...) {
 #' 
 #' @rdname draw_rules
 #' @export
+#' @examples
+#' draw_rules_hilbert()
 draw_rules_hilbert = function() {
 
     p = sfc_hilbert("I")
@@ -349,15 +357,15 @@ draw_rules_hilbert = function() {
 }
 
 #' @rdname draw_rules
-#' @param flip_rules Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
+#' @param flip_rules Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
 #'      of curve expansion rules. See the vignettes for details.
 #' @export
+#' @examples
+#' draw_rules_peano()
+#' draw_rules_peano(flip_rules = TRUE)
 draw_rules_peano = function(flip_rules = FALSE) {
 
-    p = sfc_peano("I")
-    if(flip_rules) {
-        p@rules = SFC_RULES_PEANO_FLIP
-    }
+    p = sfc_peano("I", flip_rules = flip_rules)
 
     grid.newpage()
 
@@ -384,12 +392,12 @@ draw_rules_peano = function(flip_rules = FALSE) {
 
 #' @rdname draw_rules
 #' @export
+#' @examples
+#' draw_rules_meander()
+#' draw_rules_meander(flip_rules = TRUE)
 draw_rules_meander = function(flip_rules = FALSE) {
 
-    p = sfc_meander("I")
-    if(flip_rules) {
-        p@rules = SFC_RULES_MEANDER_FLIP
-    }
+    p = sfc_meander("I", flip_rules = flip_rules)
 
     grid.newpage()
 

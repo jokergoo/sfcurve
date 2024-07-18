@@ -3,7 +3,7 @@
 #' 
 #' @param seed The seed sequence. In most cases, the seed sequence is a single base pattern, which can be specified as a single letter, then `rot` controls
 #'      the initial rotation of the base pattern. It also supports a sequence with more than one base patterns as the seed sequence. In this case,
-#'      it can be specified as a string of more than one base letters, then `rot` can be set to a single rotation scale which controls the rotation of the
+#'      it can be specified as a string of more than one base letters, then `rot` can be set to a single rotation scalar which controls the rotation of the
 #'      first letter, or a vector with the same length as the number of base letters.
 #' @param code A vector of the transverse code. The left side corresponds to the lower levels of the curve and the right side corresponds to the higher level of the curve.
 #'      The value can be set as a vector e.g. `c(1, 2, 1)`, or as a string e.g. `"121"`, or as a number e.g. `121`.
@@ -38,7 +38,7 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 	if(inherits(seed, "character")) {
 		seed = sfc_seed(seed, rot = rot, universe = sfc_universe(SFC_RULES_HILBERT))
 	} else if(inherits(seed, "sfc_seed")) {
-		levels(seed@seq) = sfc_universe(SFC_RULES_HILBERT)
+		seed@seq = factor(as.vector(seed@seq), levels = sfc_universe(SFC_RULES_HILBERT))
 	} else {
 		seed = sfc_seed(seq = seed@seq, rot = seed@rot)
 	}
@@ -52,7 +52,7 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 		p = sfc_expand(p, code[i])
 	}
 
-	p@universe = sfc_universe(seed)
+	p@universe = sfc_universe(SFC_RULES_HILBERT)
 	p
 	
 }
@@ -152,6 +152,9 @@ sfc_meander = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
 #' @examples
 #' p = sfc_hilbert("I", "11")
 #' sfc_level(p)
+#' 
+#' p = sfc_hilbert("I", "1111")
+#' sfc_level(p)
 setMethod("sfc_level",
 	signature = "sfc_nxn", 
 	definition = function(p) {
@@ -200,9 +203,18 @@ setAs("sfc_seed", "sfc_meander", function(from) {
 	p
 })
 
+setAs("sfc_seed", "sfc_nxn", function(from) {
+	p = new("sfc_nxn")
+	p@seq = from@seq
+	p@rot = from@rot
+	p@universe = from@universe
+	p@rules = SFC_RULES_MEANDER
+	p@level = 0L
 
-#' Print the object
-#' 
+	p
+})
+
+
 #' @param object The corresponding object.
 #' @rdname show
 #' @export

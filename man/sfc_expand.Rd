@@ -23,21 +23,19 @@
 
 \item{letters}{A list patterns, must be a factor.}
 
-\item{by}{Which implementation?}
+\item{by}{Which implemnetation, only for the testing purpose.}
 }
 \value{
-An \code{sfc_hilbert} object.
+In the same class as the input object. \code{sfc_expand()} on the \code{sfc_rules} objects returns an \code{sfc_sequence} object.
 }
 \description{
 Expand the curve to the next level
-
-Expand the patterns to the next level
 }
 \details{
 For the Hilbert curve and Meander curve, as long as the transverse code of the first base pattern in the sequence is determinted,
 the transverse codes for other base patterns in the sequence are all determined. For the Peano curve, \code{code} is always 1.
 
-It is mainly used internally.
+These functions are mainly used internally.
 }
 \examples{
 p = sfc_hilbert("I", 11)

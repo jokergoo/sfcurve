@@ -1,11 +1,11 @@
 
 #' Draw multiple curves
 #' 
-#' @param ... A list of `sfc_nxn` objects.
+#' @param ... A list of `sfc_*` objects.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments?
-#' @param title Whether to add titles on each panel? The title is constructed in the form of initial_seed|transverse_code, e.g. `I|111`.
+#' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
 #' 
 #' @export
 #' @examples
@@ -20,6 +20,14 @@
 #'     sfc_hilbert("R", code = c(2, 2, 1)),
 #'     sfc_hilbert("R", code = c(2, 2, 2)),
 #'     nrow = 2, title = TRUE)
+#' 
+#' # simply a list of sequences
+#' draw_multiple_curves(
+#'     sfc_sequence("IIII"),
+#'     sfc_sequence("RRRR"),
+#'     sfc_sequence("RRLL"),
+#'     nrow = 1
+#' )
 draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE) {
 	pl = list(...)
 
@@ -127,4 +135,12 @@ convert_to_child_class = function(x, class) {
 		slot(x2, nm) = slot(x, nm)
 	}
 	x2
+}
+
+in_range = function(x, range, others = NULL) {
+	if(is.null(others)) {
+		(x >= range[1] && x <= range[2])
+	} else {
+		(x >= range[1] && x <= range[2]) || x %in% others
+	}
 }

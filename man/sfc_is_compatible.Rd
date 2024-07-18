@@ -8,13 +8,23 @@
 \S4method{sfc_is_compatible}{sfc_sequence}(p, p2)
 }
 \arguments{
-\item{p}{A \code{sfc_sequence} object.}
+\item{p}{An \code{sfc_sequence} object.}
 
-\item{p2}{A \code{sfc_sequence} object.}
+\item{p2}{An \code{sfc_sequence} object.}
 }
 \description{
 Whether two sfc_sequences objects are compatible
 }
 \details{
 The function compares whether the two universe base pattern sets are identical.
+Note the order of universe base patterns should also be identical.
+}
+\examples{
+p1 = sfc_hilbert("I")
+p2 = sfc_hilbert("R")
+sfc_is_compatible(p1, p2)
+
+p1 = sfc_sequence("ABC")
+p2 = sfc_sequence("DEF")
+sfc_is_compatible(p1, p2)
 }

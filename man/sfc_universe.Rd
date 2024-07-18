@@ -4,7 +4,7 @@
 \alias{sfc_universe,sfc_rules-method}
 \alias{sfc_universe}
 \alias{sfc_universe,sfc_sequence-method}
-\title{The universe pattern set}
+\title{The universe base pattern set}
 \usage{
 \S4method{sfc_universe}{sfc_rules}(p)
 
@@ -14,10 +14,10 @@
 \item{p}{The corresponding object.}
 }
 \value{
-A vector of letters
+A vector of base patterns.
 }
 \description{
-The universe pattern set
+The universe base pattern set
 }
 \examples{
 sfc_universe(SFC_RULES_HILBERT)

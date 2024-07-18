@@ -9,7 +9,9 @@
 #' For the Hilbert curve and Meander curve, as long as the transverse code of the first base pattern in the sequence is determinted, 
 #' the transverse codes for other base patterns in the sequence are all determined. For the Peano curve, `code` is always 1.
 #' 
-#' @return An `sfc_hilbert` object.
+#' These functions are mainly used internally.
+#' 
+#' @return In the same class as the input object. `sfc_expand()` on the `sfc_rules` objects returns an `sfc_sequence` object.
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", 11)

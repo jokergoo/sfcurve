@@ -1,20 +1,25 @@
 
-#' The graphics object from the sfc_nxn object
 #' @aliases sfc_grob
 #' @rdname sfc_grob
-#' @param p A `sfc_nxn` object.
 #' @param bases A list of base patterns, consider to use `BASE_LIST`.
 #' @param extend Whether to add the entering and leaving segments?
 #' @param title Whether to add title on top of the curve?
-#' @param ... Other arguments passed to [`grid::viewport()`].
+#' @param ... Other arguments passed to [`grid::viewport()`] or `sfc_grob()`.
+#' 
+#' @details
+#' If `p` is an `sfc_sequence` and if `p` contains base patterns defined in `"I/J/R/L/U/B/D/P/Q/C"`,
+#' the default [`BASE_LIST`] is automatically used for `bases`. If `p` is an `sfc_nxn` object, `bases`
+#' is already stored in `p` and it is passed to this function automatically.
 #' 
 #' @export
 #' @import colorRamp2
-#' @return
-#' A [`grid::grob()`] object.
 setMethod("sfc_grob",
 	signature = "sfc_sequence",
-	definition = function(p, bases, extend = FALSE, title = FALSE, ...) {
+	definition = function(p, bases = NULL, extend = FALSE, title = FALSE, ...) {
+
+	if(is.null(bases)) {
+		bases = BASE_LIST[sfc_universe(p)]
+	}
 
 	loc = sfc_segments(p, bases)
 
@@ -64,10 +69,12 @@ setMethod("sfc_grob",
 	}
 
 	if(title) {
-		seed = p@seed
-		pt = paste0("paste(", paste("italic(", seed@seq, ")^", seed@rot, sep = "", collapse = ","), ")")
-		pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
-		gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+		if(inherits(p, "sfc_nxn")) {
+			seed = p@seed
+			pt = paste0("paste(", paste("italic(", seed@seq[1], ")^", seed@rot[1], sep = "", collapse = ","), ")")
+			pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
+			gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+		}
 	}
 
 	args = gbl
@@ -77,7 +84,13 @@ setMethod("sfc_grob",
 	do.call(grobTree, args)
 })
 
+#' @param x The corresponding object.
+#' @param grid Whether to add grid lines on the plot?
 #' @export
+#' @rdname sfc_grob
+#' @examples
+#' plot(sfc_hilbert("I", "11"))
+#' plot(sfc_sequence("IIIRRR"))
 plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, ...) {
 
 	if(is.null(bases)) {
@@ -121,7 +134,9 @@ makeContext.grob_sfc_sequence = function(x) {
     x
 }
 
+#'
 #' @export
+#' @rdname sfc_grob
 plot.sfc_nxn = function(x, grid = FALSE, ...) {
 	gb = sfc_grob(x, ...)
 	grid.newpage()

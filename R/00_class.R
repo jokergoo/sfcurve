@@ -52,4 +52,5 @@ setGeneric('sfc_validate', function(p, ...) standardGeneric('sfc_validate'))
 setGeneric('sfc_previous_point', function(p, ...) standardGeneric('sfc_previous_point'))
 setGeneric('sfc_next_point', function(p, ...) standardGeneric('sfc_next_point'))
 setGeneric('sfc_is_compatible', function(p, ...) standardGeneric('sfc_is_compatible'))
+setGeneric('sfc_index', function(p, ...) standardGeneric('sfc_index'))
 

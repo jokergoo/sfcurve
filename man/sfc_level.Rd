@@ -19,4 +19,7 @@ The level of the curve
 \examples{
 p = sfc_hilbert("I", "11")
 sfc_level(p)
+
+p = sfc_hilbert("I", "1111")
+sfc_level(p)
 }
