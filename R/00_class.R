@@ -14,6 +14,7 @@ setClass("sfc_unit",
 
 setClass("sfc_rules",
     slots = c("rules" = "list",
+    	        "flip" = "list",
               "universe" = "character",
               "name" = "character",
               "bases" = "list"))
@@ -22,6 +23,7 @@ setClass("sfc_nxn",
 	slots = c("seed" = "sfc_seed",
 	          "rules" = "sfc_rules",
 		      "expansion" = "integer",
+		      "flip" = "ANY",
 		      "level" = "integer",
 		      "n" = "integer"),
 	contains = "sfc_sequence")
@@ -53,4 +55,6 @@ setGeneric('sfc_previous_point', function(p, ...) standardGeneric('sfc_previous_
 setGeneric('sfc_next_point', function(p, ...) standardGeneric('sfc_next_point'))
 setGeneric('sfc_is_compatible', function(p, ...) standardGeneric('sfc_is_compatible'))
 setGeneric('sfc_index', function(p, ...) standardGeneric('sfc_index'))
+setGeneric('sfc_flip_unit', function(p, ...) standardGeneric('sfc_flip_unit'))
+setGeneric('sfc_apply', function(p, ...) standardGeneric('sfc_apply'))
 

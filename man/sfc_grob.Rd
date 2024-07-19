@@ -7,7 +7,7 @@
 \alias{plot.sfc_sequence}
 \alias{sfc_grob,sfc_nxn-method}
 \alias{plot.sfc_nxn}
-\title{The graphics object from the sfc_* object}
+\title{The graphics object}
 \usage{
 \S4method{sfc_grob}{sfc_base}(p)
 
@@ -38,7 +38,7 @@
 A \code{\link[grid:grid.grob]{grid::grob()}} object.
 }
 \description{
-The graphics object from the sfc_* object
+The graphics object
 }
 \details{
 If \code{p} is an \code{sfc_sequence} and if \code{p} contains base patterns defined in \code{"I/J/R/L/U/B/D/P/Q/C"},

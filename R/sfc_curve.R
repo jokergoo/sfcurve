@@ -25,12 +25,6 @@
 #' sfc_hilbert("I", "111") |> plot()
 #' sfc_hilbert("I", "111", rot = 90) |> plot()
 #' sfc_hilbert("IR", "111", rot = 90) |> plot()
-#' 
-#' sfc_peano("I", "111") |> plot()
-#' sfc_peano("IJ", "111") |> plot()
-#' 
-#' sfc_meander("I", "111") |> plot()
-#' sfc_meander("IR", "111") |> plot()
 sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 
 	code = .parse_code(code, 1:2)
@@ -47,6 +41,7 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 	p@seed = seed
 	p@level = 0L
 	p@n = 2L
+	p@flip = c(FALSE, FALSE, FALSE, FALSE)
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -77,10 +72,47 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 }
 
 #' @rdname spacefilling
-#' @param flip_rules Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
-#'      of curve expansion rules. See the vignettes for details.
+#' @param flip Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
+#'      of curve expansion rules. On each level expansion in the Peano curve and the Meander curve, a point expands to nine points in 
+#'      3x3 grids. Thus the value of `flip` can be set as a logical vector of length of nine that controls whether to use the flipped expansion
+#'      for the corresponding unit. Besides such "1-to-9" mode, `flip` can also be set as a function which acccepts the number of current points in the curve and return
+#'      a logical vector with the same length, i.e. the "all-to-all*9" mode.
 #' @export
-sfc_peano = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
+#' @examples
+#' sfc_peano("I", "111") |> plot()
+#' sfc_peano("I", "111", 
+#'     flip = c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)) |> plot()
+#' sfc_peano("IJ", "111") |> plot()
+#'
+#' # set `flip` to a function
+#' sfc_peano("I", 1111, flip = function(n) {
+#'     if(n == 1) {
+#'         return(FALSE)
+#'     }
+#'     l = rep(FALSE, n)
+#'     portion = 1
+#'     while(portion*9 <= n) {
+#'         ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
+#'         l[ind + 1] = TRUE
+#'         portion = portion*9
+#'     }
+#'     l
+#' }) |> plot()
+#' 
+#' sfc_peano("I", 1111, rot = 90, flip = function(n) {
+#'     if(n == 1) {
+#'         return(FALSE)
+#'     }
+#'     l = rep(FALSE, n)
+#'     portion = 1
+#'     while(portion*9 <= n) {
+#'         ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
+#'         l[ind + 1] = TRUE
+#'         portion = portion*9
+#'     }
+#'     l
+#' }) |> plot()
+sfc_peano = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 
 	code = .parse_code(code, 1L)
 
@@ -97,9 +129,19 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
 	p@level = 0L
 	p@n = 3L
 
-	if(flip_rules) {
-		p@rules = SFC_RULES_PEANO_FLIP
+	if(is.logical(flip)) {
+		if(length(flip) == 1) {
+			flip = rep(flip, p@n^2)
+		}
+		if(length(flip) != p@n^2) {
+			stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+		}
+	} else {
+		if(!is.function(flip)) {
+			stop_wrap("`flip` can only be a logical vector or a function.")
+		}
 	}
+	p@flip = flip
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -112,7 +154,12 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
 
 #' @rdname spacefilling
 #' @export
-sfc_meander = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
+#' @examples
+#' sfc_meander("I", "111") |> plot()
+#' sfc_meander("I", "111", 
+#'     flip = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE)) |> plot()
+#' sfc_meander("IR", "111") |> plot()
+sfc_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 
 	code = .parse_code(code, 1:2)
 
@@ -129,9 +176,13 @@ sfc_meander = function(seed, code = integer(0), rot = 0L, flip_rules = FALSE) {
 	p@level = 0L
 	p@n = 3L
 
-	if(flip_rules) {
-		p@rules = SFC_RULES_MEANDER_FLIP
+	if(length(flip) == 1) {
+		flip = rep(flip, p@n^2)
 	}
+	if(length(flip) != p@n^2) {
+		stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+	}
+	p@flip = flip
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -170,6 +221,7 @@ setAs("sfc_seed", "sfc_hilbert", function(from) {
 	p@rules = SFC_RULES_HILBERT
 	p@level = 0L
 	p@n = 2L
+	p@flip = rep(FALSE, 4)
 
 	if(length(setdiff(p@seq, sfc_universe(SFC_RULES_HILBERT)))) {
 		stop("Letters should all be in `SFC_RULES_HILBERT`.")
@@ -187,6 +239,7 @@ setAs("sfc_seed", "sfc_peano", function(from) {
 	p@rules = SFC_RULES_PEANO
 	p@level = 0L
 	p@n = 3L
+	p@flip = rep(FALSE, 9)
 
 	p
 })
@@ -199,6 +252,7 @@ setAs("sfc_seed", "sfc_meander", function(from) {
 	p@rules = SFC_RULES_MEANDER
 	p@level = 0L
 	p@n = 3L
+	p@flip = rep(FALSE, 9)
 
 	p
 })
@@ -224,7 +278,16 @@ setMethod("show",
 
 	cat("An", class(object)[1], "object.\n")
 	cat("  Increase mode: ", object@n, " x ", object@n, "\n", sep = "")
+	cat("  Level: ", object@level, "\n", sep = "")
 	cat("  Expansion rule:", object@rules@name, "\n")
+	if(is.logical(object@flip)) {
+		cat("  Unit flip:", paste(ifelse(object@flip, "T", "F"), collapse = ""), "\n")
+	} else {
+		cat("  Unit flip: a self-defined function\n")
+	}
+	if(length(object) < (object@n^2)^object@level) {
+		cat("  A fragment from the original curve.\n")
+	}
 	cat("\n")
 
 	callNextMethod(object)

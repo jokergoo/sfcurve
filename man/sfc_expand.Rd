@@ -14,7 +14,7 @@
 
 \S4method{sfc_expand}{sfc_meander}(p, code)
 
-\S4method{sfc_expand}{sfc_rules}(p, letters, code = 1L, by = "Cpp")
+\S4method{sfc_expand}{sfc_rules}(p, letters, code = 1L, flip = FALSE, by = "Cpp")
 }
 \arguments{
 \item{p}{An \code{sfc_rules} object.}
@@ -22,6 +22,10 @@
 \item{code}{The transverse code.}
 
 \item{letters}{A list patterns, must be a factor.}
+
+\item{flip}{For the Peano curve and the Meander curves, each unit can flip without affecting other parts in the curve. This argument
+controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, \code{flip} should be a logical
+vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.}
 
 \item{by}{Which implemnetation, only for the testing purpose.}
 }

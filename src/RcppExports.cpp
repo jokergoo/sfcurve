@@ -34,6 +34,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// expand_by_rules_2_cpp
+List expand_by_rules_2_cpp(List rules, List flip, IntegerVector letters, IntegerVector code, LogicalVector l_flip);
+RcppExport SEXP _sfcurve_expand_by_rules_2_cpp(SEXP rulesSEXP, SEXP flipSEXP, SEXP lettersSEXP, SEXP codeSEXP, SEXP l_flipSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type rules(rulesSEXP);
+    Rcpp::traits::input_parameter< List >::type flip(flipSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type letters(lettersSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type code(codeSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type l_flip(l_flipSEXP);
+    rcpp_result_gen = Rcpp::wrap(expand_by_rules_2_cpp(rules, flip, letters, code, l_flip));
+    return rcpp_result_gen;
+END_RCPP
+}
 // sfc_segments_cpp
 NumericMatrix sfc_segments_cpp(IntegerVector seq, NumericVector rot, List bases, NumericVector start);
 RcppExport SEXP _sfcurve_sfc_segments_cpp(SEXP seqSEXP, SEXP rotSEXP, SEXP basesSEXP, SEXP startSEXP) {
@@ -64,6 +79,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_sfcurve_hilbert_curve_3d_cpp", (DL_FUNC) &_sfcurve_hilbert_curve_3d_cpp, 1},
     {"_sfcurve_expand_by_rules_cpp", (DL_FUNC) &_sfcurve_expand_by_rules_cpp, 3},
+    {"_sfcurve_expand_by_rules_2_cpp", (DL_FUNC) &_sfcurve_expand_by_rules_2_cpp, 5},
     {"_sfcurve_sfc_segments_cpp", (DL_FUNC) &_sfcurve_sfc_segments_cpp, 4},
     {"_sfcurve_int_to_binary", (DL_FUNC) &_sfcurve_int_to_binary, 2},
     {NULL, NULL, 0}

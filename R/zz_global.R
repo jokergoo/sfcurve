@@ -177,31 +177,27 @@ RULES_HILBERT[["C"]][[1]] = sfc_unit(c("L", "L", "L", "L"), rot = 0, universe = 
 RULES_HILBERT[["C"]][[2]] = sfc_unit(c("R", "R", "R", "R"), rot = 0, universe = UNIVERSE_HILBERT)
 
 
-SFC_RULES_HILBERT = sfc_rules(rules = RULES_HILBERT, name = "Hilbert",
-	bases = BASE_LIST[UNIVERSE_HILBERT])
 
 ###=========================================
 
 UNIVERSE_PEANO = c("I", "J", "R", "L")
 
-RULES_SET_PEANO = list()
-RULES_SET_PEANO[["I"]][[1]] = sfc_unit("IJRRILLJI", rot = 0, universe = UNIVERSE_PEANO)  
-RULES_SET_PEANO[["J"]][[1]] = sfc_unit("JILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)
-RULES_SET_PEANO[["R"]][[1]] = sfc_unit("IJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)      
-RULES_SET_PEANO[["L"]][[1]] = sfc_unit("JILLJRRIL", rot = 0, universe = UNIVERSE_PEANO) 
+RULES_PEANO = list()
+RULES_PEANO[["I"]][[1]] = sfc_unit("IJRRILLJI", rot = 0, universe = UNIVERSE_PEANO)  
+RULES_PEANO[["J"]][[1]] = sfc_unit("JILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)
+RULES_PEANO[["R"]][[1]] = sfc_unit("IJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)      
+RULES_PEANO[["L"]][[1]] = sfc_unit("JILLJRRIL", rot = 0, universe = UNIVERSE_PEANO) 
 
 
-SFC_RULES_PEANO = sfc_rules(rules = RULES_SET_PEANO, name = "Peano",
-	bases = BASE_LIST[UNIVERSE_PEANO])
+RULES_PEANO_FLIP = list()
+RULES_PEANO_FLIP[["I"]][[1]] = sfc_unit("RILLJRRIL", rot = 0, universe = UNIVERSE_PEANO)  
+RULES_PEANO_FLIP[["J"]][[1]] = sfc_unit("LJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)
+RULES_PEANO_FLIP[["R"]][[1]] = sfc_unit("RILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)      
+RULES_PEANO_FLIP[["L"]][[1]] = sfc_unit("LJRRILLJI", rot = 0, universe = UNIVERSE_PEANO) 
 
-RULES_SET_PEANO_FLIP = list()
-RULES_SET_PEANO_FLIP[["I"]][[1]] = sfc_unit("RILLJRRIL", rot = 0, universe = UNIVERSE_PEANO)  
-RULES_SET_PEANO_FLIP[["J"]][[1]] = sfc_unit("LJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)
-RULES_SET_PEANO_FLIP[["R"]][[1]] = sfc_unit("RILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)      
-RULES_SET_PEANO_FLIP[["L"]][[1]] = sfc_unit("LJRRILLJI", rot = 0, universe = UNIVERSE_PEANO) 
 
-SFC_RULES_PEANO_FLIP = sfc_rules(rules = RULES_SET_PEANO_FLIP, name = "Peano_flip",
-    bases = BASE_LIST[UNIVERSE_PEANO])
+
+
 
 #===================================
 
@@ -228,37 +224,49 @@ RULES_MEANDER[["C"]][[1]] = sfc_unit("LILILLRRR", rot = 0, universe = UNIVERSE_M
 RULES_MEANDER[["C"]][[2]] = sfc_unit("RIRIRRLLL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
 
 
-SFC_RULES_MEANDER = sfc_rules(rules = RULES_MEANDER, name = "Meander",
-    bases = BASE_LIST[UNIVERSE_MEANDER])
 
-RULES_MEANDERL_FLIP = list()
-RULES_MEANDERL_FLIP[["I"]][[1]] = sfc_unit("IRRLLILIR", rot = 0, universe = UNIVERSE_MEANDER)  
-RULES_MEANDERL_FLIP[["I"]][[2]] = sfc_unit("ILLRRIRIL", rot = 0, universe = UNIVERSE_MEANDER)
-RULES_MEANDERL_FLIP[["R"]][[1]] = sfc_unit("RLLRRIRIL", rot = 0, universe = UNIVERSE_MEANDER)      
-RULES_MEANDERL_FLIP[["R"]][[2]] = sfc_unit("ILLRRIRII", rot = 0, universe = UNIVERSE_MEANDER)
-RULES_MEANDERL_FLIP[["L"]][[1]] = sfc_unit("IRRLLILII", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["L"]][[2]] = sfc_unit("LRRLLILIR", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["U"]][[1]] = sfc_unit("RLLRRIRII", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["U"]][[2]] = sfc_unit("LRRLLILII", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["B"]][[1]] = sfc_unit("RRRLLILIR", rot = 180, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["B"]][[2]] = sfc_unit("LLLRRIRII", rot = 270, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["D"]][[1]] = sfc_unit("RRRLLILII", rot = 90, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["D"]][[2]] = sfc_unit("LLLRRIRIL", rot = 180, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["P"]][[1]] = sfc_unit("RLLRRIRIR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["P"]][[2]] = sfc_unit("IRRLLILIL", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["Q"]][[1]] = sfc_unit("LRRLLILIL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["Q"]][[2]] = sfc_unit("ILLRRIRIR", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDERL_FLIP[["C"]][[1]] = sfc_unit("LLLRRIRIR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDERL_FLIP[["C"]][[2]] = sfc_unit("RRRLLILIL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-
-
-SFC_RULES_MEANDER_FLIP = sfc_rules(rules = RULES_MEANDERL_FLIP, name = "Meander_flip",
-    bases = BASE_LIST[UNIVERSE_MEANDER])
+RULES_MEANDER_FLIP = list()
+RULES_MEANDER_FLIP[["I"]][[1]] = sfc_unit("IRRLLILIR", rot = 0, universe = UNIVERSE_MEANDER)  
+RULES_MEANDER_FLIP[["I"]][[2]] = sfc_unit("ILLRRIRIL", rot = 0, universe = UNIVERSE_MEANDER)
+RULES_MEANDER_FLIP[["R"]][[1]] = sfc_unit("RLLRRIRIL", rot = 0, universe = UNIVERSE_MEANDER)      
+RULES_MEANDER_FLIP[["R"]][[2]] = sfc_unit("ILLRRIRII", rot = 0, universe = UNIVERSE_MEANDER)
+RULES_MEANDER_FLIP[["L"]][[1]] = sfc_unit("IRRLLILII", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["L"]][[2]] = sfc_unit("LRRLLILIR", rot = 0, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["U"]][[1]] = sfc_unit("RLLRRIRII", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["U"]][[2]] = sfc_unit("LRRLLILII", rot = 0, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["B"]][[1]] = sfc_unit("RRRLLILIR", rot = 90, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["B"]][[2]] = sfc_unit("LLLRRIRII", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["D"]][[1]] = sfc_unit("RRRLLILII", rot = 0, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["D"]][[2]] = sfc_unit("LLLRRIRIL", rot = 270, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["P"]][[1]] = sfc_unit("RLLRRIRIR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["P"]][[2]] = sfc_unit("IRRLLILIL", rot = 0, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["Q"]][[1]] = sfc_unit("LRRLLILIL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["Q"]][[2]] = sfc_unit("ILLRRIRIR", rot = 0, universe = UNIVERSE_MEANDER) 
+RULES_MEANDER_FLIP[["C"]][[1]] = sfc_unit("RRRLLILIL", rot = 270, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIVERSE_MEANDER)                    # 1, 2
 
 
 ####
 
 
+.onLoad = function(libname, pkgname) {
+
+    parent = parent.env(environment())
+    SFC_RULES_HILBERT = sfc_rules(rules = RULES_HILBERT, name = "Hilbert",
+        bases = BASE_LIST[UNIVERSE_HILBERT])
+
+    SFC_RULES_PEANO = sfc_rules(rules = RULES_PEANO, flip = RULES_PEANO_FLIP,
+        name = "Peano", bases = BASE_LIST[UNIVERSE_PEANO])
+
+
+    SFC_RULES_MEANDER = sfc_rules(rules = RULES_MEANDER, flip = RULES_MEANDER_FLIP,
+        name = "Meander",
+        bases = BASE_LIST[UNIVERSE_MEANDER])
+
+    assign("SFC_RULES_HILBERT", SFC_RULES_HILBERT, envir = parent)
+    assign("SFC_RULES_PEANO", SFC_RULES_PEANO, envir = parent)
+    assign("SFC_RULES_MEANDER", SFC_RULES_MEANDER, envir = parent)
+}
 
 #' Base patterns
 #' 
@@ -328,14 +336,14 @@ SFC_RULES_MEANDER_FLIP = sfc_rules(rules = RULES_MEANDERL_FLIP, name = "Meander_
 #' 
 #' A list of pre-defined expansion rules for different curves.
 #' 
+#' @details
+#' `SFC_RULES_PEANO` and `SFC_RULES_MEANDER` contain both "flipped" expansion rules.
 #' @rdname pre_defined_rules
 #' @export
 #' @examples
 #' SFC_RULES_HILBERT
 #' SFC_RULES_PEANO
-#' SFC_RULES_PEANO_FLIP
 #' SFC_RULES_MEANDER
-#' SFC_RULES_MEANDER_FLIP
 "SFC_RULES_HILBERT"
 
 #' @rdname pre_defined_rules
@@ -344,13 +352,4 @@ SFC_RULES_MEANDER_FLIP = sfc_rules(rules = RULES_MEANDERL_FLIP, name = "Meander_
 
 #' @rdname pre_defined_rules
 #' @export
-"SFC_RULES_PEANO_FLIP"
-
-#' @rdname pre_defined_rules
-#' @export
 "SFC_RULES_MEANDER"
-
-#' @rdname pre_defined_rules
-#' @export
-"SFC_RULES_MEANDER_FLIP"
-

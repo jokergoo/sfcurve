@@ -112,7 +112,7 @@ next_rotation = function(letter, rot) {
 #' @param x An `sfc_sequence` object.
 #' @param i Index.
 #' @param value An `sfc_sequence` object.
-#' @param ... A list of `sfc_sequence` objects.
+#' @param ... A list of `sfc_sequence` objects or other arguments.
 #' 
 #' @export
 `[.sfc_sequence` = function(x, i) {
@@ -122,6 +122,7 @@ next_rotation = function(letter, rot) {
 	x2@universe = x@universe
 	x2
 }
+
 
 #' @rdname utility
 #' @export
@@ -224,6 +225,7 @@ setMethod("sfc_universe",
 #' @details
 #' The function compares whether the two universe base pattern sets are identical.
 #' Note the order of universe base patterns should also be identical.
+#' @export
 #' @examples
 #' p1 = sfc_hilbert("I")
 #' p2 = sfc_hilbert("R")

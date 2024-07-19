@@ -36,7 +36,7 @@ setMethod("sfc_expand",
 		}
 	}
 
-	p2 = sfc_rotate(sfc_expand(rules, seq, tl), rep(rot, each = 4))
+	p2 = sfc_rotate(sfc_expand(rules, seq, tl, p@flip), rep(rot, each = 4))
 	
 	p3 = new("sfc_hilbert")
 	p3@seq = p2@seq
@@ -47,6 +47,7 @@ setMethod("sfc_expand",
 	p3@level = p@level + 1L
 	p3@n = p@n
 	p3@expansion = c(p@expansion, as.integer(code))
+	p3@flip = p@flip
 	p3
 
 })
@@ -90,7 +91,7 @@ setMethod("sfc_expand",
 		}
 	}
 	# p2 is in the sfc_sequence class
-	p2 = sfc_rotate(sfc_expand(rules, seq, tl), rep(rot, each = 9))
+	p2 = sfc_rotate(sfc_expand(rules, seq, tl, p@flip), rep(rot, each = 9))
 	
 	p3 = new("sfc_peano")
 	p3@seq = p2@seq
@@ -101,6 +102,7 @@ setMethod("sfc_expand",
 	p3@level = p@level + 1L
 	p3@n = p@n
 	p3@expansion = c(p@expansion, as.integer(code))
+	p3@flip = p@flip
 	p3
 
 })
@@ -129,7 +131,7 @@ setMethod("sfc_expand",
 			tl[i] = transverse_type_2x2(tl[i-1], rot[i-1], rot[i])
 		}
 	}
-	p2 = sfc_rotate(sfc_expand(rules, seq, tl), rep(rot, each = 9))
+	p2 = sfc_rotate(sfc_expand(rules, seq, tl, p@flip), rep(rot, each = 9))
 	
 	p3 = new("sfc_meander")
 	p3@seq = p2@seq
@@ -140,6 +142,7 @@ setMethod("sfc_expand",
 	p3@level = p@level + 1L
 	p3@n = p@n
 	p3@expansion = c(p@expansion, as.integer(code))
+	p3@flip = p@flip
 	p3
 
 })

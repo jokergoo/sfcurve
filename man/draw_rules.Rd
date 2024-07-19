@@ -8,12 +8,12 @@
 \usage{
 draw_rules_hilbert()
 
-draw_rules_peano(flip_rules = FALSE)
+draw_rules_peano(flip = FALSE)
 
-draw_rules_meander(flip_rules = FALSE)
+draw_rules_meander(flip = FALSE)
 }
 \arguments{
-\item{flip_rules}{Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
+\item{flip}{Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
 of curve expansion rules. See the vignettes for details.}
 }
 \description{
@@ -22,7 +22,7 @@ Draw the expansion rules
 \examples{
 draw_rules_hilbert()
 draw_rules_peano()
-draw_rules_peano(flip_rules = TRUE)
+draw_rules_peano(flip = TRUE)
 draw_rules_meander()
-draw_rules_meander(flip_rules = TRUE)
+draw_rules_meander(flip = TRUE)
 }

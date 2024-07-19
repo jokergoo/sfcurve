@@ -9,6 +9,10 @@ expand_by_rules_cpp <- function(rules, letters, code) {
     .Call(`_sfcurve_expand_by_rules_cpp`, rules, letters, code)
 }
 
+expand_by_rules_2_cpp <- function(rules, flip, letters, code, l_flip) {
+    .Call(`_sfcurve_expand_by_rules_2_cpp`, rules, flip, letters, code, l_flip)
+}
+
 sfc_segments_cpp <- function(seq, rot, bases, start) {
     .Call(`_sfcurve_sfc_segments_cpp`, seq, rot, bases, start)
 }

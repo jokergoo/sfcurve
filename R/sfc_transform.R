@@ -32,6 +32,68 @@ setMethod("sfc_rotate",
 	sfc_rotate(e1, e2)
 }
 
+validate_in_directions = function(p2, in_direction) {
+	 
+	corner = guess_unit_corner(p2, "first")
+	if(corner  == "bottomleft") {
+		if(in_direction == 180) {
+			in_direction = in_direction + 90
+		} else if(in_direction == 270) {
+			in_direction = in_direction - 90
+		}
+	} else if(corner == "bottomright") {
+		if(in_direction == 0) {
+			in_direction = in_direction - 90
+		} else if(in_direction == 270) {
+			in_direction = in_direction + 90
+		}
+	} else if(corner == "topleft") {
+		if(in_direction == 90) {
+			in_direction = in_direction + 90
+		} else if(in_direction == 180) {
+			in_direction = in_direction - 90
+		}
+	} else if(corner == "topright") {
+		if(in_direction == 0) {
+			in_direction = in_direction + 90
+		} else if(in_direction == 90) {
+			in_direction = in_direction - 90
+		}
+	}
+	in_direction %% 360
+}
+
+validate_out_directions = function(p2, out_direction) {
+	 
+	corner = guess_unit_corner(p2, "last")
+	if(corner  == "bottomleft") {
+		if(out_direction == 0) {
+			out_direction = out_direction + 90
+		} else if(out_direction == 90) {
+			out_direction = out_direction - 90
+		}
+	} else if(corner == "bottomright") {
+		if(out_direction == 180) {
+			out_direction = out_direction - 90
+		} else if(out_direction == 90) {
+			out_direction = out_direction + 90
+		}
+	} else if(corner == "topleft") {
+		if(out_direction == 270) {
+			out_direction = out_direction + 90
+		} else if(out_direction == 0) {
+			out_direction = out_direction - 90
+		}
+	} else if(corner == "topright") {
+		if(out_direction == 180) {
+			out_direction = out_direction + 90
+		} else if(out_direction == 270) {
+			out_direction = out_direction - 90
+		}
+	}
+	out_direction %% 360
+}
+
 
 #' @rdname sfc_transformation
 #' @aliases sfc_hflip
@@ -55,22 +117,49 @@ setMethod("sfc_hflip",
 
 		p2 = sfc_hflip(sfc_reverse(p))
 
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1]),
-			                           base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1]))
+		in_direction = base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1])
+		out_direction = base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1])
+		if(abs(in_direction - out_direction) == 180) {
+			in_direction = validate_in_directions(p2, in_direction)
+		}
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[1] = lt[[1]]
 		p2@rot[1] = as.integer(round(lt[[2]]))
-
+		
 		n = length(p)
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n]),
-			                           base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n]))
+		in_direction = base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n])
+		out_direction = base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n])
+		if(abs(in_direction - out_direction) == 180) {
+			out_direction = validate_out_directions(p2, out_direction)
+		}
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[n] = lt[[1]]
 		p2@rot[n] = as.integer(round(lt[[2]]))
+
+		if("J" %in% sfc_universe(p)) {
+			if(p2@seq[2] == "I" && p2@seq[1] == "I") {
+				p2@seq[1] = "J"
+			} else if(p2@seq[2] == "J" && p2@seq[1] == "J") {
+				p2@seq[1] = "I"
+			}
+
+			if(p2@seq[n-1] == "I" && p2@seq[n] == "I") {
+				p2@seq[n] = "J"
+			} else if(p2@seq[n-1] == "J" && p2@seq[n] == "J") {
+				p2@seq[n] = "I"
+			}
+		}
 
 		p2
 	} else {
 		p2 = p
 		p2@seq[p@seq == "L"] = "R"
 		p2@seq[p@seq == "R"] = "L"
+
+		if("J" %in% sfc_universe(p)) {
+			p2@seq[p@seq == "I"] = "J"
+			p2@seq[p@seq == "J"] = "I"
+		}
 
 		p2@rot[p@rot == 90] = 270L
 		p2@rot[p@rot == 270] = 90L
@@ -106,16 +195,38 @@ setMethod("sfc_vflip",
 
 		p2 = sfc_vflip(sfc_reverse(p))
 
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1]),
-			                           base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1]))
+		in_direction = base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1])
+		out_direction = base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1])
+		if(abs(in_direction - out_direction) == 180) {
+			in_direction = validate_in_directions(p2, in_direction)
+		}
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[1] = lt[[1]]
 		p2@rot[1] = as.integer(round(lt[[2]]))
 
 		n = length(p)
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n]),
-			                           base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n]))
+		in_direction = base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n])
+		out_direction = base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n])
+		if(abs(in_direction - out_direction) == 180) {
+			out_direction = validate_out_directions(p2, out_direction)
+		}
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[n] = lt[[1]]
 		p2@rot[n] = as.integer(round(lt[[2]]))
+
+		if("J" %in% sfc_universe(p)) {
+			if(p2@seq[2] == "I" && p2@seq[1] == "I") {
+				p2@seq[1] = "J"
+			} else if(p2@seq[2] == "J" && p2@seq[1] == "J") {
+				p2@seq[1] = "I"
+			}
+
+			if(p2@seq[n-1] == "I" && p2@seq[n] == "I") {
+				p2@seq[n] = "J"
+			} else if(p2@seq[n-1] == "J" && p2@seq[n] == "J") {
+				p2@seq[n] = "I"
+			}
+		}
 
 		p2
 	} else {
@@ -133,8 +244,8 @@ setMethod("sfc_vflip",
 #' @aliases sfc_dflip
 #' 
 #' @param slop Slop of the diagonal.
-#' 
 #' @export
+#' @examples
 #' p = sfc_peano("I", 2)
 #' draw_multiple_curves(p, sfc_dflip(p, 1), sfc_dflip(p, 1, fix_ends = TRUE), title = FALSE)
 setMethod("sfc_dflip",
@@ -151,16 +262,32 @@ setMethod("sfc_dflip",
 
 		p2 = sfc_dflip(p, slop = slop)
 
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1]),
-			                           base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1]))
+		in_direction = base_in_direction(bases[[ as.character(p@seq[1]) ]], p@rot[1])
+		out_direction = base_out_direction(bases[[ as.character(p2@seq[1]) ]], p2@rot[1])
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[1] = lt[[1]]
 		p2@rot[1] = as.integer(round(lt[[2]]))
 
 		n = length(p)
-		lt = guess_base_pattern(bases, base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n]),
-			                           base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n]))
+		in_direction = base_in_direction(bases[[ as.character(p2@seq[n]) ]], p2@rot[n])
+		out_direction = base_out_direction(bases[[ as.character(p@seq[n]) ]], p@rot[n])
+		lt = guess_base_pattern(bases, in_direction, out_direction)
 		p2@seq[n] = lt[[1]]
 		p2@rot[n] = as.integer(round(lt[[2]]))
+
+		if("J" %in% sfc_universe(p)) {
+			if(p2@seq[2] == "I" && p2@seq[1] == "I") {
+				p2@seq[1] = "J"
+			} else if(p2@seq[2] == "J" && p2@seq[1] == "J") {
+				p2@seq[1] = "I"
+			}
+
+			if(p2@seq[n-1] == "I" && p2@seq[n] == "I") {
+				p2@seq[n] = "J"
+			} else if(p2@seq[n-1] == "J" && p2@seq[n] == "J") {
+				p2@seq[n] = "I"
+			}
+		}
 
 		p2
 	} else {

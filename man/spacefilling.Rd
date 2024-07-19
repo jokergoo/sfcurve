@@ -8,9 +8,9 @@
 \usage{
 sfc_hilbert(seed, code = integer(0), rot = 0L)
 
-sfc_peano(seed, code = integer(0), rot = 0L, flip_rules = FALSE)
+sfc_peano(seed, code = integer(0), rot = 0L, flip = FALSE)
 
-sfc_meander(seed, code = integer(0), rot = 0L, flip_rules = FALSE)
+sfc_meander(seed, code = integer(0), rot = 0L, flip = FALSE)
 }
 \arguments{
 \item{seed}{The seed sequence. In most cases, the seed sequence is a single base pattern, which can be specified as a single letter, then \code{rot} controls
@@ -23,8 +23,11 @@ The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \co
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 
-\item{flip_rules}{Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
-of curve expansion rules. See the vignettes for details.}
+\item{flip}{Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
+of curve expansion rules. On each level expansion in the Peano curve and the Meander curve, a point expands to nine points in
+3x3 grids. Thus the value of \code{flip} can be set as a logical vector of length of nine that controls whether to use the flipped expansion
+for the corresponding unit. Besides such "1-to-9" mode, \code{flip} can also be set as a function which acccepts the number of current points in the curve and return
+a logical vector with the same length, i.e. the "all-to-all*9" mode.}
 }
 \value{
 \code{sfc_hilbert()} returns an \code{sfc_hilbert} object.
@@ -43,10 +46,41 @@ Create space-filling curves
 sfc_hilbert("I", "111") |> plot()
 sfc_hilbert("I", "111", rot = 90) |> plot()
 sfc_hilbert("IR", "111", rot = 90) |> plot()
-
 sfc_peano("I", "111") |> plot()
+sfc_peano("I", "111", 
+    flip = c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)) |> plot()
 sfc_peano("IJ", "111") |> plot()
 
+# set `flip` to a function
+sfc_peano("I", 1111, flip = function(n) {
+    if(n == 1) {
+        return(FALSE)
+    }
+    l = rep(FALSE, n)
+    portion = 1
+    while(portion*9 <= n) {
+        ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
+        l[ind + 1] = TRUE
+        portion = portion*9
+    }
+    l
+}) |> plot()
+
+sfc_peano("I", 1111, rot = 90, flip = function(n) {
+    if(n == 1) {
+        return(FALSE)
+    }
+    l = rep(FALSE, n)
+    portion = 1
+    while(portion*9 <= n) {
+        ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
+        l[ind + 1] = TRUE
+        portion = portion*9
+    }
+    l
+}) |> plot()
 sfc_meander("I", "111") |> plot()
+sfc_meander("I", "111", 
+    flip = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE)) |> plot()
 sfc_meander("IR", "111") |> plot()
 }

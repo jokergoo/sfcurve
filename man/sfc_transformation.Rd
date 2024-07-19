@@ -12,22 +12,22 @@
 \alias{sfc_dflip}
 \alias{sfc_reverse,sfc_sequence-method}
 \alias{sfc_reverse}
-\alias{rev.sfc_pattern}
+\alias{rev.sfc_sequence}
 \title{Transformations of a sequence}
 \usage{
 \S4method{sfc_rotate}{sfc_sequence}(p, rot)
 
 \method{^}{sfc_sequence}(e1, e2)
 
-\S4method{sfc_hflip}{sfc_sequence}(p, fix_ends = FALSE)
+\S4method{sfc_hflip}{sfc_sequence}(p, fix_ends = FALSE, bases = NULL)
 
-\S4method{sfc_vflip}{sfc_sequence}(p, fix_ends = FALSE)
+\S4method{sfc_vflip}{sfc_sequence}(p, fix_ends = FALSE, bases = NULL)
 
-\S4method{sfc_dflip}{sfc_sequence}(p, slop = 1, fix_ends = FALSE)
+\S4method{sfc_dflip}{sfc_sequence}(p, slop = 1, fix_ends = FALSE, bases = NULL)
 
 \S4method{sfc_reverse}{sfc_sequence}(p)
 
-\method{rev}{sfc_pattern}(x)
+\method{rev}{sfc_sequence}(x)
 }
 \arguments{
 \item{p}{An \code{sfc_sequence} object.}
@@ -38,7 +38,9 @@
 
 \item{e2}{The rotation.}
 
-\item{fix_ends}{Whether to keep the rotations of the two end base patterns?}
+\item{fix_ends}{Whether to keep the orientation and rotations of the two end base patterns (start and end)?}
+
+\item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}. It is only used when \code{fix_ends = TRUE}.}
 
 \item{slop}{Slop of the diagonal.}
 
@@ -57,4 +59,12 @@ Transformations of a sequence
 \item \code{sfc_vflip()} flips a sequence vertically.
 \item \code{sfc_dflip()} flips a sequence against a diagonal line (with slop 1 or -1).
 }
+}
+\examples{
+p = sfc_meander("R", 2, rot = -90)
+draw_multiple_curves(p, sfc_hflip(p), sfc_hflip(p, fix_ends = TRUE), title = FALSE)
+p = sfc_meander("L", 2, rot = -90)
+draw_multiple_curves(p, sfc_vflip(p), sfc_vflip(p, fix_ends = TRUE), title = FALSE)
+p = sfc_peano("I", 2)
+draw_multiple_curves(p, sfc_dflip(p, 1), sfc_dflip(p, 1, fix_ends = TRUE), title = FALSE)
 }

@@ -22,7 +22,7 @@
 
 \item{value}{An \code{sfc_sequence} object.}
 
-\item{...}{A list of \code{sfc_sequence} objects.}
+\item{...}{A list of \code{sfc_sequence} objects or other arguments.}
 }
 \description{
 Utility functions

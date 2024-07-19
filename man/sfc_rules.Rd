@@ -4,12 +4,14 @@
 \alias{sfc_rules}
 \title{Constructur of the sfc_rules class}
 \usage{
-sfc_rules(rules, bases, name = "sfc_rules")
+sfc_rules(rules, bases, flip = list(), name = "sfc_rules")
 }
 \arguments{
 \item{rules}{A list of rules.}
 
 \item{bases}{A list of base patterns.}
+
+\item{flip}{A list of rules. They are "flipped" version of \code{rules}.}
 
 \item{name}{A self-defined string.}
 }

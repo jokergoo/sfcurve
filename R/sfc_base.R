@@ -200,8 +200,8 @@ setMethod("sfc_next_point",
 
 # are two base patterns horizontally or vertically connected?
 connected_patterns = function(x1, rot1, pos1, x2, rot2, pos2, bases) {
-	p2 = sfc_next_points(bases[[ x1 ]], pos1, rot1)
-	p1 = sfc_previous_points(bases[[ x2 ]], pos2, rot2)
+	p2 = sfc_next_point(bases[[ x1 ]], pos1, rot1)
+	p1 = sfc_previous_point(bases[[ x2 ]], pos2, rot2)
 
 	all(equal_to(p1, pos1) & equal_to(p2, pos2))
 }

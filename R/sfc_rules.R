@@ -4,6 +4,7 @@
 #' 
 #' @param rules A list of rules.
 #' @param bases A list of base patterns.
+#' @param flip A list of rules. They are "flipped" version of `rules`.
 #' @param name A self-defined string.
 #' 
 #' @details
@@ -31,7 +32,7 @@
 #' where e.g. `BASE_I` is a pre-defined base pattern in [`sfc_base`] class.
 #' 
 #' @export
-sfc_rules = function(rules, bases, name = "sfc_rules") {
+sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
     r = new("sfc_rules")
 
     for(nm in names(rules)) {
@@ -42,68 +43,112 @@ sfc_rules = function(rules, bases, name = "sfc_rules") {
 
     universe = sfc_universe(rules[[1]][[1]])
     if( !identical(names(rules), universe) ) {
-        stop_wrap("`names(rules)` should be identical to the universe of level-1 patterns.")
+        stop_wrap("`names(rules)` should be identical to the universe of its level-1 patterns.")
     }
     r@bases = bases
     r@universe = universe
     r@name = name
 
-    # add corner value for each rule
-    for(i in seq_along(rules)) {
-        for(j in seq_along(rules[[i]])) {
-            p = rules[[i]][[j]]
-
-            if(!sfc_is_compatible(rules[[1]][[1]], p)) {
-                stop_wrap(paste0("The universe of rules[[", names(rules)[1], "]][[1]] is not compatible with rules[[", names(rules)[i], "]][[", j, "]]."))
+    if(length(flip) > 0) {
+        for(nm in names(flip)) {
+            if(!is.list(flip[[nm]])) {
+                flip[[nm]] = list(flip[[nm]])
             }
+        }
 
-            first_pos = c(0, 0)
-            min_x = first_pos[1]
-            max_x = first_pos[1]
-            min_y = first_pos[2]
-            max_y = first_pos[2]
-            current_pos = first_pos
-            seq = p@seq
-            rot = p@rot
-            for(k in seq_along(seq)[-1]) {
-                current_pos = sfc_next_point(bases[[ as.character(seq[k-1]) ]], current_pos, rot[k-1])
+        universe2 = sfc_universe(flip[[1]][[1]])
+        if( !identical(names(flip), universe2) ) {
+            stop_wrap("`names(flip)` should be identical to the universe of its level-1 patterns.")
+        }
+        if( !identical(names(flip), r@universe) ) {
+            stop_wrap("`names(flip)` should be identical to `names(rules)`.")
+        }
 
-                min_x = min(min_x, current_pos[1])
-                max_x = max(max_x, current_pos[1])
-                min_y = min(min_y, current_pos[2])
-                max_y = max(max_y, current_pos[2])
+        flip = flip[names(rules)]
+
+        for(nm in names(rules)) {
+            if(length(rules[[nm]]) != length(flip[[nm]])) {
+                stop_wrap("Length of `rules[['", nm, "']]` should be the same as `flip[['", nm, "']]`.")
             }
-            last_pos = current_pos
+        }
 
-            corner = c(0L, 0L)
-            if( (equal_to(first_pos[1], min_x) && equal_to(first_pos[2], min_y)) || 
-                (equal_to(first_pos[1], max_x) && equal_to(first_pos[2], max_y)) ) {
-                corner[1] = 1L
+        # validate whether rules and flip are compatible, i.e. flip[[i]][[j]] is the flipped version of rules[[i]][[j]]
+        for(nm in names(rules)) {
+            for(j in seq_along(rules[[nm]])) {
+                u1 = flip[[nm]][[j]]
+                u2 = sfc_flip_unit(rules[[nm]][[j]], bases)
+                if(!identical(u1, u2)) {
+                    stop_wrap("`flip[['", nm, "']][[", j, "]]` is not a flip of `rules[[", nm, "]][[", j, "]]`.")
+                }
             }
-            
-            if( (equal_to(first_pos[1], min_x) && equal_to(first_pos[2], max_y)) ||
-                (equal_to(first_pos[1], max_x) && equal_to(first_pos[2], min_y)) ) {
-                corner[1] = 2L
-            }
-
-            if( (equal_to(last_pos[1], min_x) && equal_to(last_pos[2], min_y)) || 
-                (equal_to(last_pos[1], max_x) && equal_to(last_pos[2], max_y)) ) {
-                corner[2] = 1L
-            }
-
-            if( (equal_to(last_pos[1], min_x) && equal_to(last_pos[2], max_y)) ||
-                (equal_to(last_pos[1], max_x) && equal_to(last_pos[2], min_y)) ) {
-                corner[2] = 2L
-            }
-
-            rules[[i]][[j]]@corner = corner
-
         }
     }
-    r@rules = rules
+
+    # add corner value for each rule
+    .add_corners = function(rules) {
+        for(i in seq_along(rules)) {
+            for(j in seq_along(rules[[i]])) {
+                p = rules[[i]][[j]]
+
+                if(!sfc_is_compatible(rules[[1]][[1]], p)) {
+                    stop_wrap(paste0("The universe of rules[[", names(rules)[1], "]][[1]] is not compatible with rules[[", names(rules)[i], "]][[", j, "]]."))
+                }
+
+                first_pos = c(0, 0)
+                min_x = first_pos[1]
+                max_x = first_pos[1]
+                min_y = first_pos[2]
+                max_y = first_pos[2]
+                current_pos = first_pos
+                seq = p@seq
+                rot = p@rot
+                for(k in seq_along(seq)[-1]) {
+                    current_pos = sfc_next_point(bases[[ as.character(seq[k-1]) ]], current_pos, rot[k-1])
+
+                    min_x = min(min_x, current_pos[1])
+                    max_x = max(max_x, current_pos[1])
+                    min_y = min(min_y, current_pos[2])
+                    max_y = max(max_y, current_pos[2])
+                }
+                last_pos = current_pos
+
+                corner = c(0L, 0L)
+                if( (equal_to(first_pos[1], min_x) && equal_to(first_pos[2], min_y)) || 
+                    (equal_to(first_pos[1], max_x) && equal_to(first_pos[2], max_y)) ) {
+                    corner[1] = 1L
+                }
+                
+                if( (equal_to(first_pos[1], min_x) && equal_to(first_pos[2], max_y)) ||
+                    (equal_to(first_pos[1], max_x) && equal_to(first_pos[2], min_y)) ) {
+                    corner[1] = 2L
+                }
+
+                if( (equal_to(last_pos[1], min_x) && equal_to(last_pos[2], min_y)) || 
+                    (equal_to(last_pos[1], max_x) && equal_to(last_pos[2], max_y)) ) {
+                    corner[2] = 1L
+                }
+
+                if( (equal_to(last_pos[1], min_x) && equal_to(last_pos[2], max_y)) ||
+                    (equal_to(last_pos[1], max_x) && equal_to(last_pos[2], min_y)) ) {
+                    corner[2] = 2L
+                }
+
+                rules[[i]][[j]]@corner = corner
+
+            }
+        }
+        rules
+    }
+
+    r@rules = .add_corners(rules)
+    if(length(flip)) {
+        r@flip = .add_corners(flip)
+    }
     
     r
 }
+
+
 
 #' @rdname show
 #' @export
@@ -116,42 +161,52 @@ setMethod("show",
         x
     }
 
-    lt = object@rules
-    output = list(character(0), character(0), character(0), character(0))
-    for(nm in names(lt)) {
-        if(is.null(names(lt[[nm]]))) {
-            ind = seq_along(lt[[nm]])
-        } else {
-            ind = names(lt[[nm]])
+    .get_output = function(rules) {
+        lt = rules
+        output = list(character(0), character(0), character(0), character(0))
+        for(nm in names(lt)) {
+            if(is.null(names(lt[[nm]]))) {
+                ind = seq_along(lt[[nm]])
+            } else {
+                ind = names(lt[[nm]])
+            }
+
+            k = 1
+            for(i in ind) {
+                if(k > 1) {
+                    output[[1]] = c(output[[1]], "   ")
+                } else {
+                    output[[1]] = c(output[[1]], paste0(nm, " |"))
+                }
+                k = k + 1
+                output[[2]] = c(output[[2]], paste0(nm, "_", i))
+
+                seq = lt[[nm]][[i]]@seq
+                rot = lt[[nm]][[i]]@rot
+                corner = lt[[nm]][[i]]@corner
+                output[[3]] = c(output[[3]], paste(seq, "(", rot_str(rot), ")", sep = "", collapse = ""))
+                
+                output[[4]] = c(output[[4]], paste0(" corner = (", corner[1], ", ", corner[2], ")"))
+            }
         }
 
-        k = 1
-        for(i in ind) {
-            if(k > 1) {
-                output[[1]] = c(output[[1]], "   ")
-            } else {
-                output[[1]] = c(output[[1]], paste0(nm, " |"))
-            }
-            k = k + 1
-            output[[2]] = c(output[[2]], paste0(nm, "_", i))
-
-            seq = lt[[nm]][[i]]@seq
-            rot = lt[[nm]][[i]]@rot
-            corner = lt[[nm]][[i]]@corner
-            output[[3]] = c(output[[3]], paste(seq, "(", rot_str(rot), ")", sep = "", collapse = ""))
-            
-            output[[4]] = c(output[[4]], paste0(" corner = (", corner[1], ", ", corner[2], ")"))
+        max_nchar = sapply(output, function(x) max(nchar(x)))
+        for(i in seq_along(output[[1]])) {
+            cat(output[[1]][i]); cat(strrep(" ", max_nchar[1] - nchar(output[[1]][i]))); cat(" ")
+            cat(output[[2]][i]); cat(strrep(" ", max_nchar[2] - nchar(output[[2]][i]))); cat(" = ")
+            cat(output[[3]][i]); cat(strrep(" ", max_nchar[3] - nchar(output[[3]][i]))); cat(" ")
+            cat(output[[4]][i]); cat(strrep(" ", max_nchar[4] - nchar(output[[4]][i]))); cat(" ")
+            cat("\n")
         }
     }
 
     cat("Name: ", object@name, "\n", sep = "")
-    max_nchar = sapply(output, function(x) max(nchar(x)))
-    for(i in seq_along(output[[1]])) {
-        cat(output[[1]][i]); cat(strrep(" ", max_nchar[1] - nchar(output[[1]][i]))); cat(" ")
-        cat(output[[2]][i]); cat(strrep(" ", max_nchar[2] - nchar(output[[2]][i]))); cat(" = ")
-        cat(output[[3]][i]); cat(strrep(" ", max_nchar[3] - nchar(output[[3]][i]))); cat(" ")
-        cat(output[[4]][i]); cat(strrep(" ", max_nchar[4] - nchar(output[[4]][i]))); cat(" ")
+    .get_output(object@rules)
+    
+    if(length(object@flip)) {
         cat("\n")
+        cat("Flipped:\n")
+        .get_output(object@flip)
     }
 })
 
@@ -177,6 +232,9 @@ setMethod("sfc_universe",
 #' @param p An `sfc_rules` object.
 #' @param letters A list patterns, must be a factor.
 #' @param code The transverse code.
+#' @param flip For the Peano curve and the Meander curves, each unit can flip without affecting other parts in the curve. This argument
+#'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
+#'        vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
 #' @param by Which implemnetation, only for the testing purpose.
 #' 
 #' @export
@@ -185,7 +243,7 @@ setMethod("sfc_universe",
 #'     factor(c("I", "R", "L"), levels = sfc_universe(SFC_RULES_HILBERT)))
 setMethod("sfc_expand", 
     signature = "sfc_rules",
-    definition = function(p, letters, code = 1L, by = "Cpp") {
+    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp") {
 
     if(!is.factor(letters)) {
         stop_wrap("`letters` should be a factor.")
@@ -195,11 +253,41 @@ setMethod("sfc_expand",
         stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
     }
 
+    n = length(letters)
+
+    do_flipping = TRUE
+    if(length(p@flip) == 0) {
+        flip = rep(FALSE, n)
+        do_flipping = FALSE
+    } else {
+        if(is.logical(flip)) {
+            flip = rep(flip, times = n)
+        } else {
+
+            flip = flip(n)
+            if(length(flip) != n) {
+                stop_wrap("The self-deifned function `flip` should return a logical vector with length n with the same value as its argument.")
+            }
+        }
+    }
+
     if(by == "R") {
         if(length(code) == 1) {
-            pl = lapply(letters, function(x) p@rules[[x]][[code]]) # x is as an integer
+            pl = lapply(seq_along(letters), function(i) {
+                if(flip[i]) {
+                    p@flip[[ letters[i] ]][[ code ]]
+                } else {
+                    p@rules[[ letters[i] ]][[ code ]]
+                }
+            }) # x is as an integer
         } else if(length(letters) == length(code)) {
-            pl = lapply(seq_along(letters), function(i) p@rules[[ letters[i] ]][[ code[i] ]])
+            pl = lapply(seq_along(letters), function(i) {
+                if(flip[i]) {
+                    p@flip[[ letters[i] ]][[ code[i] ]]
+                } else {
+                    p@rules[[ letters[i] ]][[ code[i] ]]
+                }
+            })
         }
         do.call("c", pl)
     } else {
@@ -209,7 +297,17 @@ setMethod("sfc_expand",
             })
         })
 
-        lt = expand_by_rules_cpp(lt_rules, as.integer(letters), code)
+        if(!do_flipping) {
+            lt = expand_by_rules_cpp(lt_rules, as.integer(letters), code)
+        } else {
+            lt_flip = lapply(p@flip, function(r) {
+                lapply(r, function(x) {
+                    list(seq = as.integer(x@seq), rot = x@rot)
+                })
+            })
+
+            lt = expand_by_rules_2_cpp(lt_rules, lt_flip, as.integer(letters), code, flip)
+        }
         attributes(lt[[1]]) = list(levels = sfc_universe(p), class = "factor")
         sfc_sequence(seq = lt[[1]], rot = lt[[2]])
     }
@@ -242,17 +340,9 @@ grob_single_base_rule = function(p, bp, ...) {
     if(inherits(p, "sfc_hilbert")) {
         level0 = sfc_hilbert(bp)
     } else if(inherits(p, "sfc_peano")) {
-        if(grepl("flip", rules@name)) {
-            level0 = sfc_peano(bp, flip_rules = TRUE)
-        } else {
-            level0 = sfc_peano(bp)
-        }
+        level0 = sfc_peano(bp, flip = p@flip)
     } else if(inherits(p, "sfc_meander")) {
-        if(grepl("flip", rules@name)) {
-            level0 = sfc_meander(bp, flip_rules = TRUE)
-        } else {
-            level0 = sfc_meander(bp)
-        }
+        level0 = sfc_meander(bp, flip = p@flip)
     }
 
     pl = rules@rules[[bp]]
@@ -357,15 +447,15 @@ draw_rules_hilbert = function() {
 }
 
 #' @rdname draw_rules
-#' @param flip_rules Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
+#' @param flip Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
 #'      of curve expansion rules. See the vignettes for details.
 #' @export
 #' @examples
 #' draw_rules_peano()
-#' draw_rules_peano(flip_rules = TRUE)
-draw_rules_peano = function(flip_rules = FALSE) {
+#' draw_rules_peano(flip = TRUE)
+draw_rules_peano = function(flip = FALSE) {
 
-    p = sfc_peano("I", flip_rules = flip_rules)
+    p = sfc_peano("I", flip = flip)
 
     grid.newpage()
 
@@ -394,10 +484,10 @@ draw_rules_peano = function(flip_rules = FALSE) {
 #' @export
 #' @examples
 #' draw_rules_meander()
-#' draw_rules_meander(flip_rules = TRUE)
-draw_rules_meander = function(flip_rules = FALSE) {
+#' draw_rules_meander(flip = TRUE)
+draw_rules_meander = function(flip = FALSE) {
 
-    p = sfc_meander("I", flip_rules = flip_rules)
+    p = sfc_meander("I", flip = flip)
 
     grid.newpage()
 

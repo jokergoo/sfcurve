@@ -40,6 +40,12 @@
     <loc>/reference/draw_rules.html</loc>
   </url>
   <url>
+    <loc>/reference/h_curve.html</loc>
+  </url>
+  <url>
+    <loc>/reference/h_seed.html</loc>
+  </url>
+  <url>
     <loc>/reference/hilbert_3d.html</loc>
   </url>
   <url>
@@ -49,6 +55,9 @@
     <loc>/reference/pre_defined_rules.html</loc>
   </url>
   <url>
+    <loc>/reference/sfc_apply.html</loc>
+  </url>
+  <url>
     <loc>/reference/sfc_base.html</loc>
   </url>
   <url>
@@ -56,6 +65,9 @@
   </url>
   <url>
     <loc>/reference/sfc_grob.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfc_index.html</loc>
   </url>
   <url>
     <loc>/reference/sfc_is_compatible.html</loc>
