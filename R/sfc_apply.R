@@ -5,20 +5,28 @@
 #' @rdname sfc_apply
 #' @param p An `sfc_nxn` object.
 #' @param depth An integer between 0 and `level-1` of the curve.
-#' @param fun A function of which the argument `x` is a sub-unit in the curve.
+#' @param fun A function of which the argument `x` is a subunit in the curve. The subunit is an `sfc_nxn` object but only contains the current sub-sequence.
+#'       The function should return an `sfc_seuqence` object with the same length as of `x`.
 #' 
 #' @details
-#' The size of the square unit is determined by `depth`. A depth of 0 corresponds to the complete curve.
-#' A depth of 1 corresponds to the nine first-level units, et al.
+#' This function is mainly used to flip subunits on various levels on the curve, thus mainly on the Peano curve and the Meander curve.
+#' A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the nine first-level units, et al.
 #' 
 #' @export
 #' @examples
 #' p = sfc_peano("I", 111)
+#' # flip the global curve
 #' draw_multiple_curves(p, sfc_apply(p, 0, function(x) sfc_flip_unit(x)))
+#' 
+#' # flip all the subunits on depth = 1
 #' draw_multiple_curves(p, sfc_apply(p, 1, function(x) sfc_flip_unit(x)))
+#' 
+#' # flip all the subunits on depth = 2
 #' draw_multiple_curves(p, sfc_apply(p, 2, function(x) sfc_flip_unit(x)))
 #' 
-#' # only works on the lowest unit
+#' # flip all level-1 patterns on the Peano curve to horizontal
+#' # only works on the lowest subunit, 
+#' # simply guess whether the subunit is horizontal or vertical
 #' peano_unit_orientation = function(u) {
 #'     loc = sfc_segments(u)
 #'     if(loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) {
@@ -36,6 +44,7 @@
 #' })
 #' draw_multiple_curves(p, p2, title = FALSE)
 #' 
+#' # flip all level-1 patterns to vertical
 #' p3 = sfc_apply(p, 2, function(x) {
 #'     if(peano_unit_orientation(x) == "horizontal") {
 #'         sfc_flip_unit(x)

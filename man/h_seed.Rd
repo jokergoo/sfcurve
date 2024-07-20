@@ -23,4 +23,11 @@ H2
 \description{
 Seed sequences of the H-curve
 }
+\details{
+The three objects simply contain the coordinates of points on the three curves.
+}
+\examples{
+H0
+plot(H1, type = "l", asp = 1)
+}
 \keyword{datasets}

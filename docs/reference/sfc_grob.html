@@ -79,7 +79,10 @@
 <span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, bases <span class="op">=</span> <span class="va">p</span><span class="op">@</span><span class="va">rules</span><span class="op">@</span><span class="va">bases</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sfc_nxn</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for matrix</span></span>
+<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,7 +92,7 @@
 
 
 <dt>bases</dt>
-<dd><p>A list of base patterns, consider to use <code>BASE_LIST</code>.</p></dd>
+<dd><p>A list of base patterns, consider to use <code><a href="base_patterns.html">BASE_LIST</a></code>.</p></dd>
 
 
 <dt>extend</dt>
@@ -97,7 +100,7 @@
 
 
 <dt>title</dt>
-<dd><p>Whether to add title on top of the curve?</p></dd>
+<dd><p>Whether to add title on the top of the plot? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.</p></dd>
 
 
 <dt>...</dt>

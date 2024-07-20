@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="2x2 and 3x3 Space-Filling Curve">
-<meta property="og:description" content="This package codes all possible forms of general Hilbert curves that fill a 2D grid by Gassian integers.">
+<meta property="og:description" content="Implementation of all possible forms of 2x2 and 3x3 space-filling curves, i.e., the generalized forms of the Hilbert curve, the Peano curve and the Meander curve. It also implements the three-dimensional Hilbert curve and the H-curve.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -81,8 +81,11 @@
       </header><div class="row">
   <div class="contents col-md-9">
 <div class="section level1">
-<div class="page-header"><h1 id="sfcurve-2x2-anc-3x3-space-filling-curves">sfcurve: 2x2 anc 3x3 Space-Filling Curves<a class="anchor" aria-label="anchor" href="#sfcurve-2x2-anc-3x3-space-filling-curves"></a>
+<div class="page-header"><h1 id="sfcurve-2x2-and-3x3-space-filling-curves">sfcurve: 2x2 and 3x3 Space-Filling Curves<a class="anchor" aria-label="anchor" href="#sfcurve-2x2-and-3x3-space-filling-curves"></a>
 </h1></div>
+<p><img src="https://github.com/user-attachments/assets/7e0e14e7-1300-421f-8ffe-113b80caee97"></p>
+<p>This package provides a way to encode all possible forms of 2x2 and 3x3 space-filling curves. For example, the following eight forms correspond to the 2x2 curve on level 3 and with <code>R(0)</code> (go-right base pattern with rotation of 0 degree) as the seed.</p>
+<p><img src="https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369"></p>
 <div class="section level2">
 <h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
 </h2>
@@ -93,14 +96,58 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Hilbert curve (2x2)</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"111"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; sfc_hilbert("I", "111")
+An sfc_hilbert object.
+  Increase mode: 2 x 2
+  Level: 3
+  Expansion rule: Hilbert
+
+A sequence of 64 base patterns.
+  R(0)L(270)L(0)R(90)  I(0)R(0)R(270)L(180)
+  L(270)R(0)R(270)I(180)  R(180)L(90)L(180)I(270)
+  .... other 4 lines ....
+  I(90)L(90)L(180)R(270)  I(180)R(180)R(90)L(0)
+  L(90)R(180)R(90)I(0)  R(0)L(270)L(0)R(90)
+
+Seed: A sequence of 1 base pattern.
+  I(0)</code></pre>
 <p>Peano curve (3x3)</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"111"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; sfc_peano("I", "111")
+An sfc_peano object.
+  Increase mode: 3 x 3
+  Level: 3
+  Expansion rule: Peano
+
+A sequence of 729 base patterns.
+  I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)
+  I(0)J(0)I(0)L(0)  L(90)J(180)R(180)R(90)
+  .... other 88 lines ....
+  I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)
+  I(0)
+
+Seed: A sequence of 1 base pattern.
+  I(0)</code></pre>
 <p>Meander curve (3x3)</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"111"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; sfc_meander("I", "111")
+An sfc_meander object.
+  Increase mode: 3 x 3
+  Level: 3
+  Expansion rule: Meander
+
+A sequence of 729 base patterns.
+  R(0)I(270)L(270)I(0)  L(0)L(90)R(180)R(90)
+  I(0)R(0)I(270)L(270)  I(0)L(0)L(90)R(180)
+  .... other 88 lines ....
+  R(0)I(270)L(270)I(0)  L(0)L(90)R(180)R(90)
+  I(0)
+
+Seed: A sequence of 1 base pattern.
+  I(0)</code></pre>
+<p>It also allows using a sequence as the seed:</p>
+<pre><code><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="reference/sfc_sequence.html">sfc_seed</a></span><span class="op">(</span><span class="st">"LLLILILIILIILIIILIIILIIII"</span>, universe <span class="op">=</span> <span class="fu"><a href="reference/sfc_universe.html">sfc_universe</a></span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="va">p</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre>
+<p><img src="https://github.com/user-attachments/assets/f1144f7f-282f-4988-aafd-9f712dd3ed2d"></p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>

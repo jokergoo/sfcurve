@@ -21,6 +21,7 @@ There are many forms of 3D Hilbert curve. Here we only implement one specific fo
 \examples{
 pos = hilbert_3d(2)
 if(require(rgl) && interactive()) {
+    open3d()
     plot3d(pos, type = "l", lwd = 4, col = 2)
 }
 }

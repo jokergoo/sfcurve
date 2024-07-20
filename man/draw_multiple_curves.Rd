@@ -7,7 +7,8 @@
 draw_multiple_curves(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE)
 }
 \arguments{
-\item{...}{A list of \verb{sfc_*} objects.}
+\item{...}{A list of \code{sfc_sequence} objects or objects in its child classes. The value
+can also be a list of two-column coordinate matrices.}
 
 \item{nrow}{Number of rows in the layout.}
 
@@ -20,8 +21,11 @@ draw_multiple_curves(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE)
 \description{
 Draw multiple curves
 }
+\details{
+This function is only for the demonstration purpose.
+}
 \examples{
-# for all forms of curves initialized by 'R', rotation 0, and in level 3
+# for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 draw_multiple_curves(
     sfc_hilbert("R", code = c(1, 1, 1)),
     sfc_hilbert("R", code = c(1, 1, 2)),

@@ -13,7 +13,7 @@
 \arguments{
 \item{p}{An \code{sfc_nxn} or \code{sfc_sequence} object.}
 
-\item{bases}{A list of base patterns, consider to use \code{BASE_LIST}.}
+\item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}.}
 
 \item{start}{Coordinate of the start point.}
 
@@ -22,7 +22,7 @@
 \item{by}{Which implementation? Only for the testing purpose.}
 }
 \value{
-A two-column matrix.
+A two-column matrix of the coordinates of points on the curve.
 }
 \description{
 Coordinates of the points on the curve
@@ -34,5 +34,5 @@ it uses \code{\link{BASE_LIST}} internally. Make sure the sequence only contains
 \examples{
 p = sfc_hilbert("I", "11")
 loc = sfc_segments(p)
-plot(loc, type = "l")
+plot(loc, type = "l", asp = 1)
 }

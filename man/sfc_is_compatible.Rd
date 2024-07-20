@@ -3,7 +3,7 @@
 \name{sfc_is_compatible,sfc_sequence-method}
 \alias{sfc_is_compatible,sfc_sequence-method}
 \alias{sfc_is_compatible}
-\title{Whether two sfc_sequences objects are compatible}
+\title{Whether two sfc_sequence objects are compatible}
 \usage{
 \S4method{sfc_is_compatible}{sfc_sequence}(p, p2)
 }
@@ -13,7 +13,7 @@
 \item{p2}{An \code{sfc_sequence} object.}
 }
 \description{
-Whether two sfc_sequences objects are compatible
+Whether two sfc_sequence objects are compatible
 }
 \details{
 The function compares whether the two universe base pattern sets are identical.

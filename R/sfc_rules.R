@@ -8,7 +8,7 @@
 #' @param name A self-defined string.
 #' 
 #' @details
-#' It is used mainly internally.
+#' It is mainly used internally.
 #' 
 #' `rules` is a two-level list. It is in a format of `rules[[ base ]][[ transverse_code]] = sfc_unit()`.
 #' In the following example where we define the expansion rules for th Hilbert curve:
@@ -30,6 +30,12 @@
 #' ```
 #' 
 #' where e.g. `BASE_I` is a pre-defined base pattern in [`sfc_base`] class.
+#' 
+#' There are the following pre-defined rules:
+#' 
+#' - [`SFC_RULES_HILBERT`]
+#' - [`SFC_RULES_PEANO`]
+#' - [`SFC_RULES_MEANDER`]
 #' 
 #' @export
 sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
@@ -230,12 +236,12 @@ setMethod("sfc_universe",
 
 #' @rdname sfc_expand
 #' @param p An `sfc_rules` object.
-#' @param letters A list patterns, must be a factor.
+#' @param letters A list of base patterns in letters, must be a factor.
 #' @param code The transverse code.
-#' @param flip For the Peano curve and the Meander curves, each unit can flip without affecting other parts in the curve. This argument
+#' @param flip For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 #'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
 #'        vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
-#' @param by Which implemnetation, only for the testing purpose.
+#' @param by Which implemnetation? Only for the testing purpose.
 #' 
 #' @export
 #' @examples
@@ -448,7 +454,7 @@ draw_rules_hilbert = function() {
 
 #' @rdname draw_rules
 #' @param flip Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
-#'      of curve expansion rules. See the vignettes for details.
+#'      of the curve expansion rules. See the vignettes for details.
 #' @export
 #' @examples
 #' draw_rules_peano()
@@ -461,22 +467,22 @@ draw_rules_peano = function(flip = FALSE) {
 
     gb1 = grob_single_base_rule(p, "I", x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
-    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(5, "mm")
+    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb1)
 
     gb2 = grob_single_base_rule(p, "J", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
-    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(5, "mm")
+    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb2)
 
     gb3 = grob_single_base_rule(p, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
-    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(5, "mm")
+    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb3)
 
     gb4 = grob_single_base_rule(p, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     nc = length(gb4$children)
-    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(5, "mm")
+    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb4)
 }
 

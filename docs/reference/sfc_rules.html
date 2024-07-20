@@ -89,7 +89,7 @@
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>It is used mainly internally.</p>
+    <p>It is mainly used internally.</p>
 <p><code>rules</code> is a two-level list. It is in a format of <code>rules[[ base ]][[ transverse_code]] = sfc_unit()</code>.
 In the following example where we define the expansion rules for th Hilbert curve:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIVERSE_HILBERT <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"C"</span>)</span>
@@ -101,7 +101,10 @@ assigned is a <code><a href="sfc_sequence.html">sfc_unit()</a></code> object whi
 is assigned to the <code>bases</code> argument. In the same example, we set <code>bases</code> as:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="st">"I"</span> <span class="ot">=</span> BASE_I, <span class="st">"R"</span> <span class="ot">=</span> BASE_R, <span class="st">"L"</span> <span class="ot">=</span> BASE_L, <span class="st">"U"</span> <span class="ot">=</span> BASE_U, ...)</span></code></pre><p></p></div>
 <p>where e.g. <code>BASE_I</code> is a pre-defined base pattern in <code><a href="sfc_base.html">sfc_base</a></code> class.</p>
-    </div>
+<p>There are the following pre-defined rules:</p><ul><li><p><code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code></p></li>
+<li><p><code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code></p></li>
+<li><p><code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code></p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

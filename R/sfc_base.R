@@ -33,16 +33,16 @@ setClass("sfc_base",
 #' And when the curve expands, we only allow the segments to go forward, backward, left and right. Thus there are the following base patterns
 #' pre-defined in this package:
 #' 
-#' - [`BASE_I`]
-#' - [`BASE_J`]
-#' - [`BASE_R`]
-#' - [`BASE_L`]
-#' - [`BASE_U`]
-#' - [`BASE_B`]
-#' - [`BASE_D`]
-#' - [`BASE_P`]
-#' - [`BASE_Q`]
-#' - [`BASE_C`]
+#' - [`BASE_I`]: go forward,
+#' - [`BASE_J`]: go forward,
+#' - [`BASE_R`]: turn right,
+#' - [`BASE_L`]: turn left,
+#' - [`BASE_U`]: go backward,
+#' - [`BASE_B`]: leave the start point where the start point is closed.
+#' - [`BASE_D`]: leave the start point where the start point is closed.
+#' - [`BASE_P`]: return to the end point where the end point is closed.
+#' - [`BASE_Q`]: return to the end point where the end point is closed.
+#' - [`BASE_C`]: self-closed.
 #' 
 #' The base pattern determines the final form of the curve. 
 #' 

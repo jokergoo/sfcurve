@@ -14,7 +14,7 @@ draw_rules_meander(flip = FALSE)
 }
 \arguments{
 \item{flip}{Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
-of curve expansion rules. See the vignettes for details.}
+of the curve expansion rules. See the vignettes for details.}
 }
 \description{
 Draw the expansion rules

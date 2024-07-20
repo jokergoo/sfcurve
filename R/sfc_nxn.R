@@ -1,6 +1,15 @@
 
-
+#' @rdname sfc_index
+#' @param x An `sfc_nxn` object.
+#' @param i Numeric index or a character index representing the hierarchy of the subunit in the curve.
+#' @param j A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
+#' @param ... Ignore.
+#' @param drop Ignore.
 #' @export
+#' @examples
+#' p = sfc_hilbert("I", "11111")
+#' p["321"]
+#' p["321", TRUE]
 `[.sfc_nxn` = function(x, i, j, ..., drop = TRUE) {
 
 	if(missing(i)) {
@@ -55,8 +64,8 @@ get_index_from_nxn = function(index, level, n) {
 #' Units in the curve
 #' @aliases sfc_index
 #' @rdname sfc_index
-#' @param p An `sfc_nxn` object or other corresponding object.
-#' @param index A string representing the path of transverse the hierarchy of the curve. The left side
+#' @param p An `sfc_nxn` object.
+#' @param index A string of digits representing the path on the hierarchy of the curve. The left side
 #'       corresponds to the lower level and the right side corresponds to the high level in the curve. For the
 #'       Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
 #' @export
@@ -184,9 +193,9 @@ unit_orientation = function(p, index = "") {
 #' @rdname sfc_index
 #' @aliases sfc_flip_unit
 #' @details
-#' A unit in the curve is a square block (`2^k x 2^k` for the Hilbert curve and `3^k x 3^k` for the Peano and Meander curves).
-#' In the Hilbert curve, if an unit can be fliped, it is symmetric, thus flipping in the Hilbert curve will not change its form.
-#' The flipping is mainly used in the Peano and Meander curves. Peano curve only allows flippings by the diagonals and the Meander
+#' An unit in the curve is represented as a square block (`2^k x 2^k` for the Hilbert curve and `3^k x 3^k` for the Peano and Meander curves).
+#' In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
+#' The flipping is mainly applied in the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 #' curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.
 #' @export
 #' @examples
@@ -227,7 +236,7 @@ setMethod("sfc_flip_unit",
 })
 
 #' @rdname sfc_index
-#' @param bases Noramlly use [`BASE_LIST`].
+#' @param bases Normally use [`BASE_LIST`].
 #' @export
 setMethod("sfc_flip_unit",
 	signature = "sfc_unit",

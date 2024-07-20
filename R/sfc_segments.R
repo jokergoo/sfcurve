@@ -4,17 +4,17 @@
 #' @aliases sfc_segments
 #' @rdname sfc_segments
 #' @param p An `sfc_nxn` or `sfc_sequence` object.
-#' @param bases A list of base patterns, consider to use `BASE_LIST`.
+#' @param bases A list of base patterns, consider to use [`BASE_LIST`].
 #' @param start Coordinate of the start point.
 #' @param ... Other argument.
 #' 
 #' @return
-#' A two-column matrix.
+#' A two-column matrix of the coordinates of points on the curve.
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", "11")
 #' loc = sfc_segments(p)
-#' plot(loc, type = "l")
+#' plot(loc, type = "l", asp = 1)
 setMethod("sfc_segments", 
 	signature = "sfc_nxn", 
 	definition = function(p, bases = p@rules@bases, start = c(0, 0), ...) {

@@ -102,7 +102,11 @@ validate_out_directions = function(p2, out_direction) {
 #' @export
 #' @examples
 #' p = sfc_meander("R", 2, rot = -90)
-#' draw_multiple_curves(p, sfc_hflip(p), sfc_hflip(p, fix_ends = TRUE), title = FALSE)
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_hflip(p), 
+#'     sfc_hflip(p, fix_ends = TRUE), 
+#'     title = FALSE)
 setMethod("sfc_hflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -180,7 +184,11 @@ setMethod("sfc_hflip",
 #' @export
 #' @examples
 #' p = sfc_meander("L", 2, rot = -90)
-#' draw_multiple_curves(p, sfc_vflip(p), sfc_vflip(p, fix_ends = TRUE), title = FALSE)
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_vflip(p), 
+#'     sfc_vflip(p, fix_ends = TRUE), 
+#'     title = FALSE)
 setMethod("sfc_vflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -247,7 +255,11 @@ setMethod("sfc_vflip",
 #' @export
 #' @examples
 #' p = sfc_peano("I", 2)
-#' draw_multiple_curves(p, sfc_dflip(p, 1), sfc_dflip(p, 1, fix_ends = TRUE), title = FALSE)
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_dflip(p, 1), 
+#'     sfc_dflip(p, 1, fix_ends = TRUE), 
+#'     title = FALSE)
 setMethod("sfc_dflip",
 	signature = "sfc_sequence",
 	definition = function(p, slop = 1, fix_ends = FALSE, bases = NULL) {

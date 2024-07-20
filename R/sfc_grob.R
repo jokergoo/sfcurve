@@ -1,9 +1,9 @@
 
 #' @aliases sfc_grob
 #' @rdname sfc_grob
-#' @param bases A list of base patterns, consider to use `BASE_LIST`.
+#' @param bases A list of base patterns, consider to use [`BASE_LIST`].
 #' @param extend Whether to add the entering and leaving segments?
-#' @param title Whether to add title on top of the curve?
+#' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
 #' @param ... Other arguments passed to [`grid::viewport()`] or `sfc_grob()`.
 #' 
 #' @details
@@ -134,7 +134,7 @@ makeContext.grob_sfc_sequence = function(x) {
     x
 }
 
-#'
+
 #' @export
 #' @rdname sfc_grob
 plot.sfc_nxn = function(x, grid = FALSE, ...) {
@@ -165,3 +165,38 @@ add_grid_lines = function() {
 		          default.units = "native", gp = gpar(col = "#CCCCCC", lty = 2))
 	upViewport()
 }
+
+#' @rdname sfc_grob
+#' @export
+setMethod("sfc_grob",
+	signature = "matrix",
+	definition = function(p, ...) {
+
+	loc = p
+
+	n = nrow(loc)
+
+	rgx = range(loc[, 1])
+	rgx[1] = rgx[1] - 1; rgx[2] = rgx[2] + 1
+	rgy = range(loc[, 2])
+	rgy[1] = rgy[1] - 1; rgy[2] = rgy[2] + 1
+	
+	r = (diff(rgx) + 1)/(diff(rgy) + 1)
+
+	vp = viewport(xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
+
+	gbl = list()
+
+	if(n > 1) {
+		col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+		gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = 4))
+	} else {
+		gbl[[1]] = pointsGrob(loc[, 1], loc[, 2], pch = 16, size = unit(4, "pt"), gp = gpar(col = "#9E0142"))
+	}
+
+	args = gbl
+	args$vp = vp
+	args$cl = "grob_sfc_sequence"
+
+	do.call(grobTree, args)
+})

@@ -2,14 +2,16 @@ Package: sfcurve
 Type: Package
 Title: 2x2 and 3x3 Space-Filling Curve
 Version: 0.99.0
-Date: 2024-06-18
+Date: 2024-07-20
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
 Imports: grid, Rcpp, methods, colorRamp2
 Suggests: rmarkdown, knitr, rgl, testthat
 VignetteBuilder: knitr
-Description: This package codes all possible forms of general Hilbert curves that fill a 2D grid by Gassian integers.
+Description: Implementation of all possible forms of 2x2 and 3x3 space-filling curves, 
+    i.e., the generalized forms of the Hilbert curve, the Peano curve and the Meander curve.
+    It also implements the three-dimensional Hilbert curve and the H-curve.
 URL: https://github.com/jokergoo/sfcurve
 License: MIT + file LICENSE
 LinkingTo: Rcpp

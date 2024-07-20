@@ -4,12 +4,12 @@
 #' 
 #' @param seq A sequence of base patterns. The value can be a vector of letters or a string.
 #' @param rot The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
-#'          `rot` controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence is automatically
+#'          `rot` controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
 #'          identified.
 #' @param universe The universe of base patterns. A vector of letters.
 #' 
 #' @details
-#' This funtion is very low-level. Normally, we do not directly use this constructor.
+#' This funtion is very low-level. Normally, users do not need to directly use this constructor.
 #' 
 #' @export
 #' @examples
@@ -216,7 +216,7 @@ setMethod("sfc_universe",
 	p@universe
 })
 
-#' Whether two sfc_sequences objects are compatible
+#' Whether two sfc_sequence objects are compatible
 #' @aliases sfc_is_compatible
 #' @rdname sfc_is_compatible
 #' @param p An `sfc_sequence` object.

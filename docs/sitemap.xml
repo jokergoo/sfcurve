@@ -52,6 +52,9 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/plot_segments.html</loc>
+  </url>
+  <url>
     <loc>/reference/pre_defined_rules.html</loc>
   </url>
   <url>
@@ -104,6 +107,9 @@
   </url>
   <url>
     <loc>/reference/spacefilling.html</loc>
+  </url>
+  <url>
+    <loc>/reference/standard_curve.html</loc>
   </url>
   <url>
     <loc>/reference/utility.html</loc>

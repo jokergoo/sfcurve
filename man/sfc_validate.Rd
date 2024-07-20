@@ -16,5 +16,5 @@
 Validate the sequence
 }
 \details{
-It is mainly used to validate a seed sequence whether they follow the forward-left-right growth rule
+It is mainly used to validate a seed sequence whether they follow the forward-left-right rule.
 }

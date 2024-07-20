@@ -16,7 +16,7 @@ sfc_unit(seq, rot = 0L, universe = NULL)
 \item{seq}{A sequence of base patterns. The value can be a vector of letters or a string.}
 
 \item{rot}{The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
-\code{rot} controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence is automatically
+\code{rot} controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
 identified.}
 
 \item{universe}{The universe of base patterns. A vector of letters.}
@@ -25,7 +25,7 @@ identified.}
 Constructor of the sfc_sequence class
 }
 \details{
-This funtion is very low-level. Normally, we do not directly use this constructor.
+This funtion is very low-level. Normally, users do not need to directly use this constructor.
 
 \code{sfc_seed} class is the same as the \code{sfc_sequence} class. It is used specifically as the "seed sequence"
 when generating the curves.

@@ -8,7 +8,7 @@
 #' @param by One of `sfc_hilbert`, `sfc_peano` and `sfc_meander`.
 #' 
 #' @details
-#' It is mainly used to validate a seed sequence whether they follow the forward-left-right growth rule
+#' It is mainly used to validate a seed sequence whether they follow the forward-left-right rule.
 #' 
 #' @export
 setMethod("sfc_validate",

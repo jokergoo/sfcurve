@@ -90,24 +90,24 @@
 
 
 <dt>letters</dt>
-<dd><p>A list patterns, must be a factor.</p></dd>
+<dd><p>A list of base patterns in letters, must be a factor.</p></dd>
 
 
 <dt>flip</dt>
-<dd><p>For the Peano curve and the Meander curves, each unit can flip without affecting other parts in the curve. This argument
+<dd><p>For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, <code>flip</code> should be a logical
 vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.</p></dd>
 
 
 <dt>by</dt>
-<dd><p>Which implemnetation, only for the testing purpose.</p></dd>
+<dd><p>Which implemnetation? Only for the testing purpose.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>In the same class as the input object. <code>sfc_expand()</code> on the <code>sfc_rules</code> objects returns an <code>sfc_sequence</code> object.</p>
+<p>An object in the same class as the input. <code>sfc_expand()</code> on the <code>sfc_rules</code> objects returns an <code>sfc_sequence</code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -119,21 +119,23 @@ the transverse codes for other base patterns in the sequence are all determined.
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># I|211</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An sfc_hilbert object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Increase mode: 2 x 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Level: 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Expansion rule: Hilbert </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Unit flip: FFFF </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A sequence of 64 base patterns.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R(0)L(270)L(0)R(90)  I(0)R(0)R(270)L(180)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   L(270)R(0)R(270)I(180)  R(180)L(90)L(180)I(270)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   L(0)R(90)R(0)L(270)  L(0)R(90)R(0)I(270)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(270)R(270)R(180)L(90)  I(180)L(180)L(270)R(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .... other 4 lines ....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   I(90)L(90)L(180)R(270)  I(180)R(180)R(90)L(0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   L(90)R(180)R(90)I(0)  R(0)L(270)L(0)R(90)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   R(90)L(0)L(90)I(180)  L(180)R(270)R(180)I(90)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(90)R(90)R(0)L(270)  L(0)R(90)R(0)L(270)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Seed: A sequence of 1 base pattern.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)</span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># I|211</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An sfc_peano object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Increase mode: 3 x 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Level: 3</span>
@@ -146,8 +148,11 @@ the transverse codes for other base patterns in the sequence are all determined.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .... other 88 lines ....</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Seed: A sequence of 1 base pattern.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)</span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># I|211</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An sfc_meander object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Increase mode: 3 x 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Level: 3</span>
@@ -155,10 +160,13 @@ the transverse codes for other base patterns in the sequence are all determined.
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Unit flip: FFFFFFFFF </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A sequence of 729 base patterns.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R(0)I(270)L(270)I(0)  L(0)L(90)R(180)R(90)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)R(0)I(270)L(270)  I(0)L(0)L(90)R(180)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   L(0)I(90)R(90)I(0)  R(0)R(270)L(180)L(270)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)L(0)I(90)R(90)  I(0)R(0)R(270)L(180)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .... other 88 lines ....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R(0)I(270)L(270)I(0)  L(0)L(90)R(180)R(90)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   L(0)I(90)R(90)I(0)  R(0)R(270)L(180)L(270)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Seed: A sequence of 1 base pattern.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   I(0)</span>
 <span class="r-in"><span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span>, </span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="sfc_universe.html">sfc_universe</a></span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>

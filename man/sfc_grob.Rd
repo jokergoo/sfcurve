@@ -7,6 +7,7 @@
 \alias{plot.sfc_sequence}
 \alias{sfc_grob,sfc_nxn-method}
 \alias{plot.sfc_nxn}
+\alias{sfc_grob,matrix-method}
 \title{The graphics object}
 \usage{
 \S4method{sfc_grob}{sfc_base}(p)
@@ -18,15 +19,17 @@
 \S4method{sfc_grob}{sfc_nxn}(p, bases = p@rules@bases, extend = FALSE, title = FALSE, ...)
 
 \method{plot}{sfc_nxn}(x, grid = FALSE, ...)
+
+\S4method{sfc_grob}{matrix}(p, ...)
 }
 \arguments{
 \item{p}{The corresponding object.}
 
-\item{bases}{A list of base patterns, consider to use \code{BASE_LIST}.}
+\item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}.}
 
 \item{extend}{Whether to add the entering and leaving segments?}
 
-\item{title}{Whether to add title on top of the curve?}
+\item{title}{Whether to add title on the top of the plot? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.}
 
 \item{...}{Other arguments passed to \code{\link[grid:viewport]{grid::viewport()}} or \code{sfc_grob()}.}
 

@@ -123,7 +123,7 @@ Q_base = function(...) {
 pdf(NULL)
 oe = try({
     BASE_I = sfc_base("I", in_direction = 90, out_direction = 90, primary = TRUE, open = TRUE, grob = I_base())
-    BASE_J = BASE_I
+    BASE_J = sfc_base("J", in_direction = 90, out_direction = 90, primary = TRUE, open = TRUE, grob = I_base())
     BASE_R = sfc_base("R", in_direction = 90, out_direction = 0, primary = TRUE, open = TRUE, grob = R_base())
     BASE_L = sfc_base("L", in_direction = 90, out_direction = 180, primary = TRUE, open = TRUE, grob = L_base())
     BASE_U = sfc_base("U", in_direction = -90, out_direction = 90, primary = FALSE, open = TRUE, grob = U_base())

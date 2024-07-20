@@ -21,16 +21,16 @@
 
 \item{code}{The transverse code.}
 
-\item{letters}{A list patterns, must be a factor.}
+\item{letters}{A list of base patterns in letters, must be a factor.}
 
-\item{flip}{For the Peano curve and the Meander curves, each unit can flip without affecting other parts in the curve. This argument
+\item{flip}{For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, \code{flip} should be a logical
 vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.}
 
-\item{by}{Which implemnetation, only for the testing purpose.}
+\item{by}{Which implemnetation? Only for the testing purpose.}
 }
 \value{
-In the same class as the input object. \code{sfc_expand()} on the \code{sfc_rules} objects returns an \code{sfc_sequence} object.
+An object in the same class as the input. \code{sfc_expand()} on the \code{sfc_rules} objects returns an \code{sfc_sequence} object.
 }
 \description{
 Expand the curve to the next level
@@ -43,11 +43,11 @@ These functions are mainly used internally.
 }
 \examples{
 p = sfc_hilbert("I", 11)
-sfc_expand(p, 1)
+sfc_expand(p, 2) # I|211
 p = sfc_peano("I", 11)
-sfc_expand(p, 1)
+sfc_expand(p, 2) # I|211
 p = sfc_meander("I", 11)
-sfc_expand(p, 1)
+sfc_expand(p, 2) # I|211
 sfc_expand(SFC_RULES_HILBERT, 
     factor(c("I", "R", "L"), levels = sfc_universe(SFC_RULES_HILBERT)))
 }

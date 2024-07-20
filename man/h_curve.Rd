@@ -10,13 +10,13 @@ h_curve(h, connect = c("h", "v"), iteration = 1, random = FALSE)
 expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "vvvv")
 }
 \arguments{
-\item{h}{The seed. It should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}
+\item{h}{It is the seed of the H-curve. The value should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}
 
-\item{connect}{How the four sub-units are connected.}
+\item{connect}{How the four subunits are connected to for the H-curve on the next level. See \strong{Details}.}
 
-\item{iteration}{Number of interations.}
+\item{iteration}{Number of iterations.}
 
-\item{random}{Whether generate units randomly.}
+\item{random}{Whether to generate subunits randomly.}
 
 \item{h1}{The first subunit.}
 
@@ -26,27 +26,56 @@ expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "vvvv")
 
 \item{h4}{The fourth subunit.}
 }
+\value{
+A two-column matrix of the coordinates of points on the curve.
+}
 \description{
 H-curve
 }
-\examples{
-h_curve(H0, iteration = 2) |> plot(type = "l", asp = 1)
-h_curve(H1, iteration = 2) |> plot(type = "l", asp = 1)
-par(mfrow = c(1, 2))
-h_curve(H1, iteration = 3, random = TRUE) |> plot(type = "l", asp = 1)
-h_curve(H1, iteration = 3, random = TRUE) |> plot(type = "l", asp = 1)
-expand_h(H0, connect = "hvvh") |> plot(type = "l", asp = 1)
-expand_h(H1, connect = "vvhh") |> plot(type = "l", asp = 1)
+\details{
+A H-curve on level k is composed by four subunits on level k-1. If we number the four subunits in the following order:
 
+\if{html}{\out{<div class="sourceCode">}}\preformatted{2  3
+1  4
+}\if{html}{\out{</div>}}
+
+where subunit 1 connects to subunit 2, subunit 2 connect to subunit 3, et al., and e.g. subunit 1 connects to subunit 2
+via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to
+subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
+segment and the vertical segment on the topright corner in subunit 1.
+
+In this way, in \code{h_curve()}, the argument \code{connect} only accepts a single value of \code{"h"} or \code{"v"} where the types of segments for
+all the four subunits are the same, i.e. whether all the horizontal corner segments are opened or whether all the vertical corner
+segments are opened. In \code{expand_h()}, the argument \code{connect} can be set to a vector of length four where the type of segments of the
+four subunits can be set separately.
+
+In the random mode, each subunit is generated randomly, the type of the open segment is choosen randomly, also each subunit has a probability of 0.5
+to rotate by 90 degrees.
+}
+\examples{
+draw_multiple_curves(
+    h_curve(H0, iteration = 2),
+    h_curve(H1, iteration = 2)
+)
+draw_multiple_curves(
+    h_curve(H1, iteration = 3, random = TRUE),
+    h_curve(H1, iteration = 3, random = TRUE)
+)
+draw_multiple_curves(
+    expand_h(H0, connect = "hvvh"),
+    expand_h(H1, connect = "vvhh")
+)
+
+# set the four subunits separately
 h1 = expand_h(H0, connect = "hhhh")
 h2 = expand_h(H0, connect = "vvvv")
 h3 = expand_h(H0, connect = "hvhv")
 h4 = expand_h(H0, connect = "hvvh")
-expand_h(h1, h2, h3, h4, connect = "vhvh") |> plot(type = "l", asp = 1)
+expand_h(h1, h2, h3, h4, connect = "vhvh") |> plot_segments()
 
 fun = function(h, k) {
     for(i in 1:k) h = expand_h(h, connect = "vhvh")
     h
 }
-fun(H0, 4) |> plot(type = "l", asp = 1)
+fun(H0, 4) |> plot_segments()
 }

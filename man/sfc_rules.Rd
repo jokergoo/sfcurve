@@ -19,7 +19,7 @@ sfc_rules(rules, bases, flip = list(), name = "sfc_rules")
 Constructur of the sfc_rules class
 }
 \details{
-It is used mainly internally.
+It is mainly used internally.
 
 \code{rules} is a two-level list. It is in a format of \code{rules[[ base ]][[ transverse_code]] = sfc_unit()}.
 In the following example where we define the expansion rules for th Hilbert curve:
@@ -39,4 +39,11 @@ is assigned to the \code{bases} argument. In the same example, we set \code{base
 }\if{html}{\out{</div>}}
 
 where e.g. \code{BASE_I} is a pre-defined base pattern in \code{\link{sfc_base}} class.
+
+There are the following pre-defined rules:
+\itemize{
+\item \code{\link{SFC_RULES_HILBERT}}
+\item \code{\link{SFC_RULES_PEANO}}
+\item \code{\link{SFC_RULES_MEANDER}}
+}
 }

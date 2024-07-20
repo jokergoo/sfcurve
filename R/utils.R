@@ -1,15 +1,18 @@
 
 #' Draw multiple curves
 #' 
-#' @param ... A list of `sfc_*` objects.
+#' @param ... A list of `sfc_sequence` objects or objects in its child classes. The value
+#'      can also be a list of two-column coordinate matrices.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments?
 #' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
 #' 
+#' @details
+#' This function is only for the demonstration purpose.
 #' @export
 #' @examples
-#' # for all forms of curves initialized by 'R', rotation 0, and in level 3
+#' # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 #' draw_multiple_curves(
 #'     sfc_hilbert("R", code = c(1, 1, 1)),
 #'     sfc_hilbert("R", code = c(1, 1, 2)),
@@ -47,7 +50,11 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title
 		ncol = ceiling(n/nrow)
 	}
 
-	gbl = lapply(pl, sfc_grob, extend = extend, title = title)
+	if(inherits(pl[[1]], "sfc_sequence")) {
+		gbl = lapply(pl, sfc_grob, extend = extend, title = title)
+	} else {
+		gbl = lapply(pl, sfc_grob)
+	}
 
 	grid.newpage()
 	pushViewport(viewport(layout = grid.layout(nrow = nrow, ncol = ncol)))

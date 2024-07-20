@@ -74,19 +74,19 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>h</dt>
-<dd><p>The seed. It should be one of <code><a href="h_seed.html">H0</a></code>, <code><a href="h_seed.html">H1</a></code> or <code><a href="h_seed.html">H2</a></code>.</p></dd>
+<dd><p>It is the seed of the H-curve. The value should be one of <code><a href="h_seed.html">H0</a></code>, <code><a href="h_seed.html">H1</a></code> or <code><a href="h_seed.html">H2</a></code>.</p></dd>
 
 
 <dt>connect</dt>
-<dd><p>How the four sub-units are connected.</p></dd>
+<dd><p>How the four subunits are connected to for the H-curve on the next level. See <strong>Details</strong>.</p></dd>
 
 
 <dt>iteration</dt>
-<dd><p>Number of interations.</p></dd>
+<dd><p>Number of iterations.</p></dd>
 
 
 <dt>random</dt>
-<dd><p>Whether generate units randomly.</p></dd>
+<dd><p>Whether to generate subunits randomly.</p></dd>
 
 
 <dt>h1</dt>
@@ -105,32 +105,60 @@
 <dd><p>The fourth subunit.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>A two-column matrix of the coordinates of points on the curve.</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>A H-curve on level k is composed by four subunits on level k-1. If we number the four subunits in the following order:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">3</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">4</span></span></code></pre><p></p></div>
+<p>where subunit 1 connects to subunit 2, subunit 2 connect to subunit 3, et al., and e.g. subunit 1 connects to subunit 2
+via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to
+subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
+segment and the vertical segment on the topright corner in subunit 1.</p>
+<p>In this way, in <code>h_curve()</code>, the argument <code>connect</code> only accepts a single value of <code>"h"</code> or <code>"v"</code> where the types of segments for
+all the four subunits are the same, i.e. whether all the horizontal corner segments are opened or whether all the vertical corner
+segments are opened. In <code>expand_h()</code>, the argument <code>connect</code> can be set to a vector of length four where the type of segments of the
+four subunits can be set separately.</p>
+<p>In the random mode, each subunit is generated randomly, the type of the open segment is choosen randomly, also each subunit has a probability of 0.5
+to rotate by 90 degrees.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">h_curve</span><span class="op">(</span><span class="va">H0</span>, iteration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="va">H0</span>, iteration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="h_curve-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="h_curve-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">h_curve</span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"hvvh"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">expand_h</span><span class="op">(</span><span class="va">H1</span>, connect <span class="op">=</span> <span class="st">"vvhh"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="h_curve-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"hvvh"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">expand_h</span><span class="op">(</span><span class="va">H1</span>, connect <span class="op">=</span> <span class="st">"vvhh"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="h_curve-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set the four subunits separately</span></span></span>
 <span class="r-in"><span><span class="va">h1</span> <span class="op">=</span> <span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"hhhh"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">h2</span> <span class="op">=</span> <span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"vvvv"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">h3</span> <span class="op">=</span> <span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"hvhv"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">h4</span> <span class="op">=</span> <span class="fu">expand_h</span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"hvvh"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">expand_h</span><span class="op">(</span><span class="va">h1</span>, <span class="va">h2</span>, <span class="va">h3</span>, <span class="va">h4</span>, connect <span class="op">=</span> <span class="st">"vhvh"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">expand_h</span><span class="op">(</span><span class="va">h1</span>, <span class="va">h2</span>, <span class="va">h3</span>, <span class="va">h4</span>, connect <span class="op">=</span> <span class="st">"vhvh"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="plot_segments.html">plot_segments</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="h_curve-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">k</span><span class="op">)</span> <span class="va">h</span> <span class="op">=</span> <span class="fu">expand_h</span><span class="op">(</span><span class="va">h</span>, connect <span class="op">=</span> <span class="st">"vhvh"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="va">h</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="fu">fun</span><span class="op">(</span><span class="va">H0</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fun</span><span class="op">(</span><span class="va">H0</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="plot_segments.html">plot_segments</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="h_curve-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

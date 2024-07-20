@@ -11,11 +11,11 @@
 #' 
 #' These functions are mainly used internally.
 #' 
-#' @return In the same class as the input object. `sfc_expand()` on the `sfc_rules` objects returns an `sfc_sequence` object.
+#' @return An object in the same class as the input. `sfc_expand()` on the `sfc_rules` objects returns an `sfc_sequence` object.
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", 11)
-#' sfc_expand(p, 1)
+#' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
 	signature = "sfc_hilbert",
 	definition = function(p, code) {
@@ -69,7 +69,7 @@ transverse_type_2x2 = function(t, r, r_next) {
 #' @export
 #' @examples
 #' p = sfc_peano("I", 11)
-#' sfc_expand(p, 1)
+#' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
 	signature = "sfc_peano",
 	definition = function(p, code = 1) {
@@ -112,7 +112,7 @@ setMethod("sfc_expand",
 #' @export
 #' @examples
 #' p = sfc_meander("I", 11)
-#' sfc_expand(p, 1)
+#' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
 	signature = "sfc_meander",
 	definition = function(p, code) {
