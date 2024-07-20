@@ -81,7 +81,7 @@ Seed: A sequence of 1 base pattern.
 It also allows using a sequence as the seed:
 
 ```
-p = sfc_seed("LLLILILIILIILIIILIIILIIII", universe = sfc_universe(SFC_RULES_HILBERT))
+p = sfc_seed("LLLILILIILIILIIILIIILIIII")
 p2 = sfc_hilbert(p, code = c(1, 1, 1, 1))
 plot(p2)
 ```
