@@ -4,6 +4,8 @@
 #' @param bases A list of base patterns, consider to use [`BASE_LIST`].
 #' @param extend Whether to add the entering and leaving segments?
 #' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
+#'      Or the value is a string.
+#' @param closed Whether the curve is closed? 
 #' @param ... Other arguments passed to [`grid::viewport()`] or `sfc_grob()`.
 #' 
 #' @details
@@ -15,13 +17,16 @@
 #' @import colorRamp2
 setMethod("sfc_grob",
 	signature = "sfc_sequence",
-	definition = function(p, bases = NULL, extend = FALSE, title = FALSE, ...) {
+	definition = function(p, bases = NULL, extend = FALSE, title = FALSE, closed = FALSE, ...) {
 
 	if(is.null(bases)) {
 		bases = BASE_LIST[sfc_universe(p)]
 	}
 
 	loc = sfc_segments(p, bases)
+	if(closed) {
+		loc = rbind(loc, loc[1, ])
+	}
 
 	n = nrow(loc)
 
@@ -68,13 +73,17 @@ setMethod("sfc_grob",
 		gbl = gbl[c(2, 3, 1)]
 	}
 
-	if(title) {
-		if(inherits(p, "sfc_nxn")) {
-			seed = p@seed
-			pt = paste0("paste(", paste("italic(", seed@seq[1], ")^", seed@rot[1], sep = "", collapse = ","), ")")
-			pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
-			gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+	if(is.logical(title)) {
+		if(title) {
+			if(inherits(p, "sfc_nxn")) {
+				seed = p@seed
+				pt = paste0("paste(", paste("italic(", seed@seq[1], ")^", seed@rot[1], sep = "", collapse = ","), ")")
+				pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
+				gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+			}
 		}
+	} else {
+		gbl[[ length(gbl) + 1 ]] = textGrob(title, x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10))
 	}
 
 	args = gbl
@@ -110,9 +119,9 @@ plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, ...) {
 #' @export
 setMethod("sfc_grob",
 	signature = "sfc_nxn",
-	definition = function(p, bases = p@rules@bases, extend = FALSE, title = FALSE, ...) {
+	definition = function(p, bases = p@rules@bases, extend = FALSE, title = FALSE, closed = FALSE, ...) {
 
-	callNextMethod(p, bases, extend = extend, title = title, ...)
+	callNextMethod(p, bases, extend = extend, title = title, closed = closed, ...)
 })
 
 #' @export
@@ -170,9 +179,12 @@ add_grid_lines = function() {
 #' @export
 setMethod("sfc_grob",
 	signature = "matrix",
-	definition = function(p, ...) {
+	definition = function(p, title = NULL, closed = FALSE, ...) {
 
 	loc = p
+	if(closed) {
+		loc = rbind(loc, loc[1, ])
+	}
 
 	n = nrow(loc)
 
@@ -192,6 +204,10 @@ setMethod("sfc_grob",
 		gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = 4))
 	} else {
 		gbl[[1]] = pointsGrob(loc[, 1], loc[, 2], pch = 16, size = unit(4, "pt"), gp = gpar(col = "#9E0142"))
+	}
+
+	if(is.character(title)) {
+		gbl[[ length(gbl) + 1 ]] = textGrob(title, x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10))
 	}
 
 	args = gbl

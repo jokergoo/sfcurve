@@ -93,6 +93,7 @@ meander_curve = function(level = 2) {
 
 #' Plot segments
 #' @param x A two-column matrix of coordinates of points.
+#' @param grid Whether to add grid lines on the plot?
 #' @param ... Other arguments passed to `[sfc_grob()]`.
 #' @export
 #' @details

@@ -9,6 +9,8 @@ plot_segments(x, grid = FALSE, ...)
 \arguments{
 \item{x}{A two-column matrix of coordinates of points.}
 
+\item{grid}{Whether to add grid lines on the plot?}
+
 \item{...}{Other arguments passed to \verb{[sfc_grob()]}.}
 }
 \description{

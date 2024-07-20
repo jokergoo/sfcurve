@@ -2,9 +2,10 @@ pandoc: 2.11.4
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  h_curve: h_curve.html
   hilbert_curve: hilbert_curve.html
   meander_curve: meander_curve.html
   peano_curve: peano_curve.html
   sfcurve: sfcurve.html
-last_built: 2024-07-20T11:06Z
+last_built: 2024-07-20T15:48Z
 

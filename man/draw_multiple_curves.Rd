@@ -4,7 +4,14 @@
 \alias{draw_multiple_curves}
 \title{Draw multiple curves}
 \usage{
-draw_multiple_curves(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE)
+draw_multiple_curves(
+  ...,
+  nrow = 1,
+  ncol = NULL,
+  extend = TRUE,
+  title = TRUE,
+  closed = FALSE
+)
 }
 \arguments{
 \item{...}{A list of \code{sfc_sequence} objects or objects in its child classes. The value
@@ -16,7 +23,10 @@ can also be a list of two-column coordinate matrices.}
 
 \item{extend}{Whether to draw the entering and leaving segments?}
 
-\item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.}
+\item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.
+Or the value can be a vector of strings.}
+
+\item{closed}{Whether the curves are closed? The value should be a logical vector.}
 }
 \description{
 Draw multiple curves

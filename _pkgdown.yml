@@ -11,6 +11,8 @@ navbar:
           href: articles/peano_curve.html
         - text: "Generalized Meander Curve"
           href: articles/meander_curve.html
+        - text: "H-Curve"
+          href: articles/h_curve.html
     - text: "Reference"
       href: reference/index.html
 

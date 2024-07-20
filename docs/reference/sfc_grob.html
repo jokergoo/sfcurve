@@ -37,6 +37,9 @@
     <li>
       <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
     </li>
+    <li>
+      <a href="../articles/h_curve.html">H-Curve</a>
+    </li>
   </ul></li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -70,19 +73,26 @@
 <span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_sequence</span></span>
-<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, bases <span class="op">=</span> <span class="cn">NULL</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, bases <span class="op">=</span> <span class="cn">NULL</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sfc_sequence</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, bases <span class="op">=</span> <span class="cn">NULL</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_nxn</span></span>
-<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, bases <span class="op">=</span> <span class="va">p</span><span class="op">@</span><span class="va">rules</span><span class="op">@</span><span class="va">bases</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sfc_grob</span><span class="op">(</span></span>
+<span>  <span class="va">p</span>,</span>
+<span>  bases <span class="op">=</span> <span class="va">p</span><span class="op">@</span><span class="va">rules</span><span class="op">@</span><span class="va">bases</span>,</span>
+<span>  extend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sfc_nxn</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for matrix</span></span>
-<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, title <span class="op">=</span> <span class="cn">NULL</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,7 +110,12 @@
 
 
 <dt>title</dt>
-<dd><p>Whether to add title on the top of the plot? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.</p></dd>
+<dd><p>Whether to add title on the top of the plot? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.
+Or the value is a string.</p></dd>
+
+
+<dt>closed</dt>
+<dd><p>Whether the curve is closed?</p></dd>
 
 
 <dt>...</dt>

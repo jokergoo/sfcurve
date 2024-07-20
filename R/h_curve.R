@@ -122,7 +122,7 @@ h_curve = function(h, connect = c("h", "v"), iteration = 1, random = FALSE) {
 #'     h
 #' }
 #' fun(H0, 4) |> plot_segments()
-expand_h = function(h1, h2 = h1, h3 = h1, h4 = h1, connect = "vvvv") {
+expand_h = function(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh") {
 
 	n = as.integer(round(sqrt(nrow(h1))))
 

@@ -37,6 +37,9 @@
     <li>
       <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
     </li>
+    <li>
+      <a href="../articles/h_curve.html">H-Curve</a>
+    </li>
   </ul></li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -66,7 +69,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">draw_multiple_curves</span><span class="op">(</span><span class="va">...</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="cn">NULL</span>, extend <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">draw_multiple_curves</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  extend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,7 +99,12 @@ can also be a list of two-column coordinate matrices.</p></dd>
 
 
 <dt>title</dt>
-<dd><p>Whether to add titles on each panel? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.</p></dd>
+<dd><p>Whether to add titles on each panel? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.
+Or the value can be a vector of strings.</p></dd>
+
+
+<dt>closed</dt>
+<dd><p>Whether the curves are closed? The value should be a logical vector.</p></dd>
 
 </dl></div>
     <div id="details">

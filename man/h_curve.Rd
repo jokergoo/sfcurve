@@ -7,7 +7,7 @@
 \usage{
 h_curve(h, connect = c("h", "v"), iteration = 1, random = FALSE)
 
-expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "vvvv")
+expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh")
 }
 \arguments{
 \item{h}{It is the seed of the H-curve. The value should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}

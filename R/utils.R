@@ -7,6 +7,8 @@
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments?
 #' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
+#'   Or the value can be a vector of strings.
+#' @param closed Whether the curves are closed? The value should be a logical vector.
 #' 
 #' @details
 #' This function is only for the demonstration purpose.
@@ -31,7 +33,7 @@
 #'     sfc_sequence("RRLL"),
 #'     nrow = 1
 #' )
-draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE) {
+draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE, closed = FALSE) {
 	pl = list(...)
 
 	n = length(pl)
@@ -50,10 +52,18 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title
 		ncol = ceiling(n/nrow)
 	}
 
+	if(length(title) == 1) {
+		title = rep(title, n)
+	}
+	if(length(closed) == 1) {
+		closed = rep(closed, n)
+	}
+	
+
 	if(inherits(pl[[1]], "sfc_sequence")) {
-		gbl = lapply(pl, sfc_grob, extend = extend, title = title)
+		gbl = lapply(seq_along(pl), function(i) sfc_grob(pl[[i]], extend = extend, title = title[i], closed = closed[i]))
 	} else {
-		gbl = lapply(pl, sfc_grob)
+		gbl = lapply(seq_along(pl), function(i) sfc_grob(pl[[i]], title = title[i], closed = closed[i]))
 	}
 
 	grid.newpage()
