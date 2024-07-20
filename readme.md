@@ -6,7 +6,7 @@
 This package provides a way to encode all possible forms of 2x2 and 3x3 space-filling curves.
 For example, the following eight forms correspond to the 2x2 curve on level 3 and with `R(0)` (go-right base pattern with rotation of 0 degree) as the seed.
 
-![](https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369)
+<img src="https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369" width=700 />
 
 
 ## Install
@@ -86,7 +86,7 @@ p2 = sfc_hilbert(p, code = c(1, 1, 1, 1))
 plot(p2)
 ```
 
-![](https://github.com/user-attachments/assets/f1144f7f-282f-4988-aafd-9f712dd3ed2d)
+<img src="https://github.com/user-attachments/assets/f1144f7f-282f-4988-aafd-9f712dd3ed2d" width=500 />
 
 
 ## License
