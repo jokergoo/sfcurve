@@ -96,6 +96,9 @@
 
     
     
+<div class="section level2">
+<h2 id="construction-and-expansion">Construction and expansion<a class="anchor" aria-label="anchor" href="#construction-and-expansion"></a>
+</h2>
 <p>H-curve has the following two base units: an H-shape unit <span class="math inline">\(H_1\)</span> and its rotated version <span class="math inline">\(H_2\)</span>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">H1</span>, <span class="va">H2</span>, nrow <span class="op">=</span> <span class="fl">1</span>, closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -131,6 +134,10 @@
 <p><img src="h_curve_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>More generally, we can generalize the previous equation to any step of the iteration <span class="math inline">\(k\)</span>:</p>
 <p><span class="math display">\[ H^{(k)} = H_1^{(k-1)} \cdot c \cdot H_2^{(k-1)} \cdot c \cdot H_3^{(k-1)} \cdot c \cdot H_4^{(k-1)} \cdot c, \quad k \ge 1\]</span></p>
+</div>
+<div class="section level2">
+<h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
+</h2>
 <p>After the first iteration, the total number of forms of the H-curve denoted as <span class="math inline">\(n_1\)</span> is</p>
 <p><span class="math display">\[ n_1 = n_0^4 \cdot 2 \]</span></p>
 <p>where <span class="math inline">\(n_0\)</span> is the number of different forms of base patterns, which is 2. The second 2 is the number of connection method, i.e. “h” and “v”.</p>
@@ -147,6 +154,10 @@ n_k &amp;= n_{k-1}^4 \cdot 2\\
 <p><span class="math display">\[
 n_k = 2^{\cfrac{4^{k+1}-1}{3}} 
 \]</span></p>
+</div>
+<div class="section level2">
+<h2 id="more-general-forms">More general forms<a class="anchor" aria-label="anchor" href="#more-general-forms"></a>
+</h2>
 <p>More generally, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> can be thought as building on an even smaller unit <span class="math inline">\(H_0\)</span>:</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -161,7 +172,7 @@ H_2 &amp;= H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \\
 <span>    <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H0</span>, connect <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span>,</span>
 <span>    closed <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="h_curve_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
+<p><img src="h_curve_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;"></p>
 <p>Also the connection methods for the four units are not necessary to be the same. In the followng example, we take <span class="math inline">\(H_0\)</span> as the base unit and take <code>vhvh</code> as the connection method, i.e. the vertical segment of the first unit, the horizontal segment of the second unit, the vertical segment of the third unit and the horizontal segment of the fourth segment are opened:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span>
@@ -170,6 +181,10 @@ H_2 &amp;= H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \\
 <span><span class="op">}</span></span>
 <span><span class="fu">fun</span><span class="op">(</span><span class="va">H0</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/plot_segments.html">plot_segments</a></span><span class="op">(</span>closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="global-structure-is-unchanged">Global structure is unchanged<a class="anchor" aria-label="anchor" href="#global-structure-is-unchanged"></a>
+</h2>
 <p>Last, although H-curve has a large number of different forms, different settings only affect foldings locally in the curve, while its global structure is still unchanged:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
@@ -180,11 +195,14 @@ H_2 &amp;= H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \\
 <span>    nrow <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
