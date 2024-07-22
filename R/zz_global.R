@@ -248,6 +248,22 @@ RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 
 ####
 
+UNIVERSE_3x3_COMBINED = c("I", "R", "L")
+RULES_3x3_COMBINED = list()
+RULES_3x3_COMBINED[["I"]][[1]] = sfc_unit("IIRRILLII", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
+RULES_3x3_COMBINED[["I"]][[2]] = sfc_unit("IILLIRRII", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["R"]][[1]] = sfc_unit("IIRRILLIR", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
+RULES_3x3_COMBINED[["L"]][[1]] = sfc_unit("IILLIRRIL", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+
+RULES_3x3_COMBINED[["I"]][[3]] = sfc_unit("RILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
+RULES_3x3_COMBINED[["I"]][[4]] = sfc_unit("LIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["R"]][[2]] = sfc_unit("IIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
+RULES_3x3_COMBINED[["R"]][[3]] = sfc_unit("LIRIRRLLR", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["L"]][[2]] = sfc_unit("RILILLRRL", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["L"]][[3]] = sfc_unit("IILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+
+
+###
 
 .onLoad = function(libname, pkgname) {
 
@@ -263,9 +279,18 @@ RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
         name = "Meander",
         bases = BASE_LIST[UNIVERSE_MEANDER])
 
+    RULES_3x3_COMBINED_FLIP = lapply(RULES_3x3_COMBINED, function(x) {
+        lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
+    })
+
+    SFC_RULES_3x3_COMBINED = sfc_rules(rules = RULES_3x3_COMBINED, flip = RULES_3x3_COMBINED_FLIP,
+        name = "3x3_combined",
+        bases = BASE_LIST[UNIVERSE_3x3_COMBINED])
+
     assign("SFC_RULES_HILBERT", SFC_RULES_HILBERT, envir = parent)
     assign("SFC_RULES_PEANO", SFC_RULES_PEANO, envir = parent)
     assign("SFC_RULES_MEANDER", SFC_RULES_MEANDER, envir = parent)
+    assign("SFC_RULES_3x3_COMBINED", SFC_RULES_3x3_COMBINED, envir = parent)
 }
 
 #' Base patterns
@@ -344,6 +369,7 @@ RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' SFC_RULES_HILBERT
 #' SFC_RULES_PEANO
 #' SFC_RULES_MEANDER
+#' SFC_RULES_3x3_COMBINED
 "SFC_RULES_HILBERT"
 
 #' @rdname pre_defined_rules
@@ -353,3 +379,14 @@ RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' @rdname pre_defined_rules
 #' @export
 "SFC_RULES_MEANDER"
+
+#' @rdname pre_defined_rules
+#' @details
+#' `SFC_RULES_3x3_COMBINED` is a combination of `SFC_RULES_PEANO` and `SFC_RULES_PEANO` where
+#' in `SFC_RULES_PEANO`, `J` is replaced by its original pattern `I`. `SFC_RULES_3x3_COMBINED` only
+#' contains three base patterns of `I/R/L`.
+#' @export
+"SFC_RULES_3x3_COMBINED"
+
+
+

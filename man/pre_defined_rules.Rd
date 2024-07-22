@@ -5,8 +5,11 @@
 \alias{SFC_RULES_HILBERT}
 \alias{SFC_RULES_PEANO}
 \alias{SFC_RULES_MEANDER}
+\alias{SFC_RULES_3x3_COMBINED}
 \title{Rules}
 \format{
+An object of class \code{sfc_rules} of length 1.
+
 An object of class \code{sfc_rules} of length 1.
 
 An object of class \code{sfc_rules} of length 1.
@@ -19,16 +22,23 @@ SFC_RULES_HILBERT
 SFC_RULES_PEANO
 
 SFC_RULES_MEANDER
+
+SFC_RULES_3x3_COMBINED
 }
 \description{
 A list of pre-defined expansion rules for different curves.
 }
 \details{
 \code{SFC_RULES_PEANO} and \code{SFC_RULES_MEANDER} contain both "flipped" expansion rules.
+
+\code{SFC_RULES_3x3_COMBINED} is a combination of \code{SFC_RULES_PEANO} and \code{SFC_RULES_PEANO} where
+in \code{SFC_RULES_PEANO}, \code{J} is replaced by its original pattern \code{I}. \code{SFC_RULES_3x3_COMBINED} only
+contains three base patterns of \code{I/R/L}.
 }
 \examples{
 SFC_RULES_HILBERT
 SFC_RULES_PEANO
 SFC_RULES_MEANDER
+SFC_RULES_3x3_COMBINED
 }
 \keyword{datasets}

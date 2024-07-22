@@ -305,3 +305,47 @@ setMethod("show",
 	cat("Seed: ")
 	callNextMethod(object@seed)
 })
+
+
+#' Level-1 unit in the Peano curve
+#' @aliases level1_unit_orientation
+#' @rdname level1_unit
+#' @param p An `sfc_peano` object.
+#' @return `level1_unit_orientation()` returns `"vertical"` or `"horizontal"`.
+#' @export
+setMethod("level1_unit_orientation",
+	signature = "sfc_peano",
+	definition = function(p) {
+	if(length(p) != 9) {
+		stop_wrap("`u` should be an sfc_peano unit with length of 9.")
+	}
+    loc = sfc_segments(p)
+    if(loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) {
+        "vertical"
+    } else {
+        "horizontal"
+    }
+})
+ 
+#' @aliases change_level1_unit_orientation
+#' @rdname level1_unit
+#' @param to A string of "vertical" or "horizontal".
+#' @return `change_level1_unit_orientation()` returns an `sfc_peano` object.
+#' @export
+#' @examples
+#' p = sfc_peano("I", 111)
+#' p2 = change_level1_unit_orientation(p)
+#' p3 = change_level1_unit_orientation(p, "vertical")
+#' draw_multiple_curves(p2, p3, title = FALSE)
+setMethod("change_level1_unit_orientation",
+	signature = "sfc_peano",
+	definition = function(p, to = c("horizontal", "vertical")) {
+	to = match.arg(to)
+	sfc_apply(p, log(length(p))/log(9) - 1, function(x) {
+	    if(level1_unit_orientation(x) != to) {
+	        sfc_flip_unit(x)
+	    } else {
+	        x
+	    }
+	})
+})

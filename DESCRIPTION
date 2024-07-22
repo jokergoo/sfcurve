@@ -7,7 +7,7 @@ Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
 Imports: grid, Rcpp, methods, colorRamp2
-Suggests: rmarkdown, knitr, rgl, testthat
+Suggests: rmarkdown, knitr, rgl, testthat, ComplexHeatmap, igraph
 VignetteBuilder: knitr
 Description: Implementation of all possible forms of 2x2 and 3x3 space-filling curves, 
     i.e., the generalized forms of the Hilbert curve, the Peano curve and the Meander curve.

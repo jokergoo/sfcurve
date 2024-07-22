@@ -10,8 +10,8 @@ rotate_90 = function(pos) {
 #' H-curve
 #' @rdname h_curve
 #' @param h It is the seed of the H-curve. The value should be one of [`H0`], [`H1`] or [`H2`].
-#' @param connect How the four subunits are connected to for the H-curve on the next level. See **Details**.
 #' @param iteration Number of iterations.
+#' @param connect How the four subunits are connected to for the H-curve on the next level. See **Details**.
 #' @param random Whether to generate subunits randomly.
 #' @details
 #' A H-curve on level k is composed by four subunits on level k-1. If we number the four subunits in the following order:
@@ -47,7 +47,7 @@ rotate_90 = function(pos) {
 #'     h_curve(H1, iteration = 3, random = TRUE),
 #'     h_curve(H1, iteration = 3, random = TRUE)
 #' )
-h_curve = function(h, connect = c("h", "v"), iteration = 1, random = FALSE) {
+h_curve = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 
 	if(random) {
 		hl = list(h, h, h, h)

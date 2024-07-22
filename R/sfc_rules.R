@@ -237,6 +237,7 @@ setMethod("sfc_universe",
 #' @rdname sfc_expand
 #' @param p An `sfc_rules` object.
 #' @param letters A list of base patterns in letters, must be a factor.
+#' @param rot Rotations of `letters`.
 #' @param code The transverse code.
 #' @param flip For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 #'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
@@ -249,14 +250,19 @@ setMethod("sfc_universe",
 #'     factor(c("I", "R", "L"), levels = sfc_universe(SFC_RULES_HILBERT)))
 setMethod("sfc_expand", 
     signature = "sfc_rules",
-    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp") {
+    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
 
-    if(!is.factor(letters)) {
-        stop_wrap("`letters` should be a factor.")
+    if(inherits(letters, "sfc_sequence")) {
+        p2 = sfc_expand(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
+        return(p2)
     }
 
-    if(!identical(levels(letters), sfc_universe(p))) {
-        stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
+    if(!is.factor(letters)) {
+        letters = factor(letters, levels = sfc_universe(p))
+    } else {
+        if(!identical(levels(letters), sfc_universe(p))) {
+            stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
+        }
     }
 
     n = length(letters)
@@ -295,7 +301,7 @@ setMethod("sfc_expand",
                 }
             })
         }
-        do.call("c", pl)
+        p2 = do.call("c", pl)
     } else {
         lt_rules = lapply(p@rules, function(r) {
             lapply(r, function(x) {
@@ -315,7 +321,11 @@ setMethod("sfc_expand",
             lt = expand_by_rules_2_cpp(lt_rules, lt_flip, as.integer(letters), code, flip)
         }
         attributes(lt[[1]]) = list(levels = sfc_universe(p), class = "factor")
-        sfc_sequence(seq = lt[[1]], rot = lt[[2]])
+        p2 = sfc_sequence(seq = lt[[1]], rot = lt[[2]])
+    }
+
+    if(!is.null(rot)) {
+        p2 = sfc_rotate(p2, rep(rot, each = length(p@rules[[1]][[1]])))
     }
 })
 
@@ -349,6 +359,8 @@ grob_single_base_rule = function(p, bp, ...) {
         level0 = sfc_peano(bp, flip = p@flip)
     } else if(inherits(p, "sfc_meander")) {
         level0 = sfc_meander(bp, flip = p@flip)
+    } else if(inherits(p, "sfc_3x3_combined")) {
+        level0 = sfc_3x3_combined(bp, level = 0)
     }
 
     pl = rules@rules[[bp]]
@@ -367,7 +379,7 @@ grob_single_base_rule = function(p, bp, ...) {
     }
 
     vp_xscale = c(0, 13+2*k)
-    vp_yscale = c(-(nr-1)*(k+1)-1, k+1)
+    vp_yscale = c(-(nr-1)*(k+2)-1, k+1)
 
     vp_width = diff(vp_xscale)*size
     vp_height = diff(vp_yscale)*size
@@ -385,17 +397,23 @@ grob_single_base_rule = function(p, bp, ...) {
     ii = 2;
     for(i in 1:nr) {
         ii = ii + 1
-        gbl[[ii]] = sfc_grob(pl[[i*2-1]], x = 4 + k/2, y = k - (i-1)*(k+1) - k/2, default.units = "native", extend = TRUE)
+        gbl[[ii]] = sfc_grob(pl[[i*2-1]], x = 4 + k/2, y = k/2 - (i-1)*(k+2), default.units = "native", extend = TRUE)
         gbl[[ii]]$children[[1]]$gp = gpar(col = "grey", lwd = 1)
         gbl[[ii]]$children[[2]]$gp = gpar(col = "grey", lwd = 1)
         gbl[[ii]]$children[[3]]$gp = gpar(col = "black", lwd = 1)
+        class(gbl[[ii]]) = setdiff(class(gbl[[ii]]), "grob_sfc_sequence")
+        gbl[[ii]]$vp$width = (k+2)*size
+        gbl[[ii]]$vp$height = (k+2)*size
 
         if(i*2 <= n) {
             ii = ii + 1
-            gbl[[ii]] = sfc_grob(pl[[i*2]], x = 5 + k + k/2, y = k - (i-1)*(k+1) - k/2, default.units = "native", extend = TRUE)
+            gbl[[ii]] = sfc_grob(pl[[i*2]], x = 4 + k+1 + k/2, y = k/2 - (i-1)*(k+2), default.units = "native", extend = TRUE)
             gbl[[ii]]$children[[1]]$gp = gpar(col = "grey", lwd = 1)
             gbl[[ii]]$children[[2]]$gp = gpar(col = "grey", lwd = 1)
             gbl[[ii]]$children[[3]]$gp = gpar(col = "black", lwd = 1)
+            class(gbl[[ii]]) = setdiff(class(gbl[[ii]]), "grob_sfc_sequence")
+            gbl[[ii]]$vp$width = (k+2)*size
+            gbl[[ii]]$vp$height = (k+2)*size
         }
     }
 
@@ -543,3 +561,5 @@ draw_rules_meander = function(flip = FALSE) {
     grid.draw(gb9)
 
 }
+
+

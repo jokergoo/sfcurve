@@ -5,16 +5,16 @@
 \alias{expand_h}
 \title{H-curve}
 \usage{
-h_curve(h, connect = c("h", "v"), iteration = 1, random = FALSE)
+h_curve(h, iteration = 1, connect = c("h", "v"), random = FALSE)
 
 expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh")
 }
 \arguments{
 \item{h}{It is the seed of the H-curve. The value should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}
 
-\item{connect}{How the four subunits are connected to for the H-curve on the next level. See \strong{Details}.}
-
 \item{iteration}{Number of iterations.}
+
+\item{connect}{How the four subunits are connected to for the H-curve on the next level. See \strong{Details}.}
 
 \item{random}{Whether to generate subunits randomly.}
 

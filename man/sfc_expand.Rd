@@ -14,7 +14,7 @@
 
 \S4method{sfc_expand}{sfc_meander}(p, code)
 
-\S4method{sfc_expand}{sfc_rules}(p, letters, code = 1L, flip = FALSE, by = "Cpp")
+\S4method{sfc_expand}{sfc_rules}(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL)
 }
 \arguments{
 \item{p}{An \code{sfc_rules} object.}
@@ -28,6 +28,8 @@ controls whether to flip the unit. Since currently it only works on the Peano cu
 vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.}
 
 \item{by}{Which implemnetation? Only for the testing purpose.}
+
+\item{rot}{Rotations of \code{letters}.}
 }
 \value{
 An object in the same class as the input. \code{sfc_expand()} on the \code{sfc_rules} objects returns an \code{sfc_sequence} object.

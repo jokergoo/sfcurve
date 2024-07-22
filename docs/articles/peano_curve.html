@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Generalized Peano Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-20</h4>
+            <h4 data-toc-skip class="date">2024-07-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/peano_curve.Rmd" class="external-link"><code>vignettes/peano_curve.Rmd</code></a></small>
       <div class="hidden name"><code>peano_curve.Rmd</code></div>
@@ -102,6 +102,21 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_peano</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-2-1.png" width="432" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_peano</a></span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-3-1.png" width="432" style="display: block; margin: auto;"></p>
+<p>Fro level 0 to level 1</p>
+<p><span class="math display">\[
+n_1 = 2
+\]</span></p>
+<p><span class="math display">\[
+n_2 = n_1^9 
+...
+n_k = n_{k-1}^9
+\]</span></p>
+<p><span class="math display">\[
+n_k = 2^{9^{k-1}}
+\]</span></p>
 </div>
   </div>
 

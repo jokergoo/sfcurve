@@ -32,3 +32,25 @@ library(sfcurve)
 ```{r, fig.width = 4.5, fig.height = 4.5}
 draw_rules_peano()
 ```
+
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+draw_rules_peano(flip = TRUE)
+```
+
+
+Fro level 0 to level 1
+
+$$
+n_1 = 2
+$$
+
+$$
+n_2 = n_1^9 
+...
+n_k = n_{k-1}^9
+$$
+
+$$
+n_k = 2^{9^{k-1}}
+$$

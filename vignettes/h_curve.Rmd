@@ -124,8 +124,13 @@ $$
 Then we can have the number of different forms of H-curve after iteration $k$, taking $H_1$ and $H_2$ as the base units:
 
 $$
-n_k = 2^{\cfrac{4^{k+1}-1}{3}} 
+n_k = 2^{4^k + 4^{k-1} + ... + 4 + 1} = 2^{\sum_{i=0}^k{4^i}} =  2^{\frac{4^{k+1}-1}{3}} 
 $$
+
+
+It shows after iteration $k$, each form can be assigned
+to an unique sequence of binary bits with length of $(4^{k+1}-1)/3$.
+
 
 ## More general forms
 
@@ -148,7 +153,7 @@ draw_multiple_curves(
 ```
 
 Also the connection methods for the four units are not necessary to be the same. In the followng example, 
-we take $H_0$ as the base unit and take `vhvh` as the connection method, i.e. the vertical segment of the
+we take $H_0$ as the base unit and take `vhvh` as the connection methods, i.e. the vertical segment of the
 first unit, the horizontal segment of the second unit, the vertical segment of the third unit and the horizontal
 segment of the fourth segment are opened:
 
@@ -175,3 +180,21 @@ draw_multiple_curves(
 )
 ```
 
+## Locality
+
+We look at an H-curve with 1024 points.
+
+```{r}
+p = h_curve(H1, iteration = 3)
+dim(p)
+```
+
+And their distances in the 2D space:
+
+```{r, fig.width = 7, fig.height = 7}
+m = as.matrix(dist(p))
+
+library(ComplexHeatmap)
+Heatmap(m, name = "dist", cluster_rows = FALSE, cluster_columns = FALSE,
+    show_row_names = FALSE, show_column_names = FALSE)
+```

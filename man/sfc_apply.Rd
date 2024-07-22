@@ -13,7 +13,8 @@
 \item{depth}{An integer between 0 and \code{level-1} of the curve.}
 
 \item{fun}{A function of which the argument \code{x} is a subunit in the curve. The subunit is an \code{sfc_nxn} object but only contains the current sub-sequence.
-The function should return an \code{sfc_seuqence} object with the same length as of \code{x}.}
+The function should return an \code{sfc_seuqence} object with the same length as of \code{x}. The function can take an optional second argument which
+the index of the current unit in the curve.}
 }
 \description{
 Apply to every unit in the sfc_nxn curve
@@ -51,7 +52,14 @@ p2 = sfc_apply(p, 2, function(x) {
         x
     }
 })
-draw_multiple_curves(p, p2, title = FALSE)
+p3 = sfc_apply(p2, 1, function(x, i) {
+    if(i \%\% 2 == 1) {
+        sfc_flip_unit(x)
+    } else {
+        x
+    }
+})
+draw_multiple_curves(p2, p3, title = FALSE)
 
 # flip all level-1 patterns to vertical
 p3 = sfc_apply(p, 2, function(x) {
