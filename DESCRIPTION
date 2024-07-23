@@ -10,8 +10,10 @@ Imports: grid, Rcpp, methods, colorRamp2
 Suggests: rmarkdown, knitr, rgl, testthat, ComplexHeatmap, igraph
 VignetteBuilder: knitr
 Description: Implementation of all possible forms of 2x2 and 3x3 space-filling curves, 
-    i.e., the generalized forms of the Hilbert curve, the Peano curve and the Meander curve.
-    It also implements the three-dimensional Hilbert curve and the H-curve.
+    i.e., the generalized forms of the Hilbert curve <https://en.wikipedia.org/wiki/Hilbert_curve>, 
+    the Peano curve <https://en.wikipedia.org/wiki/Peano_curve> and the Peano curve in the 
+    meander type (Figure 5 in <http://eudml.org/doc/141086>).
+    It also implements the H-curve and the three-dimensional Hilbert curve.
 URL: https://github.com/jokergoo/sfcurve
 License: MIT + file LICENSE
 LinkingTo: Rcpp
