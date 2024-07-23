@@ -152,6 +152,11 @@ get_one_transverse_path = function(rules, p) {
 #' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 1)
 #' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 2)
 plot_transverse_paths = function(rules, p, paths, type = 0) {
+
+    if(!identical(sfc_universe(rules), sfc_universe(p))) {
+        stop_wrap("Universe set of `rules` and `p` should be identical.")
+    }
+    
     rules = rules@rules
     seq = p@seq
     rot = p@rot

@@ -138,5 +138,36 @@ draw_rules_3x3_combined = function(flip = FALSE) {
     nc = length(gb3$children)
     gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(25, "mm")
     grid.draw(gb3)
+
+    gb4 = grob_single_base_rule(p, "U", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size, just = c("left", "top"))
+    nc = length(gb4$children)
+    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb4)
+
+	gb5 = grob_single_base_rule(p, "B", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height, just = c("left", "top"))
+    nc = length(gb5$children)
+    gb5$children[[nc]]$width = gb5$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb5)
+
+    gb6 = grob_single_base_rule(p, "D", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height, just = c("left", "top"))
+    nc = length(gb6$children)
+    gb6$children[[nc]]$width = gb6$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb6)
+
+    gb7 = grob_single_base_rule(p, "P", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
+    nc = length(gb7$children)
+    gb7$children[[nc]]$width = gb7$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb7)
+
+	gb8 = grob_single_base_rule(p, "Q", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
+    nc = length(gb8$children)
+    gb8$children[[nc]]$width = gb8$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb8)
+
+    gb9 = grob_single_base_rule(p, "C", x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
+    nc = length(gb9$children)
+    gb9$children[[nc]]$width = gb9$children[[nc]]$width + unit(35, "mm")
+    grid.draw(gb9)
+
 }
 

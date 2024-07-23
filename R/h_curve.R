@@ -26,7 +26,7 @@ rotate_90 = function(pos) {
 #' subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
 #' segment and the vertical segment on the topright corner in subunit 1.
 #' 
-#' In this way, in `h_curve()`, the argument `connect` only accepts a single value of `"h"` or `"v"` where the types of segments for 
+#' In this way, in `sfc_h()`, the argument `connect` only accepts a single value of `"h"` or `"v"` where the types of segments for 
 #' all the four subunits are the same, i.e. whether all the horizontal corner segments are opened or whether all the vertical corner
 #' segments are opened. In `expand_h()`, the argument `connect` can be set to a vector of length four where the type of segments of the
 #' four subunits can be set separately.
@@ -40,14 +40,14 @@ rotate_90 = function(pos) {
 #' @importFrom stats runif
 #' @examples
 #' draw_multiple_curves(
-#'     h_curve(H0, iteration = 2),
-#'     h_curve(H1, iteration = 2)
+#'     sfc_h(H0, iteration = 2),
+#'     sfc_h(H1, iteration = 2)
 #' )
 #' draw_multiple_curves(
-#'     h_curve(H1, iteration = 3, random = TRUE),
-#'     h_curve(H1, iteration = 3, random = TRUE)
+#'     sfc_h(H1, iteration = 3, random = TRUE),
+#'     sfc_h(H1, iteration = 3, random = TRUE)
 #' )
-h_curve = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
+sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 
 	if(random) {
 		hl = list(h, h, h, h)

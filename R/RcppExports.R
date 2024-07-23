@@ -17,6 +17,14 @@ sfc_segments_cpp <- function(seq, rot, bases, start) {
     .Call(`_sfcurve_sfc_segments_cpp`, seq, rot, bases, start)
 }
 
+hilbert_curve_cpp <- function(level, type = 1L) {
+    .Call(`_sfcurve_hilbert_curve_cpp`, level, type)
+}
+
+peano_curve_cpp <- function(level, type = 0L) {
+    .Call(`_sfcurve_peano_curve_cpp`, level, type)
+}
+
 int_to_binary <- function(x, len) {
     .Call(`_sfcurve_int_to_binary`, x, len)
 }

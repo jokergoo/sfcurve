@@ -1,0 +1,74 @@
+---
+title: "Standard curves"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r, echo = FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center")
+
+library(grid)
+library(sfcurve)
+```
+
+The standard curves have self-recursive.
+
+```{r, fig.width = 9, fig.height = 3}
+p = hilbert_curve(level = 4)
+draw_multiple_curves(
+    p |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 3) |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 2),
+    nrow = 1)
+```
+
+```{r, fig.width = 9, fig.height = 3}
+p = moore_curve(level = 4)
+draw_multiple_curves(
+    p |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 3) |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 2),
+    nrow = 1)
+```
+
+
+```{r, fig.width = 9, fig.height = 3}
+p = beta_omega_curve(level = 4)
+draw_multiple_curves(
+    p |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 3) |> sfc_grob() |> add_base_structure(level = 2),
+    sfc_reduce(p, 2),
+    nrow = 1)
+```
+
+```{r, fig.width = 9, fig.height = 3}
+p = peano_curve(level = 3)
+draw_multiple_curves(
+    p |> sfc_grob() |> add_base_structure(level = 1),
+    sfc_reduce(p, 2) |> sfc_grob() |> add_base_structure(level = 1),
+    sfc_reduce(p, 1),
+    nrow = 1)
+```
+
+```{r, fig.width = 9, fig.height = 3}
+p = meander_curve(level = 3)
+draw_multiple_curves(
+    p |> sfc_grob() |> add_base_structure(level = 1),
+    sfc_reduce(p, 2) |> sfc_grob() |> add_base_structure(level = 1),
+    sfc_reduce(p, 1),
+    nrow = 1)
+```

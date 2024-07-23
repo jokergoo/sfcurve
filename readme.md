@@ -82,7 +82,7 @@ It also allows using a sequence as the seed:
 
 ```
 p = sfc_seed("LLLILILIILIILIIILIIILIIII")
-p2 = sfc_hilbert(p, code = c(1, 1, 1, 1))
+p2 = sfc_hilbert(p, "1111")
 plot(p2)
 ```
 

@@ -63,6 +63,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hilbert_curve_cpp
+List hilbert_curve_cpp(int level, int type);
+RcppExport SEXP _sfcurve_hilbert_curve_cpp(SEXP levelSEXP, SEXP typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type level(levelSEXP);
+    Rcpp::traits::input_parameter< int >::type type(typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(hilbert_curve_cpp(level, type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// peano_curve_cpp
+List peano_curve_cpp(int level, int type);
+RcppExport SEXP _sfcurve_peano_curve_cpp(SEXP levelSEXP, SEXP typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type level(levelSEXP);
+    Rcpp::traits::input_parameter< int >::type type(typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(peano_curve_cpp(level, type));
+    return rcpp_result_gen;
+END_RCPP
+}
 // int_to_binary
 IntegerVector int_to_binary(int x, int len);
 RcppExport SEXP _sfcurve_int_to_binary(SEXP xSEXP, SEXP lenSEXP) {
@@ -81,6 +105,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_sfcurve_expand_by_rules_cpp", (DL_FUNC) &_sfcurve_expand_by_rules_cpp, 3},
     {"_sfcurve_expand_by_rules_2_cpp", (DL_FUNC) &_sfcurve_expand_by_rules_2_cpp, 5},
     {"_sfcurve_sfc_segments_cpp", (DL_FUNC) &_sfcurve_sfc_segments_cpp, 4},
+    {"_sfcurve_hilbert_curve_cpp", (DL_FUNC) &_sfcurve_hilbert_curve_cpp, 2},
+    {"_sfcurve_peano_curve_cpp", (DL_FUNC) &_sfcurve_peano_curve_cpp, 2},
     {"_sfcurve_int_to_binary", (DL_FUNC) &_sfcurve_int_to_binary, 2},
     {NULL, NULL, 0}
 };

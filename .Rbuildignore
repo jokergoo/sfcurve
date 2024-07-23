@@ -22,3 +22,5 @@ vignettes/hilbert_curve.Rmd
 vignettes/meander_curve.Rmd
 vignettes/peano_curve.Rmd
 vignettes/h_curve.Rmd
+vignettes/all_3x3_curve.Rmd
+vignettes/standard_curves.Rmd

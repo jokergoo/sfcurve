@@ -153,22 +153,10 @@ unit_orientation = function(p, index = "") {
 		if(!is.character(index)) {
 			stop_wrap("`index` should be a character scalar.")
 		}
-		if(nchar(index) < ceiling(p@level/2)) {
-			if(inherits(p, "sfc_hilbert")) {
-				fun = sfc_hilbert
-			} else if(inherits(p, "sfc_peano")) {
-				fun = sfc_peano
-			} else if(inherits(p, "sfc_meander")) {
-				fun = sfc_meander
-			}
-
-			pp = fun(p@seed, code = p@code[seq_len(length(index) + 1)])
-			loc = reduce_loc_to_level_1(pp, pp@n, Inf)
-		} else {
-			unit = p[index]
-
-			loc = reduce_loc_to_level_1(unit, p@n, Inf)
-		}
+		
+		unit = p[index]
+		loc = reduce_loc_to_level_1(unit, p@n, Inf)
+		
 	}
 
 	n = nrow(loc)
@@ -213,6 +201,17 @@ setMethod("sfc_flip_unit",
 		if(!length(p) %in% (p@n^2)^(seq_len(p@level))) {
 			stop_wrap("Since `p` is only a fragment of the curve, it should be represented as a square with length of ", paste((p@n^2)^(seq_len(p@level)), collapse = ", "), ".")
 		}
+	}
+
+	if(!is.character(index)) {
+		stop_wrap("`index` should be in character.")
+	}
+
+	if(length(index) > 1) {
+		for(i in index) {
+			p = sfc_flip_unit(p, i)
+		}
+		return(p)
 	}
 
 	unit = p[index]

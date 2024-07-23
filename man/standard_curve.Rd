@@ -6,20 +6,27 @@
 \alias{beta_omega_curve}
 \alias{peano_curve}
 \alias{meander_curve}
+\alias{h_curve}
 \title{Various curves in their standard forms}
 \usage{
-hilbert_curve(level = 2)
+hilbert_curve(level = 2L, by = "Cpp")
 
-moore_curve(level = 2)
+moore_curve(level = 2L)
 
-beta_omega_curve(level = 2)
+beta_omega_curve(level = 2L)
 
-peano_curve(level = 2)
+peano_curve(level = 2L, by = "Cpp")
 
-meander_curve(level = 2)
+meander_curve(level = 2L)
+
+h_curve(iteration = 2L)
 }
 \arguments{
 \item{level}{Level of the curve.}
+
+\item{by}{Which implemnetation? Only for the testing purpose.}
+
+\item{iteration}{Number of iterations.}
 }
 \value{
 A two-column matrix of the coordinates of points on the curve.
@@ -51,5 +58,9 @@ draw_multiple_curves(
 draw_multiple_curves(
     meander_curve(2),
     meander_curve(3)
+)
+draw_multiple_curves(
+    h_curve(1),
+    h_curve(2)
 )
 }

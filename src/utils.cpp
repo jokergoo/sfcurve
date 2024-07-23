@@ -105,7 +105,7 @@ List c_list3(List pos1, List pos2, List pos3) {
 	return pos;
 }
 
-bool is_bit_one(int x, int pos) {
+bool is_bit_one2(int x, int pos) {
 	bool l = x & (1 << (pos - 1));
 	return l;
 }
@@ -114,7 +114,7 @@ bool is_bit_one(int x, int pos) {
 IntegerVector int_to_binary(int x, int len) {
 	IntegerVector b(len);
 	for(int i = 0; i < len; i ++) {
-		b[len - i - 1] = is_bit_one(x, i+1);
+		b[len - i - 1] = is_bit_one2(x, i+1);
 	}
 	return b;
 }

@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 #include "utils.h"
 
-double size(NumericVector x) {
+double size_of_curve(NumericVector x) {
 	return pow(x.size(), 1/3.0);
 }
 
@@ -31,7 +31,7 @@ void move(NumericVector x, NumericVector y, NumericVector z, double x_offset, do
 
 
 void rotate_by_z_axis(NumericVector x, NumericVector y, NumericVector z, int angle) {
-	double offset = (size(x) - 1.0)/2;
+	double offset = (size_of_curve(x) - 1.0)/2;
 
 	NumericVector temp;
 	if(angle == 90) {
@@ -61,7 +61,7 @@ void rotate_by_z_axis(NumericVector x, NumericVector y, NumericVector z, int ang
 }
 
 void rotate_by_x_axis(NumericVector x, NumericVector y, NumericVector z, int angle) {
-	double offset = (size(x) - 1.0)/2;
+	double offset = (size_of_curve(x) - 1.0)/2;
 
 	NumericVector temp;
 	if(angle == 90) {
@@ -91,7 +91,7 @@ void rotate_by_x_axis(NumericVector x, NumericVector y, NumericVector z, int ang
 }
 
 void rotate_by_y_axis(NumericVector x, NumericVector y, NumericVector z, int angle) {
-	double offset = (size(x) - 1.0)/2;
+	double offset = (size_of_curve(x) - 1.0)/2;
 
 	NumericVector temp;
 	if(angle == 90) {
@@ -130,7 +130,7 @@ void fold_hc(NumericVector x1, NumericVector y1, NumericVector z1,
 	NumericVector x7, NumericVector y7, NumericVector z7,
 	NumericVector x8, NumericVector y8, NumericVector z8) {
 	
-	double offset = size(x1);
+	double offset = size_of_curve(x1);
 
 	rotate_by_x_axis(x1, y1, z1, -90);
 	rotate_by_y_axis(x1, y1, z1, 90);

@@ -59,13 +59,18 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title
 		closed = rep(closed, n)
 	}
 	
-
-	if(inherits(pl[[1]], "sfc_sequence")) {
-		gbl = lapply(seq_along(pl), function(i) sfc_grob(pl[[i]], extend = extend, title = title[i], closed = closed[i]))
-	} else {
-		gbl = lapply(seq_along(pl), function(i) sfc_grob(pl[[i]], title = title[i], closed = closed[i]))
-	}
-
+	gbl = lapply(seq_along(pl), function(i) {
+		if(inherits(pl[[i]], "sfc_sequence")) {
+			sfc_grob(pl[[i]], extend = extend, title = title[i], closed = closed[i])
+		} else if(inherits(pl[[i]], "matrix")) {
+			sfc_grob(pl[[i]], title = title[i], closed = closed[i])
+		} else if(inherits(pl[[i]], "grob")) {
+			pl[[i]]
+		} else {
+			stop_wrap("Wrong data type.")
+		}
+	})
+	
 	grid.newpage()
 	pushViewport(viewport(layout = grid.layout(nrow = nrow, ncol = ncol)))
 	for(i in seq_len(nrow)) {

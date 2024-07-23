@@ -62,8 +62,8 @@ See the next two plots:
 
 ```{r}
 draw_multiple_curves(
-    h_curve(H1, iteration = 1, connect = "h"),
-    h_curve(H1, iteration = 1, connect = "v"),
+    sfc_h(H1, iteration = 1, connect = "h"),
+    sfc_h(H1, iteration = 1, connect = "v"),
     closed = TRUE
 )
 ```
@@ -172,10 +172,10 @@ while its global structure is still unchanged:
 
 ```{r, fig.width = 8, fig.height = 8}
 draw_multiple_curves(
-    h_curve(H1, iteration = 3, random = TRUE),
-    h_curve(H1, iteration = 3, random = TRUE),
-    h_curve(H1, iteration = 5, random = TRUE),
-    h_curve(H1, iteration = 5, random = TRUE),
+    sfc_h(H1, iteration = 3, random = TRUE),
+    sfc_h(H1, iteration = 3, random = TRUE),
+    sfc_h(H1, iteration = 5, random = TRUE),
+    sfc_h(H1, iteration = 5, random = TRUE),
     nrow = 2
 )
 ```
@@ -185,7 +185,7 @@ draw_multiple_curves(
 We look at an H-curve with 1024 points.
 
 ```{r}
-p = h_curve(H1, iteration = 3)
+p = sfc_h(H1, iteration = 3)
 dim(p)
 ```
 

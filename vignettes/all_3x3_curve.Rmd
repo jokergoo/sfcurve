@@ -1,0 +1,138 @@
+---
+title: "3x3 Curve"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r, echo = FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center")
+
+library(grid)
+library(sfcurve)
+```
+
+
+## Base patterns
+
+We can merge base patterns from the Peano curve and the Meander curve to
+construct a universe set of base patterns for the general 3x3 space-filling curves.
+
+```{r, fig.width = 10.5, fig.height = 6.5, out.width = "100%"}
+draw_rules_3x3_combined()
+```
+
+Note, `J` from the Peano curve is put into the `I` base group.
+
+## Transverse path
+
+The transverse paths from level $k$ to level $k+1$ are massive. Let's try to
+expand $I_1^{(1)}$ to the next level. The following plot shows all transverse
+paths for the sequence `I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)` to level 2.
+
+
+```{r, fig.width = 9}
+p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
+p
+pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
+length(pl)
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl)
+```
+
+And the numbers of total transverse paths for other level-1 base patterns:
+
+```{r}
+for(b in c("I", "R", "L", "U", "B", "D", "P", "Q", "C")) {
+    for(i in seq_along(SFC_RULES_3x3_COMBINED@rules[[b]])) {
+        pl2 = all_transverse_paths(
+            SFC_RULES_3x3_COMBINED, 
+            SFC_RULES_3x3_COMBINED@rules[[b]][[i]])
+        cat(b, "_", i, ": ", length(pl2), "\n", sep = "")
+    }
+}
+```
+
+In the Peano curve, all level-1 patterns have the corner values of `(1, 1)` or `(2, 2)`.
+In the following, we can see the Peano curve only has one specific transverse path on
+any level $k$.
+
+```{r, fig.width = 9}
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 1)
+```
+
+For the Meander curve, the corner values are always `(1, 2)` or `(2, 1)`. 
+There are always two transverse paths for any given $k$. If the transverse code
+for the first base pattern is determined, the whole transverse path is then fixed.
+
+```{r, fig.width = 9}
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 2)
+```
+
+let's guess from level k ($9^{k}$ points) to k+1, the total number of transverse
+paths are:
+
+$$
+t_{k} \approx \alpha^{9^{k}}
+$$
+
+Let's consider a sequence with all $n$ $I$, take one base pattern for the first letter,
+from the second, a base pattern can connect to two (e.g. (1, 1) at position 1 can connect to
+(2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is $2^{n-1}$.
+There are four base patterns ar position 1, so the maximal number of transverse paths for n letters 
+are $4 \cdot 2^{n-1} = 2 \cdot 2^n$. Then
+
+$$
+\begin{align*}
+\alpha^{n} = 2 \cdot 2^n \\
+\alpha &= 2 \cdot 2^{1/n} \approx 2 \\
+\end{align*}
+$$
+
+So $\alpha$ is a number between 1 and 2. 
+
+$$
+\begin{align*}
+n_1 &= n_0 \\
+n_2 &= n_1 \cdot t_1 \\
+    & ... \\
+n_k &= n_{k-1} \cdot t_{k-1} \\
+\end{align*}
+$$
+
+Then
+
+$$
+n_k \approx \alpha^{\frac{9^k -1}{8}}
+$$
+
+By also considering the flipped rules, the final number is approximate
+
+$$
+9 \cdot 4 \cdot \alpha^{\frac{9^k -1}{8}} \cdot 2^{\frac{9^k -1}{8}}
+$$
+
+## Curves
+
+`sfc_3x3_combined()` generates a curve where on each level, a transverse path is randomly
+picked.
+
+```{r, fig.width = 8, fig.height = 4}
+draw_multiple_curves(
+    sfc_3x3_combined("I", level = 3),
+    sfc_3x3_combined("I", level = 3),
+    title = FALSE
+)
+```

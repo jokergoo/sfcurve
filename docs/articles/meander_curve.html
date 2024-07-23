@@ -56,6 +56,12 @@
       <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
     </li>
     <li>
+      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/standard_curves.html">Standard curves</a>
+    </li>
+    <li>
       <a href="../articles/h_curve.html">H-Curve</a>
     </li>
   </ul>
@@ -87,7 +93,7 @@
       <h1 data-toc-skip>Generalized Meander Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-22</h4>
+            <h4 data-toc-skip class="date">2024-07-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/meander_curve.Rmd" class="external-link"><code>vignettes/meander_curve.Rmd</code></a></small>
       <div class="hidden name"><code>meander_curve.Rmd</code></div>
@@ -99,9 +105,51 @@
 <div class="section level2">
 <h2 id="base-patterns">Base patterns<a class="anchor" aria-label="anchor" href="#base-patterns"></a>
 </h2>
+<p>The Meander curve has a different set of base patterns.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_meander</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="meander_curve_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>The expansions are very similar as the Hilbert curve, but it also has a flipped version where the units can be flipped horizontally or vertically on various levels.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_meander</a></span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="curves">Curves<a class="anchor" aria-label="anchor" href="#curves"></a>
+</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="flip">Flip<a class="anchor" aria-label="anchor" href="#flip"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
+<span>    <span class="va">p</span>,</span>
+<span>    <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
+</h2>
+<p><span class="math display">\[
+9 \cdot 4 \cdot 2^k \cdot 2^{\frac{9^k - 1}{8}}
+\]</span></p>
 </div>
   </div>
 

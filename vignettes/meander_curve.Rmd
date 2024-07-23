@@ -28,7 +28,51 @@ library(sfcurve)
 
 ## Base patterns
 
+The Meander curve has a different set of base patterns.
 
-```{r, fig.width = 10.3, fig.height = 6, out.width = "100%"}
+```{r, fig.width = 10.3, fig.height = 5.5, out.width = "100%"}
 draw_rules_meander()
 ```
+
+The expansions are very similar as the Hilbert curve, but it also has a
+flipped version where the units can be flipped horizontally or vertically
+on various levels.
+
+```{r, fig.width = 10.3, fig.height = 5.5, out.width = "100%"}
+draw_rules_meander(flip = TRUE)
+```
+
+## Curves
+
+```{r, fig.width = 8, fig.height = 4}
+draw_multiple_curves(
+    sfc_meander("R", code = c(1, 1, 1)),
+    sfc_meander("R", code = c(1, 1, 2)),
+    sfc_meander("R", code = c(1, 2, 1)),
+    sfc_meander("R", code = c(1, 2, 2)),
+    sfc_meander("R", code = c(2, 1, 1)),
+    sfc_meander("R", code = c(2, 1, 2)),
+    sfc_meander("R", code = c(2, 2, 1)),
+    sfc_meander("R", code = c(2, 2, 2)),
+    nrow = 2)
+```
+
+## Flip
+
+```{r, fig.width = 8, fig.height = 8}
+p = sfc_meander("I", 11)
+draw_multiple_curves(
+    p,
+    sfc_flip_unit(p, "1"),
+    sfc_flip_unit(p, "2"),
+    sfc_flip_unit(p, c("6", "7", "8", "9")),
+    nrow = 2
+)
+```
+
+## Number of different forms
+
+$$
+9 \cdot 4 \cdot 2^k \cdot 2^{\frac{9^k - 1}{8}}
+$$
+

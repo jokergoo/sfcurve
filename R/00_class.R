@@ -57,6 +57,7 @@ setGeneric('sfc_is_compatible', function(p, ...) standardGeneric('sfc_is_compati
 setGeneric('sfc_index', function(p, ...) standardGeneric('sfc_index'))
 setGeneric('sfc_flip_unit', function(p, ...) standardGeneric('sfc_flip_unit'))
 setGeneric('sfc_apply', function(p, ...) standardGeneric('sfc_apply'))
+setGeneric('sfc_reduce', function(p, ...) standardGeneric('sfc_reduce'))
 setGeneric('level1_unit_orientation', function(p, ...) standardGeneric('level1_unit_orientation'))
 setGeneric('change_level1_unit_orientation', function(p, ...) standardGeneric('change_level1_unit_orientation'))
 

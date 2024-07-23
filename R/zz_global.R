@@ -248,19 +248,33 @@ RULES_MEANDER_FLIP[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 
 ####
 
-UNIVERSE_3x3_COMBINED = c("I", "R", "L")
+UNIVERSE_3x3_COMBINED = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
 RULES_3x3_COMBINED = list()
-RULES_3x3_COMBINED[["I"]][[1]] = sfc_unit("IIRRILLII", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
-RULES_3x3_COMBINED[["I"]][[2]] = sfc_unit("IILLIRRII", rot = 0, universe = UNIVERSE_3x3_COMBINED)
-RULES_3x3_COMBINED[["R"]][[1]] = sfc_unit("IIRRILLIR", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
-RULES_3x3_COMBINED[["L"]][[1]] = sfc_unit("IILLIRRIL", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
 
-RULES_3x3_COMBINED[["I"]][[3]] = sfc_unit("RILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
-RULES_3x3_COMBINED[["I"]][[4]] = sfc_unit("LIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)
-RULES_3x3_COMBINED[["R"]][[2]] = sfc_unit("IIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
-RULES_3x3_COMBINED[["R"]][[3]] = sfc_unit("LIRIRRLLR", rot = 0, universe = UNIVERSE_3x3_COMBINED)
-RULES_3x3_COMBINED[["L"]][[2]] = sfc_unit("RILILLRRL", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
-RULES_3x3_COMBINED[["L"]][[3]] = sfc_unit("IILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["I"]][[1]] = sfc_unit("RILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
+RULES_3x3_COMBINED[["I"]][[2]] = sfc_unit("LIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["R"]][[1]] = sfc_unit("IIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
+RULES_3x3_COMBINED[["R"]][[2]] = sfc_unit("LIRIRRLLR", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["L"]][[1]] = sfc_unit("RILILLRRL", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["L"]][[2]] = sfc_unit("IILILLRRI", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+
+RULES_3x3_COMBINED[["I"]][[3]] = sfc_unit("IIRRILLII", rot = 0, universe = UNIVERSE_3x3_COMBINED)  
+RULES_3x3_COMBINED[["I"]][[4]] = sfc_unit("IILLIRRII", rot = 0, universe = UNIVERSE_3x3_COMBINED)
+RULES_3x3_COMBINED[["R"]][[3]] = sfc_unit("IIRRILLIR", rot = 0, universe = UNIVERSE_3x3_COMBINED)      
+RULES_3x3_COMBINED[["L"]][[3]] = sfc_unit("IILLIRRIL", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+
+RULES_3x3_COMBINED[["U"]][[1]] = sfc_unit("RLLRRIRII", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["U"]][[2]] = sfc_unit("LRRLLILII", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["B"]][[1]] = sfc_unit("RRRLLILIR", rot = 90, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["B"]][[2]] = sfc_unit("LLLRRIRII", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["D"]][[1]] = sfc_unit("RRRLLILII", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["D"]][[2]] = sfc_unit("LLLRRIRIL", rot = 270, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["P"]][[1]] = sfc_unit("RLLRRIRIR", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["P"]][[2]] = sfc_unit("IRRLLILIL", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["Q"]][[1]] = sfc_unit("LRRLLILIL", rot = 0, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["Q"]][[2]] = sfc_unit("ILLRRIRIR", rot = 0, universe = UNIVERSE_3x3_COMBINED) 
+RULES_3x3_COMBINED[["C"]][[1]] = sfc_unit("RRRLLILIL", rot = 270, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
+RULES_3x3_COMBINED[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIVERSE_3x3_COMBINED)                    # 1, 2
 
 
 ###

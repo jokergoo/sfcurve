@@ -11,6 +11,10 @@ navbar:
           href: articles/peano_curve.html
         - text: "Generalized Meander Curve"
           href: articles/meander_curve.html
+        - text: "3x3 Curve"
+          href: articles/all_3x3_curve.html
+        - text: "Standard curves"
+          href: articles/standard_curves.html
         - text: "H-Curve"
           href: articles/h_curve.html
     - text: "Reference"
