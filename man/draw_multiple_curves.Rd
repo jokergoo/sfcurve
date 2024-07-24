@@ -6,11 +6,14 @@
 \usage{
 draw_multiple_curves(
   ...,
-  nrow = 1,
+  nrow = NULL,
   ncol = NULL,
   extend = TRUE,
-  title = TRUE,
-  closed = FALSE
+  title = FALSE,
+  closed = FALSE,
+  padding = unit(0, "pt"),
+  lwd = 4,
+  col = NULL
 )
 }
 \arguments{
@@ -21,12 +24,19 @@ can also be a list of two-column coordinate matrices.}
 
 \item{ncol}{Number of columns in the layout.}
 
-\item{extend}{Whether to draw the entering and leaving segments?}
+\item{extend}{Whether to draw the entering and leaving segments? It is only used when input is a list of \code{sfc_sequence} objects.}
 
 \item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.
 Or the value can be a vector of strings.}
 
-\item{closed}{Whether the curves are closed? The value should be a logical vector.}
+\item{closed}{Whether the curves are closed? The value should be a logical vector. If it is \code{TRUE}, the last point
+is connected to the first point in the curve to form a closed curve.}
+
+\item{padding}{Space around each curve. The value should be a \code{\link[grid:grid.grob]{grid::grob}} object.}
+
+\item{lwd}{Line width.}
+
+\item{col}{Color for segments. If the value is \code{NULL}, it uses the "Spectral" color palettes.}
 }
 \description{
 Draw multiple curves

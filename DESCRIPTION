@@ -1,6 +1,6 @@
 Package: sfcurve
 Type: Package
-Title: 2x2 and 3x3 Space-Filling Curve
+Title: 2x2 and 3x3 Space-Filling Curves
 Version: 0.99.0
 Date: 2024-07-20
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),

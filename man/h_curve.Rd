@@ -10,13 +10,13 @@ sfc_h(h, iteration = 1, connect = c("h", "v"), random = FALSE)
 expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh")
 }
 \arguments{
-\item{h}{It is the seed of the H-curve. The value should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}
+\item{h}{The seed of the H-curve. The value should be one of \code{\link{H0}}, \code{\link{H1}} or \code{\link{H2}}.}
 
 \item{iteration}{Number of iterations.}
 
-\item{connect}{How the four subunits are connected to for the H-curve on the next level. See \strong{Details}.}
+\item{connect}{How the four subunits are connected to form the H-curve on the next level. See \strong{Details}.}
 
-\item{random}{Whether to generate subunits randomly.}
+\item{random}{Whether to generate subunits randomly on each iteration.}
 
 \item{h1}{The first subunit.}
 
@@ -33,13 +33,13 @@ A two-column matrix of the coordinates of points on the curve.
 H-curve
 }
 \details{
-A H-curve on level k is composed by four subunits on level k-1. If we number the four subunits in the following order:
+An H-curve on level k is composed with four subunits on level k-1. If we number the four subunits in the following order:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{2  3
 1  4
 }\if{html}{\out{</div>}}
 
-where subunit 1 connects to subunit 2, subunit 2 connect to subunit 3, et al., and e.g. subunit 1 connects to subunit 2
+where subunit 1 connects to subunit 2, subunit 2 connects to subunit 3, et al., and e.g. subunit 1 connects to subunit 2
 via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to
 subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
 segment and the vertical segment on the topright corner in subunit 1.
@@ -55,15 +55,18 @@ to rotate by 90 degrees.
 \examples{
 draw_multiple_curves(
     sfc_h(H0, iteration = 2),
-    sfc_h(H1, iteration = 2)
+    sfc_h(H2, iteration = 2),
+    closed = TRUE, nrow =1
 )
 draw_multiple_curves(
     sfc_h(H1, iteration = 3, random = TRUE),
-    sfc_h(H1, iteration = 3, random = TRUE)
+    sfc_h(H1, iteration = 3, random = TRUE),
+    closed = TRUE, nrow = 1
 )
 draw_multiple_curves(
     expand_h(H0, connect = "hvvh"),
-    expand_h(H1, connect = "vvhh")
+    expand_h(H1, connect = "vvhh"),
+    closed = TRUE, nrow = 1
 )
 
 # set the four subunits separately
@@ -71,11 +74,12 @@ h1 = expand_h(H0, connect = "hhhh")
 h2 = expand_h(H0, connect = "vvvv")
 h3 = expand_h(H0, connect = "hvhv")
 h4 = expand_h(H0, connect = "hvvh")
-expand_h(h1, h2, h3, h4, connect = "vhvh") |> plot_segments()
+expand_h(h1, h2, h3, h4, connect = "vhvh") |> 
+    plot_segments(closed = TRUE)
 
 fun = function(h, k) {
     for(i in 1:k) h = expand_h(h, connect = "vhvh")
     h
 }
-fun(H0, 4) |> plot_segments()
+fun(H0, 4) |> plot_segments(closed = TRUE)
 }

@@ -15,16 +15,19 @@ moore_curve(level = 2L)
 
 beta_omega_curve(level = 2L)
 
-peano_curve(level = 2L, by = "Cpp")
+peano_curve(level = 2L, level_2 = "vvvvvvvvv", by = "Cpp")
 
-meander_curve(level = 2L)
+meander_curve(level = 2L, level_2 = "fffffffff")
 
 h_curve(iteration = 2L)
 }
 \arguments{
 \item{level}{Level of the curve.}
 
-\item{by}{Which implemnetation? Only for the testing purpose.}
+\item{by}{Which implementation? Only for the testing purpose.}
+
+\item{level_2}{The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The
+value should be a string with 9 letters of "v"/"h" (vertical or horizontal).}
 
 \item{iteration}{Number of iterations.}
 }
@@ -35,32 +38,48 @@ A two-column matrix of the coordinates of points on the curve.
 Various curves in their standard forms
 }
 \details{
-These are just special forms of \code{\link[=sfc_hilbert]{sfc_hilbert()}}, \code{\link[=sfc_peano]{sfc_peano()}} and \code{\link[=sfc_meander]{sfc_meander()}}
+These are just special forms of \code{\link[=sfc_hilbert]{sfc_hilbert()}}, \code{\link[=sfc_peano]{sfc_peano()}}, \code{\link[=sfc_meander]{sfc_meander()}} and \code{\link[=sfc_h]{sfc_h()}}.
 }
 \examples{
 hilbert_curve(2)
 draw_multiple_curves(
     hilbert_curve(3),
-    hilbert_curve(4)
+    hilbert_curve(4),
+    nrow = 1
 )
 draw_multiple_curves(
     moore_curve(3),
-    moore_curve(4)
+    moore_curve(4),
+    nrow = 1
 )
 draw_multiple_curves(
     beta_omega_curve(3),
-    beta_omega_curve(4)
+    beta_omega_curve(4),
+    nrow = 1
 )
 draw_multiple_curves(
     peano_curve(2),
-    peano_curve(3)
+    peano_curve(3),
+    nrow = 1
+)
+draw_multiple_curves(
+    peano_curve(3, level_2 = "vhvhvhvhv"),
+    peano_curve(3, level_2 = "vvvhhhvvv"),
+    nrow = 1
 )
 draw_multiple_curves(
     meander_curve(2),
-    meander_curve(3)
+    meander_curve(3),
+    nrow = 1
+)
+draw_multiple_curves(
+    meander_curve(3, level_2 = "fbfbfbfbf"),
+    meander_curve(3, level_2 = "bbbbbffff"),
+    nrow = 1
 )
 draw_multiple_curves(
     h_curve(1),
-    h_curve(2)
+    h_curve(2),
+    nrow = 1
 )
 }

@@ -109,7 +109,7 @@ $$
 4 \cdot 4 \cdot 2^{\frac{9^k - 1}{8}}
 $$
 
-## Flipping 
+## Unit flipping 
 
 We can set a global flipping rule on every level of expansion.
 
@@ -126,7 +126,7 @@ of the 9th level-2 subunit. Notice the orientation of the top-left corner of the
 draw_multiple_curves(
     p,
     sfc_flip_unit(p, "93"),
-    title = FALSE
+    nrow = 1
 )
 ```
 
@@ -231,3 +231,16 @@ sfc_apply(p2, sfc_level(p2) - 2, function(x, i) {
     }
 }) |> plot()
 ```
+
+## Seed as a sequence
+
+
+```{r, fig.width = 3, fig.height = 3}
+seed = sfc_sequence("IJILJILJILJI", rot = -90, universe = sfc_universe(SFC_RULES_PEANO))
+plot(seed, grid = TRUE)
+```
+
+```{r, fig.width = 6, fig.height = 6}
+sfc_peano(seed, code = "111") |> plot(lwd = 2)
+```
+

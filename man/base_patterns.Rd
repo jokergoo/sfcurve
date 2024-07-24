@@ -65,7 +65,7 @@ A list of pre-defined base patterns. See the \strong{Examples} section.
 }
 \details{
 \code{BASE_I} and \code{BASE_J} are identical. They are only used to distinguish the two
-"going forward" patterns in the 3x3 mode, i.e. bottom-left to top-right, and bottom-right
+"going forward" patterns in the 3x3 mode for the Peano curves, i.e. bottom-left to top-right, and bottom-right
 to top-left.
 }
 \examples{
@@ -79,5 +79,10 @@ BASE_D
 BASE_P
 BASE_Q
 BASE_C
+draw_multiple_curves(
+    BASE_I, BASE_J, BASE_R, BASE_L, BASE_U,
+    BASE_B, BASE_D, BASE_P, BASE_Q, BASE_C,
+    nrow = 1
+)
 }
 \keyword{datasets}

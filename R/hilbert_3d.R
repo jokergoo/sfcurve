@@ -10,7 +10,7 @@
 #' @import Rcpp
 #' @useDynLib sfcurve, .registration = TRUE
 #' @seealso Michael Bader. Space-Filling Curves: An Introduction with Applications in Scientific Computing, Springer Science & Business Media, 2012. \url{https://doi.org/10.1007/978-3-642-31046-1}.
-#' @return A three-column matrix of the coordinates of the Hilbert curve segments.
+#' @return A three-column matrix of the coordinates of points on the 3D Hilbert curve
 #' @examples
 #' pos = hilbert_3d(2)
 #' if(require(rgl) && interactive()) {

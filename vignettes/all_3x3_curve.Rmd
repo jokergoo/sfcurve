@@ -39,17 +39,23 @@ Note, `J` from the Peano curve is put into the `I` base group.
 
 ## Transverse path
 
-The transverse paths from level $k$ to level $k+1$ are massive. Let's try to
-expand $I_1^{(1)}$ to the next level. The following plot shows all transverse
-paths for the sequence `I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)` to level 2.
+Since now all Peano base units and Meander base units are included, the transverse paths from level $k$ to level $k+1$ are massive. Let's try to
+expand $I_1^{(1)}$ to the next level.
 
 
-```{r, fig.width = 9}
-p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
+```{r}
+p = p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
 p
 pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
 length(pl)
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl)
+```
+
+The following plot shows all transverse
+paths for the sequence `I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)` to level 2.
+
+
+```{r, fig.width = 9, fig.height = 3}
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p)
 ```
 
 And the numbers of total transverse paths for other level-1 base patterns:
@@ -57,10 +63,10 @@ And the numbers of total transverse paths for other level-1 base patterns:
 ```{r}
 for(b in c("I", "R", "L", "U", "B", "D", "P", "Q", "C")) {
     for(i in seq_along(SFC_RULES_3x3_COMBINED@rules[[b]])) {
-        pl2 = all_transverse_paths(
+        pl = all_transverse_paths(
             SFC_RULES_3x3_COMBINED, 
             SFC_RULES_3x3_COMBINED@rules[[b]][[i]])
-        cat(b, "_", i, ": ", length(pl2), "\n", sep = "")
+        cat(b, "_", i, ": ", length(pl), "\n", sep = "")
     }
 }
 ```
@@ -69,59 +75,84 @@ In the Peano curve, all level-1 patterns have the corner values of `(1, 1)` or `
 In the following, we can see the Peano curve only has one specific transverse path on
 any level $k$.
 
-```{r, fig.width = 9}
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 1)
+```{r, fig.width = 9, fig.height = 3}
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
 ```
 
 For the Meander curve, the corner values are always `(1, 2)` or `(2, 1)`. 
 There are always two transverse paths for any given $k$. If the transverse code
 for the first base pattern is determined, the whole transverse path is then fixed.
 
-```{r, fig.width = 9}
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 2)
+```{r, fig.width = 9, fig.height = 3}
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 ```
 
-let's guess from level k ($9^{k}$ points) to k+1, the total number of transverse
-paths are:
+## Number of different forms
+
+Let's make an assumption: for a general 3x3 curve that expands from level $k$ with $n$ points ($n = 9^{k}$) to level $k+1$, 
+the total number of transverse paths are:
 
 $$
-t_{k} \approx \alpha^{9^{k}}
+t_k \approx \alpha^n
 $$
 
-Let's consider a sequence with all $n$ $I$, take one base pattern for the first letter,
-from the second, a base pattern can connect to two (e.g. (1, 1) at position 1 can connect to
+Since in a 3x3 curve, base patterns `R/L` have two transverse codes and `I` has four transverse codes,
+let's consider a sequence with $n$ base patterns of $I$. Let's start from the first base pattern.
+From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to
 (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is $2^{n-1}$.
-There are four base patterns ar position 1, so the maximal number of transverse paths for n letters 
-are $4 \cdot 2^{n-1} = 2 \cdot 2^n$. Then
-
-$$
-\begin{align*}
-\alpha^{n} = 2 \cdot 2^n \\
-\alpha &= 2 \cdot 2^{1/n} \approx 2 \\
-\end{align*}
-$$
-
-So $\alpha$ is a number between 1 and 2. 
-
-$$
-\begin{align*}
-n_1 &= n_0 \\
-n_2 &= n_1 \cdot t_1 \\
-    & ... \\
-n_k &= n_{k-1} \cdot t_{k-1} \\
-\end{align*}
-$$
+By taking all four base patterns at position 1, the final number of transverse paths for $n$ base patterns 
+are $4 \cdot 2^{n-1} = 2 \cdot 2^n$, which is the possible maximal number of total transverse paths for a sequence of length $n$.
 
 Then
 
 $$
-n_k \approx \alpha^{\frac{9^k -1}{8}}
+\begin{align*}
+\alpha^{n} &= 2 \cdot 2^n \\
+\alpha &= 2 \cdot 2^{1/n} \\
+\end{align*}
 $$
 
-By also considering the flipped rules, the final number is approximate
+Normally $n$ is huge, which results it
 
 $$
-9 \cdot 4 \cdot \alpha^{\frac{9^k -1}{8}} \cdot 2^{\frac{9^k -1}{8}}
+\alpha_\mathrm{max} \approx 2
+$$
+
+For the minimal case, there is only one transverse path for $n$ base patterns, thus 
+
+$$\alpha_\mathrm{min} = 1$$
+
+So $\alpha$ is approximately a number between 1 and 2. 
+
+Next let's calculate the number of different forms of 3x3 curve on each level:
+
+$$
+\begin{align*}
+n_1 &= n_0 \\
+n_2 &= n_1 \cdot t_1  = n_1 \cdot \alpha_1^{9^1}\\
+    & ... \\
+n_k &= n_{k-1} \cdot t_{k-1}  = n_{k-1} \cdot \alpha_{k-1}^{9^{k-1}}\\
+\end{align*}
+$$
+
+Then we can calculate $n_k$ as
+
+$$
+n_k = n_0 \cdot \alpha_1^{9^1} \cdot \alpha_2^{9^2} ... \alpha_{k-1}^{9^{k-1}} 
+$$
+
+If we approximately take all $\alpha_i$ are similar:
+
+$$
+n_k \approx n_0 \cdot \alpha^{\frac{9^k -9}{8}}
+$$
+
+where $n_0 = 3$ (for `R/L`) or $n_0 = 4$ (for `I`).
+
+By also considering the 9 flipped rules and the 4 rotations, the final number of all possible forms of 3x3 curves is approximate
+
+$$
+9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}}
 $$
 
 ## Curves
@@ -129,10 +160,12 @@ $$
 `sfc_3x3_combined()` generates a curve where on each level, a transverse path is randomly
 picked.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.width = 8, fig.height = 8}
 draw_multiple_curves(
     sfc_3x3_combined("I", level = 3),
     sfc_3x3_combined("I", level = 3),
-    title = FALSE
+    sfc_3x3_combined("I", level = 3),
+    sfc_3x3_combined("I", level = 3),
+    nrow = 2
 )
 ```

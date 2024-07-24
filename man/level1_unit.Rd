@@ -28,5 +28,5 @@ Level-1 unit in the Peano curve
 p = sfc_peano("I", 111)
 p2 = change_level1_unit_orientation(p)
 p3 = change_level1_unit_orientation(p, "vertical")
-draw_multiple_curves(p2, p3, title = FALSE)
+draw_multiple_curves(p, p2, p3, title = FALSE, nrow = 1)
 }

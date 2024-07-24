@@ -4,7 +4,7 @@
 #' @aliases sfc_reduce
 #' @rdname sfc_reduce
 #' @param p An `sfc_nxn` object.
-#' @param to To which level to reduce? Value should be between 1 and `sfc_level(p) - 1`.
+#' @param to Which level to reduce to? Value should be between 1 and `sfc_level(p) - 1`.
 #' @details
 #' The reduction is applied on the coordinates of points.
 #' @return
@@ -82,18 +82,24 @@ setMethod("sfc_reduce",
 
 
 #' @rdname sfc_reduce
-#' @param gb A `grob` object returned by [`sfc_grob()`].
+#' @param gb A `grob` object returned by [`sfc_grob()`] or a `sfc_nxn` object then [`sfc_grob()`] is internally applied.
 #' @param level The level of the unit.
 #' @export
 #' @details
 #' `add_base_structure()` adds a base structure on a certain level to the curve.
 #' @examples
-#' gb = sfc_grob(hilbert_curve(3))
+#' p = hilbert_curve(3)
 #' draw_multiple_curves(
-#'     add_base_structure(gb, level = 1),
-#'     add_base_structure(gb, level = 2)
+#'     add_base_structure(p, level = 1),
+#'     add_base_structure(p, level = 2),
+#'     nrow = 1
 #' )
 add_base_structure = function(gb, level = 1) {
+	if(inherits(gb, "sfc_nxn")) {
+		gb = sfc_grob(gb)
+	} else if(inherits(gb, "matrix")) {
+		gb = sfc_grob(gb)
+	}
 	x = c(gb$children[[1]]$x0[1], gb$children[[1]]$x1)
 	y = c(gb$children[[1]]$y0[1], gb$children[[1]]$y1)
 
@@ -102,14 +108,10 @@ add_base_structure = function(gb, level = 1) {
 	loc_reduced = sfc_reduce(loc, level)
 	n = nrow(loc_reduced)
 
-	gb$children[[1]]$x0 = unit.c(gb$children[[1]]$x0, unit(loc_reduced[1:(n-1), 1], "native"))
-	gb$children[[1]]$y0 = unit.c(gb$children[[1]]$y0, unit(loc_reduced[1:(n-1), 2], "native"))
-	gb$children[[1]]$x1 = unit.c(gb$children[[1]]$x1, unit(loc_reduced[2:n, 1], "native"))
-	gb$children[[1]]$y1 = unit.c(gb$children[[1]]$y1, unit(loc_reduced[2:n, 2], "native"))
-
-	gb$children[[1]]$gp$col = c(gb$children[[1]]$gp$col, rep("grey", n-1))
-	gb$children[[1]]$gp$lwd = c(rep(gb$children[[1]]$gp$lwd, nrow(loc)-1), rep(2, n-1))
-	gb$children[[1]]$gp$lty = c(rep(1, nrow(loc)-1), rep(2, n-1))
+	gb$children[["base_structure"]] = segmentsGrob(x0 = unit(loc_reduced[1:(n-1), 1], "native"), y0 = unit(loc_reduced[1:(n-1), 2], "native"),
+		                               x1 = unit(loc_reduced[2:n, 1], "native"), y1 = unit(loc_reduced[2:n, 2], "native"),
+		                               gp = gpar(col = "black", lwd = 2, lty = 3))
+	gb$childrenOrder = c(gb$childrenOrder, "base_structure")
 
 	gb
 }

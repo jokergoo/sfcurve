@@ -2,7 +2,7 @@
 
 #' Constructor of the sfc_sequence class
 #' 
-#' @param seq A sequence of base patterns. The value can be a vector of letters or a string.
+#' @param seq A sequence of base patterns. The value can be a vector of letters or a single string.
 #' @param rot The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
 #'          `rot` controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
 #'          identified.
@@ -76,7 +76,8 @@ sfc_seed = function(seq, rot = 0L, universe = NULL) {
 
 #' @rdname sfc_sequence
 #' @details
-#' `sfc_unit` class is also the same as the `sfc_sequence` class. It is used specifically when defining the expansion rules. 
+#' `sfc_unit` class also inherits the `sfc_sequence` class but has one additionally slot: `corner`. 
+#' It is used specifically when defining the expansion rules. 
 #' @export
 sfc_unit = function(seq, rot = 0L, universe = NULL) {
 	p = sfc_sequence(seq, rot, universe)
@@ -110,7 +111,7 @@ next_rotation = function(letter, rot) {
 #' Utility functions
 #' @rdname utility
 #' @param x An `sfc_sequence` object.
-#' @param i Index.
+#' @param i Numeric index.
 #' @param value An `sfc_sequence` object.
 #' @param ... A list of `sfc_sequence` objects or other arguments.
 #' 
@@ -176,34 +177,73 @@ setMethod("show",
 
 	cat("A sequence of ", n, " base pattern", ifelse(n == 1, ".", "s."), "\n", sep = "")
 	if(nr > 4) {
-		flag = 0
-		for(i in 1:nr) {
-			if(i >= 3 && i <= nr-2) {
-				if(!flag) cat("  .... other ", nr-4, " line", ifelse(nr-4 > 1, "s", ""), " ....\n", sep = "")
-				flag = TRUE
-				next
-			}
-			ind = seq( (i-1)*8+1, min(i*8, n) )
-			cat("  ")
-			for(k in seq_along(ind)) {
-				cat(paste0(seq[ ind[k] ], "(", rot_str(rot[ ind[k] ]), ")"))
-				if(k == 4) {
-					cat("  ")
-				}
-			}
-			cat("\n")
+		other_lines = paste0(".... other ", nr-4, " line", ifelse(nr-4 > 1, "s", ""), " ....")
+
+		df = matrix("", nrow = 4, ncol = 2)
+		for(i in 1:2) {
+			ind = seq( (i-1)*8+1, i*8 )
+			df[i, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+			df[i, 2] = paste(seq[ ind[5:8] ], "(", rot_str(rot[ ind[5:8] ]), ")", sep = "", collapse = "")
 		}
+
+		ind = seq( (nr-2)*8+1, (nr-1)*8 )
+		df[3, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+		df[3, 2] = paste(seq[ ind[5:8] ], "(", rot_str(rot[ ind[5:8] ]), ")", sep = "", collapse = "")
+
+		ind = seq( (nr-1)*8+1, min((nr)*8, n) )
+		if(length(ind) <= 4) {
+			df[4, 1] = paste(seq[ ind ], "(", rot_str(rot[ ind ]), ")", sep = "", collapse = "")
+			df[4, 2] = ""
+		} else if(length(ind) < 8) {
+			df[4, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+			df[4, 2] = paste(seq[ ind[5:length(ind)] ], "(", rot_str(rot[ ind[5:length(ind)] ]), ")", sep = "", collapse = "")
+		} else {
+			df[4, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+			df[4, 2] = paste(seq[ ind[5:8] ], "(", rot_str(rot[ ind[5:8] ]), ")", sep = "", collapse = "")
+		}
+
+		max_nchar1 = max(nchar(df[, 1]))
+		max_nchar2 = max(nchar(df[, 2]))
+
+		for(i in 1:2) {
+			cat("  ")
+			cat(df[i, 1]); cat(strrep(" ", max_nchar1 - nchar(df[i, 1])))
+			cat("  ")
+			cat(df[i, 2]); cat("\n")
+		}
+		cat("  ", other_lines, "\n", sep = "")
+		for(i in 3:4) {
+			cat("  ")
+			cat(df[i, 1]); cat(strrep(" ", max_nchar1 - nchar(df[i, 1])))
+			cat("  ")
+			cat(df[i, 2]); cat("\n")
+		}
+
 	} else {
+		df = matrix("", nrow = nr, ncol = 2)
 		for(i in 1:nr) {
 			ind = seq( (i-1)*8+1, min(i*8, n) )
-			cat("  ")
-			for(k in seq_along(ind)) {
-				cat(paste0(seq[ ind[k] ], "(", rot_str(rot[ ind[k] ]), ")"))
-				if(k == 4) {
-					cat("  ")
-				}
+
+			if(length(ind) <= 4) {
+				df[i, 1] = paste(seq[ ind ], "(", rot_str(rot[ ind ]), ")", sep = "", collapse = "")
+				df[i, 2] = ""
+			} else if(length(ind) < 8) {
+				df[i, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+				df[i, 2] = paste(seq[ ind[5:length(ind)] ], "(", rot_str(rot[ ind[5:length(ind)] ]), ")", sep = "", collapse = "")
+			} else {
+				df[i, 1] = paste(seq[ ind[1:4] ], "(", rot_str(rot[ ind[1:4] ]), ")", sep = "", collapse = "")
+				df[i, 2] = paste(seq[ ind[5:8] ], "(", rot_str(rot[ ind[5:8] ]), ")", sep = "", collapse = "")
 			}
-			cat("\n")
+		}
+
+		max_nchar1 = max(nchar(df[, 1]))
+		max_nchar2 = max(nchar(df[, 2]))
+
+		for(i in 1:nr) {
+			cat("  ")
+			cat(df[i, 1]); cat(strrep(" ", max_nchar1 - nchar(df[i, 1])))
+			cat("  ")
+			cat(df[i, 2]); cat("\n")
 		}
 	}
 })

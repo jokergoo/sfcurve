@@ -4,14 +4,18 @@
 \alias{plot_segments}
 \title{Plot segments}
 \usage{
-plot_segments(x, grid = FALSE, ...)
+plot_segments(x, grid = FALSE, title = FALSE, closed = FALSE, ...)
 }
 \arguments{
 \item{x}{A two-column matrix of coordinates of points.}
 
 \item{grid}{Whether to add grid lines on the plot?}
 
-\item{...}{Other arguments passed to \verb{[sfc_grob()]}.}
+\item{title}{The value should be \code{FALSE} or a string.}
+
+\item{closed}{Whether the curve is closed?}
+
+\item{...}{Other arguments passed to \code{\link[=sfc_grob]{sfc_grob()}}.}
 }
 \description{
 Plot segments

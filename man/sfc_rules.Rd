@@ -29,7 +29,7 @@ RULES_HILBERT = list()
 RULES_HILBERT[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
 }\if{html}{\out{</div>}}
 
-where \code{I} is the level-0 base pattern, \verb{[[1]]} corresponds to the first form of expansion to level-1, the value
+\code{I} is the level-0 base pattern, \verb{[[1]]} corresponds to the first form of expansion to level-1, and the value
 assigned is a \code{\link[=sfc_unit]{sfc_unit()}} object which is basically a list of base patterns.
 
 Then we also need to provide the base patterns which define how to extend the curve. The list of base patterns
@@ -38,12 +38,15 @@ is assigned to the \code{bases} argument. In the same example, we set \code{base
 \if{html}{\out{<div class="sourceCode">}}\preformatted{list("I" = BASE_I, "R" = BASE_R, "L" = BASE_L, "U" = BASE_U, ...)
 }\if{html}{\out{</div>}}
 
-where e.g. \code{BASE_I} is a pre-defined base pattern in \code{\link{sfc_base}} class.
+where e.g. \code{\link{BASE_I}} is a pre-defined base pattern in the \code{\link{sfc_base}} class.
 
 There are the following pre-defined rules:
 \itemize{
 \item \code{\link{SFC_RULES_HILBERT}}
 \item \code{\link{SFC_RULES_PEANO}}
 \item \code{\link{SFC_RULES_MEANDER}}
+\item \code{\link{SFC_RULES_3x3_COMBINED}}
 }
+
+Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.
 }

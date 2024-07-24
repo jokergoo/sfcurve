@@ -93,7 +93,7 @@
       <h1 data-toc-skip>3x3 Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-23</h4>
+            <h4 data-toc-skip class="date">2024-07-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/all_3x3_curve.Rmd" class="external-link"><code>vignettes/all_3x3_curve.Rmd</code></a></small>
       <div class="hidden name"><code>all_3x3_curve.Rmd</code></div>
@@ -114,9 +114,9 @@
 <div class="section level2">
 <h2 id="transverse-path">Transverse path<a class="anchor" aria-label="anchor" href="#transverse-path"></a>
 </h2>
-<p>The transverse paths from level <span class="math inline">\(k\)</span> to level <span class="math inline">\(k+1\)</span> are massive. Let’s try to expand <span class="math inline">\(I_1^{(1)}\)</span> to the next level. The following plot shows all transverse paths for the sequence <code>I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)</code> to level 2.</p>
+<p>Since now all Peano base units and Meander base units are included, the transverse paths from level <span class="math inline">\(k\)</span> to level <span class="math inline">\(k+1\)</span> are massive. Let’s try to expand <span class="math inline">\(I_1^{(1)}\)</span> to the next level.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="va">p</span> <span class="op">=</span> <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">p</span></span></code></pre></div>
 <pre><code><span><span class="co">## A sequence of 9 base patterns.</span></span>
 <span><span class="co">##   I(0)I(0)R(0)R(270)  I(180)L(180)L(270)I(0)</span></span>
@@ -125,17 +125,18 @@
 <code class="sourceCode R"><span><span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="../reference/transverse_path.html">all_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pl</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 400</span></span></code></pre>
+<p>The following plot shows all transverse paths for the sequence <code>I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)</code> to level 2.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span><span class="op">)</span></span></code></pre></div>
-<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;"></p>
 <p>And the numbers of total transverse paths for other level-1 base patterns:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">b</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">[[</span><span class="va">b</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">pl2</span> <span class="op">=</span> <span class="fu"><a href="../reference/transverse_path.html">all_transverse_paths</a></span><span class="op">(</span></span>
+<span>        <span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="../reference/transverse_path.html">all_transverse_paths</a></span><span class="op">(</span></span>
 <span>            <span class="va">SFC_RULES_3x3_COMBINED</span>, </span>
 <span>            <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">[[</span><span class="va">b</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"_"</span>, <span class="va">i</span>, <span class="st">": "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pl2</span><span class="op">)</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"_"</span>, <span class="va">i</span>, <span class="st">": "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pl</span><span class="op">)</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code><span><span class="co">## I_1: 216</span></span>
@@ -162,39 +163,56 @@
 <span><span class="co">## C_2: 171</span></span></code></pre>
 <p>In the Peano curve, all level-1 patterns have the corner values of <code>(1, 1)</code> or <code>(2, 2)</code>. In the following, we can see the Peano curve only has one specific transverse path on any level <span class="math inline">\(k\)</span>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="st">"11|22"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
 <p>For the Meander curve, the corner values are always <code>(1, 2)</code> or <code>(2, 1)</code>. There are always two transverse paths for any given <span class="math inline">\(k\)</span>. If the transverse code for the first base pattern is determined, the whole transverse path is then fixed.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span>, type <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
-<p>let’s guess from level k (<span class="math inline">\(9^{k}\)</span> points) to k+1, the total number of transverse paths are:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="st">"12|21"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-7-1.png" width="864" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
+</h2>
+<p>Let’s make an assumption: for a general 3x3 curve that expands from level <span class="math inline">\(k\)</span> with <span class="math inline">\(n\)</span> points (<span class="math inline">\(n = 9^{k}\)</span>) to level <span class="math inline">\(k+1\)</span>, the total number of transverse paths are:</p>
 <p><span class="math display">\[
-t_{k} \approx \alpha^{9^{k}}
+t_k \approx \alpha^n
 \]</span></p>
-<p>Let’s consider a sequence with all <span class="math inline">\(n\)</span> <span class="math inline">\(I\)</span>, take one base pattern for the first letter, from the second, a base pattern can connect to two (e.g. (1, 1) at position 1 can connect to (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is <span class="math inline">\(2^{n-1}\)</span>. There are four base patterns ar position 1, so the maximal number of transverse paths for n letters are <span class="math inline">\(4 \cdot 2^{n-1} = 2 \cdot 2^n\)</span>. Then</p>
+<p>Since in a 3x3 curve, base patterns <code>R/L</code> have two transverse codes and <code>I</code> has four transverse codes, let’s consider a sequence with <span class="math inline">\(n\)</span> base patterns of <span class="math inline">\(I\)</span>. Let’s start from the first base pattern. From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is <span class="math inline">\(2^{n-1}\)</span>. By taking all four base patterns at position 1, the final number of transverse paths for <span class="math inline">\(n\)</span> base patterns are <span class="math inline">\(4 \cdot 2^{n-1} = 2 \cdot 2^n\)</span>, which is the possible maximal number of total transverse paths for a sequence of length <span class="math inline">\(n\)</span>.</p>
+<p>Then</p>
 <p><span class="math display">\[
 \begin{align*}
-\alpha^{n} = 2 \cdot 2^n \\
-\alpha &amp;= 2 \cdot 2^{1/n} \approx 2 \\
+\alpha^{n} &amp;= 2 \cdot 2^n \\
+\alpha &amp;= 2 \cdot 2^{1/n} \\
 \end{align*}
 \]</span></p>
-<p>So <span class="math inline">\(\alpha\)</span> is a number between 1 and 2.</p>
+<p>Normally <span class="math inline">\(n\)</span> is huge, which results it</p>
+<p><span class="math display">\[
+\alpha_\mathrm{max} \approx 2
+\]</span></p>
+<p>For the minimal case, there is only one transverse path for <span class="math inline">\(n\)</span> base patterns, thus</p>
+<p><span class="math display">\[\alpha_\mathrm{min} = 1\]</span></p>
+<p>So <span class="math inline">\(\alpha\)</span> is approximately a number between 1 and 2.</p>
+<p>Next let’s calculate the number of different forms of 3x3 curve on each level:</p>
 <p><span class="math display">\[
 \begin{align*}
 n_1 &amp;= n_0 \\
-n_2 &amp;= n_1 \cdot t_1 \\
+n_2 &amp;= n_1 \cdot t_1  = n_1 \cdot \alpha_1^{9^1}\\
     &amp; ... \\
-n_k &amp;= n_{k-1} \cdot t_{k-1} \\
+n_k &amp;= n_{k-1} \cdot t_{k-1}  = n_{k-1} \cdot \alpha_{k-1}^{9^{k-1}}\\
 \end{align*}
 \]</span></p>
-<p>Then</p>
+<p>Then we can calculate <span class="math inline">\(n_k\)</span> as</p>
 <p><span class="math display">\[
-n_k \approx \alpha^{\frac{9^k -1}{8}}
+n_k = n_0 \cdot \alpha_1^{9^1} \cdot \alpha_2^{9^2} ... \alpha_{k-1}^{9^{k-1}} 
 \]</span></p>
-<p>By also considering the flipped rules, the final number is approximate</p>
+<p>If we approximately take all <span class="math inline">\(\alpha_i\)</span> are similar:</p>
 <p><span class="math display">\[
-9 \cdot 4 \cdot \alpha^{\frac{9^k -1}{8}} \cdot 2^{\frac{9^k -1}{8}}
+n_k \approx n_0 \cdot \alpha^{\frac{9^k -9}{8}}
+\]</span></p>
+<p>where <span class="math inline">\(n_0 = 3\)</span> (for <code>R/L</code>) or <span class="math inline">\(n_0 = 4\)</span> (for <code>I</code>).</p>
+<p>By also considering the 9 flipped rules and the 4 rotations, the final number of all possible forms of 3x3 curves is approximate</p>
+<p><span class="math display">\[
+9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}}
 \]</span></p>
 </div>
 <div class="section level2">
@@ -205,9 +223,11 @@ n_k \approx \alpha^{\frac{9^k -1}{8}}
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="fu"><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
   </div>
 

@@ -18,7 +18,7 @@ devtools::install_github("jokergoo/sfcurve")
 
 ## Usage
 
-Hilbert curve (2x2)
+Hilbert curve (2x2):
 
 ```
 > sfc_hilbert("I", "111")
@@ -28,17 +28,17 @@ An sfc_hilbert object.
   Expansion rule: Hilbert
 
 A sequence of 64 base patterns.
-  R(0)L(270)L(0)R(90)  I(0)R(0)R(270)L(180)
+  R(0)L(270)L(0)R(90)     I(0)R(0)R(270)L(180)
   L(270)R(0)R(270)I(180)  R(180)L(90)L(180)I(270)
   .... other 4 lines ....
   I(90)L(90)L(180)R(270)  I(180)R(180)R(90)L(0)
-  L(90)R(180)R(90)I(0)  R(0)L(270)L(0)R(90)
+  L(90)R(180)R(90)I(0)    R(0)L(270)L(0)R(90)
 
 Seed: A sequence of 1 base pattern.
   I(0)
 ```
 
-Peano curve (3x3)
+Peano curve (3x3):
 
 ```
 > sfc_peano("I", "111")
@@ -49,7 +49,7 @@ An sfc_peano object.
 
 A sequence of 729 base patterns.
   I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)
-  I(0)J(0)I(0)L(0)  L(90)J(180)R(180)R(90)
+  I(0)J(0)I(0)L(0)    L(90)J(180)R(180)R(90)
   .... other 88 lines ....
   I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)
   I(0)
@@ -58,7 +58,7 @@ Seed: A sequence of 1 base pattern.
   I(0)
 ```
 
-Meander curve (3x3)
+Meander curve (3x3):
 
 ```
 > sfc_meander("I", "111")
@@ -79,6 +79,7 @@ Seed: A sequence of 1 base pattern.
 ```
 
 It also allows using a sequence as the seed:
+
 
 ```
 p = sfc_seed("LLLILILIILIILIIILIIILIIII")

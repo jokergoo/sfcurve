@@ -79,10 +79,27 @@
 <span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_sequence</span></span>
-<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, bases <span class="op">=</span> <span class="cn">NULL</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sfc_grob</span><span class="op">(</span></span>
+<span>  <span class="va">p</span>,</span>
+<span>  bases <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  extend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sfc_sequence</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, bases <span class="op">=</span> <span class="cn">NULL</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  bases <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  grid <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  extend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_nxn</span></span>
 <span><span class="fu">sfc_grob</span><span class="op">(</span></span>
@@ -95,10 +112,10 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sfc_nxn</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, extend <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for matrix</span></span>
-<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, title <span class="op">=</span> <span class="cn">NULL</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">p</span>, title <span class="op">=</span> <span class="cn">NULL</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">4</span>, col <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -122,6 +139,14 @@ Or the value is a string.</p></dd>
 
 <dt>closed</dt>
 <dd><p>Whether the curve is closed?</p></dd>
+
+
+<dt>lwd</dt>
+<dd><p>Line width.</p></dd>
+
+
+<dt>col</dt>
+<dd><p>Color for segments. If the value is <code>NULL</code>, it uses the "Spectral" color palettes.</p></dd>
 
 
 <dt>...</dt>
@@ -155,8 +180,10 @@ is already stored in <code>p</code> and it is passed to this function automatica
 <span class="r-out co"><span class="r-pr">#&gt;</span> gTree[GRID.gTree.4] </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_grob-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"IIIRRR"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span>, extend <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="cn">TRUE</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_grob-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"IIIRRR"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sfc_grob-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

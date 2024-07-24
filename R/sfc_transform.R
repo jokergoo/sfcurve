@@ -9,7 +9,7 @@
 #' @aliases sfc_rotate
 #' 
 #' @details
-#' - `sfc_rotate()` rotates each base pattern.
+#' - `sfc_rotate()` and `^()` rotate each base pattern.
 #' - `sfc_hflip()` flips a sequence horizontally.
 #' - `sfc_vflip()` flips a sequence vertically.
 #' - `sfc_dflip()` flips a sequence against a diagonal line (with slop 1 or -1).
@@ -106,7 +106,7 @@ validate_out_directions = function(p2, out_direction) {
 #'     p, 
 #'     sfc_hflip(p), 
 #'     sfc_hflip(p, fix_ends = TRUE), 
-#'     title = FALSE)
+#'     nrow = 1, title = FALSE)
 setMethod("sfc_hflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -188,7 +188,7 @@ setMethod("sfc_hflip",
 #'     p, 
 #'     sfc_vflip(p), 
 #'     sfc_vflip(p, fix_ends = TRUE), 
-#'     title = FALSE)
+#'     nrow = 1, title = FALSE)
 setMethod("sfc_vflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -259,7 +259,7 @@ setMethod("sfc_vflip",
 #'     p, 
 #'     sfc_dflip(p, 1), 
 #'     sfc_dflip(p, 1, fix_ends = TRUE), 
-#'     title = FALSE)
+#'     nrow = 1, title = FALSE)
 setMethod("sfc_dflip",
 	signature = "sfc_sequence",
 	definition = function(p, slop = 1, fix_ends = FALSE, bases = NULL) {

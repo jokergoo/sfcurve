@@ -104,16 +104,18 @@ In the following example where we define the expansion rules for th Hilbert curv
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIVERSE_HILBERT <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"C"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>RULES_HILBERT <span class="ot">=</span> <span class="fu">list</span>()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>RULES_HILBERT[[<span class="st">"I"</span>]][[<span class="dv">1</span>]] <span class="ot">=</span> <span class="fu">sfc_unit</span>(<span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>), <span class="at">rot =</span> <span class="dv">0</span>, <span class="at">universe =</span> UNIVERSE_HILBERT)</span></code></pre><p></p></div>
-<p>where <code>I</code> is the level-0 base pattern, <code>[[1]]</code> corresponds to the first form of expansion to level-1, the value
+<p><code>I</code> is the level-0 base pattern, <code>[[1]]</code> corresponds to the first form of expansion to level-1, and the value
 assigned is a <code><a href="sfc_sequence.html">sfc_unit()</a></code> object which is basically a list of base patterns.</p>
 <p>Then we also need to provide the base patterns which define how to extend the curve. The list of base patterns
 is assigned to the <code>bases</code> argument. In the same example, we set <code>bases</code> as:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="st">"I"</span> <span class="ot">=</span> BASE_I, <span class="st">"R"</span> <span class="ot">=</span> BASE_R, <span class="st">"L"</span> <span class="ot">=</span> BASE_L, <span class="st">"U"</span> <span class="ot">=</span> BASE_U, ...)</span></code></pre><p></p></div>
-<p>where e.g. <code>BASE_I</code> is a pre-defined base pattern in <code><a href="sfc_base.html">sfc_base</a></code> class.</p>
+<p>where e.g. <code><a href="base_patterns.html">BASE_I</a></code> is a pre-defined base pattern in the <code><a href="sfc_base.html">sfc_base</a></code> class.</p>
 <p>There are the following pre-defined rules:</p><ul><li><p><code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code></p></li>
 <li><p><code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code></p></li>
 <li><p><code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code></p></li>
-</ul></div>
+<li><p><code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code></p></li>
+</ul><p>Check <a href="https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155" class="external-link">https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155</a> to see how these pre-defined rules are constructed.</p>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

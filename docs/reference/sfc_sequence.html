@@ -85,7 +85,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>seq</dt>
-<dd><p>A sequence of base patterns. The value can be a vector of letters or a string.</p></dd>
+<dd><p>A sequence of base patterns. The value can be a vector of letters or a single string.</p></dd>
 
 
 <dt>rot</dt>
@@ -103,7 +103,8 @@ identified.</p></dd>
     <p>This funtion is very low-level. Normally, users do not need to directly use this constructor.</p>
 <p><code>sfc_seed</code> class is the same as the <code>sfc_sequence</code> class. It is used specifically as the "seed sequence"
 when generating the curves.</p>
-<p><code>sfc_unit</code> class is also the same as the <code>sfc_sequence</code> class. It is used specifically when defining the expansion rules.</p>
+<p><code>sfc_unit</code> class also inherits the <code>sfc_sequence</code> class but has one additionally slot: <code>corner</code>.
+It is used specifically when defining the expansion rules.</p>
     </div>
 
     <div id="ref-examples">

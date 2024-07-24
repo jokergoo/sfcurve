@@ -79,7 +79,7 @@
 <span></span>
 <span><span class="fu">get_one_transverse_path</span><span class="op">(</span><span class="va">rules</span>, <span class="va">p</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">rules</span>, <span class="va">p</span>, <span class="va">paths</span>, type <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">rules</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"11|22"</span>, <span class="st">"12|21"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,40 +92,53 @@
 <dd><p>An <code>sfc_sequence</code> sequence. <code>p</code> and <code>rules</code> should have the same universe base set.</p></dd>
 
 
-<dt>paths</dt>
-<dd><p>The object returned from <code>all_transverse_paths()</code>.</p></dd>
-
-
 <dt>type</dt>
-<dd><p>If the value is 1, it highlights the paths only via 1-1/2-2 corners. If the value is 2, it highlights the paths
+<dd><p>If the value is <code>"11|22"</code>, it highlights the paths only via 1-1/2-2 corners. If the value is <code>"12|21"</code>, it highlights the paths
 only via 1-2/2-1 corners.</p></dd>
 
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>Given an input sequence with rotations, list all combinations of transverse code for each letter in p.</p>
+    <p>Given an input sequence with rotations, <code>all_transverse_paths()</code> lists all combinations of transverse
+codes from the first letter to the last letter in <code>p</code> (i.e. all possible transverse paths).</p>
 <p><code>get_one_transverse_path()</code> returns one random transverse path.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># expansion rules for the general 3x3 curves</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">get_one_transverse_path</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4 1 2 1 1 2 3 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 2 2 1 2 2 1 2 4</span>
 <span class="r-in"><span><span class="fu">get_one_transverse_path</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 2 1 2 2 1 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 4 1 2 1 1 2 3 2</span>
 <span class="r-in"><span><span class="fu">get_one_transverse_path</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 2 1 2 3 2 1 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4 1 2 1 1 3 2 2</span>
 <span class="r-in"><span><span class="fu">get_one_transverse_path</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 1 1 2 3 3 3 2 4</span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">pl</span> <span class="op">=</span> <span class="fu">all_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 3 2 1 4 1 3 4 1</span>
+<span class="r-in"><span><span class="co"># </span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">SFC_RULES_3x3_COMBINED</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="transverse_path-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="st">"11|22"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="transverse_path-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, <span class="va">pl</span>, type <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="st">"12|21"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="transverse_path-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Hilbert curve</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span>, <span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="transverse_path-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Peano curve</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_PEANO</span>, <span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="transverse_path-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Meander curve</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_transverse_paths</span><span class="op">(</span><span class="va">SFC_RULES_MEANDER</span>, <span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="transverse_path-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Generalized Peano Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-23</h4>
+            <h4 data-toc-skip class="date">2024-07-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/peano_curve.Rmd" class="external-link"><code>vignettes/peano_curve.Rmd</code></a></small>
       <div class="hidden name"><code>peano_curve.Rmd</code></div>
@@ -159,7 +159,7 @@ n_k = 2^{\frac{9^k - 1}{8}}
 \]</span></p>
 </div>
 <div class="section level2">
-<h2 id="flipping">Flipping<a class="anchor" aria-label="anchor" href="#flipping"></a>
+<h2 id="unit-flipping">Unit flipping<a class="anchor" aria-label="anchor" href="#unit-flipping"></a>
 </h2>
 <p>We can set a global flipping rule on every level of expansion.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -170,8 +170,8 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>,</span>
-<span>    <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"93"</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"93"</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
@@ -200,7 +200,7 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="../reference/sfc_level.html">sfc_level</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>        <span class="va">x</span></span>
 <span>    <span class="op">}</span></span>
@@ -217,17 +217,17 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <p>For the curve on level <span class="math inline">\(k\)</span>, the subunits, higher levels can be randomly flippped, while only make sure all the level-1 subunit are vertical.</p>
 <p><code>p</code> can be a level-<span class="math inline">\(k\)</span> curve with subunits on any level flipped.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
-<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"3"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"4"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"5"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"6"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"8"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"9"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"3"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"4"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"5"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"6"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"8"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"9"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>     <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p2</span>, <span class="va">p3</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -248,12 +248,23 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p2</span>, <span class="fu"><a href="../reference/sfc_level.html">sfc_level</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="../reference/sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>        <span class="va">x</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-12-1.png" width="700" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="seed-as-a-sequence">Seed as a sequence<a class="anchor" aria-label="anchor" href="#seed-as-a-sequence"></a>
+</h2>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">seed</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"IJILJILJILJI"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span>, universe <span class="op">=</span> <span class="fu"><a href="../reference/sfc_universe.html">sfc_universe</a></span><span class="op">(</span><span class="va">SFC_RULES_PEANO</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">seed</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-13-1.png" width="288" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="va">seed</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
   </div>
 

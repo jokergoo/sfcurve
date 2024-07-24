@@ -9,19 +9,19 @@ rotate_90 = function(pos) {
 
 #' H-curve
 #' @rdname h_curve
-#' @param h It is the seed of the H-curve. The value should be one of [`H0`], [`H1`] or [`H2`].
+#' @param h The seed of the H-curve. The value should be one of [`H0`], [`H1`] or [`H2`].
 #' @param iteration Number of iterations.
-#' @param connect How the four subunits are connected to for the H-curve on the next level. See **Details**.
-#' @param random Whether to generate subunits randomly.
+#' @param connect How the four subunits are connected to form the H-curve on the next level. See **Details**.
+#' @param random Whether to generate subunits randomly on each iteration.
 #' @details
-#' A H-curve on level k is composed by four subunits on level k-1. If we number the four subunits in the following order:
+#' An H-curve on level k is composed with four subunits on level k-1. If we number the four subunits in the following order:
 #' 
 #' ```
 #' 2  3
 #' 1  4
 #' ```
 #' 
-#' where subunit 1 connects to subunit 2, subunit 2 connect to subunit 3, et al., and e.g. subunit 1 connects to subunit 2 
+#' where subunit 1 connects to subunit 2, subunit 2 connects to subunit 3, et al., and e.g. subunit 1 connects to subunit 2 
 #' via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to  
 #' subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
 #' segment and the vertical segment on the topright corner in subunit 1.
@@ -41,11 +41,13 @@ rotate_90 = function(pos) {
 #' @examples
 #' draw_multiple_curves(
 #'     sfc_h(H0, iteration = 2),
-#'     sfc_h(H1, iteration = 2)
+#'     sfc_h(H2, iteration = 2),
+#'     closed = TRUE, nrow =1
 #' )
 #' draw_multiple_curves(
 #'     sfc_h(H1, iteration = 3, random = TRUE),
-#'     sfc_h(H1, iteration = 3, random = TRUE)
+#'     sfc_h(H1, iteration = 3, random = TRUE),
+#'     closed = TRUE, nrow = 1
 #' )
 sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 
@@ -107,7 +109,8 @@ sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 #' @examples
 #' draw_multiple_curves(
 #'     expand_h(H0, connect = "hvvh"),
-#'     expand_h(H1, connect = "vvhh")
+#'     expand_h(H1, connect = "vvhh"),
+#'     closed = TRUE, nrow = 1
 #' )
 #' 
 #' # set the four subunits separately
@@ -115,13 +118,14 @@ sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 #' h2 = expand_h(H0, connect = "vvvv")
 #' h3 = expand_h(H0, connect = "hvhv")
 #' h4 = expand_h(H0, connect = "hvvh")
-#' expand_h(h1, h2, h3, h4, connect = "vhvh") |> plot_segments()
+#' expand_h(h1, h2, h3, h4, connect = "vhvh") |> 
+#'     plot_segments(closed = TRUE)
 #' 
 #' fun = function(h, k) {
 #'     for(i in 1:k) h = expand_h(h, connect = "vhvh")
 #'     h
 #' }
-#' fun(H0, 4) |> plot_segments()
+#' fun(H0, 4) |> plot_segments(closed = TRUE)
 expand_h = function(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh") {
 
 	n = as.integer(round(sqrt(nrow(h1))))
@@ -221,10 +225,10 @@ H2 = expand_h(H0, connect = "v")
 #' @rdname h_seed
 #' @export
 #' @details
-#' The three objects simply contain the coordinates of points on the three curves.
+#' The three objects simply contain the coordinates of points on the three base curves.
 #' @examples
 #' H0
-#' plot(H1, type = "l", asp = 1)
+#' draw_multiple_curves(H0, H1, H2, nrow = 1, closed = TRUE)
 "H0"
 
 #' @rdname h_seed

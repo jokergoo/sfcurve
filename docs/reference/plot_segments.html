@@ -75,7 +75,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_segments</span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_segments</span><span class="op">(</span><span class="va">x</span>, grid <span class="op">=</span> <span class="cn">FALSE</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, closed <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -88,8 +88,16 @@
 <dd><p>Whether to add grid lines on the plot?</p></dd>
 
 
+<dt>title</dt>
+<dd><p>The value should be <code>FALSE</code> or a string.</p></dd>
+
+
+<dt>closed</dt>
+<dd><p>Whether the curve is closed?</p></dd>
+
+
 <dt>...</dt>
-<dd><p>Other arguments passed to <code>[sfc_grob()]</code>.</p></dd>
+<dd><p>Other arguments passed to <code><a href="sfc_grob.html">sfc_grob()</a></code>.</p></dd>
 
 </dl></div>
     <div id="details">

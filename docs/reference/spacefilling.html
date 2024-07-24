@@ -105,7 +105,7 @@ The value can be set as a vector e.g. <code>c(1, 2, 1)</code>, or as a string e.
 
 
 <dt>flip</dt>
-<dd><p>Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
+<dd><p>Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
 of curve expansion rules. On each level expansion in the Peano curve and the Meander curve, a point expands to nine points in
 3x3 grids. Thus the value of <code>flip</code> can be set as a logical vector of length of nine that controls whether to use the flipped expansion
 for the corresponding unit. Besides such "1-to-9" mode, <code>flip</code> can also be set as a function which acccepts the number of current points in the curve and return
@@ -118,13 +118,14 @@ a logical vector with the same length, i.e. the "all-to-all*9" mode.</p></dd>
 
 <p><code>sfc_hilbert()</code> returns an <code>sfc_hilbert</code> object.
 <code>sfc_peano()</code> returns an <code>sfc_peano</code> object.
-<code>sfc_meander()</code> returns an <code>sfc_meander</code> object.</p>
+<code>sfc_meander()</code> returns an <code>sfc_meander</code> object.
+These three classes are child classes of <code>sfc_nxn</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p><code>sfc_hilbert()</code> generates the Hilbert curve from the seed sequence.
-<code>sfc_peano()</code> generates the Peano curve from the seed sequence.
-<code>sfc_meander()</code> generates the Meander curve from the seed sequence.</p>
+    <p><code>sfc_hilbert()</code> generates the Hilbert curve from the seed sequence.</p>
+<p><code>sfc_peano()</code> generates the Peano curve from the seed sequence.</p>
+<p><code>sfc_meander()</code> generates the Meander curve from the seed sequence.</p>
     </div>
 
     <div id="ref-examples">

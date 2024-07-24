@@ -77,11 +77,14 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">draw_multiple_curves</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
-<span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  extend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  title <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  closed <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  title <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  padding <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fl">0</span>, <span class="st">"pt"</span><span class="op">)</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -101,7 +104,7 @@ can also be a list of two-column coordinate matrices.</p></dd>
 
 
 <dt>extend</dt>
-<dd><p>Whether to draw the entering and leaving segments?</p></dd>
+<dd><p>Whether to draw the entering and leaving segments? It is only used when input is a list of <code>sfc_sequence</code> objects.</p></dd>
 
 
 <dt>title</dt>
@@ -110,7 +113,20 @@ Or the value can be a vector of strings.</p></dd>
 
 
 <dt>closed</dt>
-<dd><p>Whether the curves are closed? The value should be a logical vector.</p></dd>
+<dd><p>Whether the curves are closed? The value should be a logical vector. If it is <code>TRUE</code>, the last point
+is connected to the first point in the curve to form a closed curve.</p></dd>
+
+
+<dt>padding</dt>
+<dd><p>Space around each curve. The value should be a <code><a href="https://rdrr.io/r/grid/grid-defunct.html" class="external-link">grid::grob</a></code> object.</p></dd>
+
+
+<dt>lwd</dt>
+<dd><p>Line width.</p></dd>
+
+
+<dt>col</dt>
+<dd><p>Color for segments. If the value is <code>NULL</code>, it uses the "Spectral" color palettes.</p></dd>
 
 </dl></div>
     <div id="details">

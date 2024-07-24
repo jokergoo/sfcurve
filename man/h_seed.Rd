@@ -24,10 +24,10 @@ H2
 Seed sequences of the H-curve
 }
 \details{
-The three objects simply contain the coordinates of points on the three curves.
+The three objects simply contain the coordinates of points on the three base curves.
 }
 \examples{
 H0
-plot(H1, type = "l", asp = 1)
+draw_multiple_curves(H0, H1, H2, nrow = 1, closed = TRUE)
 }
 \keyword{datasets}

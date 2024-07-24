@@ -92,7 +92,7 @@
 <dt>fun</dt>
 <dd><p>A function of which the argument <code>x</code> is a subunit in the curve. The subunit is an <code>sfc_nxn</code> object but only contains the current sub-sequence.
 The function should return an <code>sfc_seuqence</code> object with the same length as of <code>x</code>. The function can take an optional second argument which
-the index of the current unit in the curve.</p></dd>
+the index of the current subunit in the curve.</p></dd>
 
 </dl></div>
     <div id="details">
@@ -103,56 +103,60 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">111</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># flip the global curve</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p</span>, </span></span>
+<span class="r-in"><span>    <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0</span>, <span class="va">sfc_flip_unit</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all the subunits on depth = 1</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p</span>, </span></span>
+<span class="r-in"><span>    <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span>, <span class="va">sfc_flip_unit</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all the subunits on depth = 2</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p</span>, </span></span>
+<span class="r-in"><span>    <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="va">sfc_flip_unit</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all level-1 patterns on the Peano curve to horizontal</span></span></span>
 <span class="r-in"><span><span class="co"># only works on the lowest subunit, </span></span></span>
-<span class="r-in"><span><span class="co"># simply guess whether the subunit is horizontal or vertical</span></span></span>
-<span class="r-in"><span><span class="va">peano_unit_orientation</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">u</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="va">loc</span> <span class="op">=</span> <span class="fu"><a href="sfc_segments.html">sfc_segments</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="va">loc</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">loc</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&amp;&amp;</span> <span class="va">loc</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">loc</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="st">"vertical"</span></span></span>
-<span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="st">"horizontal"</span></span></span>
-<span class="r-in"><span>    <span class="op">}</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu">peano_unit_orientation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">x</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># then on depth=1, only flip the unit with odd index</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">=</span> <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p2</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">x</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all level-1 patterns to vertical</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">=</span> <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu">peano_unit_orientation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="fu"><a href="sfc_index.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">x</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

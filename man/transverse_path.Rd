@@ -10,35 +10,47 @@ all_transverse_paths(rules, p)
 
 get_one_transverse_path(rules, p)
 
-plot_transverse_paths(rules, p, paths, type = 0)
+plot_transverse_paths(rules, p, type = c("all", "11|22", "12|21"))
 }
 \arguments{
 \item{rules}{An \code{sfc_rules} object.}
 
 \item{p}{An \code{sfc_sequence} sequence. \code{p} and \code{rules} should have the same universe base set.}
 
-\item{paths}{The object returned from \code{all_transverse_paths()}.}
-
-\item{type}{If the value is 1, it highlights the paths only via 1-1/2-2 corners. If the value is 2, it highlights the paths
+\item{type}{If the value is \code{"11|22"}, it highlights the paths only via 1-1/2-2 corners. If the value is \code{"12|21"}, it highlights the paths
 only via 1-2/2-1 corners.}
 }
 \description{
 All transverse paths of a sequence
 }
 \details{
-Given an input sequence with rotations, list all combinations of transverse code for each letter in p.
+Given an input sequence with rotations, \code{all_transverse_paths()} lists all combinations of transverse
+codes from the first letter to the last letter in \code{p} (i.e. all possible transverse paths).
 
 \code{get_one_transverse_path()} returns one random transverse path.
 }
 \examples{
-p = sfc_3x3_combined("I", level = 1)
+# expansion rules for the general 3x3 curves
+p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
 get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
 get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
 get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
 get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
-p = SFC_RULES_3x3_COMBINED@rules$I[[1]]
-pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl)
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 1)
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 2)
+# 
+p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p)
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
+plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
+
+# Hilbert curve
+p = sfc_hilbert("I", 11)
+plot_transverse_paths(SFC_RULES_HILBERT, p)
+
+# Peano curve
+p = sfc_peano("I", 1)
+plot_transverse_paths(SFC_RULES_PEANO, p)
+
+# Meander curve
+p = sfc_meander("I", 1)
+plot_transverse_paths(SFC_RULES_MEANDER, p)
 }

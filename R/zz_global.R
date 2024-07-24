@@ -312,7 +312,7 @@ RULES_3x3_COMBINED[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' A list of pre-defined base patterns. See the **Examples** section.
 #' 
 #' `BASE_I` and `BASE_J` are identical. They are only used to distinguish the two
-#' "going forward" patterns in the 3x3 mode, i.e. bottom-left to top-right, and bottom-right
+#' "going forward" patterns in the 3x3 mode for the Peano curves, i.e. bottom-left to top-right, and bottom-right
 #' to top-left.
 #' 
 #' @rdname base_patterns
@@ -328,6 +328,11 @@ RULES_3x3_COMBINED[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' BASE_P
 #' BASE_Q
 #' BASE_C
+#' draw_multiple_curves(
+#'     BASE_I, BASE_J, BASE_R, BASE_L, BASE_U,
+#'     BASE_B, BASE_D, BASE_P, BASE_Q, BASE_C,
+#'     nrow = 1
+#' )
 "BASE_I"
 
 #' @rdname base_patterns
@@ -376,7 +381,7 @@ RULES_3x3_COMBINED[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' A list of pre-defined expansion rules for different curves.
 #' 
 #' @details
-#' `SFC_RULES_PEANO` and `SFC_RULES_MEANDER` contain both "flipped" expansion rules.
+#' `SFC_RULES_PEANO`, `SFC_RULES_MEANDER` and `SFC_RULES_3x3_COMBINED` also contain the "flipped" expansion rules.
 #' @rdname pre_defined_rules
 #' @export
 #' @examples
@@ -397,8 +402,7 @@ RULES_3x3_COMBINED[["C"]][[2]] = sfc_unit("LLLRRIRIR", rot = 90, universe = UNIV
 #' @rdname pre_defined_rules
 #' @details
 #' `SFC_RULES_3x3_COMBINED` is a combination of `SFC_RULES_PEANO` and `SFC_RULES_PEANO` where
-#' in `SFC_RULES_PEANO`, `J` is replaced by its original pattern `I`. `SFC_RULES_3x3_COMBINED` only
-#' contains three base patterns of `I/R/L`.
+#' in `SFC_RULES_PEANO`, `J` is replaced by its original pattern `I`.
 #' @export
 "SFC_RULES_3x3_COMBINED"
 

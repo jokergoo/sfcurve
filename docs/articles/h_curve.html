@@ -93,7 +93,7 @@
       <h1 data-toc-skip>H-Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-23</h4>
+            <h4 data-toc-skip class="date">2024-07-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/h_curve.Rmd" class="external-link"><code>vignettes/h_curve.Rmd</code></a></small>
       <div class="hidden name"><code>h_curve.Rmd</code></div>
@@ -109,9 +109,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">H1</span>, <span class="va">H2</span>, nrow <span class="op">=</span> <span class="fl">1</span>, closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>To recursively expand it to higher levels, we can replace the four corners (each corner is represented as a 2x2 grids) into full H-units. Or we can also do in a copy-paste way where we put the four copies of the H-unit in the four quadrants and connect them in the 1-2-3-4 order as in the following figure.</p>
+<p>To recursively expand it to higher levels, we can replace the four corners (each corner is represented as a 2x2 grids) into full H-units. Or we can also do in a copy-paste way where we put the four copies of the H-unit in the four quadrants and connect them in the 1-2-3-4 order as in the following figure:</p>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>To connect two units, the corners in the corresponding units need to be opened. Take unit 1 as an example, as it connects to unit 2 via its topright corner, there are two ways to open this corner: to open the horizontal segment and the vertical segment on the topright corner. This process is similar for unit 2-4. We name the openning of the horizontal segment as <code>"h"</code> and the openning of the vertical segment as <code>"v"</code>. See the next two plots:</p>
+<p>To connect two units, the corners in the corresponding units need to be opened. Take unit 1 as an example, as it connects to unit 2 via its topright corner, there are two ways to open this corner: to open the horizontal segment and the vertical segment. This process is similar for unit 2-4. We name the openning of the horizontal segment as <code>"h"</code> and the openning of the vertical segment as <code>"v"</code>. See the next two plots:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">1</span>, connect <span class="op">=</span> <span class="st">"h"</span><span class="op">)</span>,</span>
@@ -124,7 +124,7 @@
 <p>where the four <span class="math inline">\(H^{(0)}\)</span> have the order of 1-2-3-4. <span class="math inline">\(c\)</span> is the action of how two units are connected and it takes values of <span class="math inline">\(h\)</span> (open the horiozntal segment) and <span class="math inline">\(v\)</span> (open the vertical segment). The fourth <span class="math inline">\(H^{(0)}\)</span> connects back to the first <span class="math inline">\(H^{(0)}\)</span>.</p>
 <p>As there are two types of base units for the H-curve: <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>, the four <span class="math inline">\(H^{(0)}\)</span> actually can be differently and independently selected. Then we can change the previous equation to:</p>
 <p><span class="math display">\[ H^{(1)} = H_1^{(0)} \cdot c \cdot H_2^{(0)} \cdot c \cdot H_3^{(0)} \cdot c \cdot H_4^{(0)} \cdot c, \quad H_i^{(0)} \in \{H_1, H_2\}, i \in \{1..4\}\]</span></p>
-<p>The next plots show all the forms of H-curves after one iteration, with the connection method “h”:</p>
+<p>The next plots show all the forms of H-curves after the first iteration, with the connection method “h”:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H1</span>, <span class="va">H1</span>, <span class="va">H1</span>, <span class="va">H1</span><span class="op">)</span>, <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H1</span>, <span class="va">H1</span>, <span class="va">H1</span>, <span class="va">H2</span><span class="op">)</span>, <span class="co"># "h" is the default</span></span>
@@ -135,7 +135,7 @@
 <span>    <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H1</span>, <span class="va">H2</span>, <span class="va">H1</span><span class="op">)</span>, <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H1</span>, <span class="va">H2</span>, <span class="va">H2</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H1</span>, <span class="va">H1</span><span class="op">)</span>, <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H1</span>, <span class="va">H2</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H1</span><span class="op">)</span>, <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H2</span>, <span class="va">H2</span><span class="op">)</span>,</span>
-<span>    nrow <span class="op">=</span> <span class="fl">2</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, closed <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span>, closed <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>More generally, we can generalize the previous equation to any step of the iteration <span class="math inline">\(k\)</span>:</p>
@@ -147,7 +147,7 @@
 <p>After the first iteration, the total number of forms of the H-curve denoted as <span class="math inline">\(n_1\)</span> is</p>
 <p><span class="math display">\[ n_1 = n_0^4 \cdot 2 \]</span></p>
 <p>where <span class="math inline">\(n_0\)</span> is the number of different forms of base patterns, which is 2. The second 2 is the number of connection method, i.e. “h” and “v”.</p>
-<p>Similally, we can write the numbers of forms after other iterations:</p>
+<p>Similally, we can write the numbers of forms for other iterations:</p>
 <p><span class="math display">\[
 \begin{align*}
 n_2 &amp;= n_1^4 \cdot 2 \\
@@ -165,7 +165,7 @@ n_k = 2^{4^k + 4^{k-1} + ... + 4 + 1} = 2^{\sum_{i=0}^k{4^i}} =  2^{\frac{4^{k+1
 <div class="section level2">
 <h2 id="more-general-forms">More general forms<a class="anchor" aria-label="anchor" href="#more-general-forms"></a>
 </h2>
-<p>More generally, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> can be thought as building on an even smaller unit <span class="math inline">\(H_0\)</span>:</p>
+<p>More generally, <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span> can be thought as being built on an even smaller unit <span class="math inline">\(H_0\)</span>:</p>
 <p><span class="math display">\[
 \begin{align*}
 H_1 &amp;= H_0 \cdot h \cdot H_0 \cdot h \cdot H_0 \cdot h \cdot H_0 \cdot h \\
@@ -182,8 +182,8 @@ H_2 &amp;= H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \\
 <p><img src="h_curve_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;"></p>
 <p>Also the connection methods for the four units are not necessary to be the same. In the followng example, we take <span class="math inline">\(H_0\)</span> as the base unit and take <code>vhvh</code> as the connection methods, i.e. the vertical segment of the first unit, the horizontal segment of the second unit, the vertical segment of the third unit and the horizontal segment of the fourth segment are opened:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span>, <span class="va">k</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">k</span><span class="op">)</span> <span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">h</span>, connect <span class="op">=</span> <span class="st">"vhvh"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">fun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span>, <span class="va">iteration</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">iteration</span><span class="op">)</span> <span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">expand_h</a></span><span class="op">(</span><span class="va">h</span>, connect <span class="op">=</span> <span class="st">"vhvh"</span><span class="op">)</span></span>
 <span>    <span class="va">h</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">fun</span><span class="op">(</span><span class="va">H0</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/plot_segments.html">plot_segments</a></span><span class="op">(</span>closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -194,31 +194,45 @@ H_2 &amp;= H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \cdot H_0 \cdot v \\
 </h2>
 <p>Last, although H-curve has a large number of different forms, different settings only affect foldings locally in the curve, while its global structure is still unchanged:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">5</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">5</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    nrow <span class="op">=</span> <span class="fl">2</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">5</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">5</span>, random <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="h_curve_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>The next plots show distances of points with the same indicies on two random H-curves, normalized by the “sizes” of the curves.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">d1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">p1</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">p2</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">p1</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">p2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d1</span>, type <span class="op">=</span> <span class="st">"h"</span>, main <span class="op">=</span> <span class="st">"iter = 3"</span>, xlab <span class="op">=</span> <span class="st">"Sequential points on H-curve"</span>, ylab <span class="op">=</span> <span class="st">"distance"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">p3</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">p4</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">p3</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">p4</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d2</span>, type <span class="op">=</span> <span class="st">"h"</span>, main <span class="op">=</span> <span class="st">"iter = 5"</span>, xlab <span class="op">=</span> <span class="st">"Sequential points on H-curve"</span>, ylab <span class="op">=</span> <span class="st">"distance"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="h_curve_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="locality">Locality<a class="anchor" aria-label="anchor" href="#locality"></a>
 </h2>
 <p>We look at an H-curve with 1024 points.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/h_curve.html">sfc_h</a></span><span class="op">(</span><span class="va">H1</span>, iteration <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1024    2</span></span></code></pre>
 <p>And their distances in the 2D space:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">d2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">m</span>, name <span class="op">=</span> <span class="st">"dist"</span>, cluster_rows <span class="op">=</span> <span class="cn">FALSE</span>, cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    show_row_names <span class="op">=</span> <span class="cn">FALSE</span>, show_column_names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="h_curve_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="h_curve_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>We directly compare the distances in 1D axis and 2D curve:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1024</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d1</span>, <span class="va">d2</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, col <span class="op">=</span> <span class="st">"#00000010"</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">"Distance in 1D axis"</span>, ylab <span class="op">=</span> <span class="st">"Distance in 2D curve"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="h_curve_files/figure-html/unnamed-chunk-12-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
   </div>
 

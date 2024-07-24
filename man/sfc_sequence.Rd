@@ -13,7 +13,7 @@ sfc_seed(seq, rot = 0L, universe = NULL)
 sfc_unit(seq, rot = 0L, universe = NULL)
 }
 \arguments{
-\item{seq}{A sequence of base patterns. The value can be a vector of letters or a string.}
+\item{seq}{A sequence of base patterns. The value can be a vector of letters or a single string.}
 
 \item{rot}{The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
 \code{rot} controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
@@ -30,7 +30,8 @@ This funtion is very low-level. Normally, users do not need to directly use this
 \code{sfc_seed} class is the same as the \code{sfc_sequence} class. It is used specifically as the "seed sequence"
 when generating the curves.
 
-\code{sfc_unit} class is also the same as the \code{sfc_sequence} class. It is used specifically when defining the expansion rules.
+\code{sfc_unit} class also inherits the \code{sfc_sequence} class but has one additionally slot: \code{corner}.
+It is used specifically when defining the expansion rules.
 }
 \examples{
 sfc_sequence("ABCD", rot = c(0, 90, 180, 270), universe = c("A", "B", "C", "D"))

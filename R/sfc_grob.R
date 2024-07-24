@@ -6,6 +6,8 @@
 #' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
 #'      Or the value is a string.
 #' @param closed Whether the curve is closed? 
+#' @param lwd Line width.
+#' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes.
 #' @param ... Other arguments passed to [`grid::viewport()`] or `sfc_grob()`.
 #' 
 #' @details
@@ -17,7 +19,7 @@
 #' @import colorRamp2
 setMethod("sfc_grob",
 	signature = "sfc_sequence",
-	definition = function(p, bases = NULL, extend = FALSE, title = FALSE, closed = FALSE, ...) {
+	definition = function(p, bases = NULL, extend = FALSE, title = FALSE, closed = FALSE, lwd = 4, col = NULL, ...) {
 
 	if(is.null(bases)) {
 		bases = BASE_LIST[sfc_universe(p)]
@@ -37,13 +39,18 @@ setMethod("sfc_grob",
 	
 	r = (diff(rgx) + 1)/(diff(rgy) + 1)
 
-	vp = viewport(xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
+	vp = viewport(name = "vp_sfc_sequence", xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
 
 	gbl = list()
 
 	if(n > 1) {
-		col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
-		gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = 4))
+		if(is.null(col)) {
+			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = lwd))
+		} else {
+			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col, lwd = lwd))
+		}
+	
 	} else {
 		gbl[[1]] = pointsGrob(loc[, 1], loc[, 2], pch = 16, size = unit(4, "pt"), gp = gpar(col = "#9E0142"))
 	}
@@ -99,14 +106,16 @@ setMethod("sfc_grob",
 #' @rdname sfc_grob
 #' @examples
 #' plot(sfc_hilbert("I", "11"))
+#' plot(sfc_hilbert("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
 #' plot(sfc_sequence("IIIRRR"))
-plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, ...) {
+plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, 
+	extend = FALSE, title = FALSE, closed = FALSE, ...) {
 
 	if(is.null(bases)) {
 		bases = BASE_LIST[sfc_universe(x)]
 	}
 
-	gb = sfc_grob(x, bases, ...)
+	gb = sfc_grob(x, bases, extend = extend, title = title, closed = closed, ...)
 	grid.newpage()
 	grid.draw(gb)
 
@@ -146,8 +155,8 @@ makeContext.grob_sfc_sequence = function(x) {
 
 #' @export
 #' @rdname sfc_grob
-plot.sfc_nxn = function(x, grid = FALSE, ...) {
-	gb = sfc_grob(x, ...)
+plot.sfc_nxn = function(x, grid = FALSE, extend = FALSE, title = FALSE, closed = FALSE, ...) {
+	gb = sfc_grob(x, extend = extend, title = title, closed = closed, ...)
 	grid.newpage()
 	grid.draw(gb)
 
@@ -158,8 +167,10 @@ plot.sfc_nxn = function(x, grid = FALSE, ...) {
 
 
 add_grid_lines = function() {
-	vp = current.vpTree()$children[[1]]
-	downViewport(vp$name)
+	vp = current.viewport()
+	nm = vp$name
+	downViewport("vp_sfc_sequence")
+	vp = current.viewport()
 	xscale = vp$xscale
 	yscale = vp$yscale
 
@@ -172,14 +183,13 @@ add_grid_lines = function() {
 	grid.segments(rep(xscale[1] + 0.5, ny), seq(yscale[1] + 0.5, yscale[2] - 0.5, by = 1),
 		          rep(xscale[2] - 0.5, ny), seq(yscale[1] + 0.5, yscale[2] - 0.5, by = 1), 
 		          default.units = "native", gp = gpar(col = "#CCCCCC", lty = 2))
-	upViewport()
 }
 
 #' @rdname sfc_grob
 #' @export
 setMethod("sfc_grob",
 	signature = "matrix",
-	definition = function(p, title = NULL, closed = FALSE, ...) {
+	definition = function(p, title = NULL, closed = FALSE, lwd = 4, col = NULL, ...) {
 
 	loc = p
 	if(closed) {
@@ -200,8 +210,12 @@ setMethod("sfc_grob",
 	gbl = list()
 
 	if(n > 1) {
-		col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
-		gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = 4))
+		if(is.null(col)) {
+			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = lwd))
+		} else {
+			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col, lwd = lwd))
+		}
 	} else {
 		gbl[[1]] = pointsGrob(loc[, 1], loc[, 2], pch = 16, size = unit(4, "pt"), gp = gpar(col = "#9E0142"))
 	}

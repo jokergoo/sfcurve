@@ -25,9 +25,10 @@
 
 \item{flip}{For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, \code{flip} should be a logical
-vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.}
+vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
+The value of \code{flip} can also be a function which takes the length of \code{letters} as the only argument.}
 
-\item{by}{Which implemnetation? Only for the testing purpose.}
+\item{by}{Which implementation? Only for the testing purpose.}
 
 \item{rot}{Rotations of \code{letters}.}
 }

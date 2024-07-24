@@ -12,9 +12,26 @@
 \usage{
 \S4method{sfc_grob}{sfc_base}(p)
 
-\S4method{sfc_grob}{sfc_sequence}(p, bases = NULL, extend = FALSE, title = FALSE, closed = FALSE, ...)
+\S4method{sfc_grob}{sfc_sequence}(
+  p,
+  bases = NULL,
+  extend = FALSE,
+  title = FALSE,
+  closed = FALSE,
+  lwd = 4,
+  col = NULL,
+  ...
+)
 
-\method{plot}{sfc_sequence}(x, bases = NULL, grid = FALSE, ...)
+\method{plot}{sfc_sequence}(
+  x,
+  bases = NULL,
+  grid = FALSE,
+  extend = FALSE,
+  title = FALSE,
+  closed = FALSE,
+  ...
+)
 
 \S4method{sfc_grob}{sfc_nxn}(
   p,
@@ -25,9 +42,9 @@
   ...
 )
 
-\method{plot}{sfc_nxn}(x, grid = FALSE, ...)
+\method{plot}{sfc_nxn}(x, grid = FALSE, extend = FALSE, title = FALSE, closed = FALSE, ...)
 
-\S4method{sfc_grob}{matrix}(p, title = NULL, closed = FALSE, ...)
+\S4method{sfc_grob}{matrix}(p, title = NULL, closed = FALSE, lwd = 4, col = NULL, ...)
 }
 \arguments{
 \item{p}{The corresponding object.}
@@ -40,6 +57,10 @@
 Or the value is a string.}
 
 \item{closed}{Whether the curve is closed?}
+
+\item{lwd}{Line width.}
+
+\item{col}{Color for segments. If the value is \code{NULL}, it uses the "Spectral" color palettes.}
 
 \item{...}{Other arguments passed to \code{\link[grid:viewport]{grid::viewport()}} or \code{sfc_grob()}.}
 
@@ -61,5 +82,6 @@ is already stored in \code{p} and it is passed to this function automatically.
 \examples{
 sfc_grob(BASE_I)
 plot(sfc_hilbert("I", "11"))
+plot(sfc_hilbert("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
 plot(sfc_sequence("IIIRRR"))
 }

@@ -10,7 +10,7 @@ hilbert_3d(level = 2L)
 \item{level}{The level of the curve.}
 }
 \value{
-A three-column matrix of the coordinates of the Hilbert curve segments.
+A three-column matrix of the coordinates of points on the 3D Hilbert curve
 }
 \description{
 Three dimensional Hilbert curve

@@ -7,7 +7,7 @@
 #' @param depth An integer between 0 and `level-1` of the curve.
 #' @param fun A function of which the argument `x` is a subunit in the curve. The subunit is an `sfc_nxn` object but only contains the current sub-sequence.
 #'       The function should return an `sfc_seuqence` object with the same length as of `x`. The function can take an optional second argument which
-#'       the index of the current unit in the curve.
+#'       the index of the current subunit in the curve.
 #' 
 #' @details
 #' This function is mainly used to flip subunits on various levels on the curve, thus mainly on the Peano curve and the Meander curve.
@@ -15,34 +15,38 @@
 #' 
 #' @export
 #' @examples
-#' p = sfc_peano("I", 111)
+#' p = sfc_peano("I", level = 3)
 #' # flip the global curve
-#' draw_multiple_curves(p, sfc_apply(p, 0, function(x) sfc_flip_unit(x)))
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_apply(p, 0, sfc_flip_unit),
+#'     nrow = 1
+#' )
 #' 
 #' # flip all the subunits on depth = 1
-#' draw_multiple_curves(p, sfc_apply(p, 1, function(x) sfc_flip_unit(x)))
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_apply(p, 1, sfc_flip_unit),
+#'     nrow = 1
+#' )
 #' 
 #' # flip all the subunits on depth = 2
-#' draw_multiple_curves(p, sfc_apply(p, 2, function(x) sfc_flip_unit(x)))
+#' draw_multiple_curves(
+#'     p, 
+#'     sfc_apply(p, 2, sfc_flip_unit),
+#'     nrow = 1
+#' )
 #' 
 #' # flip all level-1 patterns on the Peano curve to horizontal
 #' # only works on the lowest subunit, 
-#' # simply guess whether the subunit is horizontal or vertical
-#' peano_unit_orientation = function(u) {
-#'     loc = sfc_segments(u)
-#'     if(loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) {
-#'         "vertical"
-#'     } else {
-#'         "horizontal"
-#'     }
-#' }
 #' p2 = sfc_apply(p, 2, function(x) {
-#'     if(peano_unit_orientation(x) == "vertical") {
+#'     if(level1_unit_orientation(x) == "vertical") {
 #'         sfc_flip_unit(x)
 #'     } else {
 #'         x
 #'     }
 #' })
+#' # then on depth=1, only flip the unit with odd index
 #' p3 = sfc_apply(p2, 1, function(x, i) {
 #'     if(i %% 2 == 1) {
 #'         sfc_flip_unit(x)
@@ -50,17 +54,17 @@
 #'         x
 #'     }
 #' })
-#' draw_multiple_curves(p2, p3, title = FALSE)
+#' draw_multiple_curves(p2, p3, title = FALSE, nrow = 1)
 #' 
 #' # flip all level-1 patterns to vertical
 #' p3 = sfc_apply(p, 2, function(x) {
-#'     if(peano_unit_orientation(x) == "horizontal") {
+#'     if(level1_unit_orientation(x) == "horizontal") {
 #'         sfc_flip_unit(x)
 #'     } else {
 #'         x
 #'     }
 #' })
-#' draw_multiple_curves(p, p3, title = FALSE)
+#' draw_multiple_curves(p, p3, title = FALSE, nrow = 1)
 setMethod("sfc_apply",
 	signature = "sfc_nxn",
 	definition = function(p, depth = 1, fun = function(x) x) {
@@ -76,7 +80,8 @@ setMethod("sfc_apply",
 	n_block = (n^2)^depth
 	block_size = (n^2)^(p@level - depth)
 
-	narg = length(formals(fun))
+	fm = formals(fun)
+	narg = length(fm)
 
 	for(i in seq_len(n_block)) {
 		ind = seq( (i-1)*block_size + 1, i*block_size )
@@ -84,8 +89,12 @@ setMethod("sfc_apply",
 
 		if(narg == 1) {
 			p[ind] = fun(unit)
-		} else {
-			p[ind] = fun(unit, i)
+		} else if(narg == 2) {
+			if(names(fm)[2] %in% c("i", "j", "k")) {
+				p[ind] = fun(unit, i)
+			} else {
+				p[ind] = fun(unit)
+			}
 		}
 	}
 	p

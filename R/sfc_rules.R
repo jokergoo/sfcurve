@@ -19,7 +19,7 @@
 #' RULES_HILBERT[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
 #' ```
 #' 
-#' where `I` is the level-0 base pattern, `[[1]]` corresponds to the first form of expansion to level-1, the value
+#' `I` is the level-0 base pattern, `[[1]]` corresponds to the first form of expansion to level-1, and the value
 #' assigned is a [`sfc_unit()`] object which is basically a list of base patterns.
 #' 
 #' Then we also need to provide the base patterns which define how to extend the curve. The list of base patterns
@@ -29,13 +29,16 @@
 #' list("I" = BASE_I, "R" = BASE_R, "L" = BASE_L, "U" = BASE_U, ...)
 #' ```
 #' 
-#' where e.g. `BASE_I` is a pre-defined base pattern in [`sfc_base`] class.
+#' where e.g. [`BASE_I`] is a pre-defined base pattern in the [`sfc_base`] class.
 #' 
 #' There are the following pre-defined rules:
 #' 
 #' - [`SFC_RULES_HILBERT`]
 #' - [`SFC_RULES_PEANO`]
 #' - [`SFC_RULES_MEANDER`]
+#' - [`SFC_RULES_3x3_COMBINED`]
+#' 
+#' Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.
 #' 
 #' @export
 sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
@@ -242,7 +245,8 @@ setMethod("sfc_universe",
 #' @param flip For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 #'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
 #'        vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
-#' @param by Which implemnetation? Only for the testing purpose.
+#'        The value of `flip` can also be a function which takes the length of `letters` as the only argument.
+#' @param by Which implementation? Only for the testing purpose.
 #' 
 #' @export
 #' @examples
@@ -327,6 +331,7 @@ setMethod("sfc_expand",
     if(!is.null(rot)) {
         p2 = sfc_rotate(p2, rep(rot, each = length(p@rules[[1]][[1]])))
     }
+    p2
 })
 
 
@@ -434,6 +439,8 @@ grob_single_base_rule = function(p, bp, ...) {
 #' Draw the expansion rules
 #' 
 #' @rdname draw_rules
+#' @details
+#' The expansion rules define how the curve is expanded from level-0 to level-1.
 #' @export
 #' @examples
 #' draw_rules_hilbert()

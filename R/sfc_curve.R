@@ -11,7 +11,9 @@
 #' 
 #' @details
 #' `sfc_hilbert()` generates the Hilbert curve from the seed sequence.
+#' 
 #' `sfc_peano()` generates the Peano curve from the seed sequence.
+#' 
 #' `sfc_meander()` generates the Meander curve from the seed sequence.
 #' 
 #' @rdname spacefilling
@@ -19,6 +21,7 @@
 #' `sfc_hilbert()` returns an `sfc_hilbert` object.
 #' `sfc_peano()` returns an `sfc_peano` object.
 #' `sfc_meander()` returns an `sfc_meander` object.
+#' These three classes are child classes of `sfc_nxn`.
 #' @export
 #' @import methods
 #' @examples
@@ -42,6 +45,9 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 	p@level = 0L
 	p@n = 2L
 	p@flip = c(FALSE, FALSE, FALSE, FALSE)
+	if(length(code) == 1) { # only expand to level 1
+		p@flip = p@flip[1]
+	}
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -72,7 +78,7 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 }
 
 #' @rdname spacefilling
-#' @param flip Whether to usethe "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
+#' @param flip Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version 
 #'      of curve expansion rules. On each level expansion in the Peano curve and the Meander curve, a point expands to nine points in 
 #'      3x3 grids. Thus the value of `flip` can be set as a logical vector of length of nine that controls whether to use the flipped expansion
 #'      for the corresponding unit. Besides such "1-to-9" mode, `flip` can also be set as a function which acccepts the number of current points in the curve and return
@@ -149,6 +155,9 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip = FAL
 		}
 	}
 	p@flip = flip
+	if(length(code) == 1) { # only expand to level 1
+		p@flip = flip[1]
+	}
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -183,13 +192,22 @@ sfc_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 	p@level = 0L
 	p@n = 3L
 
-	if(length(flip) == 1) {
-		flip = rep(flip, p@n^2)
-	}
-	if(length(flip) != p@n^2) {
-		stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+	if(is.logical(flip)) {
+		if(length(flip) == 1) {
+			flip = rep(flip, p@n^2)
+		}
+		if(length(flip) != p@n^2) {
+			stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+		}
+	} else {
+		if(!is.function(flip)) {
+			stop_wrap("`flip` can only be a logical vector or a function.")
+		}
 	}
 	p@flip = flip
+	if(length(code) == 1) { # only expand to level 1
+		p@flip = flip[1]
+	}
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -336,7 +354,7 @@ setMethod("level1_unit_orientation",
 #' p = sfc_peano("I", 111)
 #' p2 = change_level1_unit_orientation(p)
 #' p3 = change_level1_unit_orientation(p, "vertical")
-#' draw_multiple_curves(p2, p3, title = FALSE)
+#' draw_multiple_curves(p, p2, p3, title = FALSE, nrow = 1)
 setMethod("change_level1_unit_orientation",
 	signature = "sfc_peano",
 	definition = function(p, to = c("horizontal", "vertical")) {

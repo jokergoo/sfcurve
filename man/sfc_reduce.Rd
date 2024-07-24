@@ -16,9 +16,9 @@ add_base_structure(gb, level = 1)
 \arguments{
 \item{p}{An \code{sfc_nxn} object.}
 
-\item{to}{To which level to reduce? Value should be between 1 and \code{sfc_level(p) - 1}.}
+\item{to}{Which level to reduce to? Value should be between 1 and \code{sfc_level(p) - 1}.}
 
-\item{gb}{A \code{grob} object returned by \code{\link[=sfc_grob]{sfc_grob()}}.}
+\item{gb}{A \code{grob} object returned by \code{\link[=sfc_grob]{sfc_grob()}} or a \code{sfc_nxn} object then \code{\link[=sfc_grob]{sfc_grob()}} is internally applied.}
 
 \item{level}{The level of the unit.}
 }
@@ -46,9 +46,10 @@ draw_multiple_curves(
     sfc_reduce(p, 3), 
     sfc_reduce(p, 2), 
     title = FALSE, nrow = 1)
-gb = sfc_grob(hilbert_curve(3))
+p = hilbert_curve(3)
 draw_multiple_curves(
-    add_base_structure(gb, level = 1),
-    add_base_structure(gb, level = 2)
+    add_base_structure(p, level = 1),
+    add_base_structure(p, level = 2),
+    nrow = 1
 )
 }

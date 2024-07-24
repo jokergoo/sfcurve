@@ -4,7 +4,7 @@
 \alias{sfc_3x3_combined}
 \alias{sfc_expand,sfc_3x3_combined-method}
 \alias{draw_rules_3x3_combined}
-\title{3x3 space-filling curves}
+\title{General 3x3 space-filling curves}
 \usage{
 sfc_3x3_combined(seed, level = 0, rot = 0L, flip = FALSE)
 
@@ -26,10 +26,10 @@ first letter, or a vector with the same length as the number of base letters.}
 
 \item{p}{An \code{sfc_3x3_combined} object.}
 
-\item{code}{Ignore.}
+\item{code}{Ignore. The transverse code is selected randomly.}
 }
 \description{
-3x3 space-filling curves
+General 3x3 space-filling curves
 }
 \details{
 This type of 3x3 curve uses the combintation of base patterns from both the Peano curve and the Meander curve.

@@ -19,6 +19,9 @@ of the curve expansion rules. See the vignettes for details.}
 \description{
 Draw the expansion rules
 }
+\details{
+The expansion rules define how the curve is expanded from level-0 to level-1.
+}
 \examples{
 draw_rules_hilbert()
 draw_rules_peano()

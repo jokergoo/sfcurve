@@ -3,7 +3,7 @@ setClass("sfc_3x3_combined",
 	contains = "sfc_nxn")
 
 
-#' 3x3 space-filling curves 
+#' General 3x3 space-filling curves 
 #' 
 #' @rdname sfc_3x3_combined
 #' @param seed The seed sequence. In most cases, the seed sequence is a single base pattern, which can be specified as a single letter, then `rot` controls
@@ -52,6 +52,10 @@ sfc_3x3_combined = function(seed, level = 0, rot = 0L, flip = FALSE) {
 	}
 	p@flip = flip
 
+	if(level == 1) { # only expand to level 1
+		p@flip = flip[1]
+	}
+
 	for(i in seq_len(level)) {
 		p = sfc_expand(p)
 	}
@@ -76,7 +80,7 @@ setAs("sfc_seed", "sfc_3x3_combined", function(from) {
 
 #' @rdname sfc_3x3_combined
 #' @param p An `sfc_3x3_combined` object.
-#' @param code Ignore.
+#' @param code Ignore. The transverse code is selected randomly.
 #' @export
 setMethod("sfc_expand",
 	signature = "sfc_3x3_combined",

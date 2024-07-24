@@ -54,7 +54,7 @@ Transformations of a sequence
 }
 \details{
 \itemize{
-\item \code{sfc_rotate()} rotates each base pattern.
+\item \code{sfc_rotate()} and \verb{^()} rotate each base pattern.
 \item \code{sfc_hflip()} flips a sequence horizontally.
 \item \code{sfc_vflip()} flips a sequence vertically.
 \item \code{sfc_dflip()} flips a sequence against a diagonal line (with slop 1 or -1).
@@ -66,17 +66,17 @@ draw_multiple_curves(
     p, 
     sfc_hflip(p), 
     sfc_hflip(p, fix_ends = TRUE), 
-    title = FALSE)
+    nrow = 1, title = FALSE)
 p = sfc_meander("L", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_vflip(p), 
     sfc_vflip(p, fix_ends = TRUE), 
-    title = FALSE)
+    nrow = 1, title = FALSE)
 p = sfc_peano("I", 2)
 draw_multiple_curves(
     p, 
     sfc_dflip(p, 1), 
     sfc_dflip(p, 1, fix_ends = TRUE), 
-    title = FALSE)
+    nrow = 1, title = FALSE)
 }

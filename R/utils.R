@@ -5,10 +5,14 @@
 #'      can also be a list of two-column coordinate matrices.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
-#' @param extend Whether to draw the entering and leaving segments?
+#' @param extend Whether to draw the entering and leaving segments? It is only used when input is a list of `sfc_sequence` objects.
 #' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
 #'   Or the value can be a vector of strings.
-#' @param closed Whether the curves are closed? The value should be a logical vector.
+#' @param closed Whether the curves are closed? The value should be a logical vector. If it is `TRUE`, the last point
+#'           is connected to the first point in the curve to form a closed curve.
+#' @param padding Space around each curve. The value should be a [`grid::grob`] object.
+#' @param lwd Line width.
+#' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes.
 #' 
 #' @details
 #' This function is only for the demonstration purpose.
@@ -33,7 +37,9 @@
 #'     sfc_sequence("RRLL"),
 #'     nrow = 1
 #' )
-draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title = TRUE, closed = FALSE) {
+draw_multiple_curves = function(..., nrow = NULL, ncol = NULL, extend = TRUE, 
+	title = FALSE, closed = FALSE, padding = unit(0, "pt"),
+	lwd = 4, col = NULL) {
 	pl = list(...)
 
 	n = length(pl)
@@ -61,11 +67,17 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title
 	
 	gbl = lapply(seq_along(pl), function(i) {
 		if(inherits(pl[[i]], "sfc_sequence")) {
-			sfc_grob(pl[[i]], extend = extend, title = title[i], closed = closed[i])
+			sfc_grob(pl[[i]], extend = extend, title = title[i], closed = closed[i], lwd = lwd, col = col)
 		} else if(inherits(pl[[i]], "matrix")) {
-			sfc_grob(pl[[i]], title = title[i], closed = closed[i])
+			sfc_grob(pl[[i]], title = title[i], closed = closed[i], lwd = lwd, col = col)
 		} else if(inherits(pl[[i]], "grob")) {
+			pl[[i]]$children[[1]]$gp$lwd = lwd
+			if(!is.null(col)) {
+				pl[[i]]$children[[1]]$gp$col = col
+			}
 			pl[[i]]
+		} else if(inherits(pl[[i]], "sfc_base")) {
+			sfc_grob(pl[[i]])
 		} else {
 			stop_wrap("Wrong data type.")
 		}
@@ -75,9 +87,14 @@ draw_multiple_curves = function(..., nrow = 1, ncol = NULL, extend = TRUE, title
 	pushViewport(viewport(layout = grid.layout(nrow = nrow, ncol = ncol)))
 	for(i in seq_len(nrow)) {
 		for(j in seq_len(ncol)) {
-			pushViewport(viewport(layout.pos.row = i, layout.pos.col = j))
 			ind = (i-1)*ncol + j
+			if(ind > n) {
+				break
+			}
+			pushViewport(viewport(layout.pos.row = i, layout.pos.col = j))
+			pushViewport(viewport(width = unit(1, "npc") - padding, height = unit(1, "npc") - padding))
 			grid.draw(gbl[[ind]])
+			popViewport()
 			popViewport()
 		}
 	}

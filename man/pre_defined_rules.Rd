@@ -29,11 +29,10 @@ SFC_RULES_3x3_COMBINED
 A list of pre-defined expansion rules for different curves.
 }
 \details{
-\code{SFC_RULES_PEANO} and \code{SFC_RULES_MEANDER} contain both "flipped" expansion rules.
+\code{SFC_RULES_PEANO}, \code{SFC_RULES_MEANDER} and \code{SFC_RULES_3x3_COMBINED} also contain the "flipped" expansion rules.
 
 \code{SFC_RULES_3x3_COMBINED} is a combination of \code{SFC_RULES_PEANO} and \code{SFC_RULES_PEANO} where
-in \code{SFC_RULES_PEANO}, \code{J} is replaced by its original pattern \code{I}. \code{SFC_RULES_3x3_COMBINED} only
-contains three base patterns of \code{I/R/L}.
+in \code{SFC_RULES_PEANO}, \code{J} is replaced by its original pattern \code{I}.
 }
 \examples{
 SFC_RULES_HILBERT

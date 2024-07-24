@@ -36,7 +36,7 @@ draw_multiple_curves(H1, H2, nrow = 1, closed = TRUE)
 To recursively expand it to higher levels, we can replace the four corners
 (each corner is represented as a 2x2 grids) into full H-units. Or we can also
 do in a copy-paste way where we put the four copies of the H-unit in the four
-quadrants and connect them in the 1-2-3-4 order as in the following figure.
+quadrants and connect them in the 1-2-3-4 order as in the following figure:
 
 
 ```{r, fig.width = 5, fig.height = 5, echo = FALSE}
@@ -54,8 +54,8 @@ popViewport()
 
 To connect two units, the corners in the corresponding units need to be opened.
 Take unit 1 as an example, as it connects to unit 2 via its topright corner, there
-are two ways to open this corner: to open the horizontal segment and the vertical segment
-on the topright corner. This process is similar for unit 2-4. We name the openning
+are two ways to open this corner: to open the horizontal segment and the vertical segment. 
+This process is similar for unit 2-4. We name the openning
 of the horizontal segment as `"h"` and the openning of the vertical segment as `"v"`.
 See the next two plots:
 
@@ -82,7 +82,7 @@ we can change the previous equation to:
 $$ H^{(1)} = H_1^{(0)} \cdot c \cdot H_2^{(0)} \cdot c \cdot H_3^{(0)} \cdot c \cdot H_4^{(0)} \cdot c, \quad H_i^{(0)} \in \{H_1, H_2\}, i \in \{1..4\}$$
 
 
-The next plots show all the forms of H-curves after one iteration, with the connection method "h":
+The next plots show all the forms of H-curves after the first iteration, with the connection method "h":
 
 ```{r, fig.width = 8, fig.height = 2}
 draw_multiple_curves(
@@ -94,7 +94,7 @@ draw_multiple_curves(
     expand_h(H2, H1, H2, H1), expand_h(H2, H1, H2, H2),
     expand_h(H2, H2, H1, H1), expand_h(H2, H2, H1, H2),
     expand_h(H2, H2, H2, H1), expand_h(H2, H2, H2, H2),
-    nrow = 2, title = FALSE, closed = TRUE
+    nrow = 2, closed = TRUE
 )
 ```
 
@@ -110,7 +110,7 @@ $$ n_1 = n_0^4 \cdot 2 $$
 
 where $n_0$ is the number of different forms of base patterns, which is 2. The second 2 is the number of connection method, i.e. "h" and "v".
 
-Similally, we can write the numbers of forms after other iterations:
+Similally, we can write the numbers of forms for other iterations:
 
 $$
 \begin{align*}
@@ -134,7 +134,7 @@ to an unique sequence of binary bits with length of $(4^{k+1}-1)/3$.
 
 ## More general forms
 
-More generally, $H_1$ and $H_2$ can be thought as building on an even smaller unit $H_0$:
+More generally, $H_1$ and $H_2$ can be thought as being built on an even smaller unit $H_0$:
 
 $$
 \begin{align*}
@@ -158,8 +158,8 @@ first unit, the horizontal segment of the second unit, the vertical segment of t
 segment of the fourth segment are opened:
 
 ```{r, fig.width = 6, fig.height = 6}
-fun = function(h, k) {
-    for(i in 1:k) h = expand_h(h, connect = "vhvh")
+fun = function(h, iteration) {
+    for(i in 1:iteration) h = expand_h(h, connect = "vhvh")
     h
 }
 fun(H0, 5) |> plot_segments(closed = TRUE)
@@ -171,13 +171,23 @@ Last, although H-curve has a large number of different forms, different settings
 while its global structure is still unchanged:
 
 ```{r, fig.width = 8, fig.height = 8}
-draw_multiple_curves(
-    sfc_h(H1, iteration = 3, random = TRUE),
-    sfc_h(H1, iteration = 3, random = TRUE),
-    sfc_h(H1, iteration = 5, random = TRUE),
-    sfc_h(H1, iteration = 5, random = TRUE),
-    nrow = 2
-)
+p1 = sfc_h(H1, iteration = 3, random = TRUE)
+p2 = sfc_h(H1, iteration = 3, random = TRUE)
+p3 = sfc_h(H1, iteration = 5, random = TRUE)
+p4 = sfc_h(H1, iteration = 5, random = TRUE)
+draw_multiple_curves(p1, p2, p3, p4, nrow = 2)
+```
+
+The next plots show distances of points with the same indicies on two random H-curves,
+normalized by the "sizes" of the curves.
+
+```{r, fig.width = 8, fig.height = 6}
+par(mfrow = c(2, 1))
+d1 = sqrt((p1[, 1] - p2[, 1])^2 + (p1[, 2] - p2[, 2])^2)/sqrt(nrow(p1))
+plot(d1, type = "h", main = "iter = 3", xlab = "Sequential points on H-curve", ylab = "distance")
+
+d2 = sqrt((p3[, 1] - p4[, 1])^2 + (p3[, 2] - p4[, 2])^2)/sqrt(nrow(p3))
+plot(d2, type = "h", main = "iter = 5", xlab = "Sequential points on H-curve", ylab = "distance")
 ```
 
 ## Locality
@@ -192,9 +202,18 @@ dim(p)
 And their distances in the 2D space:
 
 ```{r, fig.width = 7, fig.height = 7}
-m = as.matrix(dist(p))
+d2 = dist(p)
+m = as.matrix(d2)
 
 library(ComplexHeatmap)
 Heatmap(m, name = "dist", cluster_rows = FALSE, cluster_columns = FALSE,
     show_row_names = FALSE, show_column_names = FALSE)
+```
+
+We directly compare the distances in 1D axis and 2D curve:
+
+```{r}
+d1 = dist(1:1024)
+plot(d1, d2, pch = 16, cex = 0.2, col = "#00000010",
+    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
 ```

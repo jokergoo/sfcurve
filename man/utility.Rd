@@ -18,7 +18,7 @@
 \arguments{
 \item{x}{An \code{sfc_sequence} object.}
 
-\item{i}{Index.}
+\item{i}{Numeric index.}
 
 \item{value}{An \code{sfc_sequence} object.}
 

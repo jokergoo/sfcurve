@@ -7,7 +7,8 @@
 #' @param p An `sfc_sequence` sequence. `p` and `rules` should have the same universe base set.
 #' @export
 #' @details
-#' Given an input sequence with rotations, list all combinations of transverse code for each letter in p.
+#' Given an input sequence with rotations, `all_transverse_paths()` lists all combinations of transverse 
+#' codes from the first letter to the last letter in `p` (i.e. all possible transverse paths).
 all_transverse_paths = function(rules, p) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
@@ -83,7 +84,8 @@ rev_corner = function(corner) {
 #' @details
 #' `get_one_transverse_path()` returns one random transverse path.
 #' @examples
-#' p = sfc_3x3_combined("I", level = 1)
+#' # expansion rules for the general 3x3 curves
+#' p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
 #' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
 #' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
 #' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
@@ -141,22 +143,35 @@ get_one_transverse_path = function(rules, p) {
 }
 
 #' @rdname transverse_path
-#' @param paths The object returned from `all_transverse_paths()`.
-#' @param type If the value is 1, it highlights the paths only via 1-1/2-2 corners. If the value is 2, it highlights the paths
+#' @param type If the value is `"11|22"`, it highlights the paths only via 1-1/2-2 corners. If the value is `"12|21"`, it highlights the paths
 #'       only via 1-2/2-1 corners.
 #' @export
 #' @examples
-#' p = SFC_RULES_3x3_COMBINED@rules$I[[1]]
-#' pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl)
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 1)
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, pl, type = 2)
-plot_transverse_paths = function(rules, p, paths, type = 0) {
+#' # 
+#' p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
+#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p)
+#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
+#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
+#' 
+#' # Hilbert curve
+#' p = sfc_hilbert("I", 11)
+#' plot_transverse_paths(SFC_RULES_HILBERT, p)
+#' 
+#' # Peano curve
+#' p = sfc_peano("I", 1)
+#' plot_transverse_paths(SFC_RULES_PEANO, p)
+#' 
+#' # Meander curve
+#' p = sfc_meander("I", 1)
+#' plot_transverse_paths(SFC_RULES_MEANDER, p)
+plot_transverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
         stop_wrap("Universe set of `rules` and `p` should be identical.")
     }
-    
+
+    paths = all_transverse_paths(rules, p)
+
     rules = rules@rules
     seq = p@seq
     rot = p@rot
@@ -165,19 +180,21 @@ plot_transverse_paths = function(rules, p, paths, type = 0) {
     maxr = max(sapply(rules, length))
 
     grid.newpage()
-    pushViewport(viewport(xscale = c(0, n + 1), yscale = c(0, maxr), width = unit(0.8, "npc"), height = unit(0.8, "npc")))
-    grid.text(1:maxr, unit(1, "native") - unit(15, "mm"), seq(1, maxr), default.units = "native")
-    grid.text(paste0(seq, "(", rot, ")"), 1:n, unit(1, "native") - unit(14, "mm"), default.units = "native")
+    pushViewport(viewport(xscale = c(1, max(2, n)), yscale = c(1, max(2, maxr)), x = unit(25, "mm"), width = unit(1, "npc") - unit(40, "mm"), y = unit(25, "mm"), height = unit(1, "npc") - unit(35, "mm"), just = c("left", "bottom")))
+    grid.text(1:maxr, unit(1, "native") - unit(10, "mm"), seq(1, maxr), default.units = "native", gp = gpar(fontsize = 10))
+    grid.text("Transverse code", unit(1, "native") - unit(18, "mm"), (1+maxr)/2, default.units = "native", rot = 90)
+    grid.text(paste0(seq, "(", rot, ")"), 1:n, unit(1, "native") - unit(14, "mm"), default.units = "native", gp = gpar(fontsize = 10))
     
+    type = match.arg(type)
     l2 = lapply(paths, function(path) {
         l = rep(FALSE, length(path))
         for(i in seq_along(path)) {
             corner = adjust_corner( rules[[ seq[i] ]][[ path[i] ]]@corner, rot[i])
-            if(type == 1) {
+            if(type == "11|22") {
                 if(corner[1] == corner[2]) {
                     l[i] = TRUE
                 }
-            }else if(type == 2) {
+            }else if(type == "12|21") {
                 if(corner[1] != corner[2]) {
                     l[i] = TRUE
                 }
@@ -194,12 +211,13 @@ plot_transverse_paths = function(rules, p, paths, type = 0) {
         np = length(path)
         pos = cbind(1:(np-1), path[-np], 2:np, path[-1])
         theta = atan( (pos[, 4] - pos[, 2])/(pos[, 3] - pos[, 1]) )
-        len = 0.1
-        pos[, 1] = pos[, 1] + len*cos(theta)
-        pos[, 2] = pos[, 2] + len*sin(theta)
-        pos[, 3] = pos[, 3] - len*cos(theta)
-        pos[, 4] = pos[, 4] - len*sin(theta)
-        col = ifelse(l2[i], "black", "#CCCCCC")
+        len_x = 2/convertHeight(unit(1, "npc"), "mm", valueOnly = TRUE)*(maxr-1)
+        len_y = len_x
+        pos[, 1] = pos[, 1] + len_x*cos(theta)
+        pos[, 2] = pos[, 2] + len_y*sin(theta)
+        pos[, 3] = pos[, 3] - len_x*cos(theta)
+        pos[, 4] = pos[, 4] - len_y*sin(theta)
+        col = ifelse(l2[i], "black", "#DDDDDD")
         grid.segments(pos[, 1], pos[, 2], pos[, 3], pos[, 4], default.units = "native", gp = gpar(col = col, fill = col), arrow = arrow(length = unit(6, "pt"), angle = 15, type = "closed"))
     }
 
@@ -207,14 +225,14 @@ plot_transverse_paths = function(rules, p, paths, type = 0) {
         k = length(rules[[ seq[i] ]])
         for(j in 1:k) {
             corner = adjust_corner( rules[[ seq[i] ]][[j]]@corner, rot[i])
-            col = "#CCCCCC"
+            col = "#DDDDDD"
             pch = 1
-            if(type == 1) {
+            if(type == "11|22") {
                 if(corner[1] == corner[2]) {
                     col = "black"
                     pch = 16
                 }
-            } else if(type == 2) {
+            } else if(type == "12|21") {
                 if(corner[1] != corner[2]) {
                     col = "black"
                     pch = 16
@@ -224,7 +242,7 @@ plot_transverse_paths = function(rules, p, paths, type = 0) {
                 pch = 16
             }
             grid.points(i, j, default.units = "native", pch = pch, size = unit(8, "pt"), gp = gpar(col = col))
-            grid.text(paste0("(", corner[1], ",", corner[2], ")"), i, j-0.2, , default.units = "native", gp = gpar(fontsize = 8, col = col))
+            grid.text(paste0("(", corner[1], ",", corner[2], ")"), i, unit(j, "native")-unit(4, "mm"), default.units = "native", gp = gpar(fontsize = 8, col = col))
         }
     }
     popViewport()

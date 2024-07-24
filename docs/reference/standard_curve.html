@@ -81,9 +81,9 @@
 <span></span>
 <span><span class="fu">beta_omega_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">peano_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, by <span class="op">=</span> <span class="st">"Cpp"</span><span class="op">)</span></span>
+<span><span class="fu">peano_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, level_2 <span class="op">=</span> <span class="st">"vvvvvvvvv"</span>, by <span class="op">=</span> <span class="st">"Cpp"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">meander_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
+<span><span class="fu">meander_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, level_2 <span class="op">=</span> <span class="st">"fffffffff"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">h_curve</span><span class="op">(</span>iteration <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,7 +95,12 @@
 
 
 <dt>by</dt>
-<dd><p>Which implemnetation? Only for the testing purpose.</p></dd>
+<dd><p>Which implementation? Only for the testing purpose.</p></dd>
+
+
+<dt>level_2</dt>
+<dd><p>The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The
+value should be a string with 9 letters of "v"/"h" (vertical or horizontal).</p></dd>
 
 
 <dt>iteration</dt>
@@ -110,7 +115,7 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>These are just special forms of <code><a href="spacefilling.html">sfc_hilbert()</a></code>, <code><a href="spacefilling.html">sfc_peano()</a></code> and <code><a href="spacefilling.html">sfc_meander()</a></code></p>
+    <p>These are just special forms of <code><a href="spacefilling.html">sfc_hilbert()</a></code>, <code><a href="spacefilling.html">sfc_peano()</a></code>, <code><a href="spacefilling.html">sfc_meander()</a></code> and <code><a href="h_curve.html">sfc_h()</a></code>.</p>
     </div>
 
     <div id="ref-examples">
@@ -135,34 +140,52 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [16,]    3    0</span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">hilbert_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">hilbert_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">hilbert_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">moore_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">moore_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">moore_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">beta_omega_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">beta_omega_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">beta_omega_curve</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu">peano_curve</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">peano_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">peano_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">peano_curve</span><span class="op">(</span><span class="fl">3</span>, level_2 <span class="op">=</span> <span class="st">"vhvhvhvhv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">peano_curve</span><span class="op">(</span><span class="fl">3</span>, level_2 <span class="op">=</span> <span class="st">"vvvhhhvvv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="standard_curve-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">3</span>, level_2 <span class="op">=</span> <span class="st">"fbfbfbfbf"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">meander_curve</span><span class="op">(</span><span class="fl">3</span>, level_2 <span class="op">=</span> <span class="st">"bbbbbffff"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="standard_curve-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">h_curve</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="standard_curve-8.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

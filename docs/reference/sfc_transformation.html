@@ -140,7 +140,7 @@ rev(x)</code></pre></div>
     <div id="details">
     <h2>Details</h2>
     
-<ul><li><p><code>sfc_rotate()</code> rotates each base pattern.</p></li>
+<ul><li><p><code>sfc_rotate()</code> and <code>^()</code> rotate each base pattern.</p></li>
 <li><p><code>sfc_hflip()</code> flips a sequence horizontally.</p></li>
 <li><p><code>sfc_vflip()</code> flips a sequence vertically.</p></li>
 <li><p><code>sfc_dflip()</code> flips a sequence against a diagonal line (with slop 1 or -1).</p></li>
@@ -153,21 +153,21 @@ rev(x)</code></pre></div>
 <span class="r-in"><span>    <span class="va">p</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_hflip</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_hflip</span><span class="op">(</span><span class="va">p</span>, fix_ends <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_transformation-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"L"</span>, <span class="fl">2</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">p</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_vflip</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_vflip</span><span class="op">(</span><span class="va">p</span>, fix_ends <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_transformation-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">p</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_dflip</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>    <span class="fu">sfc_dflip</span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span>, fix_ends <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>    title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">1</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_transformation-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
