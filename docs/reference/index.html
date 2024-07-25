@@ -29,24 +29,39 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul></li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -105,13 +120,17 @@
         </td>
         <td><p>Plot segments</p></td>
       </tr><tr><td>
-          <p><code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code> </p>
+          <p><code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_MEANDER_4x4_1</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_MEANDER_4x4_2</a></code> </p>
         </td>
         <td><p>Rules</p></td>
       </tr><tr><td>
           <p><code><a href="sfc_3x3_combined.html">sfc_3x3_combined()</a></code> <code><a href="sfc_3x3_combined.html">sfc_expand(<i>&lt;sfc_3x3_combined&gt;</i>)</a></code> <code><a href="sfc_3x3_combined.html">draw_rules_3x3_combined()</a></code> </p>
         </td>
         <td><p>General 3x3 space-filling curves</p></td>
+      </tr><tr><td>
+          <p><code><a href="sfc_4x4_meander.html">sfc_4x4_meander()</a></code> <code><a href="sfc_4x4_meander.html">sfc_expand(<i>&lt;sfc_4x4_meander&gt;</i>)</a></code> <code><a href="sfc_4x4_meander.html">draw_rules_4x4_meander()</a></code> </p>
+        </td>
+        <td><p>4x4 space-filling curves in meander type</p></td>
       </tr><tr><td>
           <p><code><a href="sfc_apply.html">sfc_apply(<i>&lt;sfc_nxn&gt;</i>)</a></code> </p>
         </td>
@@ -121,9 +140,13 @@
         </td>
         <td><p>Constructor of the sfc_base class</p></td>
       </tr><tr><td>
-          <p><code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_hilbert&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_peano&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_meander&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_rules&gt;</i>)</a></code> </p>
+          <p><code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_hilbert&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_peano&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_meander&gt;</i>)</a></code> </p>
         </td>
         <td><p>Expand the curve to the next level</p></td>
+      </tr><tr><td>
+          <p><code><a href="sfc_expand_by_rules.html">sfc_expand_by_rules(<i>&lt;sfc_rules&gt;</i>,<i>&lt;factor&gt;</i>)</a></code> <code><a href="sfc_expand_by_rules.html">sfc_expand_by_rules(<i>&lt;sfc_rules&gt;</i>,<i>&lt;sfc_nxn&gt;</i>)</a></code> <code><a href="sfc_expand_by_rules.html">sfc_expand_by_rules(<i>&lt;sfc_rules&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Expand a sequence</p></td>
       </tr><tr><td>
           <p><code><a href="sfc_flip_unit.html">unit_orientation()</a></code> <code><a href="sfc_flip_unit.html">sfc_flip_unit(<i>&lt;sfc_nxn&gt;</i>)</a></code> <code><a href="sfc_flip_unit.html">sfc_flip_unit(<i>&lt;sfc_unit&gt;</i>)</a></code> </p>
         </td>
@@ -144,6 +167,10 @@
           <p><code><a href="sfc_level.html">sfc_level(<i>&lt;sfc_nxn&gt;</i>)</a></code> </p>
         </td>
         <td><p>The level of the curve</p></td>
+      </tr><tr><td>
+          <p><code><a href="sfc_mode.html">sfc_mode(<i>&lt;sfc_nxn&gt;</i>)</a></code> <code><a href="sfc_mode.html">sfc_mode(<i>&lt;sfc_rules&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>The mode of the curve</p></td>
       </tr><tr><td>
           <p><code><a href="sfc_previous_point.html">sfc_previous_point(<i>&lt;sfc_base&gt;</i>)</a></code> <code><a href="sfc_previous_point.html">sfc_next_point(<i>&lt;sfc_base&gt;</i>)</a></code> </p>
         </td>

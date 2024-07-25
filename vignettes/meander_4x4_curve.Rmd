@@ -1,0 +1,89 @@
+---
+title: "4x4 Meander Curve"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r, echo = FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center")
+
+library(grid)
+library(sfcurve)
+```
+
+When the mode of the curve (e.g. 2x2, 3x3 or nxn) increases, the number of different forms of the level-1 units
+will also increase. Here as an example, we only demonstrate the Meander type of the 4x4 curve.
+
+The level-1 unit of the 4x4 Meander curve can be extended from the corresponding unit of the 3x3 curve, shown
+as the red segments in the right two plots.
+
+With the same method, actually we can extend the Meander unit to higher modes ($n \ge 5$).
+
+
+```{r, echo = FALSE, fig.width = 6, fig.height = 2}
+loc = sfc_meander("R", 1) |> sfc_segments()
+loc1 = sfc_4x4_meander("L", 2, rot = -90) |> sfc_segments()
+loc2 = sfc_4x4_meander("L", 2, rot = 90, type = 2) |> sfc_segments()
+loc2 = loc2 + 3
+grid.newpage()
+pushViewport(viewport(x = unit(0, "npc"), width = unit(1/3, "npc"), xscale = c(-1, 4), yscale = c(-1, 4), just = "left"))
+grid.segments(loc[1:8, 1], loc[1:8, 2], loc[2:9, 1], loc[2:9, 2], default.units = "native", gp = gpar(lwd = 2))
+popViewport()
+
+pushViewport(viewport(x = unit(1/3, "npc"), width = unit(1/3, "npc"), xscale = c(-1, 4), yscale = c(-1, 4), just = "left"))
+grid.segments(loc1[1:15, 1], loc1[1:15, 2], loc1[2:16, 1], loc1[2:16, 2], default.units = "native", gp = gpar(lwd = 2, col = c(rep(1, 9), rep(2, 16-9))))
+popViewport()
+
+pushViewport(viewport(x = unit(2/3, "npc"), width = unit(1/3, "npc"), xscale = c(-1, 4), yscale = c(-1, 4), just = "left"))
+grid.segments(loc2[1:15, 1], loc2[1:15, 2], loc2[2:16, 1], loc2[2:16, 2], default.units = "native", gp = gpar(lwd = 2, col = c(rep(2, 16-9), rep(1, 9))))
+popViewport()
+```
+
+Let's check the expansion rules for these two types of base units on 4x4. Note we only constructe the rules for `I/R/L`.
+
+
+```{r, fig.width = 8, fig.height = 4}
+draw_rules_4x4_meander(type = 1)
+draw_rules_4x4_meander(type = 2)
+```
+
+And the 4x4 Meander curves on level 2:
+
+```{r, fig.width = 6, fig.height = 6}
+draw_multiple_curves(
+    sfc_4x4_meander("I", "11", type = 1),
+    sfc_4x4_meander("I", "12", type = 1),
+    sfc_4x4_meander("I", "11", type = 2),
+    sfc_4x4_meander("I", "12", type = 2),
+    nrow = 2
+)
+```
+
+Let's use a spiral sequence as the seed:
+
+```{r, fig.width = 9, fig.height = 4.5}
+spiral_seed = function(loop) {
+    paste(rep(paste0("R", sapply(0:loop, function(i) strrep("I", i))), each = 2), 
+        collapse = "")
+}
+seed = spiral_seed(10)
+draw_multiple_curves(
+    sfc_sequence(seed),
+    sfc_4x4_meander(seed, 1),
+    nrow = 1
+)
+```

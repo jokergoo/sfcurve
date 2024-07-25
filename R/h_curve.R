@@ -221,7 +221,6 @@ H1 = expand_h(H0, connect = "h")
 H2 = expand_h(H0, connect = "v")
 
 #' Seed sequences of the H-curve
-#' 
 #' @rdname h_seed
 #' @export
 #' @details

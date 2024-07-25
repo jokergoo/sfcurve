@@ -3,11 +3,16 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   all_3x3_curve: all_3x3_curve.html
+  functions: functions.html
   h_curve: h_curve.html
+  hilbert_3d: hilbert_3d.html
   hilbert_curve: hilbert_curve.html
+  locality: locality.html
+  meander_4x4_curve: meander_4x4_curve.html
   meander_curve: meander_curve.html
   peano_curve: peano_curve.html
   sfcurve: sfcurve.html
   standard_curves: standard_curves.html
-last_built: 2024-07-24T14:53Z
+  unit_flipping: unit_flipping.html
+last_built: 2024-07-25T20:43Z
 

@@ -7,16 +7,31 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>/articles/4x4_meander_curve.html</loc>
+  </url>
+  <url>
     <loc>/articles/all_3x3_curve.html</loc>
   </url>
   <url>
+    <loc>/articles/functions.html</loc>
+  </url>
+  <url>
     <loc>/articles/h_curve.html</loc>
+  </url>
+  <url>
+    <loc>/articles/hilbert_3d.html</loc>
   </url>
   <url>
     <loc>/articles/hilbert_curve.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>/articles/locality.html</loc>
+  </url>
+  <url>
+    <loc>/articles/meander_4x4_curve.html</loc>
   </url>
   <url>
     <loc>/articles/meander_curve.html</loc>
@@ -29,6 +44,9 @@
   </url>
   <url>
     <loc>/articles/standard_curves.html</loc>
+  </url>
+  <url>
+    <loc>/articles/unit_flipping.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -73,6 +91,9 @@
     <loc>/reference/sfc_3x3_combined.html</loc>
   </url>
   <url>
+    <loc>/reference/sfc_4x4_meander.html</loc>
+  </url>
+  <url>
     <loc>/reference/sfc_apply.html</loc>
   </url>
   <url>
@@ -80,6 +101,9 @@
   </url>
   <url>
     <loc>/reference/sfc_expand.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfc_expand_by_rules.html</loc>
   </url>
   <url>
     <loc>/reference/sfc_flip_unit.html</loc>
@@ -95,6 +119,9 @@
   </url>
   <url>
     <loc>/reference/sfc_level.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfc_mode.html</loc>
   </url>
   <url>
     <loc>/reference/sfc_next_point.html</loc>

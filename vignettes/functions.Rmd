@@ -1,0 +1,49 @@
+---
+title: "Functions"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: false
+---
+
+Here lists the major high-level functions implemented in this package.
+
+### Make curves
+
+Make general curves:
+
+`sfc_hilbert()`, `sfc_peano()`, `sfc_meander()`, `sfc_h()`.
+
+Make curves in their standard forms:
+
+`hilbert_curve()`, `moore_curve()`, `beta_omega_curve()`, `peano_curve()`, `meander_curve()`, 
+`h_curve()`.
+
+Other curves
+
+`sfc_3x3_combined()`, `sfc_3x3_combined()`, `hilbert_3d()`.
+
+### Expansion rules
+
+Pre-defined expansion rules:
+
+`SFC_RULES_HILBERT`, `SFC_RULES_PEANO`, `SFC_RULES_MEANDER`,
+`SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2`.
+
+Draw these rules:
+
+`draw_rules_hilbert()`, `draw_rules_peano()`, `draw_rules_meander()`,
+`draw_rules_3x3_combined()`, `draw_rules_4x4_meander()`.
+
+### Unit flip
+
+`sfc_apply()`, `unit_orientation()`, `sfc_flip_unit()`,
+
+`level1_unit_orientation()`, `change_level1_unit_orientation()`.
+
+
+### Coordinates of segments
+
+`sfc_segments()`

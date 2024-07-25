@@ -24,3 +24,9 @@ vignettes/peano_curve.Rmd
 vignettes/h_curve.Rmd
 vignettes/all_3x3_curve.Rmd
 vignettes/standard_curves.Rmd
+vignettes/locality.Rmd
+vignettes/4x4_meander_curve.Rmd
+vignettes/meander_4x4_curve.Rmd
+vignettes/hilbert_3d.Rmd
+vignettes/unit_flipping.Rmd
+vignettes/functions.Rmd

@@ -63,6 +63,8 @@ unit_orientation = function(p, index = "") {
 #'         in the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and 
 #'         Meander curves, the digites can be 1-9. See examples in [`sfc_index()`]. The value can also
 #'         be a vector where each flipping is applied in sequence.
+#' @param to The orientation to flip to. If the specified unit already has such orientation, the function returns
+#'       the original curve.
 #' @details
 #' An unit in the curve is represented as a square block (`2^k x 2^k` for the Hilbert curve and `3^k x 3^k` for the Peano and Meander curves, `k` between 1 and the level of the curve).
 #' In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
@@ -93,7 +95,7 @@ unit_orientation = function(p, index = "") {
 #'     title = FALSE, nrow = 1)
 setMethod("sfc_flip_unit",
 	signature = "sfc_nxn",
-	definition = function(p, index = "") {
+	definition = function(p, index = "", to = NULL) {
 
 	if(length(p) < (p@n^2)^p@level) {
 		if(!length(p) %in% (p@n^2)^(seq_len(p@level))) {
@@ -114,6 +116,10 @@ setMethod("sfc_flip_unit",
 
 	unit = p[index]
 	orientation = unit_orientation(p, index)
+
+	if(identical(orientation, to)) {
+		return(p)
+	}
 
 	if(orientation == "vertical") {
 		unit = sfc_vflip(unit, fix_ends = TRUE, bases = p@rules@bases)

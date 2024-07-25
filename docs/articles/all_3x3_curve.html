@@ -47,24 +47,39 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,7 +108,7 @@
       <h1 data-toc-skip>3x3 Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-24</h4>
+            <h4 data-toc-skip class="date">2024-07-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/all_3x3_curve.Rmd" class="external-link"><code>vignettes/all_3x3_curve.Rmd</code></a></small>
       <div class="hidden name"><code>all_3x3_curve.Rmd</code></div>
@@ -106,10 +121,11 @@
 <h2 id="base-patterns">Base patterns<a class="anchor" aria-label="anchor" href="#base-patterns"></a>
 </h2>
 <p>We can merge base patterns from the Peano curve and the Meander curve to construct a universe set of base patterns for the general 3x3 space-filling curves.</p>
+<p>Please note, base patterns from the Peano curve only contain the “vertical” patterns, and those from the Meander curve only contain the “forward” pattenrs (they are the major rules for the two types of curves). “Horizontal” and “backward” patterns can be obtained by flipping.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_3x3_combined.html">draw_rules_3x3_combined</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="all_3x3_curve_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Note, <code>J</code> from the Peano curve is put into the <code>I</code> base group.</p>
+<p>Note, <code>J</code> from the Peano curve is put into the <code>I</code> base group. And the vertical Peano patterns can also be expanded for the <code>B/D/P/Q/C</code> bases.</p>
 </div>
 <div class="section level2">
 <h2 id="transverse-path">Transverse path<a class="anchor" aria-label="anchor" href="#transverse-path"></a>
@@ -151,16 +167,22 @@
 <span><span class="co">## L_3: 300</span></span>
 <span><span class="co">## U_1: 204</span></span>
 <span><span class="co">## U_2: 204</span></span>
-<span><span class="co">## B_1: 171</span></span>
-<span><span class="co">## B_2: 228</span></span>
-<span><span class="co">## D_1: 228</span></span>
-<span><span class="co">## D_2: 171</span></span>
-<span><span class="co">## P_1: 153</span></span>
-<span><span class="co">## P_2: 216</span></span>
-<span><span class="co">## Q_1: 153</span></span>
-<span><span class="co">## Q_2: 216</span></span>
+<span><span class="co">## B_1: 216</span></span>
+<span><span class="co">## B_2: 153</span></span>
+<span><span class="co">## B_3: 300</span></span>
+<span><span class="co">## D_1: 153</span></span>
+<span><span class="co">## D_2: 216</span></span>
+<span><span class="co">## D_3: 300</span></span>
+<span><span class="co">## P_1: 228</span></span>
+<span><span class="co">## P_2: 171</span></span>
+<span><span class="co">## P_3: 300</span></span>
+<span><span class="co">## Q_1: 228</span></span>
+<span><span class="co">## Q_2: 171</span></span>
+<span><span class="co">## Q_3: 300</span></span>
 <span><span class="co">## C_1: 171</span></span>
-<span><span class="co">## C_2: 171</span></span></code></pre>
+<span><span class="co">## C_2: 171</span></span>
+<span><span class="co">## C_3: 225</span></span>
+<span><span class="co">## C_4: 225</span></span></code></pre>
 <p>In the Peano curve, all level-1 patterns have the corner values of <code>(1, 1)</code> or <code>(2, 2)</code>. In the following, we can see the Peano curve only has one specific transverse path on any level <span class="math inline">\(k\)</span>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_COMBINED</span>, <span class="va">p</span>, type <span class="op">=</span> <span class="st">"11|22"</span><span class="op">)</span></span></code></pre></div>
@@ -173,11 +195,11 @@
 <div class="section level2">
 <h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
 </h2>
-<p>Let’s make an assumption: for a general 3x3 curve that expands from level <span class="math inline">\(k\)</span> with <span class="math inline">\(n\)</span> points (<span class="math inline">\(n = 9^{k}\)</span>) to level <span class="math inline">\(k+1\)</span>, the total number of transverse paths are:</p>
+<p>Let’s make an assumption: for a general 3x3 curve that expands from level <span class="math inline">\(k\)</span> with <span class="math inline">\(n\)</span> points (<span class="math inline">\(n = 9^{k}\)</span>) to level <span class="math inline">\(k+1\)</span>, the total number of transverse paths denoted as <span class="math inline">\(t_k\)</span> is:</p>
 <p><span class="math display">\[
 t_k \approx \alpha^n
 \]</span></p>
-<p>Since in a 3x3 curve, base patterns <code>R/L</code> have two transverse codes and <code>I</code> has four transverse codes, let’s consider a sequence with <span class="math inline">\(n\)</span> base patterns of <span class="math inline">\(I\)</span>. Let’s start from the first base pattern. From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is <span class="math inline">\(2^{n-1}\)</span>. By taking all four base patterns at position 1, the final number of transverse paths for <span class="math inline">\(n\)</span> base patterns are <span class="math inline">\(4 \cdot 2^{n-1} = 2 \cdot 2^n\)</span>, which is the possible maximal number of total transverse paths for a sequence of length <span class="math inline">\(n\)</span>.</p>
+<p>Since in a 3x3 curve, base patterns have either three or four transverse codes, let’s consider a sequence with <span class="math inline">\(n\)</span> base patterns of <span class="math inline">\(I\)</span>. Let’s start from the first base pattern. From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is <span class="math inline">\(2^{n-1}\)</span>. By taking all four base patterns at position 1, the final number of transverse paths for <span class="math inline">\(n\)</span> base patterns are <span class="math inline">\(4 \cdot 2^{n-1} = 2 \cdot 2^n\)</span>, which is the possible maximal number of total transverse paths for a sequence of length <span class="math inline">\(n\)</span>.</p>
 <p>Then</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -185,7 +207,7 @@ t_k \approx \alpha^n
 \alpha &amp;= 2 \cdot 2^{1/n} \\
 \end{align*}
 \]</span></p>
-<p>Normally <span class="math inline">\(n\)</span> is huge, which results it</p>
+<p>Normally <span class="math inline">\(n\)</span> is huge, which results in:</p>
 <p><span class="math display">\[
 \alpha_\mathrm{max} \approx 2
 \]</span></p>
@@ -209,16 +231,16 @@ n_k = n_0 \cdot \alpha_1^{9^1} \cdot \alpha_2^{9^2} ... \alpha_{k-1}^{9^{k-1}}
 <p><span class="math display">\[
 n_k \approx n_0 \cdot \alpha^{\frac{9^k -9}{8}}
 \]</span></p>
-<p>where <span class="math inline">\(n_0 = 3\)</span> (for <code>R/L</code>) or <span class="math inline">\(n_0 = 4\)</span> (for <code>I</code>).</p>
-<p>By also considering the 9 flipped rules and the 4 rotations, the final number of all possible forms of 3x3 curves is approximate</p>
+<p>where <span class="math inline">\(n_0 = 3\)</span> or <span class="math inline">\(n_0 = 4\)</span>.</p>
+<p>By also considering the 9 flipped rules and the 4 rotations, and each unit on different level can be flipped (vertically/horizontally/by diagonal) independently, the final number of all possible forms of 3x3 curves is approximate</p>
 <p><span class="math display">\[
-9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}}
+9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}} \cdot 2^{\frac{9^k - 1}{8}}
 \]</span></p>
 </div>
 <div class="section level2">
 <h2 id="curves">Curves<a class="anchor" aria-label="anchor" href="#curves"></a>
 </h2>
-<p><code><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined()</a></code> generates a curve where on each level, a transverse path is randomly picked.</p>
+<p><code><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined()</a></code> generates a curve where on each level, a transverse path is randomly selected.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>

@@ -47,24 +47,39 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,7 +108,7 @@
       <h1 data-toc-skip>Generalized Hilbert Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-24</h4>
+            <h4 data-toc-skip class="date">2024-07-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/hilbert_curve.Rmd" class="external-link"><code>vignettes/hilbert_curve.Rmd</code></a></small>
       <div class="hidden name"><code>hilbert_curve.Rmd</code></div>
@@ -484,48 +499,6 @@ X^{\theta}(t_1 t_2, ..., t_{k_-1}, t_k), t_{k-1}, t_1 = t_2 = ... = t_{k-1}
 <p><img src="hilbert_curve_files/figure-html/unnamed-chunk-21-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
-<h2 id="locality">Locality<a class="anchor" aria-label="anchor" href="#locality"></a>
-</h2>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">tl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">^</span><span class="fl">4</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">int_to_binary</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">tl</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="va">t</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_segments.html">sfc_segments</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ml2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">-</span><span class="va">ml</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">ml</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">ml</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, cluster_rows <span class="op">=</span> <span class="cn">F</span>, cluster_columns <span class="op">=</span> <span class="cn">F</span>, show_row_names <span class="op">=</span> <span class="cn">F</span>, show_column_names <span class="op">=</span> <span class="cn">F</span>, use_raster <span class="op">=</span> <span class="cn">TRUE</span>, show_heatmap_legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">ml2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, col <span class="op">=</span> <span class="fu">circlize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"white"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>, cluster_rows <span class="op">=</span> <span class="cn">F</span>, cluster_columns <span class="op">=</span> <span class="cn">F</span>, show_row_names <span class="op">=</span> <span class="cn">F</span>, show_column_names <span class="op">=</span> <span class="cn">F</span>, use_raster <span class="op">=</span> <span class="cn">TRUE</span>, show_heatmap_legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span>    <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="fu">plot_grid</span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">pl</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">ml</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_segments.html">sfc_segments</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ml2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">-</span><span class="va">ml</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">ml</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">ml</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, cluster_rows <span class="op">=</span> <span class="cn">F</span>, cluster_columns <span class="op">=</span> <span class="cn">F</span>, show_row_names <span class="op">=</span> <span class="cn">F</span>, show_column_names <span class="op">=</span> <span class="cn">F</span>, use_raster <span class="op">=</span> <span class="cn">TRUE</span>, show_heatmap_legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">ml2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, col <span class="op">=</span> <span class="fu">circlize</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"white"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>, cluster_rows <span class="op">=</span> <span class="cn">F</span>, cluster_columns <span class="op">=</span> <span class="cn">F</span>, show_row_names <span class="op">=</span> <span class="cn">F</span>, show_column_names <span class="op">=</span> <span class="cn">F</span>, use_raster <span class="op">=</span> <span class="cn">TRUE</span>, show_heatmap_legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span>    <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="fu">plot_grid</span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">pl</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="flip-and-reverse">Flip and reverse<a class="anchor" aria-label="anchor" href="#flip-and-reverse"></a>
 </h2>
 <p>The design of the diagram is to let all forms of the curve can be expanded only by rotation, i.e. without leaving the plate (flipping) or modify the sequence (reverse). However, we can define the flipping horizontal, vertical and by the diagonal.</p>
@@ -548,11 +521,11 @@ X^{\theta}(t_1 t_2, ..., t_{k_-1}, t_k), t_{k-1}, t_1 = t_2 = ... = t_{k-1}
 <p><span class="math display">\[
 \mathrm{Flip}_\mathrm{h}(X_1 X_2 ...) = \mathrm{Flip}_\mathrm{h}(X_1)\mathrm{Flip}_\mathrm{h}(X_2)...
 \]</span></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-23-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-22-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="vertical-flip">Vertical flip<a class="anchor" aria-label="anchor" href="#vertical-flip"></a>
@@ -570,11 +543,11 @@ X^{\theta}(t_1 t_2, ..., t_{k_-1}, t_k), t_{k-1}, t_1 = t_2 = ... = t_{k-1}
 \mathrm{Flip}_\mathrm{v}(X^\theta) &amp;= (\mathrm{Flip}_\mathrm{h}(X^\theta))^{180}
 \end{align*}
 \]</span></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">180</span><span class="op">)</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, <span class="fl">180</span><span class="op">)</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>it is easy to seee</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -582,16 +555,16 @@ X^{\theta}(t_1 t_2, ..., t_{k_-1}, t_k), t_{k-1}, t_1 = t_2 = ... = t_{k-1}
 \mathrm{Flip}_\mathrm{v}(\mathrm{Flip}_\mathrm{h}(X)) &amp;= \mathrm{Flip}_\mathrm{h}(\mathrm{Flip}_\mathrm{v}(X)) = X^{180}
 \end{align*}
 \]</span></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">180</span><span class="op">)</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-25-2.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-24-2.png" width="576" style="display: block; margin: auto;"></p>
 <p>Vertical flipping can also be expanded to individual base patterns:</p>
 <p><span class="math display">\[
 \mathrm{Flip}_\mathrm{v}(X_1 X_2 ...) = \mathrm{Flip}_\mathrm{v}(X_1)\mathrm{Flip}_\mathrm{v}(X_2)...
@@ -607,44 +580,44 @@ X^{\theta}(t_1 t_2, ..., t_{k_-1}, t_k), t_{k-1}, t_1 = t_2 = ... = t_{k-1}
 \mathrm{Flip}_\mathrm{d}^{-1}(X^\theta) &amp;= \mathrm{Flip}_\mathrm{h}(X^{\theta + 90}) = \mathrm{Flip}_\mathrm{v}(X^{\theta - 90})
 \end{align*}
 \]</span></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">90</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">90</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_vflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-26-2.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-25-2.png" width="768" style="display: block; margin: auto;"></p>
 <p>Also</p>
 <p><span class="math display">\[
 \mathrm{Flip}_\mathrm{d}^1(\mathrm{Flip}_\mathrm{d}^{1}(X)) = \mathrm{Flip}_\mathrm{d}^{-1}(\mathrm{Flip}_\mathrm{d}^{-1}(X)) = X
 \]</span></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>and</p>
 <p><span class="math display">\[
 \mathrm{Flip}_\mathrm{d}^{-1}(\mathrm{Flip}_\mathrm{d}^{1}(X)) = \mathrm{Flip}_\mathrm{d}^{1}(\mathrm{Flip}_\mathrm{d}^{-1}(X)) = X^{180}
 \]</span></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">180</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_transformation.html">sfc_dflip</a></span><span class="op">(</span><span class="va">p</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="hilbert_curve_files/figure-html/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Diagonal flipping can also be expanded to individual base patterns: <span class="math display">\[
 \mathrm{Flip}_\mathrm{d}(X_1 X_2 ...) = \mathrm{Flip}_\mathrm{d}(X_1)\mathrm{Flip}_\mathrm{d}(X_2)...
 \]</span></p>

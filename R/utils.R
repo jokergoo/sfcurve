@@ -14,7 +14,7 @@
 #' @param lwd Line width.
 #' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes.
 #' 
-#' @details
+#' @details draw_multiple_curves
 #' This function is only for the demonstration purpose.
 #' @export
 #' @examples
@@ -48,7 +48,7 @@ draw_multiple_curves = function(..., nrow = NULL, ncol = NULL, extend = TRUE,
 	}
 
 	if(is.null(nrow) && is.null(ncol)) {
-		nrow = ceiling(sqrt(n))
+		nrow = floor(sqrt(n))
 	}
 	if(!is.null(nrow) && is.null(ncol)) {
 		ncol = ceiling(n/nrow)

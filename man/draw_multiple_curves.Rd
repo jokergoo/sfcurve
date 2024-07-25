@@ -42,6 +42,7 @@ is connected to the first point in the curve to form a closed curve.}
 Draw multiple curves
 }
 \details{
+draw_multiple_curves
 This function is only for the demonstration purpose.
 }
 \examples{

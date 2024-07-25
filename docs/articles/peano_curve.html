@@ -47,24 +47,39 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -93,7 +108,7 @@
       <h1 data-toc-skip>Generalized Peano Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-24</h4>
+            <h4 data-toc-skip class="date">2024-07-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/peano_curve.Rmd" class="external-link"><code>vignettes/peano_curve.Rmd</code></a></small>
       <div class="hidden name"><code>peano_curve.Rmd</code></div>
@@ -105,7 +120,7 @@
 <div class="section level2">
 <h2 id="base-patterns">Base patterns<a class="anchor" aria-label="anchor" href="#base-patterns"></a>
 </h2>
-<p>There are the following expansion rules from level-0 to level-1 for the Peanno curve.</p>
+<p>There are the following expansion rules from level-0 to level-1 for the Peanno curve. All these level-1 units are vertical.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_peano</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-2-1.png" width="432" style="display: block; margin: auto;"></p>
@@ -113,14 +128,14 @@
 <p>Unlike the Hilbert curve where there are more than one transverse paths. For the Peano curve, we can simpliy specify the number of the level.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co"># the same as sfc_peano("I", code = "111")</span></span>
+<span><span class="co"># the same as sfc_peano("I", code = "111"), but 1 is only allowed</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-3-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>By applying the expansion rules, a Peano curve is fixed on a level <span class="math inline">\(k\)</span>. However, note each level-1 or level-<span class="math inline">\(k\)</span> (<span class="math inline">\(k \ge 1\)</span>) pattern can be flipped against its diagonal line without affecting the structure of other parts in the curve. Then we can have a flipped version of the original expansion rules:</p>
+<p>By applying the expansion rules, a Peano curve is fixed on a level <span class="math inline">\(k\)</span>. However, note each level-1 or level-<span class="math inline">\(k\)</span> (<span class="math inline">\(k \ge 1\)</span>) pattern can be flipped against its diagonal line without affecting the structure of other parts of the curve. Then we can have a flipped version of the original expansion rules where all level-1 units are horizontal:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_peano</a></span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-4-1.png" width="432" style="display: block; margin: auto;"></p>
-<p>Then, for example, when expanding <span class="math inline">\(I^{(0)}\)</span> to <span class="math inline">\(I^{(1)} = RI^{(270)}L^{(270)}LJ^{(90)}R^{(90)}RI^{(270)}L^{(270)}\)</span>, each base pattern can take its flipped version independently.</p>
+<p>Then, for example, when expanding <span class="math inline">\(I^{(0)}\)</span> to <span class="math inline">\(I^{(1)} = RI^{(270)}L^{(270)}LJ^{(90)}R^{(90)}RI^{(270)}L^{(270)}\)</span>, each base pattern can take its flipped version independently, also <span class="math inline">\(I^{(1)}\)</span> as a whole can be independently flipped.</p>
 </div>
 <div class="section level2">
 <h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
@@ -145,7 +160,7 @@ n_k &amp;= n_{k-1}^9 \cdot 2 \\
 <p><span class="math display">\[
 n_k = 2^{9^{k-1} + ... + 9 + 1} = 2^{\frac{9^k - 1}{8}}
 \]</span></p>
-<p>Or we can also count the total number of square units on various levels. For a curve with level <span class="math inline">\(k\)</span>, the number of square unit with level <span class="math inline">\(i\)</span> is <span class="math inline">\(9^{k-i}\)</span>. Then we sum these numbers from level <span class="math inline">\(k\)</span> to level 1:</p>
+<p>Or we can calculate it in another way by counting the total number of square units on various levels on the Peano curve. For a curve with level <span class="math inline">\(k\)</span>, the number of square unit with level <span class="math inline">\(i\)</span> is <span class="math inline">\(9^{k-i}\)</span>. Then we sum these numbers from level <span class="math inline">\(k\)</span> to level 1:</p>
 <p><span class="math display">\[
 \sum_{i=1}^{k} 9^{k-i} = \frac{9^k - 1}{8}
 \]</span></p>
@@ -161,12 +176,12 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <div class="section level2">
 <h2 id="unit-flipping">Unit flipping<a class="anchor" aria-label="anchor" href="#unit-flipping"></a>
 </h2>
-<p>We can set a global flipping rule on every level of expansion.</p>
+<p>We can set a global flipping rule on every level expansion.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>    flip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-5-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>Every unit can be manually flipped by specifying its “hierarchical index”. Here “93” means the third level-1 subunit of the 9th level-2 subunit. Notice the orientation of the top-left corner of the top-right block in the right plot.</p>
+<p>Every unit can be manually flipped by specifying its “hierarchy index”. Splitting the curve into 9 blocks recursively, for an index of “93”, it means the 9th block in the first level of the hierarchy, and within this block, its 3rd child-block. Notice the orientation of the top-left corner of the top-right block in the right plot.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>,</span>
@@ -174,6 +189,14 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <span>    nrow <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>The index can also be specified as a vector, then the flipped in applied sequentially (the three units on the left of the curve).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
+<span>    <span class="va">p</span>,</span>
+<span>    <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="the-standard-peano-curve">The standard Peano curve<a class="anchor" aria-label="anchor" href="#the-standard-peano-curve"></a>
@@ -181,8 +204,8 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <p>There are two ways to generate the standard Peano curve where all level-1 (9x9) unit are oriented vertically.</p>
 <p>First, notice taking the normal expansion rules, if splitting the curves into three parts euqally, the first subunit in the second and the third parts are flipped. Then we just need to flipped these two back. Note such flipping should be applied on all levels.</p>
 <p>In the following, <code>flip</code> can be set to a function accepting an argumnt <code>n</code> which is the number of base patterns on current level in the expansion. The self-defined function returns a logical vector with the same length as <code>n</code>, representing whether using the flipped rules.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">4</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="va">n</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
@@ -194,65 +217,32 @@ n_k = 2^{\frac{9^k - 1}{8}}
 <span>        <span class="va">portion</span> <span class="op">=</span> <span class="va">portion</span><span class="op">*</span><span class="fl">9</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="va">l</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peano_curve_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>Second, we can mandatorily change all level-1 units to vertical. <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code> applied a self-defined function <code>fun</code> on every units on a certain level (in the following example, it is applied to level <code>sfc_level(p)-1</code>). The self-defined function accepts one argument <code>x</code> which is the current subunit.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="../reference/sfc_level.html">sfc_level</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
+<p>Second, we can mandatorily change all level-1 units to vertical. <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code> applied a self-defined function <code>fun</code> on every units on a certain level (in the following example, it is applied to level <code>sfc_level(p)-1</code>). The self-defined function accepts one argument <code>x</code> which is the current unit.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="../reference/sfc_level.html">sfc_level</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>        <span class="va">x</span></span>
 <span>    <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peano_curve_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>Or use the helper function <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
-</div>
-<div class="section level2">
-<h2 id="general-peano-curve">General Peano curve<a class="anchor" aria-label="anchor" href="#general-peano-curve"></a>
-</h2>
-<p>For the curve on level <span class="math inline">\(k\)</span>, the subunits, higher levels can be randomly flippped, while only make sure all the level-1 subunit are vertical.</p>
-<p><code>p</code> can be a level-<span class="math inline">\(k\)</span> curve with subunits on any level flipped.</p>
+<p>Or use the helper function <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
-<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"1"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"3"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"4"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"5"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"6"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"7"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"8"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="st">"9"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>     <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p2</span>, <span class="va">p3</span>, </span>
-<span>    nrow <span class="op">=</span> <span class="fl">1</span>, title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="peano_curve_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;"></p>
-<p>We can also do from <span class="math inline">\(k-1\)</span> level, i.e. generate an curve on <span class="math inline">\(k-1\)</span> of any form, extend it to level <span class="math inline">\(k\)</span> and adjust all level-1 units to vertical.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="peano_curve_files/figure-html/unnamed-chunk-10-1.png" width="700" style="display: block; margin: auto;"></p>
+<p>The first method generates the exact Peano curve where on every level the vertical structure is kept, but for the next two methods, the vertical pattern is only applied on level-1 while higher level can have any type of structures.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/sfc_expand.html">sfc_expand</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># expand from level 2 to level 3</span></span>
-<span>    <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="fl">90</span>, level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
-</div>
-<div class="section level2">
-<h2 id="other-structures">Other structures<a class="anchor" aria-label="anchor" href="#other-structures"></a>
-</h2>
-<p>By manually flipping the units on various level, we can generate more patterns. For example, in the following 9 blocks, we let the even blocks to be all vertical and odd blocks to be all horizontal. Here the self-defined function can accepts a second argument which is the index of the current unit.</p>
+<p>And for the horizontal case:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p2</span>, <span class="fu"><a href="../reference/sfc_level.html">sfc_level</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="va">x</span></span>
-<span>    <span class="op">}</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="fl">90</span>, level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>, to <span class="op">=</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="peano_curve_files/figure-html/unnamed-chunk-12-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">

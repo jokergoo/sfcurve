@@ -31,11 +31,17 @@ library(sfcurve)
 We can merge base patterns from the Peano curve and the Meander curve to
 construct a universe set of base patterns for the general 3x3 space-filling curves.
 
-```{r, fig.width = 10.5, fig.height = 6.5, out.width = "100%"}
+Please note, base patterns from the Peano curve only contain the "vertical" patterns,
+and those from the Meander curve only contain the "forward" pattenrs (they are the major
+rules for the two types of curves). "Horizontal"
+and "backward" patterns can be obtained by flipping.
+
+```{r, fig.width = 10.5, fig.height = 12, out.width = "100%"}
 draw_rules_3x3_combined()
 ```
 
-Note, `J` from the Peano curve is put into the `I` base group.
+Note, `J` from the Peano curve is put into the `I` base group. And the vertical Peano
+patterns can also be expanded for the `B/D/P/Q/C` bases.
 
 ## Transverse path
 
@@ -90,13 +96,13 @@ plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 ## Number of different forms
 
 Let's make an assumption: for a general 3x3 curve that expands from level $k$ with $n$ points ($n = 9^{k}$) to level $k+1$, 
-the total number of transverse paths are:
+the total number of transverse paths denoted as $t_k$ is:
 
 $$
 t_k \approx \alpha^n
 $$
 
-Since in a 3x3 curve, base patterns `R/L` have two transverse codes and `I` has four transverse codes,
+Since in a 3x3 curve, base patterns have either three or four transverse codes,
 let's consider a sequence with $n$ base patterns of $I$. Let's start from the first base pattern.
 From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to
 (2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is $2^{n-1}$.
@@ -112,7 +118,7 @@ $$
 \end{align*}
 $$
 
-Normally $n$ is huge, which results it
+Normally $n$ is huge, which results in:
 
 $$
 \alpha_\mathrm{max} \approx 2
@@ -147,18 +153,19 @@ $$
 n_k \approx n_0 \cdot \alpha^{\frac{9^k -9}{8}}
 $$
 
-where $n_0 = 3$ (for `R/L`) or $n_0 = 4$ (for `I`).
+where $n_0 = 3$ or $n_0 = 4$.
 
-By also considering the 9 flipped rules and the 4 rotations, the final number of all possible forms of 3x3 curves is approximate
+By also considering the 9 flipped rules and the 4 rotations, and each unit on different level
+can be flipped (vertically/horizontally/by diagonal) independently, the final number of all possible forms of 3x3 curves is approximate
 
 $$
-9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}}
+9 \cdot 4 \cdot n_0 \cdot \alpha^{\frac{9^k -9}{8}} \cdot 2^{\frac{9^k - 1}{8}}
 $$
 
 ## Curves
 
 `sfc_3x3_combined()` generates a curve where on each level, a transverse path is randomly
-picked.
+selected.
 
 ```{r, fig.width = 8, fig.height = 8}
 draw_multiple_curves(

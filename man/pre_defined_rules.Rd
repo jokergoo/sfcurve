@@ -6,8 +6,14 @@
 \alias{SFC_RULES_PEANO}
 \alias{SFC_RULES_MEANDER}
 \alias{SFC_RULES_3x3_COMBINED}
+\alias{SFC_RULES_MEANDER_4x4_1}
+\alias{SFC_RULES_MEANDER_4x4_2}
 \title{Rules}
 \format{
+An object of class \code{sfc_rules} of length 1.
+
+An object of class \code{sfc_rules} of length 1.
+
 An object of class \code{sfc_rules} of length 1.
 
 An object of class \code{sfc_rules} of length 1.
@@ -24,6 +30,10 @@ SFC_RULES_PEANO
 SFC_RULES_MEANDER
 
 SFC_RULES_3x3_COMBINED
+
+SFC_RULES_MEANDER_4x4_1
+
+SFC_RULES_MEANDER_4x4_2
 }
 \description{
 A list of pre-defined expansion rules for different curves.
@@ -33,11 +43,16 @@ A list of pre-defined expansion rules for different curves.
 
 \code{SFC_RULES_3x3_COMBINED} is a combination of \code{SFC_RULES_PEANO} and \code{SFC_RULES_PEANO} where
 in \code{SFC_RULES_PEANO}, \code{J} is replaced by its original pattern \code{I}.
+
+\code{SFC_RULES_MEANDER_4x4_1} and \code{SFC_RULES_MEANDER_4x4_2} are extension rules of \code{SFC_RULES_MEANDER}
+to the 4x4 curve. It is only for the demonstration purpose, thus only \code{I/R/L} are supported.
 }
 \examples{
 SFC_RULES_HILBERT
 SFC_RULES_PEANO
 SFC_RULES_MEANDER
 SFC_RULES_3x3_COMBINED
+SFC_RULES_MEANDER_4x4_1
+SFC_RULES_MEANDER_4x4_2
 }
 \keyword{datasets}

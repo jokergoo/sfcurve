@@ -9,7 +9,7 @@
 \usage{
 unit_orientation(p, index = "")
 
-\S4method{sfc_flip_unit}{sfc_nxn}(p, index = "")
+\S4method{sfc_flip_unit}{sfc_nxn}(p, index = "", to = NULL)
 
 \S4method{sfc_flip_unit}{sfc_unit}(p, bases)
 }
@@ -21,6 +21,9 @@ side corresponds to the lower level and the right side corresponds to the high l
 in the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
 Meander curves, the digites can be 1-9. See examples in \code{\link[=sfc_index]{sfc_index()}}. The value can also
 be a vector where each flipping is applied in sequence.}
+
+\item{to}{The orientation to flip to. If the specified unit already has such orientation, the function returns
+the original curve.}
 
 \item{bases}{Normally use \code{\link{BASE_LIST}}.}
 }

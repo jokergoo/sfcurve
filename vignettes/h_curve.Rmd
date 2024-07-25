@@ -60,11 +60,11 @@ of the horizontal segment as `"h"` and the openning of the vertical segment as `
 See the next two plots:
 
 
-```{r}
+```{r, fig.width = 9, fig.height = 3}
 draw_multiple_curves(
     sfc_h(H1, iteration = 1, connect = "h"),
     sfc_h(H1, iteration = 1, connect = "v"),
-    closed = TRUE
+    closed = TRUE, nrow = 1
 )
 ```
 
@@ -84,7 +84,7 @@ $$ H^{(1)} = H_1^{(0)} \cdot c \cdot H_2^{(0)} \cdot c \cdot H_3^{(0)} \cdot c \
 
 The next plots show all the forms of H-curves after the first iteration, with the connection method "h":
 
-```{r, fig.width = 8, fig.height = 2}
+```{r, fig.width = 9, fig.height = 9/4}
 draw_multiple_curves(
     expand_h(H1, H1, H1, H1), expand_h(H1, H1, H1, H2), # "h" is the default
     expand_h(H1, H1, H2, H1), expand_h(H1, H1, H2, H2),
@@ -148,7 +148,7 @@ draw_multiple_curves(
     H0, 
     expand_h(H0, connect = "h"),
     expand_h(H0, connect = "v"),
-    closed = TRUE
+    closed = TRUE, nrow = 1
 )
 ```
 
@@ -188,32 +188,4 @@ plot(d1, type = "h", main = "iter = 3", xlab = "Sequential points on H-curve", y
 
 d2 = sqrt((p3[, 1] - p4[, 1])^2 + (p3[, 2] - p4[, 2])^2)/sqrt(nrow(p3))
 plot(d2, type = "h", main = "iter = 5", xlab = "Sequential points on H-curve", ylab = "distance")
-```
-
-## Locality
-
-We look at an H-curve with 1024 points.
-
-```{r}
-p = sfc_h(H1, iteration = 3)
-dim(p)
-```
-
-And their distances in the 2D space:
-
-```{r, fig.width = 7, fig.height = 7}
-d2 = dist(p)
-m = as.matrix(d2)
-
-library(ComplexHeatmap)
-Heatmap(m, name = "dist", cluster_rows = FALSE, cluster_columns = FALSE,
-    show_row_names = FALSE, show_column_names = FALSE)
-```
-
-We directly compare the distances in 1D axis and 2D curve:
-
-```{r}
-d1 = dist(1:1024)
-plot(d1, d2, pch = 16, cex = 0.2, col = "#00000010",
-    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
 ```

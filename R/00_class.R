@@ -39,6 +39,7 @@ setClass("sfc_meander",
 
 
 setGeneric('sfc_expand', function(p, ...) standardGeneric('sfc_expand'))
+setGeneric('sfc_expand_by_rules', function(p, letters, ...) standardGeneric('sfc_expand_by_rules'))
 setGeneric('sfc_grob', function(p, ...) standardGeneric('sfc_grob'))
 setGeneric('sfc_rotate', function(p, ...) standardGeneric('sfc_rotate'))
 setGeneric('sfc_hflip', function(p, ...) standardGeneric('sfc_hflip'))
@@ -49,6 +50,7 @@ setGeneric('sfc_segments', function(p, ...) standardGeneric('sfc_segments'))
 setGeneric('sfc_vaidate', function(p, ...) standardGeneric('sfc_vaidate'))
 setGeneric('sfc_to_base', function(p, ...) standardGeneric('sfc_to_base'))
 setGeneric('sfc_level', function(p, ...) standardGeneric('sfc_level'))
+setGeneric('sfc_mode', function(p, ...) standardGeneric('sfc_mode'))
 setGeneric('sfc_universe', function(p, ...) standardGeneric('sfc_universe'))
 setGeneric('sfc_validate', function(p, ...) standardGeneric('sfc_validate'))
 setGeneric('sfc_previous_point', function(p, ...) standardGeneric('sfc_previous_point'))

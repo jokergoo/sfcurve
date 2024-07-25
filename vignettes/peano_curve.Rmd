@@ -28,7 +28,7 @@ library(sfcurve)
 
 ## Base patterns
 
-There are the following expansion rules from level-0 to level-1 for the Peanno curve.
+There are the following expansion rules from level-0 to level-1 for the Peanno curve. All these level-1 units are vertical.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 draw_rules_peano()
@@ -43,19 +43,19 @@ curve, we can simpliy specify the number of the level.
 
 ```{r}
 p = sfc_peano("I", level = 3)
-# the same as sfc_peano("I", code = "111")
+# the same as sfc_peano("I", code = "111"), but 1 is only allowed
 plot(p)
 ```
 
 By applying the expansion rules, a Peano curve is fixed on a level $k$. However, note each level-1 or level-$k$ ($k \ge 1$) pattern
-can be flipped against its diagonal line without affecting the structure of other parts in the curve. Then we can have a flipped version of the original expansion rules:
+can be flipped against its diagonal line without affecting the structure of other parts of the curve. Then we can have a flipped version of the original expansion rules where all level-1 units are horizontal:
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 draw_rules_peano(flip = TRUE)
 ```
 
 Then, for example, when expanding $I^{(0)}$ to $I^{(1)} = RI^{(270)}L^{(270)}LJ^{(90)}R^{(90)}RI^{(270)}L^{(270)}$,
-each base pattern can take its flipped version independently.
+each base pattern can take its flipped version independently, also $I^{(1)}$ as a whole can be independently flipped.
 
 ## Number of different forms
 
@@ -88,7 +88,7 @@ $$
 n_k = 2^{9^{k-1} + ... + 9 + 1} = 2^{\frac{9^k - 1}{8}}
 $$
 
-Or we can also count the total number of square units on various levels. For a curve with level $k$, the number
+Or we can calculate it in another way by counting the total number of square units on various levels on the Peano curve. For a curve with level $k$, the number
 of square unit with level $i$ is $9^{k-i}$. Then we sum these numbers from level $k$ to level 1:
 
 $$
@@ -111,7 +111,7 @@ $$
 
 ## Unit flipping 
 
-We can set a global flipping rule on every level of expansion.
+We can set a global flipping rule on every level expansion.
 
 ```{r}
 sfc_peano("I", level = 3, 
@@ -119,13 +119,24 @@ sfc_peano("I", level = 3,
 
 ```
 
-Every unit can be manually flipped by specifying its "hierarchical index". Here "93" means the third level-1 subunit
-of the 9th level-2 subunit. Notice the orientation of the top-left corner of the top-right block in the right plot.
+Every unit can be manually flipped by specifying its "hierarchy index". Splitting the curve into 9 blocks recursively, for an index of "93",
+it means the 9th block in the first level of the hierarchy, and within this block, its 3rd child-block. Notice the orientation of the top-left corner of the top-right block in the right plot.
 
 ```{r, fig.width = 8, fig.height = 4}
 draw_multiple_curves(
     p,
     sfc_flip_unit(p, "93"),
+    nrow = 1
+)
+```
+
+The index can also be specified as a vector, then the flipped in applied sequentially
+(the three units on the left of the curve).
+
+```{r, fig.width = 8, fig.height = 4}
+draw_multiple_curves(
+    p,
+    sfc_flip_unit(p, c("1", "2", "3")),
     nrow = 1
 )
 ```
@@ -144,7 +155,7 @@ of base patterns on current level in the expansion. The self-defined function re
 a logical vector with the same length as `n`, representing whether using the flipped rules.
 
 ```{r}
-sfc_peano("I", level = 3, flip = function(n) {
+sfc_peano("I", level = 4, flip = function(n) {
     if(n == 1) {
         return(FALSE)
     }
@@ -156,80 +167,45 @@ sfc_peano("I", level = 3, flip = function(n) {
         portion = portion*9
     }
     l
-}) |> plot()
+}) |> plot(lwd = 1)
 ```
 
 Second, we can mandatorily change all level-1 units to vertical. `sfc_apply()` applied
 a self-defined function `fun` on every units on a certain level (in the following example,
 it is applied to level `sfc_level(p)-1`). The self-defined function accepts one argument
-`x` which is the current subunit.
+`x` which is the current unit.
 
 ```{r}
+p = sfc_peano("I", level = 4)
 sfc_apply(p, sfc_level(p) - 1, function(x) {
     if(level1_unit_orientation(x) == "horizontal") {
         sfc_flip_unit(x)
     } else {
         x
     }
-}) |> plot()
+}) |> plot(lwd = 1)
 ```
 
 Or use the helper function `change_level1_unit_orientation()`.
 
 ```{r}
-change_level1_unit_orientation(p, to = "vertical") |> plot()
+change_level1_unit_orientation(p, to = "vertical") |> plot(lwd = 1)
 ```
 
-## General Peano curve
-
-For the curve on level $k$, the subunits, higher levels can be randomly flippped, 
-while only make sure all the level-1 subunit are vertical.
-
-`p` can be a level-$k$ curve with subunits on any level flipped.
-
-```{r, fig.width = 7.5, fig.height = 2.5}
-p2 = sfc_flip_unit(p, "") |> sfc_flip_unit("7") |> 
-    change_level1_unit_orientation(to = "vertical")
-p3 = sfc_flip_unit(p, "1") |> 
-     sfc_flip_unit("2") |> 
-     sfc_flip_unit("3") |> 
-     sfc_flip_unit("4") |> 
-     sfc_flip_unit("5") |> 
-     sfc_flip_unit("6") |> 
-     sfc_flip_unit("7") |> 
-     sfc_flip_unit("8") |> 
-     sfc_flip_unit("9") |> 
-     change_level1_unit_orientation(to = "vertical")
-draw_multiple_curves(p, p2, p3, 
-    nrow = 1, title = FALSE)
-```
-
-We can also do from $k-1$ level, i.e. generate an curve on $k-1$ of any form,
-extend it to level $k$ and adjust all level-1 units to vertical.
+The first method generates the exact Peano curve where on every level the vertical structure is kept,
+but for the next two methods, the vertical pattern is only applied on level-1 while higher level can have any type
+of structures.
 
 ```{r}
-p2 = sfc_peano("I", level = 2)
-sfc_expand(p2) |>  # expand from level 2 to level 3
-    change_level1_unit_orientation(to = "vertical") |> 
-    plot()
+p = sfc_peano("I", rot = 90, level = 4)
+change_level1_unit_orientation(p, to = "vertical") |> plot(lwd = 1)
 ```
 
-## Other structures
-
-By manually flipping the units on various level, we can generate more patterns.
-For example, in the following 9 blocks, we let the even blocks to be all vertical
-and odd blocks to be all horizontal. Here the self-defined function can accepts
-a second argument which is the index of the current unit.
+And for the horizontal case:
 
 ```{r}
-p2 = change_level1_unit_orientation(p, to = "vertical")
-sfc_apply(p2, sfc_level(p2) - 2, function(x, i) {
-    if(i %% 2 == 1) {
-        sfc_flip_unit(x)
-    } else {
-        x
-    }
-}) |> plot()
+p = sfc_peano("I", rot = 90, level = 4)
+change_level1_unit_orientation(p, to = "horizontal") |> plot(lwd = 1)
 ```
 
 ## Seed as a sequence

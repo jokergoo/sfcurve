@@ -29,24 +29,39 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul></li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -78,7 +93,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">unit_orientation</span><span class="op">(</span><span class="va">p</span>, index <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_nxn</span></span>
-<span><span class="fu">sfc_flip_unit</span><span class="op">(</span><span class="va">p</span>, index <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu">sfc_flip_unit</span><span class="op">(</span><span class="va">p</span>, index <span class="op">=</span> <span class="st">""</span>, to <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_unit</span></span>
 <span><span class="fu">sfc_flip_unit</span><span class="op">(</span><span class="va">p</span>, <span class="va">bases</span><span class="op">)</span></span></code></pre></div>
@@ -96,6 +111,11 @@ side corresponds to the lower level and the right side corresponds to the high l
 in the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
 Meander curves, the digites can be 1-9. See examples in <code><a href="sfc_index.html">sfc_index()</a></code>. The value can also
 be a vector where each flipping is applied in sequence.</p></dd>
+
+
+<dt>to</dt>
+<dd><p>The orientation to flip to. If the specified unit already has such orientation, the function returns
+the original curve.</p></dd>
 
 
 <dt>bases</dt>

@@ -44,11 +44,18 @@ sfc_3x3_combined = function(seed, level = 0, rot = 0L, flip = FALSE) {
 	p@level = 0L
 	p@n = 3L
 
-	if(length(flip) == 1) {
-		flip = rep(flip, p@n^2)
-	}
-	if(length(flip) != p@n^2) {
-		stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+	if(is.logical(flip)) {
+		if(length(flip) == 1) {
+			flip = rep(flip, p@n^2)
+		}
+		if(length(flip) != p@n^2) {
+			stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+		}
+	} else {
+		if(!is.function(flip)) {
+			stop_wrap("`flip` can only be a logical vector or a function.")
+		}
+
 	}
 	p@flip = flip
 
@@ -103,18 +110,7 @@ setMethod("sfc_expand",
 		k = k + 1
 	}
 
-	p2 = sfc_expand(rules, p, code = tl, flip = p@flip)
-	
-	p3 = new("sfc_3x3_combined")
-	p3@seq = p2@seq
-	p3@rot = p2@rot
-	p3@universe = p2@universe
-	p3@seed = p@seed
-	p3@rules = p@rules
-	p3@level = p@level + 1L
-	p3@n = p@n
-	p3@flip = p@flip
-	p3
+	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
 
 })
 

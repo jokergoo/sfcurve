@@ -5,18 +5,28 @@ navbar:
   left:
     - text: "Articles"
       menu:
-        - text: "Generalized Hilbert Curve"
+        - text: "1. Generalized Hilbert Curve"
           href: articles/hilbert_curve.html
-        - text: "Generalized Peano Curve"
+        - text: "2. Generalized Peano Curve"
           href: articles/peano_curve.html
-        - text: "Generalized Meander Curve"
+        - text: "3. Generalized Meander Curve"
           href: articles/meander_curve.html
-        - text: "3x3 Curve"
-          href: articles/all_3x3_curve.html
-        - text: "Standard curves"
+        - text: "4. Unit flipping"
+          href: articles/unit_flipping.html
+        - text: "5. Standard curves"
           href: articles/standard_curves.html
-        - text: "H-Curve"
+        - text: "6. 3x3 Curve"
+          href: articles/all_3x3_curve.html
+        - text: "7. 4x4 Meander Curve"
+          href: articles/meander_4x4_curve.html
+        - text: "8. H-Curve"
           href: articles/h_curve.html
+        - text: "9. 3D Hilbert curve"
+          href: articles/hilbert_3d.html
+        - text: "10. Locality of various curves"
+          href: articles/locality.html
+    - text: "Functions"
+      href: articles/functions.html
     - text: "Reference"
       href: reference/index.html
 

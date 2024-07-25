@@ -79,7 +79,7 @@ draw_multiple_curves(
 
 Flipping (horizotal or vertical) can be applied by specifying the index of the hierarchical unit on the curve.
 
-```{r, fig.width = 8, fig.height = 8}
+```{r, fig.width = 6, fig.height = 6}
 p = sfc_meander("I", 11)
 draw_multiple_curves(
     p,

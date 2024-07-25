@@ -107,7 +107,6 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 #'     }
 #'     l
 #' }) |> plot()
-#' 
 #' sfc_peano("I", 1111, rot = 90, flip = function(n) {
 #'     if(n == 1) {
 #'         return(FALSE)
@@ -153,7 +152,9 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip = FAL
 		if(!is.function(flip)) {
 			stop_wrap("`flip` can only be a logical vector or a function.")
 		}
+
 	}
+
 	p@flip = flip
 	if(length(code) == 1) { # only expand to level 1
 		p@flip = flip[1]
@@ -162,8 +163,8 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip = FAL
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
 	}
-
 	p@universe = sfc_universe(seed)
+
 	p
 	
 }
@@ -203,6 +204,7 @@ sfc_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 		if(!is.function(flip)) {
 			stop_wrap("`flip` can only be a logical vector or a function.")
 		}
+
 	}
 	p@flip = flip
 	if(length(code) == 1) { # only expand to level 1
@@ -237,6 +239,19 @@ setMethod("sfc_level",
 	p@level
 })
 
+#' @rdname sfc_mode
+#' @export
+#' @examples
+#' p = sfc_hilbert("I", "1")
+#' sfc_mode(p)
+#' p = sfc_peano("I", "1")
+#' sfc_mode(p)
+setMethod("sfc_mode",
+    signature = "sfc_nxn",
+    definition = function(p) {
+
+    sfc_mode(p@rules)
+})
 
 setAs("sfc_seed", "sfc_hilbert", function(from) {
 	p = new("sfc_hilbert")

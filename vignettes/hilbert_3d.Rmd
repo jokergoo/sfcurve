@@ -1,0 +1,45 @@
+---
+title: "3D Hilbert curve"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r, echo = FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center")
+
+library(grid)
+library(sfcurve)
+
+library(rgl)
+options(rgl.useNULL = TRUE)
+knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+There are many forms of 3D Hilbert curve. Here we only implement one specific form of it.
+
+<style>
+canvas {
+    border: 1px solid black;
+}
+</style>
+
+```{r, fig.width = 6, fig.height = 6, webgl = TRUE}
+pos = hilbert_3d(2)
+library(rgl)
+
+plot3d(pos, type = "l", lwd = 4, col = 2, ann = FALSE, axes = FALSE)
+```

@@ -72,7 +72,7 @@ setMethod("sfc_apply",
 		stop_wrap("`depth` should only be smaller than the level of the curve.")
 	}
 	if(depth < 0) {
-		stop_wrap("`depth` should be a positive integer.")
+		stop_wrap("`depth` should be zero or a positive integer.")
 	}
 
 	n = p@n

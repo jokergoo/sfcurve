@@ -647,49 +647,6 @@ plot(p[200:400])
 ```
 
 
-## Locality
-
-
-```{r, fig.width = 8, fig.height = 8, eval = FALSE}
-library(ComplexHeatmap)
-
-tl = lapply(1:2^4 - 1, int_to_binary, 4)
-
-ml = lapply(tl, function(t) {
-	p = sfc_hilbert("R", t+1)
-	as.matrix(dist(sfc_segments(p)))
-})
-
-ml2 = lapply(ml, function(x) x-ml[[1]])
-
-pl = lapply(seq_along(ml), function(i) {
-	if(i == 1) {
-		grid.grabExpr(draw(Heatmap(ml[[i]], cluster_rows = F, cluster_columns = F, show_row_names = F, show_column_names = F, use_raster = TRUE, show_heatmap_legend = FALSE)))	
-	} else {
-		grid.grabExpr(draw(Heatmap(ml2[[i]], col = circlize::colorRamp2(c(-10, 0, 10), c("green", "white", "red")), cluster_rows = F, cluster_columns = F, show_row_names = F, show_column_names = F, use_raster = TRUE, show_heatmap_legend = FALSE)))	
-	}
-})
-plot_grid(plotlist = pl, nrow = 4)
-
-
-
-ml = lapply(c("I", "R", "L", "U", "C", "B", "D", "P", "Q"), function(x) {
-	p = sfc_hilbert(x, c(1, 1, 1, 1))
-	as.matrix(dist(sfc_segments(p)))
-})
-
-ml2 = lapply(ml, function(x) x-ml[[1]])
-
-pl = lapply(seq_along(ml), function(i) {
-	if(i == 1) {
-		grid.grabExpr(draw(Heatmap(ml[[i]], cluster_rows = F, cluster_columns = F, show_row_names = F, show_column_names = F, use_raster = TRUE, show_heatmap_legend = FALSE)))	
-	} else {
-		grid.grabExpr(draw(Heatmap(ml2[[i]], col = circlize::colorRamp2(c(-10, 0, 10), c("green", "white", "red")), cluster_rows = F, cluster_columns = F, show_row_names = F, show_column_names = F, use_raster = TRUE, show_heatmap_legend = FALSE)))	
-	}
-})
-plot_grid(plotlist = pl, nrow = 3)
-```
-
 
 ## Flip and reverse
 

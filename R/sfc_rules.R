@@ -237,7 +237,25 @@ setMethod("sfc_universe",
     p@universe
 })
 
-#' @rdname sfc_expand
+
+#' The mode of the curve
+#' @aliases sfc_mode
+#' @rdname sfc_mode
+#' @param p The corresponding object.
+#' @export
+#' @examples
+#' sfc_mode(SFC_RULES_HILBERT)
+#' sfc_mode(SFC_RULES_PEANO)
+setMethod("sfc_mode",
+    signature = "sfc_rules",
+    definition = function(p) {
+
+    as.integer(sqrt(length(p@rules[[1]][[1]])))
+})
+
+#' Expand a sequence
+#' @rdname sfc_expand_by_rules
+#' @aliases sfc_expand_by_rules
 #' @param p An `sfc_rules` object.
 #' @param letters A list of base patterns in letters, must be a factor.
 #' @param rot Rotations of `letters`.
@@ -250,25 +268,16 @@ setMethod("sfc_universe",
 #' 
 #' @export
 #' @examples
-#' sfc_expand(SFC_RULES_HILBERT, 
+#' sfc_expand_by_rules(SFC_RULES_HILBERT, 
 #'     factor(c("I", "R", "L"), levels = sfc_universe(SFC_RULES_HILBERT)))
-setMethod("sfc_expand", 
-    signature = "sfc_rules",
+setMethod("sfc_expand_by_rules", 
+    signature = c("sfc_rules", "factor"),
     definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
 
-    if(inherits(letters, "sfc_sequence")) {
-        p2 = sfc_expand(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
-        return(p2)
+    if(!identical(levels(letters), sfc_universe(p))) {
+        stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
     }
-
-    if(!is.factor(letters)) {
-        letters = factor(letters, levels = sfc_universe(p))
-    } else {
-        if(!identical(levels(letters), sfc_universe(p))) {
-            stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
-        }
-    }
-
+   
     n = length(letters)
 
     do_flipping = TRUE
@@ -277,7 +286,9 @@ setMethod("sfc_expand",
         do_flipping = FALSE
     } else {
         if(is.logical(flip)) {
-            flip = rep(flip, times = n)
+            if(length(flip) == 1) {
+                flip = rep(flip, times = n)
+            }
         } else {
 
             flip = flip(n)
@@ -331,9 +342,40 @@ setMethod("sfc_expand",
     if(!is.null(rot)) {
         p2 = sfc_rotate(p2, rep(rot, each = length(p@rules[[1]][[1]])))
     }
+
     p2
 })
 
+#' @rdname sfc_expand_by_rules
+#' @export
+setMethod("sfc_expand_by_rules", 
+    signature = c("sfc_rules", "sfc_nxn"),
+    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
+
+    p2 = sfc_expand_by_rules(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
+
+    p3 = new(class(letters))
+    p3@seq = p2@seq
+    p3@rot = p2@rot
+    p3@universe = p2@universe
+    p3@seed = letters@seed
+    p3@rules = letters@rules
+    p3@level = letters@level + 1L
+    p3@n = letters@n
+    p3@expansion = c(letters@expansion, as.integer(code))
+    p3@flip = letters@flip
+    p3
+})
+
+#' @rdname sfc_expand_by_rules
+#' @export
+setMethod("sfc_expand_by_rules", 
+    signature = c("sfc_rules", "character"),
+    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
+
+    letters = factor(letters, levels = sfc_universe(p))
+    p2 = sfc_expand_by_rules(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
+})
 
 
 grob_math = function(label, x, y, gp = gpar(), ...) {
@@ -366,6 +408,8 @@ grob_single_base_rule = function(p, bp, ...) {
         level0 = sfc_meander(bp, flip = p@flip)
     } else if(inherits(p, "sfc_3x3_combined")) {
         level0 = sfc_3x3_combined(bp, level = 0)
+    } else if(inherits(p, "sfc_4x4_meander")) {
+        level0 = sfc_4x4_meander(bp, type = p@type)
     }
 
     pl = rules@rules[[bp]]
@@ -377,11 +421,7 @@ grob_single_base_rule = function(p, bp, ...) {
     n = length(pl)
     nr = ceiling(n/2)
 
-    if(length(pl[[1]]@seq) %% 2 == 0) {
-        k = 2
-    } else if(length(pl[[1]]@seq) %% 3 == 0) {
-        k = 3
-    }
+    k = as.integer(sqrt(length(pl[[1]]@seq)))
 
     vp_xscale = c(0, 13+2*k)
     vp_yscale = c(-(nr-1)*(k+2)-1, k+1)

@@ -36,19 +36,7 @@ setMethod("sfc_expand",
 		}
 	}
 
-	p2 = sfc_expand(rules, p, code = tl, flip = p@flip)
-	
-	p3 = new("sfc_hilbert")
-	p3@seq = p2@seq
-	p3@rot = p2@rot
-	p3@universe = p2@universe
-	p3@seed = p@seed
-	p3@rules = p@rules
-	p3@level = p@level + 1L
-	p3@n = p@n
-	p3@expansion = c(p@expansion, as.integer(code))
-	p3@flip = p@flip
-	p3
+	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
 
 })
 
@@ -90,20 +78,8 @@ setMethod("sfc_expand",
 			tl[i] = code
 		}
 	}
-	# p2 is in the sfc_sequence class
-	p2 = sfc_expand(rules, p, code = tl, flip = p@flip)
-	
-	p3 = new("sfc_peano")
-	p3@seq = p2@seq
-	p3@rot = p2@rot
-	p3@universe = p2@universe
-	p3@seed = p@seed
-	p3@rules = p@rules
-	p3@level = p@level + 1L
-	p3@n = p@n
-	p3@expansion = c(p@expansion, as.integer(code))
-	p3@flip = p@flip
-	p3
+
+	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
 
 })
 
@@ -131,18 +107,7 @@ setMethod("sfc_expand",
 			tl[i] = transverse_type_2x2(tl[i-1], rot[i-1], rot[i])
 		}
 	}
-	p2 = sfc_expand(rules, p, code = tl, flip = p@flip)
 	
-	p3 = new("sfc_meander")
-	p3@seq = p2@seq
-	p3@rot = p2@rot
-	p3@universe = p2@universe
-	p3@seed = p@seed
-	p3@rules = p@rules
-	p3@level = p@level + 1L
-	p3@n = p@n
-	p3@expansion = c(p@expansion, as.integer(code))
-	p3@flip = p@flip
-	p3
+	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
 
 })

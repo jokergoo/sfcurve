@@ -29,24 +29,39 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/hilbert_curve.html">Generalized Hilbert Curve</a>
+      <a href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
     </li>
     <li>
-      <a href="../articles/peano_curve.html">Generalized Peano Curve</a>
+      <a href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
     </li>
     <li>
-      <a href="../articles/meander_curve.html">Generalized Meander Curve</a>
+      <a href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
     </li>
     <li>
-      <a href="../articles/all_3x3_curve.html">3x3 Curve</a>
+      <a href="../articles/unit_flipping.html">4. Unit flipping</a>
     </li>
     <li>
-      <a href="../articles/standard_curves.html">Standard curves</a>
+      <a href="../articles/standard_curves.html">5. Standard curves</a>
     </li>
     <li>
-      <a href="../articles/h_curve.html">H-Curve</a>
+      <a href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    </li>
+    <li>
+      <a href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
+    </li>
+    <li>
+      <a href="../articles/h_curve.html">8. H-Curve</a>
+    </li>
+    <li>
+      <a href="../articles/hilbert_3d.html">9. 3D Hilbert curve</a>
+    </li>
+    <li>
+      <a href="../articles/locality.html">10. Locality of various curves</a>
     </li>
   </ul></li>
+<li>
+  <a href="../articles/functions.html">Functions</a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -81,12 +96,18 @@
 <span></span>
 <span><span class="va">SFC_RULES_MEANDER</span></span>
 <span></span>
-<span><span class="va">SFC_RULES_3x3_COMBINED</span></span></code></pre></div>
+<span><span class="va">SFC_RULES_3x3_COMBINED</span></span>
+<span></span>
+<span><span class="va">SFC_RULES_MEANDER_4x4_1</span></span>
+<span></span>
+<span><span class="va">SFC_RULES_MEANDER_4x4_2</span></span></code></pre></div>
     </div>
 
     <div id="format">
     <h2>Format</h2>
     <p>An object of class <code>sfc_rules</code> of length 1.</p>
+<p>An object of class <code>sfc_rules</code> of length 1.</p>
+<p>An object of class <code>sfc_rules</code> of length 1.</p>
 <p>An object of class <code>sfc_rules</code> of length 1.</p>
 <p>An object of class <code>sfc_rules</code> of length 1.</p>
 <p>An object of class <code>sfc_rules</code> of length 1.</p>
@@ -96,6 +117,8 @@
     <p><code>SFC_RULES_PEANO</code>, <code>SFC_RULES_MEANDER</code> and <code>SFC_RULES_3x3_COMBINED</code> also contain the "flipped" expansion rules.</p>
 <p><code>SFC_RULES_3x3_COMBINED</code> is a combination of <code>SFC_RULES_PEANO</code> and <code>SFC_RULES_PEANO</code> where
 in <code>SFC_RULES_PEANO</code>, <code>J</code> is replaced by its original pattern <code>I</code>.</p>
+<p><code>SFC_RULES_MEANDER_4x4_1</code> and <code>SFC_RULES_MEANDER_4x4_2</code> are extension rules of <code>SFC_RULES_MEANDER</code>
+to the 4x4 curve. It is only for the demonstration purpose, thus only <code>I/R/L</code> are supported.</p>
     </div>
 
     <div id="ref-examples">
@@ -174,52 +197,96 @@ in <code>SFC_RULES_PEANO</code>, <code>J</code> is replaced by its original patt
 <span class="r-out co"><span class="r-pr">#&gt;</span>     C_2 = L(90)L(180)L(270)R(0)R(270)I(180)R(180)I(90)R(90)   corner = (2, 1) </span>
 <span class="r-in"><span><span class="va">SFC_RULES_3x3_COMBINED</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Name: 3x3_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)I(0)        corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)I(0)        corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_3 = I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)        corner = (1, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_4 = I(0)I(0)L(0)L(90)I(180)R(180)R(90)I(0)I(0)          corner = (2, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)     corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)R(0)        corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     R_3 = I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)R(0)        corner = (1, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)L(0)        corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)       corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     L_3 = I(0)I(0)L(0)L(90)I(180)R(180)R(90)I(0)L(0)          corner = (2, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> U | U_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)I(180)     corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     U_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)I(180)       corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B | B_1 = R(90)R(0)R(270)L(180)L(270)I(0)L(0)I(90)R(90)       corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     B_2 = L(0)L(90)L(180)R(270)R(180)I(90)R(90)I(0)I(0)       corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D | D_1 = R(0)R(270)R(180)L(90)L(180)I(270)L(270)I(0)I(0)     corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     D_2 = L(270)L(0)L(90)R(180)R(90)I(0)R(0)I(270)L(270)      corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P | P_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)R(180)     corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     P_2 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)L(90)        corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Q | Q_1 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)L(180)       corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     Q_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)R(270)        corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C | C_1 = R(270)R(180)R(90)L(0)L(90)I(180)L(180)I(270)L(270)  corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     C_2 = L(90)L(180)L(270)R(0)R(270)I(180)R(180)I(90)R(90)   corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flipped:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)R(90)      corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)L(270)      corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_3 = R(0)I(270)L(270)L(0)I(90)R(90)R(0)I(270)L(270)    corner = (1, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     I_4 = L(0)I(90)R(90)R(0)I(270)L(270)L(0)I(90)R(90)      corner = (2, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)L(180)   corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)I(270)      corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     R_3 = R(0)I(270)L(270)L(0)I(90)R(90)R(0)I(270)I(270)    corner = (1, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)I(90)      corner = (1, 2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)R(180)     corner = (2, 1) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     L_3 = L(0)I(90)R(90)R(0)I(270)L(270)L(0)I(90)I(90)      corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)I(0)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)I(0)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_3 = I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)      corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_4 = I(0)I(0)L(0)L(90)I(180)R(180)R(90)I(0)I(0)        corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)   corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)R(0)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_3 = I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)R(0)      corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)L(0)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)     corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_3 = I(0)I(0)L(0)L(90)I(180)R(180)R(90)I(0)L(0)        corner = (2, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> U | U_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)R(270)   corner = (1, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     U_2 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)L(90)     corner = (2, 1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B | B_1 = L(180)I(270)L(270)I(0)L(0)L(90)R(180)R(90)I(0)    corner = (1, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     B_2 = R(270)I(180)R(180)I(90)R(90)R(0)L(270)L(0)R(90)   corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B_3 = L(270)I(0)L(0)L(90)I(180)R(180)R(90)I(0)I(0)      corner = (2, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D | D_1 = L(90)I(180)L(180)I(270)L(270)L(0)R(90)R(0)L(270)  corner = (2, 1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     D_2 = R(180)I(90)R(90)I(0)R(0)R(270)L(180)L(270)I(0)    corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     D_3 = R(90)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)     corner = (1, 1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P | P_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)L(270)   corner = (1, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     P_2 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)R(0)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     P_3 = I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)L(0)      corner = (1, 1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Q | Q_1 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)R(90)     corner = (2, 1) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Q_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)L(0)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Q_3 = I(0)I(0)L(0)L(90)I(180)R(180)R(90)I(0)R(0)        corner = (2, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C | C_1 = L(0)I(90)L(90)I(180)L(180)L(270)R(0)R(270)R(180)  corner = (1, 2) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     C_2 = R(0)I(270)R(270)I(180)R(180)R(90)L(0)L(90)L(180)  corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C_3 = R(90)I(0)R(0)R(270)I(180)L(180)L(270)I(0)L(0)     corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C_4 = L(270)I(0)L(0)L(90)I(180)R(180)R(90)I(0)R(0)      corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Flipped:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)R(90)        corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)L(270)        corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_3 = R(0)I(270)L(270)L(0)I(90)R(90)R(0)I(270)L(270)      corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_4 = L(0)I(90)R(90)R(0)I(270)L(270)L(0)I(90)R(90)        corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)L(180)     corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)I(270)        corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_3 = R(0)I(270)L(270)L(0)I(90)R(90)R(0)I(270)I(270)      corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)I(90)        corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)R(180)       corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_3 = L(0)I(90)R(90)R(0)I(270)L(270)L(0)I(90)I(90)        corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> U | U_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)I(180)     corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     U_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)I(180)       corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B | B_1 = R(90)R(0)R(270)L(180)L(270)I(0)L(0)I(90)R(90)       corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B_2 = L(0)L(90)L(180)R(270)R(180)I(90)R(90)I(0)I(0)       corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     B_3 = U(90)I(90)R(90)R(0)I(270)L(270)L(0)I(90)R(90)       corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D | D_1 = R(0)R(270)R(180)L(90)L(180)I(270)L(270)I(0)I(0)     corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     D_2 = L(270)L(0)L(90)R(180)R(90)I(0)R(0)I(270)L(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     D_3 = U(270)I(270)L(270)L(0)I(90)R(90)R(0)I(270)L(270)    corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P | P_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)R(180)     corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     P_2 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)L(90)        corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     P_3 = R(0)I(270)L(270)L(0)I(90)R(90)R(0)I(270)U(90)       corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q | Q_1 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)L(180)       corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Q_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)R(270)        corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Q_3 = L(0)I(90)R(90)R(0)I(270)L(270)L(0)I(90)U(270)       corner = (2, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C | C_1 = R(270)R(180)R(90)L(0)L(90)I(180)L(180)I(270)L(270)  corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C_2 = L(90)L(180)L(270)R(0)R(270)I(180)R(180)I(90)R(90)   corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C_3 = U(270)I(270)L(270)L(0)I(90)R(90)R(0)I(270)U(90)     corner = (1, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     C_4 = U(90)I(90)R(90)R(0)I(270)L(270)L(0)I(90)U(270)      corner = (2, 2) </span>
+<span class="r-in"><span><span class="va">SFC_RULES_MEANDER_4x4_1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Name: Meander 4x4 type 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)L(270)I(0)I(0)L(0)I(90)I(90)R(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)R(90)I(0)I(0)R(0)I(270)I(270)L(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = R(0)I(270)L(270)I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)I(270)R(270)I(180)I(180)L(180)  corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)R(90)I(0)I(0)R(0)I(270)I(270)I(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)L(270)I(0)I(0)L(0)I(90)I(90)I(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = L(0)I(90)R(90)I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)I(90)L(90)I(180)I(180)R(180)     corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Flipped:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = R(0)I(270)I(270)L(270)I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)R(90)I(0)I(0)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = L(0)I(90)I(90)R(90)I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)L(270)I(0)I(0)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = I(0)I(0)I(0)R(0)I(270)I(270)R(270)I(180)R(180)R(90)L(0)L(90)I(180)L(180)I(270)I(270)  corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = L(0)I(90)I(90)R(90)I(0)I(0)R(0)I(270)R(270)R(180)L(90)L(180)I(270)L(270)I(0)R(0)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = R(0)I(270)I(270)L(270)I(0)I(0)L(0)I(90)L(90)L(180)R(270)R(180)I(90)R(90)I(0)L(0)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = I(0)I(0)I(0)L(0)I(90)I(90)L(90)I(180)L(180)L(270)R(0)R(270)I(180)R(180)I(90)I(90)     corner = (2, 1) </span>
+<span class="r-in"><span><span class="va">SFC_RULES_MEANDER_4x4_2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Name: Meander 4x4 type 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = R(0)I(270)I(270)L(270)I(0)I(0)L(0)L(90)I(180)R(180)I(90)R(90)R(0)L(270)L(0)R(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = L(0)I(90)I(90)R(90)I(0)I(0)R(0)R(270)I(180)L(180)I(270)L(270)L(0)R(90)R(0)L(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = I(0)I(0)I(0)R(0)I(270)I(270)R(270)R(180)I(90)L(90)I(180)L(180)L(270)R(0)R(270)L(180)  corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = L(0)I(90)I(90)R(90)I(0)I(0)R(0)R(270)I(180)L(180)I(270)L(270)L(0)R(90)R(0)I(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = R(0)I(270)I(270)L(270)I(0)I(0)L(0)L(90)I(180)R(180)I(90)R(90)R(0)L(270)L(0)I(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = I(0)I(0)I(0)L(0)I(90)I(90)L(90)L(180)I(270)R(270)I(180)R(180)R(90)L(0)L(90)R(180)     corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Flipped:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I | I_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)L(180)L(270)I(0)I(0)L(0)I(90)I(90)R(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     I_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)R(180)R(90)I(0)I(0)R(0)I(270)I(270)L(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R | R_1 = I(0)R(0)R(270)L(180)L(270)I(0)L(0)I(90)R(90)R(0)I(270)I(270)R(270)I(180)I(180)L(180)  corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     R_2 = L(0)R(90)R(0)L(270)L(0)I(90)L(90)I(180)R(180)R(90)I(0)I(0)R(0)I(270)I(270)I(270)      corner = (2, 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> L | L_1 = R(0)L(270)L(0)R(90)R(0)I(270)R(270)I(180)L(180)L(270)I(0)I(0)L(0)I(90)I(90)I(90)      corner = (1, 2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     L_2 = I(0)L(0)L(90)R(180)R(90)I(0)R(0)I(270)L(270)L(0)I(90)I(90)L(90)I(180)I(180)R(180)     corner = (2, 1) </span>
 </code></pre></div>
     </div>
   </div>

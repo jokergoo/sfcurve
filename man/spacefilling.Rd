@@ -72,7 +72,6 @@ sfc_peano("I", 1111, flip = function(n) {
     }
     l
 }) |> plot()
-
 sfc_peano("I", 1111, rot = 90, flip = function(n) {
     if(n == 1) {
         return(FALSE)
