@@ -28,7 +28,7 @@ library(sfcurve)
 
 ## Base patterns
 
-The Meander curve has a different set of base patterns.
+The Meander curve has a different set of base units.
 
 ```{r, fig.width = 10.3, fig.height = 5.5, out.width = "100%"}
 draw_rules_meander()
@@ -59,7 +59,7 @@ draw_multiple_curves(
     nrow = 2, lwd = 2)
 ```
 
-The curves on level 3 taking the nine base patterns separately.
+The curves on level 3 taking the nine base patterns respectively:
 
 ```{r, fig.width = 9, fig.height = 9}
 draw_multiple_curves(
@@ -71,7 +71,7 @@ draw_multiple_curves(
     sfc_meander("D", code = "111"),
     sfc_meander("P", code = "111"),
     sfc_meander("Q", code = "111"),
-    sfc_meander("D", code = "111"),
+    sfc_meander("C", code = "111"),
     nrow = 3, lwd = 2)
 ```
 

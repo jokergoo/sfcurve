@@ -50,7 +50,7 @@ expand $I_1^{(1)}$ to the next level.
 
 
 ```{r}
-p = p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
+p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
 p
 pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
 length(pl)

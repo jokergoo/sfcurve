@@ -17,6 +17,11 @@ reduce_loc_to_level_1 = function(p, n, step = 1) {
 
 
 #' @rdname sfc_flip_unit
+#' @details
+#' For `unit_orientation()`, it first reduce the unit to level-1, then it checks the orientation
+#' of the line connected by the in-corner and out-corner.
+#' @return
+#' `unit_orientation()` returns a string one of "vertical", "horizontal", "diagonal_1" and "diagonal_-1".
 #' @export
 unit_orientation = function(p, index = "") {
 	if(inherits(p, "sfc_unit")) {
@@ -71,6 +76,8 @@ unit_orientation = function(p, index = "") {
 #' The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 #' curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.
 #' @export
+#' @return
+#' `sfc_flip_unit` returns an `sfc_nxn` object.
 #' @examples
 #' p = sfc_meander("I", 11)
 #' draw_multiple_curves(

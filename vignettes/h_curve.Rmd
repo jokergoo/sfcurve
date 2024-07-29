@@ -34,7 +34,7 @@ draw_multiple_curves(H1, H2, nrow = 1, closed = TRUE)
 ```
 
 To recursively expand it to higher levels, we can replace the four corners
-(each corner is represented as a 2x2 grids) into full H-units. Or we can also
+(each corner is represented as 2x2 grids) into full H-units. Or we can also
 do in a copy-paste way where we put the four copies of the H-unit in the four
 quadrants and connect them in the 1-2-3-4 order as in the following figure:
 
@@ -54,7 +54,7 @@ popViewport()
 
 To connect two units, the corners in the corresponding units need to be opened.
 Take unit 1 as an example, as it connects to unit 2 via its topright corner, there
-are two ways to open this corner: to open the horizontal segment and the vertical segment. 
+are two ways to open this corner: to open the horizontal segment and the vertical segment (the red and blue segments). 
 This process is similar for unit 2-4. We name the openning
 of the horizontal segment as `"h"` and the openning of the vertical segment as `"v"`.
 See the next two plots:
@@ -155,7 +155,7 @@ draw_multiple_curves(
 Also the connection methods for the four units are not necessary to be the same. In the followng example, 
 we take $H_0$ as the base unit and take `vhvh` as the connection methods, i.e. the vertical segment of the
 first unit, the horizontal segment of the second unit, the vertical segment of the third unit and the horizontal
-segment of the fourth segment are opened:
+segment of the fourth segment are opened, and we do five iterations:
 
 ```{r, fig.width = 6, fig.height = 6}
 fun = function(h, iteration) {
@@ -167,7 +167,7 @@ fun(H0, 5) |> plot_segments(closed = TRUE)
 
 ## Global structure is unchanged
 
-Last, although H-curve has a large number of different forms, different settings only affect foldings locally in the curve,
+Although H-curve has a large number of different forms, different settings only affect folding locally in the curve,
 while its global structure is still unchanged:
 
 ```{r, fig.width = 8, fig.height = 8}
@@ -179,7 +179,7 @@ draw_multiple_curves(p1, p2, p3, p4, nrow = 2)
 ```
 
 The next plots show distances of points with the same indicies on two random H-curves,
-normalized by the "sizes" of the curves.
+normalized by the "sizes" of the curves. We can see the distance difference is very small.
 
 ```{r, fig.width = 8, fig.height = 6}
 par(mfrow = c(2, 1))

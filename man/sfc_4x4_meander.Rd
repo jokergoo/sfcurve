@@ -8,9 +8,9 @@
 \usage{
 sfc_4x4_meander(seed, code = integer(0), rot = 0L, flip = FALSE, type = 1L)
 
-\S4method{sfc_expand}{sfc_4x4_meander}(p, code)
+\S4method{sfc_expand}{sfc_4x4_meander}(p, code, flip = FALSE)
 
-draw_rules_4x4_meander(type = 1)
+draw_rules_4x4_meander(type = 1, flip = FALSE)
 }
 \arguments{
 \item{seed}{The seed sequence. In most cases, the seed sequence is a single base pattern, which can be specified as a single letter, then \code{rot} controls
@@ -18,13 +18,14 @@ the initial rotation of the base pattern. It also supports a sequence with more 
 it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scalar which controls the rotation of the
 first letter, or a vector with the same length as the number of base letters.}
 
-\item{code}{Transverse code, a single integer.}
+\item{code}{A vector of the transverse code. The left side corresponds to the lower levels of the curve and the right side corresponds to the higher level of the curve.
+The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \code{"121"}, or as a number e.g. \code{121}.}
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 
 \item{flip}{The same setting as in \code{\link[=sfc_peano]{sfc_peano()}} or \code{\link[=sfc_meander]{sfc_meander()}}.}
 
-\item{type}{Which type of rules to use? 1 for \code{\link{SFC_RULES_MEANDER_4x4_1}} and 2 for \code{\link{SFC_RULES_MEANDER_4x4_2}}.}
+\item{type}{Which type of rules to use? 1 for \code{\link{SFC_RULES_4x4_MEANDER_1}} and 2 for \code{\link{SFC_RULES_4x4_MEANDER_2}}.}
 
 \item{p}{An \code{sfc_4x4_meander} object.}
 }

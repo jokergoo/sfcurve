@@ -37,6 +37,9 @@
     <loc>/articles/meander_curve.html</loc>
   </url>
   <url>
+    <loc>/articles/nxn_curve.html</loc>
+  </url>
+  <url>
     <loc>/articles/peano_curve.html</loc>
   </url>
   <url>
@@ -107,6 +110,9 @@
   </url>
   <url>
     <loc>/reference/sfc_flip_unit.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfc_generator.html</loc>
   </url>
   <url>
     <loc>/reference/sfc_grob.html</loc>

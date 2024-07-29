@@ -37,6 +37,8 @@
 #' - [`SFC_RULES_PEANO`]
 #' - [`SFC_RULES_MEANDER`]
 #' - [`SFC_RULES_3x3_COMBINED`]
+#' - [`SFC_RULES_4x4_MEANDER_1`]
+#' - [`SFC_RULES_4x4_MEANDER_2`]
 #' 
 #' Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.
 #' 
@@ -51,9 +53,10 @@ sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
     }
 
     universe = sfc_universe(rules[[1]][[1]])
-    if( !identical(names(rules), universe) ) {
+    if( !identical(sort(names(rules)), sort(universe)) ) {
         stop_wrap("`names(rules)` should be identical to the universe of its level-1 patterns.")
     }
+    rules = rules[universe]
     r@bases = bases
     r@universe = universe
     r@name = name
@@ -89,6 +92,20 @@ sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
                 if(!identical(u1, u2)) {
                     stop_wrap("`flip[['", nm, "']][[", j, "]]` is not a flip of `rules[[", nm, "]][[", j, "]]`.")
                 }
+            }
+        }
+    }
+
+    for(nm in names(rules)) {
+        for(i in seq_along(rules[[nm]])) {
+            validate_rule(rules[[nm]][[i]], nm, i, bases)
+        }
+    }
+
+    if(length(flip) > 0) {
+        for(nm in names(flip)) {
+            for(i in seq_along(flip[[nm]])) {
+                validate_rule(flip[[nm]][[i]], nm, i, bases)
             }
         }
     }
@@ -157,6 +174,37 @@ sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
     r
 }
 
+
+# the in- and out-direction of the unit should be the same as the base
+validate_rule = function(rule, bp, i, bases) {
+    if( !equal_to(sqrt(length(rule)), round(sqrt(length(rule)))) ) {
+        stop_wrap("The length of the unit should be k^2 where k = 2, 3, ...")
+    }
+
+    if(!is.na(bases[[ bp ]]@in_direction)) {
+        prev_p1 = sfc_previous_point(bases[[ as.character(rule@seq[1]) ]], c(0, 0), rule@rot[1])
+        prev_p2 = sfc_previous_point(bases[[ bp ]], c(0, 0), 0)
+
+        if(!equal_to(prev_p1, prev_p2)) {
+            prev_p1 = sfc_previous_point(bases[[ as.character(rule@seq[1]) ]], c(0, 0), 0)
+            if(equal_to(prev_p1, prev_p2)) {
+                stop_wrap("The in-direction is different from the base pattern ", bp, " to the level-1 unit. Maybe you need to rotate the unit by ", -rule@rot[1] %% 360, " degrees.")
+            } else {
+                stop_wrap("The in-direction is different from the base pattern ", bp, " to the level-1 unit.")
+            }
+        }
+    }
+
+    if(!is.na(bases[[ bp ]]@out_direction)) {
+        n = length(rule)
+        next_p1 = sfc_next_point(bases[[ as.character(rule@seq[n]) ]], c(0, 0), rule@rot[n])
+        next_p2 = sfc_next_point(bases[[ bp ]], c(0, 0), 0)
+
+        if(!equal_to(next_p1, next_p2)) {
+            stop_wrap("The out-direction is different from the base pattern ", bp, " to the level-1 unit.")
+        }
+    }
+}
 
 
 #' @rdname show
@@ -257,43 +305,51 @@ setMethod("sfc_mode",
 #' @rdname sfc_expand_by_rules
 #' @aliases sfc_expand_by_rules
 #' @param p An `sfc_rules` object.
-#' @param letters A list of base patterns in letters, must be a factor.
-#' @param rot Rotations of `letters`.
+#' @param seq An `sfc_nxn` object or other objects.
 #' @param code The transverse code.
 #' @param flip For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 #'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
-#'        vector of length one or length of 9. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
-#'        The value of `flip` can also be a function which takes the length of `letters` as the only argument.
+#'        vector of length one or with the same length as `seq`. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
+#'        The value of `flip` can also be a function which takes the current curve as the only argument.
 #' @param by Which implementation? Only for the testing purpose.
 #' 
+#' @return
+#' If `seq` is an `sfc_nxn` object, the function also returns an "expanded" `sfc_nxn` object. Or else it returns an `sfc_sequence` object.
 #' @export
 #' @examples
-#' sfc_expand_by_rules(SFC_RULES_HILBERT, 
-#'     factor(c("I", "R", "L"), levels = sfc_universe(SFC_RULES_HILBERT)))
+#' sfc_expand_by_rules(SFC_RULES_HILBERT, sfc_hilbert("I"))
 setMethod("sfc_expand_by_rules", 
-    signature = c("sfc_rules", "factor"),
-    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
+    signature = c("sfc_rules", "sfc_nxn"),
+    definition = function(p, seq, code = 1L, flip = FALSE, by = "Cpp") {
 
-    if(!identical(levels(letters), sfc_universe(p))) {
-        stop_wrap("Levels of `letters` should be identical to the universe of `p`.")
+    if(!identical(sfc_universe(seq), sfc_universe(p))) {
+        stop_wrap("The universe of `p` and `seq` should be identical.")
     }
    
-    n = length(letters)
+    n = length(seq)
+    letters = seq@seq
 
     do_flipping = TRUE
-    if(length(p@flip) == 0) {
+    if(length(flip) == 0) {
         flip = rep(FALSE, n)
         do_flipping = FALSE
     } else {
         if(is.logical(flip)) {
             if(length(flip) == 1) {
-                flip = rep(flip, times = n)
+                flip = rep(flip, n)
+            } else if(length(flip) == n) {
+
+            } else {
+                flip = rep(flip, times = n/sfc_mode(p)^(2*sfc_level(seq)))
+            }
+            if(length(flip) != n) {
+                stop_wrap("The logical vector `flip` should have a length of one or with the same length as `seq`.")
             }
         } else {
 
-            flip = flip(n)
+            flip = flip(seq)
             if(length(flip) != n) {
-                stop_wrap("The self-deifned function `flip` should return a logical vector with length n with the same value as its argument.")
+                stop_wrap("The self-deifned function `flip` should return a logical vector with current curve as its argument.")
             }
         }
     }
@@ -339,42 +395,43 @@ setMethod("sfc_expand_by_rules",
         p2 = sfc_sequence(seq = lt[[1]], rot = lt[[2]])
     }
 
-    if(!is.null(rot)) {
-        p2 = sfc_rotate(p2, rep(rot, each = length(p@rules[[1]][[1]])))
-    }
+    p2 = sfc_rotate(p2, rep(seq@rot, each = length(p@rules[[1]][[1]])))
 
-    p2
+    if(inherits(seq, "sfc_nxn")) {
+        p3 = new(class(seq))
+        p3@seq = p2@seq
+        p3@rot = p2@rot
+        p3@universe = p2@universe
+        p3@level = seq@level + 1L
+        p3@n = seq@n
+        p3@seed = seq@seed
+        p3@rules = seq@rules
+        p3
+    } else {
+        p2
+    }
+    
 })
 
 #' @rdname sfc_expand_by_rules
 #' @export
 setMethod("sfc_expand_by_rules", 
-    signature = c("sfc_rules", "sfc_nxn"),
-    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
+    signature = c("sfc_rules", "factor"),
+    definition = function(p, seq, code = 1L, flip = FALSE, by = "Cpp") {
 
-    p2 = sfc_expand_by_rules(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
+    seq = sfc_sequence(seq, universe = sfc_universe(p))
+    sfc_expand_by_rules(p, seq, code = code, flip = flip, by = by)
 
-    p3 = new(class(letters))
-    p3@seq = p2@seq
-    p3@rot = p2@rot
-    p3@universe = p2@universe
-    p3@seed = letters@seed
-    p3@rules = letters@rules
-    p3@level = letters@level + 1L
-    p3@n = letters@n
-    p3@expansion = c(letters@expansion, as.integer(code))
-    p3@flip = letters@flip
-    p3
 })
 
 #' @rdname sfc_expand_by_rules
 #' @export
 setMethod("sfc_expand_by_rules", 
     signature = c("sfc_rules", "character"),
-    definition = function(p, letters, code = 1L, flip = FALSE, by = "Cpp", rot = NULL) {
+    definition = function(p, seq, code = 1L, flip = FALSE, by = "Cpp") {
 
-    letters = factor(letters, levels = sfc_universe(p))
-    p2 = sfc_expand_by_rules(p, letters@seq, rot = letters@rot, code = code, flip = flip, by = by)
+    seq = sfc_sequence(seq, universe = sfc_universe(p))
+    sfc_expand_by_rules(p, seq, code = code, flip = flip, by = by)
 })
 
 
@@ -396,26 +453,33 @@ tex_pattern = function(x, which, p) {
     paste0("italic(", x, ")[", which, "] == paste(", expr, ")")
 }
 
-grob_single_base_rule = function(p, bp, ...) {
+grob_single_base_rule = function(p, bp, flip = FALSE, ...) {
     rules = p@rules
     bases = rules@bases
 
     if(inherits(p, "sfc_hilbert")) {
         level0 = sfc_hilbert(bp)
     } else if(inherits(p, "sfc_peano")) {
-        level0 = sfc_peano(bp, flip = p@flip)
+        level0 = sfc_peano(bp, flip = flip)
     } else if(inherits(p, "sfc_meander")) {
-        level0 = sfc_meander(bp, flip = p@flip)
+        level0 = sfc_meander(bp, flip = flip)
     } else if(inherits(p, "sfc_3x3_combined")) {
-        level0 = sfc_3x3_combined(bp, level = 0)
+        level0 = sfc_3x3_combined(bp, level = 0, flip = flip)
     } else if(inherits(p, "sfc_4x4_meander")) {
-        level0 = sfc_4x4_meander(bp, type = p@type)
+        level0 = sfc_4x4_meander(bp, type = p@type, flip = flip)
+    } else {
+        cl = getClass(class(p))
+        level0 = get(class(p), envir = as.environment(cl@package))(bp)
     }
 
     pl = rules@rules[[bp]]
 
     for(i in seq_along(pl)) {
-        pl[[i]] = sfc_expand(level0, i)
+        if(inherits(level0, "sfc_peano") || inherits(level0, "sfc_meander") || inherits(level0, "sfc_3x3_combined") || inherits(level0, "sfc_4x4_meander")) {
+            pl[[i]] = sfc_expand(level0, i, flip = flip)
+        } else {
+            pl[[i]] = sfc_expand(level0, i)
+        }
     }
 
     n = length(pl)
@@ -522,7 +586,9 @@ draw_rules_hilbert = function() {
 #'      of the curve expansion rules. See the vignettes for details.
 #' @export
 #' @examples
+#' # the units in the main rules of the Peano curve are vertical
 #' draw_rules_peano()
+#' # the units in the flipped rules of the Peano curve are horizontal
 #' draw_rules_peano(flip = TRUE)
 draw_rules_peano = function(flip = FALSE) {
 
@@ -530,22 +596,22 @@ draw_rules_peano = function(flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
     gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "J", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "J", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
     gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
     gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     nc = length(gb4$children)
     gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(10, "mm")
     grid.draw(gb4)
@@ -554,7 +620,10 @@ draw_rules_peano = function(flip = FALSE) {
 #' @rdname draw_rules
 #' @export
 #' @examples
+#' # the units in the main rules of the Meander curve are "forward"
+#' # i.e. the direction of the "wave" is the same as the direction of the curve
 #' draw_rules_meander()
+#' # the units in the flipped rules of the Meander curve are "backward"
 #' draw_rules_meander(flip = TRUE)
 draw_rules_meander = function(flip = FALSE) {
 
@@ -562,47 +631,47 @@ draw_rules_meander = function(flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
     gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(25, "mm")
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
     gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(25, "mm")
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
     gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(25, "mm")
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "U", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "U", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     nc = length(gb4$children)
     gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(25, "mm")
     grid.draw(gb4)
 
-    gb5 = grob_single_base_rule(p, "B", x = size + gb1$vp$width + unit(25, "mm") + size, y = unit(1, "npc") - size, just = c("left", "top"))
+    gb5 = grob_single_base_rule(p, "B", flip = flip, x = size + gb1$vp$width + unit(25, "mm") + size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb5$children)
     gb5$children[[nc]]$width = gb5$children[[nc]]$width + unit(30, "mm")
     grid.draw(gb5)
 
-    gb6 = grob_single_base_rule(p, "D", x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
+    gb6 = grob_single_base_rule(p, "D", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
     nc = length(gb6$children)
     gb6$children[[nc]]$width = gb6$children[[nc]]$width + unit(30, "mm")
     grid.draw(gb6)
 
-    gb7 = grob_single_base_rule(p, "P", x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
+    gb7 = grob_single_base_rule(p, "P", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
     nc = length(gb7$children)
     gb7$children[[nc]]$width = gb7$children[[nc]]$width + unit(30, "mm")
     grid.draw(gb7)
 
-    gb8 = grob_single_base_rule(p, "Q", x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
+    gb8 = grob_single_base_rule(p, "Q", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
     nc = length(gb8$children)
     gb8$children[[nc]]$width = gb8$children[[nc]]$width + unit(30, "mm")
     grid.draw(gb8)
 
-    gb9 = grob_single_base_rule(p, "C", x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
+    gb9 = grob_single_base_rule(p, "C", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
     nc = length(gb9$children)
     gb9$children[[nc]]$width = gb9$children[[nc]]$width + unit(30, "mm")
     grid.draw(gb9)

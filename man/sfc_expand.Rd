@@ -9,17 +9,19 @@
 \usage{
 \S4method{sfc_expand}{sfc_hilbert}(p, code)
 
-\S4method{sfc_expand}{sfc_peano}(p, code = 1)
+\S4method{sfc_expand}{sfc_peano}(p, code = 1, flip = FALSE)
 
-\S4method{sfc_expand}{sfc_meander}(p, code)
+\S4method{sfc_expand}{sfc_meander}(p, code, flip = FALSE)
 }
 \arguments{
 \item{p}{An \code{sfc_hilbert} object.}
 
 \item{code}{Transverse code, a single integer.}
+
+\item{flip}{Whethe to flip level-1 units? The value should be a logical vector of length one or the same as the length of \code{p}.}
 }
 \value{
-An object in the same class as the input. \code{sfc_expand()} on the \code{sfc_rules} objects returns an \code{sfc_sequence} object.
+An object in the same class as the input.
 }
 \description{
 Expand the curve to the next level

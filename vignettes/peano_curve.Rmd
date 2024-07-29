@@ -28,7 +28,7 @@ library(sfcurve)
 
 ## Base patterns
 
-There are the following expansion rules from level-0 to level-1 for the Peanno curve. All these level-1 units are vertical.
+There are the following expansion rules from level-0 to level-1 for the Peanno curve. Note all these level-1 units are vertical.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 draw_rules_peano()
@@ -119,8 +119,11 @@ sfc_peano("I", level = 3,
 
 ```
 
-Every unit can be manually flipped by specifying its "hierarchy index". Splitting the curve into 9 blocks recursively, for an index of "93",
-it means the 9th block in the first level of the hierarchy, and within this block, its 3rd child-block. Notice the orientation of the top-left corner of the top-right block in the right plot.
+Every unit can be manually flipped by specifying its "hierarchy index".
+Splitting the curve into 9 blocks recursively, for an index of "93", it means
+the 9th block on the first level of the hierarchy, and within this block, its
+3rd child-block. Notice the orientation of the top-left corner of the
+top-right block in the right plot.
 
 ```{r, fig.width = 8, fig.height = 4}
 draw_multiple_curves(
@@ -143,50 +146,41 @@ draw_multiple_curves(
 
 ## The standard Peano curve
 
-There are two ways to generate the standard Peano curve where all level-1 (9x9) unit
+In previous section, we demonstrate setting `flip` argument to a logical vector which is
+actually less useful. In this section, we will demonstrate how to set `flip` as a self-defined
+function to support more flexible adjustment of the Peano curves.
+
+There are several ways to generate the standard Peano curve where all level-1 (9x9) units
 are oriented vertically.
 
-First, notice taking the normal expansion rules, if splitting the curves into three parts
-euqally, the first subunit in the second and the third parts are flipped. Then we just need
-to flipped these two back. Note such flipping should be applied on all levels.
-
-In the following, `flip` can be set to a function accepting an argumnt `n` which is the number
-of base patterns on current level in the expansion. The self-defined function returns
-a logical vector with the same length as `n`, representing whether using the flipped rules.
+1. The design of the "primary expansion rules" is to let all level-1 units be vertical, then
+to generate a standard Peano curve, if the base letter in the curve has a rotation of 90 or 270 degrees,
+we replace it with the flipped version. The self-defined function `flip()` accepts one argument which is the current curve in the expansion. Then
+adjusting to the standard Peano curve can be easily done by:
 
 ```{r}
-sfc_peano("I", level = 4, flip = function(n) {
-    if(n == 1) {
-        return(FALSE)
-    }
-    l = rep(FALSE, n)
-    portion = 1
-    while(portion*9 <= n) {
-        ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
-        l[ind + 1] = TRUE
-        portion = portion*9
-    }
-    l
+sfc_peano("I", level = 4, flip = function(p) {
+    p@rot %in% c(90, 270)
 }) |> plot(lwd = 1)
 ```
 
-Second, we can mandatorily change all level-1 units to vertical. `sfc_apply()` applied
+2. We can mandatorily change all level-1 units to vertical. `sfc_apply()` applies
 a self-defined function `fun` on every units on a certain level (in the following example,
 it is applied to level `sfc_level(p)-1`). The self-defined function accepts one argument
 `x` which is the current unit.
 
 ```{r}
 p = sfc_peano("I", level = 4)
-sfc_apply(p, sfc_level(p) - 1, function(x) {
-    if(level1_unit_orientation(x) == "horizontal") {
-        sfc_flip_unit(x)
+sfc_apply(p, sfc_level(p)-1, function(u) {
+    if(level1_unit_orientation(u) == "horizontal") {
+        sfc_flip_unit(u)
     } else {
-        x
+        u
     }
 }) |> plot(lwd = 1)
 ```
 
-Or use the helper function `change_level1_unit_orientation()`.
+3. Directly use the helper function `change_level1_unit_orientation()`.
 
 ```{r}
 change_level1_unit_orientation(p, to = "vertical") |> plot(lwd = 1)
@@ -208,8 +202,12 @@ p = sfc_peano("I", rot = 90, level = 4)
 change_level1_unit_orientation(p, to = "horizontal") |> plot(lwd = 1)
 ```
 
+The first method generates the exact Peano curve where on every level the vertical structure is kept, but for the next two methods, the vertical pattern is only applied on level-1 while higher level can have any type of structures.
+Unit flipping is a powerful way for adjusting curves. We will get to deeper explorations in the vignette ["Unit flipping"](unit_flipping.html).
+
 ## Seed as a sequence
 
+Beside using a single base letter as the seed, a sequence can be used as the seed as well.
 
 ```{r, fig.width = 3, fig.height = 3}
 seed = sfc_sequence("IJILJILJILJI", rot = -90, universe = sfc_universe(SFC_RULES_PEANO))
@@ -217,6 +215,6 @@ plot(seed, grid = TRUE)
 ```
 
 ```{r, fig.width = 6, fig.height = 6}
-sfc_peano(seed, code = "111") |> plot(lwd = 2)
+sfc_peano(seed, level = 3) |> plot(lwd = 2)
 ```
 

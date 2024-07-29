@@ -46,6 +46,8 @@ There are the following pre-defined rules:
 \item \code{\link{SFC_RULES_PEANO}}
 \item \code{\link{SFC_RULES_MEANDER}}
 \item \code{\link{SFC_RULES_3x3_COMBINED}}
+\item \code{\link{SFC_RULES_4x4_MEANDER_1}}
+\item \code{\link{SFC_RULES_4x4_MEANDER_2}}
 }
 
 Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.

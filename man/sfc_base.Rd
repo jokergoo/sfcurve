@@ -41,8 +41,7 @@ Currently, this package supports 2x2 and 3x3 space-filling curves that fills gri
 And when the curve expands, we only allow the segments to go forward, backward, left and right. Thus there are the following base patterns
 pre-defined in this package:
 \itemize{
-\item \code{\link{BASE_I}}: go forward.
-\item \code{\link{BASE_J}}: go forward.
+\item \code{\link{BASE_I}}/\code{\link{BASE_J}}: go forward.
 \item \code{\link{BASE_R}}: turn right.
 \item \code{\link{BASE_L}}: turn left.
 \item \code{\link{BASE_U}}: go backward.
@@ -50,7 +49,7 @@ pre-defined in this package:
 \item \code{\link{BASE_D}}: leave the start point where the start point is closed.
 \item \code{\link{BASE_P}}: return to the end point where the end point is closed.
 \item \code{\link{BASE_Q}}: return to the end point where the end point is closed.
-\item 
+\item \code{BASE_C}: self-closed.
 }
 
 The base pattern determines the final form of the curve.

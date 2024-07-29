@@ -15,9 +15,9 @@ moore_curve(level = 2L)
 
 beta_omega_curve(level = 2L)
 
-peano_curve(level = 2L, level_2 = "vvvvvvvvv", by = "Cpp")
+peano_curve(level = 2L, pattern = "vvvvvvvvv", by = "Cpp")
 
-meander_curve(level = 2L, level_2 = "fffffffff")
+meander_curve(level = 2L, pattern = "fffffffff")
 
 h_curve(iteration = 2L)
 }
@@ -26,7 +26,7 @@ h_curve(iteration = 2L)
 
 \item{by}{Which implementation? Only for the testing purpose.}
 
-\item{level_2}{The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The
+\item{pattern}{The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The
 value should be a string with 9 letters of "v"/"h" (vertical or horizontal).}
 
 \item{iteration}{Number of iterations.}
@@ -63,8 +63,8 @@ draw_multiple_curves(
     nrow = 1
 )
 draw_multiple_curves(
-    peano_curve(3, level_2 = "vhvhvhvhv"),
-    peano_curve(3, level_2 = "vvvhhhvvv"),
+    peano_curve(3, pattern = "vhvhvhvhv"),
+    peano_curve(3, pattern = "vvvhhhvvv"),
     nrow = 1
 )
 draw_multiple_curves(
@@ -73,8 +73,8 @@ draw_multiple_curves(
     nrow = 1
 )
 draw_multiple_curves(
-    meander_curve(3, level_2 = "fbfbfbfbf"),
-    meander_curve(3, level_2 = "bbbbbffff"),
+    meander_curve(3, pattern = "fbfbfbfbf"),
+    meander_curve(3, pattern = "bbbbbffff"),
     nrow = 1
 )
 draw_multiple_curves(

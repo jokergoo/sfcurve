@@ -17,8 +17,8 @@ draw_multiple_curves(
 )
 }
 \arguments{
-\item{...}{A list of \code{sfc_sequence} objects or objects in its child classes. The value
-can also be a list of two-column coordinate matrices.}
+\item{...}{A list of \code{sfc_sequence} objects or objects in its child classes, a list of \code{\link[grid:grid.grob]{grid::grob}} objects
+or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.}
 
 \item{nrow}{Number of rows in the layout.}
 
@@ -27,7 +27,7 @@ can also be a list of two-column coordinate matrices.}
 \item{extend}{Whether to draw the entering and leaving segments? It is only used when input is a list of \code{sfc_sequence} objects.}
 
 \item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.
-Or the value can be a vector of strings.}
+The value can be a vector of user-defined strings.}
 
 \item{closed}{Whether the curves are closed? The value should be a logical vector. If it is \code{TRUE}, the last point
 is connected to the first point in the curve to form a closed curve.}
@@ -36,29 +36,29 @@ is connected to the first point in the curve to form a closed curve.}
 
 \item{lwd}{Line width.}
 
-\item{col}{Color for segments. If the value is \code{NULL}, it uses the "Spectral" color palettes.}
+\item{col}{Color for segments. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrweer} package.}
 }
 \description{
 Draw multiple curves
 }
 \details{
-draw_multiple_curves
-This function is only for the demonstration purpose.
+This function is used for quickly comparing curves.
 }
 \examples{
 # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 draw_multiple_curves(
-    sfc_hilbert("R", code = c(1, 1, 1)),
-    sfc_hilbert("R", code = c(1, 1, 2)),
-    sfc_hilbert("R", code = c(1, 2, 1)),
-    sfc_hilbert("R", code = c(1, 2, 2)),
-    sfc_hilbert("R", code = c(2, 1, 1)),
-    sfc_hilbert("R", code = c(2, 1, 2)),
-    sfc_hilbert("R", code = c(2, 2, 1)),
-    sfc_hilbert("R", code = c(2, 2, 2)),
+    sfc_hilbert("R", "111"),
+    sfc_hilbert("R", "112"),
+    sfc_hilbert("R", "121"),
+    sfc_hilbert("R", "122"),
+    sfc_hilbert("R", "211"),
+    sfc_hilbert("R", "212"),
+    sfc_hilbert("R", "221"),
+    sfc_hilbert("R", "222"),
     nrow = 2, title = TRUE)
 
 # simply a list of sequences
+# note they only contain I/R/L, so the base patterns I/R/L are internally used
 draw_multiple_curves(
     sfc_sequence("IIII"),
     sfc_sequence("RRRR"),

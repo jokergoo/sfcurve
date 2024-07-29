@@ -24,8 +24,13 @@ The expansion rules define how the curve is expanded from level-0 to level-1.
 }
 \examples{
 draw_rules_hilbert()
+# the units in the main rules of the Peano curve are vertical
 draw_rules_peano()
+# the units in the flipped rules of the Peano curve are horizontal
 draw_rules_peano(flip = TRUE)
+# the units in the main rules of the Meander curve are "forward"
+# i.e. the direction of the "wave" is the same as the direction of the curve
 draw_rules_meander()
+# the units in the flipped rules of the Meander curve are "backward"
 draw_rules_meander(flip = TRUE)
 }

@@ -126,7 +126,7 @@ oe = try({
     BASE_J = sfc_base("J", in_direction = 90, out_direction = 90, primary = TRUE, open = TRUE, grob = I_base())
     BASE_R = sfc_base("R", in_direction = 90, out_direction = 0, primary = TRUE, open = TRUE, grob = R_base())
     BASE_L = sfc_base("L", in_direction = 90, out_direction = 180, primary = TRUE, open = TRUE, grob = L_base())
-    BASE_U = sfc_base("U", in_direction = -90, out_direction = 90, primary = FALSE, open = TRUE, grob = U_base())
+    BASE_U = sfc_base("U", in_direction = 90, out_direction = -90, primary = FALSE, open = TRUE, grob = U_base())
     BASE_B = sfc_base("B", in_direction = NA, out_direction = 90, primary = FALSE, open = FALSE, grob = B_base())
     BASE_D = sfc_base("D", in_direction = NA, out_direction = 90, primary = FALSE, open = FALSE, grob = D_base())
     BASE_P = sfc_base("P", in_direction = 90, out_direction = NA, primary = FALSE, open = FALSE, grob = P_base())
@@ -289,27 +289,27 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
         bases = BASE_LIST[UNIVERSE_3x3_COMBINED])
 
 
-    RULES_MEANDER_4x4_1_FLIP = lapply(RULES_MEANDER_4x4_1, function(x) {
+    RULES_4x4_MEANDER_1_FLIP = lapply(RULES_4x4_MEANDER_1, function(x) {
         lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
     })
 
-    SFC_RULES_MEANDER_4x4_1 = sfc_rules(rules = RULES_MEANDER_4x4_1, flip = RULES_MEANDER_4x4_1_FLIP,
+    SFC_RULES_4x4_MEANDER_1 = sfc_rules(rules = RULES_4x4_MEANDER_1, flip = RULES_4x4_MEANDER_1_FLIP,
         name = "Meander 4x4 type 1",
-        bases = BASE_LIST[UNIVERSE_MEANDER_4x4])
+        bases = BASE_LIST[UNIVERSE_4x4_MEANDER])
 
-    RULES_MEANDER_4x4_2_FLIP = lapply(RULES_MEANDER_4x4_2, function(x) {
+    RULES_4x4_MEANDER_2_FLIP = lapply(RULES_4x4_MEANDER_2, function(x) {
         lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
     })
-    SFC_RULES_MEANDER_4x4_2 = sfc_rules(rules = RULES_MEANDER_4x4_2, flip = RULES_MEANDER_4x4_2_FLIP,
+    SFC_RULES_4x4_MEANDER_2 = sfc_rules(rules = RULES_4x4_MEANDER_2, flip = RULES_4x4_MEANDER_2_FLIP,
         name = "Meander 4x4 type 2",
-        bases = BASE_LIST[UNIVERSE_MEANDER_4x4])
+        bases = BASE_LIST[UNIVERSE_4x4_MEANDER])
 
     assign("SFC_RULES_HILBERT", SFC_RULES_HILBERT, envir = parent)
     assign("SFC_RULES_PEANO", SFC_RULES_PEANO, envir = parent)
     assign("SFC_RULES_MEANDER", SFC_RULES_MEANDER, envir = parent)
     assign("SFC_RULES_3x3_COMBINED", SFC_RULES_3x3_COMBINED, envir = parent)
-    assign("SFC_RULES_MEANDER_4x4_1", SFC_RULES_MEANDER_4x4_1, envir = parent)
-    assign("SFC_RULES_MEANDER_4x4_2", SFC_RULES_MEANDER_4x4_2, envir = parent)
+    assign("SFC_RULES_4x4_MEANDER_1", SFC_RULES_4x4_MEANDER_1, envir = parent)
+    assign("SFC_RULES_4x4_MEANDER_2", SFC_RULES_4x4_MEANDER_2, envir = parent)
 }
 
 #' Base patterns
@@ -335,7 +335,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' draw_multiple_curves(
 #'     BASE_I, BASE_J, BASE_R, BASE_L, BASE_U,
 #'     BASE_B, BASE_D, BASE_P, BASE_Q, BASE_C,
-#'     nrow = 1
+#'     nrow = 2
 #' )
 "BASE_I"
 
@@ -385,7 +385,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' A list of pre-defined expansion rules for different curves.
 #' 
 #' @details
-#' `SFC_RULES_PEANO`, `SFC_RULES_MEANDER` and `SFC_RULES_3x3_COMBINED` also contain the "flipped" expansion rules.
+#' `SFC_RULES_PEANO`, `SFC_RULES_MEANDER` and `SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2` also contain the "flipped" expansion rules.
 #' @rdname pre_defined_rules
 #' @export
 #' @examples
@@ -393,8 +393,8 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' SFC_RULES_PEANO
 #' SFC_RULES_MEANDER
 #' SFC_RULES_3x3_COMBINED
-#' SFC_RULES_MEANDER_4x4_1
-#' SFC_RULES_MEANDER_4x4_2
+#' SFC_RULES_4x4_MEANDER_1
+#' SFC_RULES_4x4_MEANDER_2
 "SFC_RULES_HILBERT"
 
 #' @rdname pre_defined_rules
@@ -414,30 +414,30 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 
 #' @rdname pre_defined_rules
 #' @export
-"SFC_RULES_MEANDER_4x4_1"
+"SFC_RULES_4x4_MEANDER_1"
 
 #' @rdname pre_defined_rules
 #' @details
-#' `SFC_RULES_MEANDER_4x4_1` and `SFC_RULES_MEANDER_4x4_2` are extension rules of `SFC_RULES_MEANDER`
+#' `SFC_RULES_4x4_MEANDER_1` and `SFC_RULES_4x4_MEANDER_2` are extension rules of `SFC_RULES_MEANDER`
 #' to the 4x4 curve. It is only for the demonstration purpose, thus only `I/R/L` are supported.
 #' @export
-"SFC_RULES_MEANDER_4x4_2"
+"SFC_RULES_4x4_MEANDER_2"
 
-UNIVERSE_MEANDER_4x4 = c("I", "R", "L")
+UNIVERSE_4x4_MEANDER = c("I", "R", "L")
 
-RULES_MEANDER_4x4_1 = list()
-RULES_MEANDER_4x4_1[["I"]][[1]] = sfc_unit("IIRIRRLLILIILIIR", rot = 0, universe = UNIVERSE_MEANDER_4x4)  
-RULES_MEANDER_4x4_1[["I"]][[2]] = sfc_unit("IILILLRRIRIIRIIL", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_1[["R"]][[1]] = sfc_unit("RILILLRRIRIIRIIL", rot = 0, universe = UNIVERSE_MEANDER_4x4)      
-RULES_MEANDER_4x4_1[["R"]][[2]] = sfc_unit("IILILLRRIRIIRIII", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_1[["L"]][[1]] = sfc_unit("IIRIRRLLILIILIII", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_1[["L"]][[2]] = sfc_unit("LIRIRRLLILIILIIR", rot = 0, universe = UNIVERSE_MEANDER_4x4) 
+RULES_4x4_MEANDER_1 = list()
+RULES_4x4_MEANDER_1[["I"]][[1]] = sfc_unit("IIRIRRLLILIILIIR", rot = 0, universe = UNIVERSE_4x4_MEANDER)  
+RULES_4x4_MEANDER_1[["I"]][[2]] = sfc_unit("IILILLRRIRIIRIIL", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_1[["R"]][[1]] = sfc_unit("RILILLRRIRIIRIIL", rot = 0, universe = UNIVERSE_4x4_MEANDER)      
+RULES_4x4_MEANDER_1[["R"]][[2]] = sfc_unit("IILILLRRIRIIRIII", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_1[["L"]][[1]] = sfc_unit("IIRIRRLLILIILIII", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_1[["L"]][[2]] = sfc_unit("LIRIRRLLILIILIIR", rot = 0, universe = UNIVERSE_4x4_MEANDER) 
 
-RULES_MEANDER_4x4_2 = list()
-RULES_MEANDER_4x4_2[["I"]][[1]] = sfc_unit("RIILIILLIRIRRLLR", rot = 0, universe = UNIVERSE_MEANDER_4x4)  
-RULES_MEANDER_4x4_2[["I"]][[2]] = sfc_unit("LIIRIIRRILILLRRL", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_2[["R"]][[1]] = sfc_unit("IIIRIIRRILILLRRL", rot = 0, universe = UNIVERSE_MEANDER_4x4)      
-RULES_MEANDER_4x4_2[["R"]][[2]] = sfc_unit("LIIRIIRRILILLRRI", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_2[["L"]][[1]] = sfc_unit("RIILIILLIRIRRLLI", rot = 0, universe = UNIVERSE_MEANDER_4x4)
-RULES_MEANDER_4x4_2[["L"]][[2]] = sfc_unit("IIILIILLIRIRRLLR", rot = 0, universe = UNIVERSE_MEANDER_4x4) 
+RULES_4x4_MEANDER_2 = list()
+RULES_4x4_MEANDER_2[["I"]][[1]] = sfc_unit("RIILIILLIRIRRLLR", rot = 0, universe = UNIVERSE_4x4_MEANDER)  
+RULES_4x4_MEANDER_2[["I"]][[2]] = sfc_unit("LIIRIIRRILILLRRL", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_2[["R"]][[1]] = sfc_unit("IIIRIIRRILILLRRL", rot = 0, universe = UNIVERSE_4x4_MEANDER)      
+RULES_4x4_MEANDER_2[["R"]][[2]] = sfc_unit("LIIRIIRRILILLRRI", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_2[["L"]][[1]] = sfc_unit("RIILIILLIRIRRLLI", rot = 0, universe = UNIVERSE_4x4_MEANDER)
+RULES_4x4_MEANDER_2[["L"]][[2]] = sfc_unit("IIILIILLIRIRRLLR", rot = 0, universe = UNIVERSE_4x4_MEANDER) 
 

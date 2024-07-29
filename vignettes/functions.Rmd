@@ -1,5 +1,5 @@
 ---
-title: "Functions"
+title: "Functions/Classes"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 
@@ -7,6 +7,8 @@ output:
     self_contained: true
     toc: false
 ---
+
+## Functions
 
 Here lists the major high-level functions implemented in this package.
 
@@ -21,23 +23,27 @@ Make curves in their standard forms:
 `hilbert_curve()`, `moore_curve()`, `beta_omega_curve()`, `peano_curve()`, `meander_curve()`, 
 `h_curve()`.
 
-Other curves
+Other curves:
 
-`sfc_3x3_combined()`, `sfc_3x3_combined()`, `hilbert_3d()`.
+`sfc_3x3_combined()`, `sfc_4x4_meander()`, `hilbert_3d()`.
+
+Generate nxn curve based on a specific level-1 unit:
+
+`sfc_generator()`
 
 ### Expansion rules
 
 Pre-defined expansion rules:
 
 `SFC_RULES_HILBERT`, `SFC_RULES_PEANO`, `SFC_RULES_MEANDER`,
-`SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2`.
+`SFC_RULES_3x3_COMBINED`, `SFC_RULES_4x4_MEANDER_1`, `SFC_RULES_4x4_MEANDER_2`.
 
 Draw these rules:
 
 `draw_rules_hilbert()`, `draw_rules_peano()`, `draw_rules_meander()`,
 `draw_rules_3x3_combined()`, `draw_rules_4x4_meander()`.
 
-### Unit flip
+### Unit flipping
 
 `sfc_apply()`, `unit_orientation()`, `sfc_flip_unit()`,
 
@@ -47,3 +53,123 @@ Draw these rules:
 ### Coordinates of segments
 
 `sfc_segments()`
+
+## Classes
+
+There are the following classes defined:
+
+- `sfc_sequence`: the most general class for a sequence of letters.
+- `sfc_seed`: essentially the same as `sfc_sequence`. This class is used as a mark representing
+   the object can only be used as the seed for generating curves.
+- `sfc_unit`: only used when constructing the expansion rules. It is a sequence on level-1 of the curve. 
+   There is also an additional slot `corner` which corresponds to the corners of the in and out-direction
+   of the square level-1 unit.
+- `sfc_nxn`: the base class for the general nxn curve
+- `sfc_hilbert`, `sfc_peano`, `sfc_meander`, `sfc_3x3_combined`, `sfc_meander_4x4` are all child classes of `sfc_nxn`.
+- Specifically `sfc_meander_4x4` has two child classes `sfc_meander_4x4_1` and `sfc_meander_4x4_2` using two different
+  sets of expansion rules.
+
+The following two classes define how the curve is expanded:
+
+- `sfc_base`: for the base patterns (i.e. level-0). It defines the previous point and the next points
+- `sfc_rules`: It contains the expansion rules from level-0 to level-1.
+
+
+The UML of classes and their corresponding methods implemented in this package.
+
+<!--
+
+#direction: down
+#fill:white
+[sfc_sequence || + seq <factor>
+                 + rot <integer>
+                 + universe <character>
+              |  + `\[`()
+                 + `\[<-`()
+                 + c()
+                 + length()
+                 + show()
+                 + sfc_universe()
+                 + sfc_is_compatible()
+                 + sfc_segments()
+                 + sfc_grob()
+                 + plot()
+                 + sfc_rotate()
+                 + sfc_hflip()
+                 + sfc_vflip()
+                 + sfc_dflip()
+                 + sfc_reverse()
+                 + sfc_validate()]
+
+[sfc_base || + letter <character>
+             + preceeding <numeric>
+             + succeeding <numeric>
+             + in_direction <numeric>
+             + out_direction <numeric>
+             + primary <logical>
+             + open <logical>
+             + grob <grid::grob> 
+          |  + show()
+             + plot()
+             + sfc_grob()
+             + sfc_previous_point()
+             + sfc_next_point()
+             ]
+[sfc_sequence] -> [sfc_unit]
+
+[sfc_unit || + corner <integer>
+           | + sfc_flip_unit()]
+[sfc_base] o--\> [sfc_rules]
+[sfc_unit] o--\> [sfc_rules]
+[sfc_rules] o--\> [sfc_nxn]
+[sfc_seed] o--\> [sfc_nxn]
+[sfc_rules || + rules <a list of sfc_unit>
+              + flip <list>
+              + universe <character>
+              + name <character>
+              + bases <a list of sfc_base>
+            | + show()
+              + sfc_universe()
+              + sfc_mode()
+              + sfc_expand_by_rules()
+              ]
+[sfc_nxn || + seed <sfc_seed>
+            + rules <sfc_rules>
+            + expansion <integer>
+            + flip <logical or function>
+            + level <integer>
+            + n <integer>
+         |  + sfc_apply()
+            + sfc_level()
+            + sfc_mode()
+            + show()
+            + sfc_flip_unit()
+            + sfc_grob()
+            + plot()
+            + sfc_index()
+            + `\[`()
+            + sfc_reduce()
+            ]
+[sfc_hilbert | + sfc_expand()]
+[sfc_peano | + sfc_expand()
+             + level1_unit_orientation()
+             + change_level1_unit_orientation()]
+[sfc_meander | + sfc_expand()]
+[sfc_4x4_meander || + type <integer>
+                 |  + sfc_expand()]
+[sfc_3x3_combined || + sfc_expand()]
+[sfc_sequence] -> [sfc_nxn]
+[sfc_sequence] -> [sfc_seed]
+[sfc_nxn] -> [sfc_hilbert]
+[sfc_nxn] -> [sfc_peano]
+[sfc_nxn] -> [sfc_meander]
+[sfc_nxn] -> [sfc_3x3_combined]
+[sfc_nxn] -> [sfc_4x4_meander]
+[sfc_4x4_meander] -> [sfc_4x4_meander_1]
+[sfc_4x4_meander] -> [sfc_4x4_meander_2]
+-->
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("nomnoml.png")
+```
+

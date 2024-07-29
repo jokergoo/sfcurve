@@ -1,3 +1,4 @@
+
 destination: docs
 
 navbar:
@@ -19,18 +20,19 @@ navbar:
           href: articles/all_3x3_curve.html
         - text: "7. 4x4 Meander Curve"
           href: articles/meander_4x4_curve.html
-        - text: "8. H-Curve"
+        - text: "8. General nxn Curves"
+          href: "articles/nxn_curve.html"
+        - text: "9. H-Curve"
           href: articles/h_curve.html
-        - text: "9. 3D Hilbert curve"
+        - text: "10. 3D Hilbert curve"
           href: articles/hilbert_3d.html
-        - text: "10. Locality of various curves"
+        - text: "11. Locality of various curves"
           href: articles/locality.html
-    - text: "Functions"
+    - text: "Functions/Classes"
       href: articles/functions.html
     - text: "Reference"
       href: reference/index.html
 
 
 template:
-  includes:
-    after_body: "<style>nav[data-toggle='toc'] .nav .nav {display: block;}</style>"
+  bootstrap: 5

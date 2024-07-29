@@ -1,36 +1,37 @@
 
 #' Draw multiple curves
 #' 
-#' @param ... A list of `sfc_sequence` objects or objects in its child classes. The value
-#'      can also be a list of two-column coordinate matrices.
+#' @param ... A list of `sfc_sequence` objects or objects in its child classes, a list of [`grid::grob`] objects 
+#'          or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments? It is only used when input is a list of `sfc_sequence` objects.
 #' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
-#'   Or the value can be a vector of strings.
+#'   The value can be a vector of user-defined strings.
 #' @param closed Whether the curves are closed? The value should be a logical vector. If it is `TRUE`, the last point
 #'           is connected to the first point in the curve to form a closed curve.
 #' @param padding Space around each curve. The value should be a [`grid::grob`] object.
 #' @param lwd Line width.
-#' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes.
+#' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes from the **RColorBrweer** package.
 #' 
-#' @details draw_multiple_curves
-#' This function is only for the demonstration purpose.
+#' @details
+#' This function is used for quickly comparing curves.
 #' @export
 #' @examples
 #' # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 #' draw_multiple_curves(
-#'     sfc_hilbert("R", code = c(1, 1, 1)),
-#'     sfc_hilbert("R", code = c(1, 1, 2)),
-#'     sfc_hilbert("R", code = c(1, 2, 1)),
-#'     sfc_hilbert("R", code = c(1, 2, 2)),
-#'     sfc_hilbert("R", code = c(2, 1, 1)),
-#'     sfc_hilbert("R", code = c(2, 1, 2)),
-#'     sfc_hilbert("R", code = c(2, 2, 1)),
-#'     sfc_hilbert("R", code = c(2, 2, 2)),
+#'     sfc_hilbert("R", "111"),
+#'     sfc_hilbert("R", "112"),
+#'     sfc_hilbert("R", "121"),
+#'     sfc_hilbert("R", "122"),
+#'     sfc_hilbert("R", "211"),
+#'     sfc_hilbert("R", "212"),
+#'     sfc_hilbert("R", "221"),
+#'     sfc_hilbert("R", "222"),
 #'     nrow = 2, title = TRUE)
 #' 
 #' # simply a list of sequences
+#' # note they only contain I/R/L, so the base patterns I/R/L are internally used
 #' draw_multiple_curves(
 #'     sfc_sequence("IIII"),
 #'     sfc_sequence("RRRR"),
@@ -164,7 +165,7 @@ message_wrap = function (...) {
 }
 
 equal_to = function(x, y) {
-	abs(x - y) < 1e-6
+	all(abs(x - y) < 1e-6)
 }
 
 

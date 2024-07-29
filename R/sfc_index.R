@@ -69,6 +69,8 @@ get_index_from_nxn = function(index, level, n) {
 #'       corresponds to the lower level and the right side corresponds to the high level in the curve. For the
 #'       Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
 #' @export
+#' @details
+#' `sfc_index()` only works on square curves (i.e. a curve with a single base letter as seed.)
 #' @examples
 #' # only for testing
 #' p = sfc_hilbert("I", "11111")
@@ -119,7 +121,7 @@ test_sfc_index = function(p, index) {
 	} else {
 		lines(loc[index, 1], loc[index, 2], lwd = 2, col = "black")
 	}
-	title(paste0(class(p), ": level = ", p@level, ", ", p@n, "x", p@n))
+	title(paste0(class(p), ": level = ", p@level, ", ", p@n, "x", p@n, ", index = ", index))
 }
 
 

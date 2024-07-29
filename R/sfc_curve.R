@@ -44,15 +44,12 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 	p@seed = seed
 	p@level = 0L
 	p@n = 2L
-	p@flip = c(FALSE, FALSE, FALSE, FALSE)
-	if(length(code) == 1) { # only expand to level 1
-		p@flip = p@flip[1]
-	}
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
 	}
 
+	p@expansion = as.integer(code)
 	p@universe = sfc_universe(SFC_RULES_HILBERT)
 	p
 	
@@ -91,35 +88,26 @@ sfc_hilbert = function(seed, code = integer(0), rot = 0L) {
 #'     flip = c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)) |> plot()
 #' sfc_peano("IJ", "111") |> plot()
 #'
-#' # set `flip` to a function
-#' # notice if split a Peano curve into three equal portion on any level, 
-#' # rotate the first subunit in the second and the third portions.
-#' sfc_peano("I", 1111, flip = function(n) {
-#'     if(n == 1) {
-#'         return(FALSE)
+#' sfc_peano("I", level = 4, flip = function(p) {
+#'     p@rot %in% c(90, 270)
+#' }) |> plot(lwd = 1)
+#' 
+#' level = 4
+#' sfc_peano("I", level = level, flip = function(p) {
+#'      if(length(p) == 9^(level-1)) {
+#'          l = rep(FALSE, length(p))
+#'          ind = 1:9^2 + 9^2*rep(c(0, 2, 4, 6, 8), each = 9^2)
+#'          l[ind] = p@rot[ind] %in% c(90, 270)
+#' 
+#'          ind = 1:9^2 + 9^2*rep(c(1, 3, 5, 7), each = 9^2)
+#'          l[ind] = p@rot[ind] %in% c(0, 180)
+#' 
+#'          l
+#'     } else {
+#'          rep(FALSE, length(p))
 #'     }
-#'     l = rep(FALSE, n)
-#'     portion = 1
-#'     while(portion*9 <= n) {
-#'         ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
-#'         l[ind + 1] = TRUE
-#'         portion = portion*9
-#'     }
-#'     l
-#' }) |> plot()
-#' sfc_peano("I", 1111, rot = 90, flip = function(n) {
-#'     if(n == 1) {
-#'         return(FALSE)
-#'     }
-#'     l = rep(FALSE, n)
-#'     portion = 1
-#'     while(portion*9 <= n) {
-#'         ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
-#'         l[ind + 1] = TRUE
-#'         portion = portion*9
-#'     }
-#'     l
-#' }) |> plot()
+#' }) |> plot(lwd = 1)
+#' 
 sfc_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip = FALSE) {
 
 	if(!is.null(level)) {
@@ -142,27 +130,40 @@ sfc_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip = FAL
 	p@n = 3L
 
 	if(is.logical(flip)) {
-		if(length(flip) == 1) {
-			flip = rep(flip, p@n^2)
+		if(!(length(flip) == length(seed) || length(flip) == 9 || length(flip) == 1)) {
+			stop_wrap("If `flip` is a logical vector, it should have a length the same as `seed` or 9\n")
 		}
-		if(length(flip) != p@n^2) {
-			stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+	}
+
+	if(is.function(flip)) {
+		for(i in seq_along(code)) {
+			p = sfc_expand(p, code[i], flip = flip(p))
 		}
 	} else {
-		if(!is.function(flip)) {
-			stop_wrap("`flip` can only be a logical vector or a function.")
+		for(i in seq_along(code)) {
+		
+			if(i == 1) {
+				if(length(flip) == length(seed)) {
+					p = sfc_expand(p, code[i], flip = flip)
+				} else {
+					p = sfc_expand(p, code[i], flip = flip[1])
+				}
+			} else if (i == 2) {
+				if(length(flip) == 9) {
+
+				} else {
+					flip = rep(flip, each = 9)
+				}
+				
+				p = sfc_expand(p, code[i], flip = flip)
+			} else {
+				flip = rep(flip, each = 9)
+				p = sfc_expand(p, code[i], flip = flip)
+			}
 		}
-
 	}
 
-	p@flip = flip
-	if(length(code) == 1) { # only expand to level 1
-		p@flip = flip[1]
-	}
-
-	for(i in seq_along(code)) {
-		p = sfc_expand(p, code[i])
-	}
+	p@expansion = as.integer(code)
 	p@universe = sfc_universe(seed)
 
 	p
@@ -194,27 +195,40 @@ sfc_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 	p@n = 3L
 
 	if(is.logical(flip)) {
-		if(length(flip) == 1) {
-			flip = rep(flip, p@n^2)
+		if(!(length(flip) == length(seed) || length(flip) == 9 || length(flip) == 1)) {
+			stop_wrap("If `flip` is a logical vector, it should have a length the same as `seed` or 9\n")
 		}
-		if(length(flip) != p@n^2) {
-			stop_wrap("Length of `flip` should be a logical vector of length 1 or 9.")
+	}
+
+	if(is.function(flip)) {
+		for(i in seq_along(code)) {
+			p = sfc_expand(p, code[i], flip = flip(p))
 		}
 	} else {
-		if(!is.function(flip)) {
-			stop_wrap("`flip` can only be a logical vector or a function.")
+		for(i in seq_along(code)) {
+		
+			if(i == 1) {
+				if(length(flip) == length(seed)) {
+					p = sfc_expand(p, code[i], flip = flip)
+				} else {
+					p = sfc_expand(p, code[i], flip = flip[1])
+				}
+			} else if (i == 2) {
+				if(length(flip) == 9) {
+
+				} else {
+					flip = rep(flip, each = 9)
+				}
+				
+				p = sfc_expand(p, code[i], flip = flip)
+			} else {
+				flip = rep(flip, each = 9)
+				p = sfc_expand(p, code[i], flip = flip)
+			}
 		}
-
-	}
-	p@flip = flip
-	if(length(code) == 1) { # only expand to level 1
-		p@flip = flip[1]
 	}
 
-	for(i in seq_along(code)) {
-		p = sfc_expand(p, code[i])
-	}
-
+	p@expansion = as.integer(code)
 	p@universe = sfc_universe(seed)
 	p
 	
@@ -253,56 +267,54 @@ setMethod("sfc_mode",
     sfc_mode(p@rules)
 })
 
+
+
 setAs("sfc_seed", "sfc_hilbert", function(from) {
 	p = new("sfc_hilbert")
 	p@seq = from@seq
+	levels(p@seq) = sfc_universe(SFC_RULES_HILBERT)
 	p@rot = from@rot
-	p@universe = from@universe
-	p@rules = SFC_RULES_HILBERT
+	p@universe = sfc_universe(SFC_RULES_HILBERT)
 	p@level = 0L
 	p@n = 2L
-	p@flip = rep(FALSE, 4)
-
-	if(length(setdiff(p@seq, sfc_universe(SFC_RULES_HILBERT)))) {
-		stop("Letters should all be in `SFC_RULES_HILBERT`.")
-	}
+	p@rules = SFC_RULES_HILBERT
 
 	p
 })
 
 
-setAs("sfc_seed", "sfc_peano", function(from) {
+setAs("sfc_sequence", "sfc_peano", function(from) {
 	p = new("sfc_peano")
 	p@seq = from@seq
+	levels(p@seq) = sfc_universe(SFC_RULES_PEANO)
 	p@rot = from@rot
-	p@universe = from@universe
-	p@rules = SFC_RULES_PEANO
+	p@universe = sfc_universe(SFC_RULES_PEANO)
 	p@level = 0L
 	p@n = 3L
-	p@flip = rep(FALSE, 9)
+	p@rules = SFC_RULES_PEANO
 
 	p
 })
 
-setAs("sfc_seed", "sfc_meander", function(from) {
+
+setAs("sfc_sequence", "sfc_meander", function(from) {
 	p = new("sfc_meander")
 	p@seq = from@seq
+	levels(p@seq) = sfc_universe(SFC_RULES_MEANDER)
 	p@rot = from@rot
-	p@universe = from@universe
-	p@rules = SFC_RULES_MEANDER
+	p@universe = sfc_universe(SFC_RULES_MEANDER)
 	p@level = 0L
 	p@n = 3L
-	p@flip = rep(FALSE, 9)
+	p@rules = SFC_RULES_MEANDER
 
 	p
 })
 
-setAs("sfc_seed", "sfc_nxn", function(from) {
+setAs("sfc_sequence", "sfc_nxn", function(from) {
 	p = new("sfc_nxn")
 	p@seq = from@seq
 	p@rot = from@rot
-	p@universe = from@universe
-	p@rules = SFC_RULES_MEANDER
+	p@universe = levels(from@seq)
 	p@level = 0L
 
 	p
@@ -320,13 +332,7 @@ setMethod("show",
 	cat("  Increase mode: ", object@n, " x ", object@n, "\n", sep = "")
 	cat("  Level: ", object@level, "\n", sep = "")
 	cat("  Expansion rule:", object@rules@name, "\n")
-	if(length(object@rules@flip)) {
-		if(is.logical(object@flip)) {
-			cat("  Unit flip:", paste(ifelse(object@flip, "T", "F"), collapse = ""), "\n")
-		} else {
-			cat("  Unit flip: a self-defined function\n")
-		}
-	}
+
 	if(length(object) < (object@n^2)^object@level) {
 		cat("  A fragment from the original curve.\n")
 	}
@@ -343,14 +349,18 @@ setMethod("show",
 #' Level-1 unit in the Peano curve
 #' @aliases level1_unit_orientation
 #' @rdname level1_unit
-#' @param p An `sfc_peano` object.
+#' @param p For `level1_unit_orientation()`, it is an `sfc_peano` unit on level-1.
+#'       For `change_level1_unit_orientation()`, it is a normal `sfc_peano` object.
 #' @return `level1_unit_orientation()` returns `"vertical"` or `"horizontal"`.
+#' @details
+#' `level1_unit_orientation()` is normally used inside [`sfc_apply()`]. `change_level1_unit_orientation()`
+#' changes all level-1 units of a Peano curves simultaneously.
 #' @export
 setMethod("level1_unit_orientation",
 	signature = "sfc_peano",
 	definition = function(p) {
 	if(length(p) != 9) {
-		stop_wrap("`u` should be an sfc_peano unit with length of 9.")
+		stop_wrap("`u` should be an sfc_peano unit with length of 9 (level-1).")
 	}
     loc = sfc_segments(p)
     if(loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) {
@@ -367,9 +377,12 @@ setMethod("level1_unit_orientation",
 #' @export
 #' @examples
 #' p = sfc_peano("I", 111)
+#' level1_unit_orientation(p[1:9, TRUE])
+#' level1_unit_orientation(p[1:9 + 27, TRUE])
 #' p2 = change_level1_unit_orientation(p)
 #' p3 = change_level1_unit_orientation(p, "vertical")
-#' draw_multiple_curves(p, p2, p3, title = FALSE, nrow = 1)
+#' draw_multiple_curves(p, p2, p3, 
+#'     title = c("original", "all horizontal", "all vertical"), nrow = 1)
 setMethod("change_level1_unit_orientation",
 	signature = "sfc_peano",
 	definition = function(p, to = c("horizontal", "vertical")) {

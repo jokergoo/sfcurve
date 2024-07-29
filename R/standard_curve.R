@@ -68,7 +68,7 @@ beta_omega_curve = function(level = 2L) {
 }
 
 #' @rdname standard_curve
-#' @param level_2 The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The 
+#' @param pattern The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The 
 #'        value should be a string with 9 letters of "v"/"h" (vertical or horizontal).
 #' @export
 #' @examples
@@ -78,54 +78,52 @@ beta_omega_curve = function(level = 2L) {
 #'     nrow = 1
 #' )
 #' draw_multiple_curves(
-#'     peano_curve(3, level_2 = "vhvhvhvhv"),
-#'     peano_curve(3, level_2 = "vvvhhhvvv"),
+#'     peano_curve(3, pattern = "vhvhvhvhv"),
+#'     peano_curve(3, pattern = "vvvhhhvvv"),
 #'     nrow = 1
 #' )
-peano_curve = function(level = 2L, level_2 = "vvvvvvvvv", by = "Cpp") {
-	if(by == "Cpp" && (level_2 == "vvvvvvvvv" || level_2 == "v")) {
+peano_curve = function(level = 2L, pattern = "vvvvvvvvv", by = "Cpp") {
+
+	if(by == "Cpp" && (pattern == "vvvvvvvvv" || pattern == "v")) {
 		lt = peano_curve_cpp(level)
 		cbind(lt[[1]], lt[[2]])
 	} else {
-		if(length(level_2) != 1) {
-			stop_wrap("Length of `level_2` can only be 1.")
+
+		if(length(pattern) != 1) {
+			stop_wrap("Length of `pattern` can only be 1.")
 		}
-		level_2 = strsplit(level_2, "")[[1]]
-		if(length(level_2) == 1) {
-			level_2 = rep(level_2, 9)
+		pattern = strsplit(pattern, "")[[1]]
+		if(length(pattern) == 1) {
+			pattern = rep(pattern, 9)
 		}
-		if(length(level_2) != 9) {
-			stop_wrap("`level_2` should contain 9 letters of v/h")
-		}
-		if(!all(level_2 %in% c("h", "v"))) {
-			stop_wrap("`level_2` should contain 9 letters of v/h")
+		if(length(pattern) > 9) {
+			stop_wrap("`pattern` can only contain maximal 9 letters.")
 		}
 
-		if(level_2[1] == "v") {
-			bp = "I"
-			d_base = c("v", "v", "v", "h", "v", "v", "h", "v", "v")
-			l2 = level_2 != d_base
-			rot = 0
-		} else {
-			bp = "J"
-			d_base = c("h", "h", "h", "v", "h", "h", "v", "h", "h")
-			l2 = level_2 != d_base
-			rot = -90
+		if(!all(pattern %in% c("h", "v"))) {
+			stop_wrap("`pattern` should contain v/h")
 		}
 
-		p = sfc_peano(bp, code = rep(1, level), rot = rot, flip = function(n) {
-		    if(n == 1) {
-		        return(l2[1])
-		    }
-		    l = rep(FALSE, n)
-		    portion = 1
-		    while(portion*9 <= n) {
-		        ind = ((0:(n/portion-1))*portion)[rep(l2, n/9/portion)]
-		        l[ind + 1] = TRUE
-		        portion = portion*9
-		    }
-		    l
+		bp = "I"
+		l_v = pattern == "v"
+		l_h = pattern == "h"
+		p = sfc_peano(bp, code = rep(1, level), rot = 0, flip = function(p) {
+			if(sfc_level(p) > 0) {
+				n = length(p)
+				l = rep(FALSE, n)
+				l1 = rep(l_v, times = ceiling(9^(sfc_level(p))/length(pattern)))
+				l1 = l1[1:n]
+				l[l1] = p@rot[l1] %in% c(90, 270)
+				
+				l2 = rep(l_h, times = ceiling(9^(sfc_level(p))/length(pattern)))
+				l2 = l2[1:n]
+				l[l2] = p@rot[l2] %in% c(0, 180)
+				l
+			} else {
+				FALSE
+			}
 		})
+
 		sfc_segments(p)
 	}
 }
@@ -139,43 +137,44 @@ peano_curve = function(level = 2L, level_2 = "vvvvvvvvv", by = "Cpp") {
 #'     nrow = 1
 #' )
 #' draw_multiple_curves(
-#'     meander_curve(3, level_2 = "fbfbfbfbf"),
-#'     meander_curve(3, level_2 = "bbbbbffff"),
+#'     meander_curve(3, pattern = "fbfbfbfbf"),
+#'     meander_curve(3, pattern = "bbbbbffff"),
 #'     nrow = 1
 #' )
-meander_curve = function(level = 2L, level_2 = "fffffffff") {
+meander_curve = function(level = 2L, pattern = "fffffffff") {
 	
-	if(length(level_2) != 1) {
-		stop_wrap("Length of `level_2` can only be 1.")
+	if(length(pattern) != 1) {
+		stop_wrap("Length of `pattern` can only be 1.")
 	}
-	level_2 = strsplit(level_2, "")[[1]]
-	if(length(level_2) == 1) {
-		level_2 = rep(level_2, 9)
+	pattern = strsplit(pattern, "")[[1]]
+	if(length(pattern) == 1) {
+		pattern = rep(pattern, 9)
 	}
-	if(length(level_2) != 9) {
-		stop_wrap("`level_2` should contain 9 letters of f/b")
+	if(length(pattern) > 9) {
+		stop_wrap("`pattern` can only contain maximal 9 letters.")
 	}
-	if(!all(level_2 %in% c("f", "b"))) {
-		stop_wrap("`level_2` should contain 9 letters of f/b")
+
+	if(!all(pattern %in% c("f", "b"))) {
+		stop_wrap("`pattern` should contain f/b")
 	}
 
 	bp = "R"
-	d_base = c("f", "f", "f", "f", "f", "f", "f", "f", "f") # transverse code 1
-	l2 = level_2 != d_base
 	rot = 0
 
-	p = sfc_meander(bp, code = rep(1, level), rot = rot, flip = function(n) {
-	    if(n == 1) {
-	        return(l2[1])
-	    }
-	    l = rep(FALSE, n)
-	    portion = 1
-	    while(portion*9 <= n) {
-	        ind = ((0:(n/portion-1))*portion)[rep(l2, n/9/portion)]
-	        l[ind + 1] = TRUE
-	        portion = portion*9
-	    }
-	    l
+	l_f = pattern == "f"
+	l_b = pattern == "b"
+	p = sfc_meander(bp, code = rep(1, level), rot = 0, flip = function(p) {
+		if(sfc_level(p) > 0) {
+			n = length(p)
+			l = rep(FALSE, n)
+
+			l2 = rep(l_b, times = ceiling(9^(sfc_level(p))/length(pattern)))
+			l2 = l2[1:n]
+			l[l2] = TRUE
+			l
+		} else {
+			FALSE
+		}
 	})
 	sfc_segments(p)
 	

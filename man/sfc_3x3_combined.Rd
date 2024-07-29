@@ -8,7 +8,7 @@
 \usage{
 sfc_3x3_combined(seed, level = 0, rot = 0L, flip = FALSE)
 
-\S4method{sfc_expand}{sfc_3x3_combined}(p, code = NULL)
+\S4method{sfc_expand}{sfc_3x3_combined}(p, code = NULL, flip = FALSE)
 
 draw_rules_3x3_combined(flip = FALSE)
 }
@@ -40,7 +40,8 @@ draw_multiple_curves(
     sfc_3x3_combined("I", level = 3),
     sfc_3x3_combined("I", level = 3),
     sfc_3x3_combined("I", level = 3),
-    nrow = 1, title = FALSE
+    nrow = 1
 )
 draw_rules_3x3_combined()
+draw_rules_3x3_combined(flip = TRUE)
 }

@@ -12,7 +12,8 @@
 \S4method{change_level1_unit_orientation}{sfc_peano}(p, to = c("horizontal", "vertical"))
 }
 \arguments{
-\item{p}{An \code{sfc_peano} object.}
+\item{p}{For \code{level1_unit_orientation()}, it is an \code{sfc_peano} unit on level-1.
+For \code{change_level1_unit_orientation()}, it is a normal \code{sfc_peano} object.}
 
 \item{to}{A string of "vertical" or "horizontal".}
 }
@@ -24,9 +25,16 @@
 \description{
 Level-1 unit in the Peano curve
 }
+\details{
+\code{level1_unit_orientation()} is normally used inside \code{\link[=sfc_apply]{sfc_apply()}}. \code{change_level1_unit_orientation()}
+changes all level-1 units of a Peano curves simultaneously.
+}
 \examples{
 p = sfc_peano("I", 111)
+level1_unit_orientation(p[1:9, TRUE])
+level1_unit_orientation(p[1:9 + 27, TRUE])
 p2 = change_level1_unit_orientation(p)
 p3 = change_level1_unit_orientation(p, "vertical")
-draw_multiple_curves(p, p2, p3, title = FALSE, nrow = 1)
+draw_multiple_curves(p, p2, p3, 
+    title = c("original", "all horizontal", "all vertical"), nrow = 1)
 }

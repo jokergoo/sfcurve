@@ -86,28 +86,16 @@ grid.draw(plot4)
 popViewport()
 ```
 
+It seems all the four curves keep the locality very well that in the diagonals, the distance is 
+quite small.
 
+For a curve represented as a list of $n$ sequential points denoted as $(p_i)_n$, we calculate the
+distance in the 2D space for points $p_i$ and $p_{i+k}$ where $k \ge 1$. We name $k$ as the gap
+of two points.
 
-We directly compare the distances in 1D axis and 2D curve:
-
-```{r, fig.width = 8, fig.height = 8}
-par(mfrow = c(2, 2))
-d_hc_1D = dist(1:4^5)
-plot(d_hc_1D, d_hc_2D/2^5, pch = 16, cex = 0.2, col = "#00000010", main = "Hilbert curve",
-    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
-
-d_h_1D = dist(1:4^5)
-plot(d_h_1D, d_h_2D/2^5, pch = 16, cex = 0.2, col = "#00000010", main = "H-curve",
-    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
-
-d_pe_1D = dist(1:9^3)
-plot(d_pe_1D, d_pe_2D/9^3, pch = 16, cex = 0.2, col = "#00000010", main = "Peano curve",
-    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
-
-d_me_1D = dist(1:9^3)
-plot(d_me_1D, d_me_2D/9^3, pch = 16, cex = 0.2, col = "#00000010", main = "Meander curve",
-    xlab = "Distance in 1D axis", ylab = "Distance in 2D curve")
-```
+$$
+d_\mathrm{2D}(p_i, p_{i+k})
+$$
 
 
 ```{r, fig.width = 8, fig.height = 4}
@@ -123,26 +111,42 @@ p = hilbert_curve(level = 6)
 boxplot(lapply(1:20, function(i) gap_dist(p, i)), main = "Hilbert curve")
 p = h_curve(iteration = 4)
 boxplot(lapply(1:20, function(i) gap_dist(p, i)), main = "H-curve")
+```
 
+Similarly, we calculate such "gap distance" for the Peano curve and the Meander curve.
+Because the numbers of points on the two curves are different from the Hilbert curve,
+we rescale the size of the Peano curve and the Meander curve by their lengths.
+
+
+```{r, fig.width = 8, fig.height = 4}
 r = 9^4/4^6
+
+par(mfrow = c(1, 2))
 p = peano_curve(level = 4)
 boxplot(lapply(1:20, function(i) gap_dist(p, i)/sqrt(r)), main = "Peano curve", names = round(1:20 /r, 1))
 p = meander_curve(level = 4)
 boxplot(lapply(1:20, function(i) gap_dist(p, i)/sqrt(r)), main = "Meander curve", names = round(1:20 /r, 1))
 ```
 
+Last, we take the mean values from boxes and directly compare the corresponding gap distances.
 
 ```{r, fig.width = 5, fig.height = 5}
-plot(NULL, xlim = c(1, 20), ylim = c(0, 8), xlab = "gaps", ylab = "gap dist")
+plot(NULL, xlim = c(1, 20), ylim = c(0, 6), xlab = "gaps", ylab = "mean gap dist")
 p = hilbert_curve(level = 6)
 lines(1:20, sapply(1:20, function(i) mean(gap_dist(p, i))), col = 2)
 p = h_curve(iteration = 4)
 lines(1:20, sapply(1:20, function(i) mean(gap_dist(p, i))), col = 7)
 p = peano_curve(level = 4)
+
+r = 9^4/4^6
 lines(1:32 /r, sapply(1:32, function(i) mean(gap_dist(p, i)/sqrt(r))), col = 3)
 p = meander_curve(level = 4)
 lines(1:32 /r, sapply(1:32, function(i) mean(gap_dist(p, i)/sqrt(r))), col = 4)
 legend("topleft", legend = c("hilbert", "h", "peano", "meander"), lty = 1, col = c(2, 7, 3, 4))
 ```
+
+We can see, the Hilbert curve and the H-curve have the best locality. The 3x3 curve
+performs worse than the 2x2 curves and the Peano curve performs the worst in the four 
+curves.
 
 

@@ -56,35 +56,26 @@ sfc_peano("I", "111",
     flip = c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)) |> plot()
 sfc_peano("IJ", "111") |> plot()
 
-# set `flip` to a function
-# notice if split a Peano curve into three equal portion on any level, 
-# rotate the first subunit in the second and the third portions.
-sfc_peano("I", 1111, flip = function(n) {
-    if(n == 1) {
-        return(FALSE)
+sfc_peano("I", level = 4, flip = function(p) {
+    p@rot \%in\% c(90, 270)
+}) |> plot(lwd = 1)
+
+level = 4
+sfc_peano("I", level = level, flip = function(p) {
+     if(length(p) == 9^(level-1)) {
+         l = rep(FALSE, length(p))
+         ind = 1:9^2 + 9^2*rep(c(0, 2, 4, 6, 8), each = 9^2)
+         l[ind] = p@rot[ind] \%in\% c(90, 270)
+
+         ind = 1:9^2 + 9^2*rep(c(1, 3, 5, 7), each = 9^2)
+         l[ind] = p@rot[ind] \%in\% c(0, 180)
+
+         l
+    } else {
+         rep(FALSE, length(p))
     }
-    l = rep(FALSE, n)
-    portion = 1
-    while(portion*9 <= n) {
-        ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
-        l[ind + 1] = TRUE
-        portion = portion*9
-    }
-    l
-}) |> plot()
-sfc_peano("I", 1111, rot = 90, flip = function(n) {
-    if(n == 1) {
-        return(FALSE)
-    }
-    l = rep(FALSE, n)
-    portion = 1
-    while(portion*9 <= n) {
-        ind = ((1:(n/3/portion))*3*portion)[rep(c(TRUE, TRUE, FALSE), n/9/portion)]
-        l[ind + 1] = TRUE
-        portion = portion*9
-    }
-    l
-}) |> plot()
+}) |> plot(lwd = 1)
+
 sfc_meander("I", "111") |> plot()
 sfc_meander("I", "111", 
     flip = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE)) |> plot()

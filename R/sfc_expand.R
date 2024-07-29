@@ -11,7 +11,7 @@
 #' 
 #' These functions are mainly used internally.
 #' 
-#' @return An object in the same class as the input. `sfc_expand()` on the `sfc_rules` objects returns an `sfc_sequence` object.
+#' @return An object in the same class as the input.
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", 11)
@@ -36,7 +36,7 @@ setMethod("sfc_expand",
 		}
 	}
 
-	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
+	sfc_expand_by_rules(rules, p, code = tl, flip = FALSE)
 
 })
 
@@ -54,13 +54,14 @@ transverse_type_2x2 = function(t, r, r_next) {
 
 
 #' @rdname sfc_expand
+#' @param flip Whethe to flip level-1 units? The value should be a logical vector of length one or the same as the length of `p`.
 #' @export
 #' @examples
 #' p = sfc_peano("I", 11)
 #' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
 	signature = "sfc_peano",
-	definition = function(p, code = 1) {
+	definition = function(p, code = 1, flip = FALSE) {
 
 	seq = p@seq
 	rot = p@rot
@@ -79,7 +80,7 @@ setMethod("sfc_expand",
 		}
 	}
 
-	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
+	sfc_expand_by_rules(rules, p, code = tl, flip = flip)
 
 })
 
@@ -91,7 +92,7 @@ setMethod("sfc_expand",
 #' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
 	signature = "sfc_meander",
-	definition = function(p, code) {
+	definition = function(p, code, flip = FALSE) {
 
 	seq = p@seq
 	rot = p@rot
@@ -108,6 +109,6 @@ setMethod("sfc_expand",
 		}
 	}
 	
-	sfc_expand_by_rules(rules, p, code = tl, flip = p@flip)
+	sfc_expand_by_rules(rules, p, code = tl, flip = flip)
 
 })

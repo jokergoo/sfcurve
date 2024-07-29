@@ -30,3 +30,6 @@ vignettes/meander_4x4_curve.Rmd
 vignettes/hilbert_3d.Rmd
 vignettes/unit_flipping.Rmd
 vignettes/functions.Rmd
+vignettes/nomnoml.png
+vignettes/nomnoml.svg
+vignettes/nxn_curve.Rmd

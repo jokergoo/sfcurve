@@ -82,7 +82,7 @@ BASE_C
 draw_multiple_curves(
     BASE_I, BASE_J, BASE_R, BASE_L, BASE_U,
     BASE_B, BASE_D, BASE_P, BASE_Q, BASE_C,
-    nrow = 1
+    nrow = 2
 )
 }
 \keyword{datasets}

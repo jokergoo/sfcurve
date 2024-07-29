@@ -27,10 +27,18 @@ the original curve.}
 
 \item{bases}{Normally use \code{\link{BASE_LIST}}.}
 }
+\value{
+\code{unit_orientation()} returns a string one of "vertical", "horizontal", "diagonal_1" and "diagonal_-1".
+
+\code{sfc_flip_unit} returns an \code{sfc_nxn} object.
+}
 \description{
 Flip units
 }
 \details{
+For \code{unit_orientation()}, it first reduce the unit to level-1, then it checks the orientation
+of the line connected by the in-corner and out-corner.
+
 An unit in the curve is represented as a square block (\verb{2^k x 2^k} for the Hilbert curve and \verb{3^k x 3^k} for the Peano and Meander curves, \code{k} between 1 and the level of the curve).
 In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
 The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander

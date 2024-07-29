@@ -14,7 +14,7 @@ setClass("sfc_unit",
 
 setClass("sfc_rules",
     slots = c("rules" = "list",
-    	        "flip" = "list",
+    	      "flip" = "list",
               "universe" = "character",
               "name" = "character",
               "bases" = "list"))
@@ -23,23 +23,25 @@ setClass("sfc_nxn",
 	slots = c("seed" = "sfc_seed",
 	          "rules" = "sfc_rules",
 		      "expansion" = "integer",
-		      "flip" = "ANY",
 		      "level" = "integer",
 		      "n" = "integer"),
 	contains = "sfc_sequence")
 
 setClass("sfc_hilbert",
-	contains = "sfc_nxn")
+	contains = "sfc_nxn",
+	prototype = list(n = 2L))
 
 setClass("sfc_peano",
-	contains = "sfc_nxn")
+	contains = "sfc_nxn",
+	prototype = list(n = 3L))
 
 setClass("sfc_meander",
-	contains = "sfc_nxn")
+	contains = "sfc_nxn",
+	prototype = list(n = 3L))
 
 
 setGeneric('sfc_expand', function(p, ...) standardGeneric('sfc_expand'))
-setGeneric('sfc_expand_by_rules', function(p, letters, ...) standardGeneric('sfc_expand_by_rules'))
+setGeneric('sfc_expand_by_rules', function(p, seq, ...) standardGeneric('sfc_expand_by_rules'))
 setGeneric('sfc_grob', function(p, ...) standardGeneric('sfc_grob'))
 setGeneric('sfc_rotate', function(p, ...) standardGeneric('sfc_rotate'))
 setGeneric('sfc_hflip', function(p, ...) standardGeneric('sfc_hflip'))
