@@ -1,4 +1,4 @@
-# sfcurve: 2x2 and 3x3 Space-Filling Curves
+# sfcurve: 2x2, 3x3 and nxn Space-Filling Curves
 
 ![](https://github.com/user-attachments/assets/7e0e14e7-1300-421f-8ffe-113b80caee97)
 
@@ -8,6 +8,7 @@ For example, the following eight forms correspond to the 2x2 curve on level 3 an
 
 <img src="https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369" width=700 />
 
+It also support nxn curves expanded from specific level-1 units.
 
 ## Install
 
