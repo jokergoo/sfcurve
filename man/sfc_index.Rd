@@ -30,26 +30,29 @@ Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves,
 \description{
 Subunit in the curve
 }
+\details{
+\code{sfc_index()} only works on square curves (i.e. a curve with a single base letter as seed.)
+}
 \examples{
 p = sfc_hilbert("I", "11111")
-p["321"]
-p["321", TRUE]
+p["3:2:1"]
+p["3:2:1", TRUE]
 # only for testing
 p = sfc_hilbert("I", "11111")
 om = par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 sfcurve:::test_sfc_index(p, "3")
-sfcurve:::test_sfc_index(p, "32")
-sfcurve:::test_sfc_index(p, "321")
-sfcurve:::test_sfc_index(p, "3211")
+sfcurve:::test_sfc_index(p, "3:2")
+sfcurve:::test_sfc_index(p, "3:2:1")
+sfcurve:::test_sfc_index(p, "3:2:1:1")
 par(om)
 
 p = sfc_meander("I", "11111")
 om = par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 sfcurve:::test_sfc_index(p, "7")
-sfcurve:::test_sfc_index(p, "75")
-sfcurve:::test_sfc_index(p, "759")
-sfcurve:::test_sfc_index(p, "7592")
+sfcurve:::test_sfc_index(p, "7:5")
+sfcurve:::test_sfc_index(p, "7:5:9")
+sfcurve:::test_sfc_index(p, "7:5:9:2")
 par(om)
 }

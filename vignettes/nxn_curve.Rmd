@@ -40,8 +40,8 @@ grid.draw(gb)
 We will create rules for the expansion from level-0 to level-1 for the 4x4 Peano unit. We only cover the three major
 base patterns of `I/R/L`. When creating the expansion rules, notice the following two requirements:
 
-1: The in-direction and out-direction of the level-1 unit should be the same as these of the level-0 base patterns.
-2: If the two level-1 units have the corner values of "12/21", "12" should always be the first one.
+1. The in-direction and out-direction of the level-1 unit should be the same as these of the level-0 base patterns.
+2. If the two level-1 units have the corner values of "12/21", "12" should always be the first one.
 
 For each base pattern, there are two types of level-1 units. $I_1$ is:
 
@@ -57,13 +57,21 @@ $I_2$ is basically a horizontal flip of $I_1$:
 RULES_4x4_PEANO[["I"]][[2]] = sfc_hflip(RULES_4x4_PEANO[["I"]][[1]])
 ```
 
-$R_1$ is very similar as $R_2$ except the first letter and the last letter, also notice $R_2$ has a rotation of 270 because the in-direction
-of the first base pattern should be bottom-up (90 degrees up).
+To define $R_1$, we first rotate $I_2$ by -90 degrees, then change the first base pattern
+to $I^{0}$.
 
 ```{r}
-RULES_4x4_PEANO[["R"]][[1]] = sfc_unit("IIIRRIILLIIRRIIL", rot = 0, universe = UNIVERSE_4x4_PEANO)      
-RULES_4x4_PEANO[["R"]][[2]] = sfc_rotate(sfc_unit("LIIRRIILLIIRRIII", 
-                                 rot = 270, universe = UNIVERSE_4x4_PEANO), 90)
+u = sfc_rotate(RULES_4x4_PEANO[["I"]][[2]], -90)
+u[1] = sfc_sequence("I", rot = 0)
+RULES_4x4_PEANO[["R"]][[1]] = u
+```
+
+$R_2$ is based on $I_2$ by change the last base pattern to $I^{-90}$
+
+```{r}   
+u = RULES_4x4_PEANO[["I"]][[2]]
+u[length(u)] = sfc_sequence("I", rot = -90)
+RULES_4x4_PEANO[["R"]][[2]] = u
 ```
 
 $L_1$ is a horizontal flip of $R_2$ and $L_2$ is a horizontal flip of $R_1$.
@@ -122,18 +130,27 @@ draw_multiple_curves(
 
 ## 5x5 Meander curve
 
-Similarly, we can generate the expansion rules for the 5x5 Meander curve.
+Similarly, we can generate the expansion rules for the 5x5 Meander curve with the following unit:
+
+```{r, fig.width = 3, fig.height = 3, echo = FALSE}
+plot(sfc_unit("IIIRIIRIRRLLILIILIIILIIIR", rot = 0, universe = c("I", "R", "L")), col = "black", lwd = 2)
+```
 
 ```{r}
 UNIVERSE_5x5_MEANDER = c("I", "R", "L")
 RULES_5x5_MEANDER = list()
 RULES_5x5_MEANDER[["I"]][[1]] = sfc_unit("IIIRIIRIRRLLILIILIIILIIIR", rot = 0, universe = UNIVERSE_5x5_MEANDER)
 RULES_5x5_MEANDER[["I"]][[2]] = sfc_hflip(RULES_5x5_MEANDER[["I"]][[1]])
-RULES_5x5_MEANDER[["L"]][[1]] = sfc_unit("IIIRIIRIRRLLILIILIIILIIII", rot = 0, universe = UNIVERSE_5x5_MEANDER)      
-RULES_5x5_MEANDER[["L"]][[2]] = sfc_rotate(sfc_unit("LIIRIIRIRRLLILIILIIILIIIR", 
-                                 rot = 270, universe = UNIVERSE_5x5_MEANDER), 90)
-RULES_5x5_MEANDER[["R"]][[1]] = sfc_hflip(RULES_5x5_MEANDER[["L"]][[2]])
-RULES_5x5_MEANDER[["R"]][[2]] = sfc_hflip(RULES_5x5_MEANDER[["L"]][[1]])
+
+u = sfc_rotate(RULES_5x5_MEANDER[["I"]][[2]], -90)
+u[1] = sfc_sequence("R", rot = 0)
+RULES_5x5_MEANDER[["R"]][[1]] = u
+u = RULES_5x5_MEANDER[["I"]][[2]]
+u[length(u)] = sfc_sequence("I", rot = -90)
+RULES_5x5_MEANDER[["R"]][[2]] = u
+
+RULES_5x5_MEANDER[["L"]][[1]] = sfc_hflip(RULES_5x5_MEANDER[["R"]][[2]])
+RULES_5x5_MEANDER[["L"]][[2]] = sfc_hflip(RULES_5x5_MEANDER[["R"]][[1]])
 
 SFC_RULES_5x5_MEANDER = sfc_rules(rules = RULES_5x5_MEANDER,
         name = "Meander 5x5",
@@ -159,3 +176,82 @@ draw_multiple_curves(
 	lwd = 2, nrow = 1
 )
 ```
+
+
+## Unit with 11/22 corners
+
+We next demonstrate a 5x5 curve based on the `11/22` unit. 
+
+```{r, fig.width = 3, fig.height = 3, echo = FALSE}
+plot(sfc_unit("IJRRILJILLJRILJRRIJRILLJI", rot = 0, universe = c("I", "J", "R", "L")), col = "black", lwd = 2)
+```
+
+Similar as `SFC_RULES_PEANO`, we include base pattern `J`. In this example, $J$ is basically a letter switch from $I$
+(i.e. `I <-> J, R <-> L`). $R$ is based on $I$ with the last letter changed to `R` and $L$ is based on $J$ with the last
+letter changed to `L`.
+
+```{r}
+UNIVERSE_5x5_FOO = c("I", "J", "R", "L")
+RULES_5x5_FOO = list()
+RULES_5x5_FOO[["I"]][[1]] = sfc_unit("IJRRILJILLJRILJRRIJRILLJI", rot = 0, universe = UNIVERSE_5x5_FOO)
+RULES_5x5_FOO[["J"]][[1]] = sfc_unit("JILLJRIJRRILJRILLJILJRRIJ", rot = 0, universe = UNIVERSE_5x5_FOO)
+RULES_5x5_FOO[["R"]][[1]] = sfc_unit("IJRRILJILLJRILJRRIJRILLJR", rot = 0, universe = UNIVERSE_5x5_FOO)
+RULES_5x5_FOO[["L"]][[1]] = sfc_unit("JILLJRIJRRILJRILLJILJRRIL", rot = 0, universe = UNIVERSE_5x5_FOO)
+
+SFC_RULES_5x5_FOO = sfc_rules(rules = RULES_5x5_FOO,
+        name = "Foo 5x5",
+        bases = BASE_LIST[UNIVERSE_5x5_FOO])
+```
+
+Sometimes it may need several edits of the sequences in base units to make `I/J/R/L` in their correct forms.
+Directly plotting them helps to validate the units:
+
+```{r, fig.width = 6, fig.height = 6}
+draw_multiple_curves(
+	RULES_5x5_FOO[["I"]][[1]],
+	RULES_5x5_FOO[["J"]][[1]],
+	RULES_5x5_FOO[["R"]][[1]],
+	RULES_5x5_FOO[["L"]][[1]],
+	nrow = 2, extend = TRUE
+)
+```
+
+We may also validate whether a transverse path exist, e.g. for $I$:
+
+```{r, fig.width = 12, fig.height = 2, out.width = "100%"}
+plot_transverse_paths(SFC_RULES_5x5_FOO, RULES_5x5_FOO[["I"]][[1]])
+```
+
+If everything works fine, we can generate the curve functions:
+
+```{r}
+sfc_generator(SFC_RULES_5x5_FOO, "5x5_foo")
+```
+
+
+```{r, fig.width = 9.5, fig.height = 6}
+draw_rules_5x5_foo()
+```
+
+```{r, fig.width = 6, fig.height = 6}
+p = sfc_5x5_foo("I", 11)
+plot(p)
+```
+
+We can manually flip the level-1 units to make every two neighbour units symmetric (you can also use `sfc_apply()`):
+
+```{r, fig.width = 6, fig.height = 6}
+sfc_flip_unit(p, c("4", "7", "8", "9", "11", "12", "15", "16", "18", "19", "20", "23")) |> plot()
+```
+
+Please note for the curves based on `11/22` units, for the following structure (or its rotated form)
+
+```{r, echo = FALSE, fig.width = 2, fig.height = 3}
+pushViewport(viewport(xscale = c(-1, 2), yscale = c(-0.5, 2.5)))
+grid.lines(c(0, 0, 0, 1, 1, 1), c(0, 1, 2, 2, 1, 0), default.units = "native")
+popViewport()
+```
+
+the minimal length of the two vertical segment should be an even number, or the segment
+should allow even numbers of units to be put in.
+

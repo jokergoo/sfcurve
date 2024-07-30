@@ -128,7 +128,7 @@ top-right block in the right plot.
 ```{r, fig.width = 8, fig.height = 4}
 draw_multiple_curves(
     p,
-    sfc_flip_unit(p, "93"),
+    sfc_flip_unit(p, "9:3"),
     nrow = 1
 )
 ```

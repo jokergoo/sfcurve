@@ -8,8 +8,8 @@
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", "11111")
-#' p["321"]
-#' p["321", TRUE]
+#' p["3:2:1"]
+#' p["3:2:1", TRUE]
 `[.sfc_nxn` = function(x, i, j, ..., drop = TRUE) {
 
 	if(missing(i)) {
@@ -38,7 +38,12 @@
 }
 
 get_index_from_nxn = function(index, level, n) {
-	index = as.integer(strsplit(as.character(index), "")[[1]])
+	# if(grepl("\\D", index)) {
+		index = as.integer(strsplit(index, "\\D+")[[1]])
+		index = index[!is.na(index)]
+	# } else {
+	# 	index = as.integer(strsplit(as.character(index), "")[[1]])
+	# }
 
 	ind = seq_len( (n^2)^level )
 	for(i in index) {
@@ -77,18 +82,18 @@ get_index_from_nxn = function(index, level, n) {
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
 #' sfcurve:::test_sfc_index(p, "3")
-#' sfcurve:::test_sfc_index(p, "32")
-#' sfcurve:::test_sfc_index(p, "321")
-#' sfcurve:::test_sfc_index(p, "3211")
+#' sfcurve:::test_sfc_index(p, "3:2")
+#' sfcurve:::test_sfc_index(p, "3:2:1")
+#' sfcurve:::test_sfc_index(p, "3:2:1:1")
 #' par(om)
 #' 
 #' p = sfc_meander("I", "11111")
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
 #' sfcurve:::test_sfc_index(p, "7")
-#' sfcurve:::test_sfc_index(p, "75")
-#' sfcurve:::test_sfc_index(p, "759")
-#' sfcurve:::test_sfc_index(p, "7592")
+#' sfcurve:::test_sfc_index(p, "7:5")
+#' sfcurve:::test_sfc_index(p, "7:5:9")
+#' sfcurve:::test_sfc_index(p, "7:5:9:2")
 #' par(om)
 setMethod("sfc_index",
 	signature = "sfc_nxn",
@@ -113,7 +118,7 @@ test_sfc_index = function(p, index) {
 	on.exit(par(mar = om))
 	par(mar = c(1, 1, 4, 1))
 	plot(loc, type = "l", col = "grey", ann = FALSE, axes = FALSE, asp = 1)
-
+	txt = index
 	index = sfc_index(p, index)
 
 	if(length(index) == 1) {
@@ -121,7 +126,7 @@ test_sfc_index = function(p, index) {
 	} else {
 		lines(loc[index, 1], loc[index, 2], lwd = 2, col = "black")
 	}
-	title(paste0(class(p), ": level = ", p@level, ", ", p@n, "x", p@n, ", index = ", index))
+	title(paste0(class(p), ": level = ", p@level, ", ", p@n, "x", p@n, ", index = ", txt))
 }
 
 

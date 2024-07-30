@@ -58,7 +58,7 @@ draw_multiple_curves(
     p, 
     sfc_flip_unit(p, ""),
     sfc_flip_unit(p, "2"),
-    sfc_flip_unit(p, "21"),
+    sfc_flip_unit(p, "2:1"),
     title = FALSE, nrow = 2)
 
 p = sfc_peano("I", level = 2)

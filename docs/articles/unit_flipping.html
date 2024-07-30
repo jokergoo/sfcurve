@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Unit flipping</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-29</h4>
+            <h4 data-toc-skip class="date">2024-07-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/unit_flipping.Rmd" class="external-link"><code>vignettes/unit_flipping.Rmd</code></a></small>
       <div class="d-none name"><code>unit_flipping.Rmd</code></div>
@@ -104,11 +104,11 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">sfcurve</span><span class="fu">:::</span><span class="fu">test_sfc_index</span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span><span class="op">)</span> <span class="co"># the complete curve</span></span>
 <span><span class="fu">sfcurve</span><span class="fu">:::</span><span class="fu">test_sfc_index</span><span class="op">(</span><span class="va">p</span>, <span class="st">"4"</span><span class="op">)</span></span>
-<span><span class="fu">sfcurve</span><span class="fu">:::</span><span class="fu">test_sfc_index</span><span class="op">(</span><span class="va">p</span>, <span class="st">"42"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sfcurve</span><span class="fu">:::</span><span class="fu">test_sfc_index</span><span class="op">(</span><span class="va">p</span>, <span class="st">"4:2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="unit_flipping_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;"></p>
 <p><code><a href="../reference/sfc_flip_unit.html">sfc_flip_unit()</a></code> flips a single unit or a list of units. Whether it is a diagonal flip or a vertical/horizontal flip is automatically detected.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"73"</span><span class="op">)</span> <span class="co"># the most topright 3x3 unit </span></span>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"7:3"</span><span class="op">)</span> <span class="co"># the most topright 3x3 unit </span></span>
 <span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="co"># every level-2 square units</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, <span class="va">p2</span>, <span class="va">p3</span>, </span>

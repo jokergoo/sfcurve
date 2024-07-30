@@ -39,12 +39,21 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()), verbose = 
 	RULES = rules
 	NAME = name
 
-	if(!identical(sort(names(RULES@rules)), c("I", "L", "R"))) {
-		stop_wrap("`rules` should only contain base patterns I/R/L.")
+	if(!(identical(sort(names(RULES@rules)), c("I", "L", "R")) || identical(sort(names(RULES@rules)), c("I", "J", "L", "R")))) {
+		stop_wrap("`rules` should only contain base patterns I/J/R/L.")
 	}
 
 	if(any(sapply(RULES@rules, length) > 2)) {
 		stop_wrap("`rules` should only contain one or two transverse codes for a single base pattern.")
+	}
+
+	for(nm in names(RULES@rules)) {
+		for(i in seq_along(RULES@rules[[nm]])) {
+			pa = get_one_transverse_path(RULES, RULES@rules[[nm]][[i]])
+			if(length(pa) == 0) {
+				stop_wrap("Cannot find a complete transverse path for rule ", nm, "_", i)
+			}
+		}
 	}
 
 	code = as.vector(unique(t(do.call(cbind, lapply(RULES@rules, function(x) sapply(x, function(y) sort(y@corner)))))))
@@ -87,7 +96,7 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()), verbose = 
 		p = as(seed, cl)
 		p@seed = seed
 		p@level = 0L
-		p@n = 4L
+		p@n = sfc_mode(RULES)
 
 		for(i in seq_along(code)) {
 			p = sfc_expand(p, code[i])
@@ -150,22 +159,40 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()), verbose = 
 	    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
 	    grid.draw(gb1)
 
-	    gb2 = grob_single_base_rule(p, flip = FALSE, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
-	    nc = length(gb2$children)
-	    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
-	    grid.draw(gb2)
+	    if("J" %in% sfc_universe(p)) {
+	    	gb2 = grob_single_base_rule(p, flip = FALSE, "J", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+		    nc = length(gb2$children)
+		    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
+		    grid.draw(gb2)
 
-	    gb3 = grob_single_base_rule(p, flip = FALSE, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
-	    nc = length(gb3$children)
-	    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
-	    grid.draw(gb3)
+		    gb3 = grob_single_base_rule(p, flip = FALSE, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+		    nc = length(gb3$children)
+		    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
+		    grid.draw(gb3)
+
+		    gb4 = grob_single_base_rule(p, flip = FALSE, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+		    nc = length(gb4$children)
+		    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
+		    grid.draw(gb4)
+	    } else {
+
+		    gb2 = grob_single_base_rule(p, flip = FALSE, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+		    nc = length(gb2$children)
+		    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
+		    grid.draw(gb2)
+
+		    gb3 = grob_single_base_rule(p, flip = FALSE, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+		    nc = length(gb3$children)
+		    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(sfc_mode(p)^2 * 4.5, "mm")
+		    grid.draw(gb3)
+		}
 
 	}
 
 	assign(paste0("sfc_", NAME), sfc_fun, envir = envir)
 	assign(paste0("draw_rules_", NAME), draw_rules, envir = envir)
 	if(verbose) {
-		cat("The following two functions are exported to current top environment:\n", sep = "")
+		cat("The following two functions are exported to the current top environment:\n", sep = "")
 		cat("  - ", paste0("sfc_", NAME), "()\n", sep = "")
 		cat("  - ", paste0("draw_rules_", NAME), "()\n", sep = "")
 	}

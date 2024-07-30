@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>nxn-Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-29</h4>
+            <h4 data-toc-skip class="date">2024-07-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/nxn_curve.Rmd" class="external-link"><code>vignettes/nxn_curve.Rmd</code></a></small>
       <div class="d-none name"><code>nxn_curve.Rmd</code></div>
@@ -98,7 +98,10 @@
 <h2 id="x4-peano-curve">4x4 Peano curve<a class="anchor" aria-label="anchor" href="#x4-peano-curve"></a>
 </h2>
 <p>We will create rules for the expansion from level-0 to level-1 for the 4x4 Peano unit. We only cover the three major base patterns of <code>I/R/L</code>. When creating the expansion rules, notice the following two requirements:</p>
-<p>1: The in-direction and out-direction of the level-1 unit should be the same as these of the level-0 base patterns. 2: If the two level-1 units have the corner values of “12/21”, “12” should always be the first one.</p>
+<ol style="list-style-type: decimal">
+<li>The in-direction and out-direction of the level-1 unit should be the same as these of the level-0 base patterns.</li>
+<li>If the two level-1 units have the corner values of “12/21”, “12” should always be the first one.</li>
+</ol>
 <p>For each base pattern, there are two types of level-1 units. <span class="math inline">\(I_1\)</span> is:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">UNIVERSE_4x4_PEANO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span></span>
@@ -107,17 +110,22 @@
 <p><span class="math inline">\(I_2\)</span> is basically a horizontal flip of <span class="math inline">\(I_1\)</span>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><span class="math inline">\(R_1\)</span> is very similar as <span class="math inline">\(R_2\)</span> except the first letter and the last letter, also notice <span class="math inline">\(R_2\)</span> has a rotation of 270 because the in-direction of the first base pattern should be bottom-up (90 degrees up).</p>
+<p>To define <span class="math inline">\(R_1\)</span>, we first rotate <span class="math inline">\(I_2\)</span> by -90 degrees, then change the first base pattern to <span class="math inline">\(I^{0}\)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IIIRRIILLIIRRIIL"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_4x4_PEANO</span><span class="op">)</span>      </span>
-<span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"LIIRRIILLIIRRIII"</span>, </span>
-<span>                                 rot <span class="op">=</span> <span class="fl">270</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_4x4_PEANO</span><span class="op">)</span>, <span class="fl">90</span><span class="op">)</span></span></code></pre></div>
-<p><span class="math inline">\(L_1\)</span> is a horizontal flip of <span class="math inline">\(R_2\)</span> and <span class="math inline">\(L_2\)</span> is a horizontal flip of <span class="math inline">\(R_1\)</span>.</p>
+<code class="sourceCode R"><span><span class="va">u</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span>
+<span><span class="va">u</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">u</span></span></code></pre></div>
+<p><span class="math inline">\(R_2\)</span> is based on <span class="math inline">\(I_2\)</span> by change the last base pattern to <span class="math inline">\(I^{-90}\)</span></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u</span> <span class="op">=</span> <span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">u</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span>
+<span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">u</span></span></code></pre></div>
+<p><span class="math inline">\(L_1\)</span> is a horizontal flip of <span class="math inline">\(R_2\)</span> and <span class="math inline">\(L_2\)</span> is a horizontal flip of <span class="math inline">\(R_1\)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s validate whether these level-1 units are in the correct forms and orientations:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>    <span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>,</span>
@@ -127,9 +135,9 @@
 <span>    <span class="va">RULES_4x4_PEANO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, extend <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Next we generate the <code>sfc_rules</code> object with the <code><a href="../reference/sfc_rules.html">sfc_rules()</a></code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SFC_RULES_4x4_PEANO</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_rules.html">sfc_rules</a></span><span class="op">(</span>rules <span class="op">=</span> <span class="va">RULES_4x4_PEANO</span>,</span>
 <span>        name <span class="op">=</span> <span class="st">"Peano 4x4"</span>,</span>
 <span>        bases <span class="op">=</span> <span class="va">BASE_LIST</span><span class="op">[</span><span class="va">UNIVERSE_4x4_PEANO</span><span class="op">]</span><span class="op">)</span></span>
@@ -149,57 +157,115 @@
 <code>draw_rules_4x4_peano()</code>: draw the expansions from level-0 to level-1.</li>
 </ul>
 <p>Here <code>"4x4_peano"</code> is the suffix of the two function names.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_generator.html">sfc_generator</a></span><span class="op">(</span><span class="va">SFC_RULES_4x4_PEANO</span>, <span class="st">"4x4_peano"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The following two functions are exported to current top environment:</span></span>
+<pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
 <span><span class="co">##   - sfc_4x4_peano()</span></span>
 <span><span class="co">##   - draw_rules_4x4_peano()</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">draw_rules_4x4_peano</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">draw_rules_4x4_peano</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu">sfc_4x4_peano</span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"111"</span><span class="op">)</span>,</span>
 <span>    <span class="fu">sfc_4x4_peano</span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"121"</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="x5-meander-curve">5x5 Meander curve<a class="anchor" aria-label="anchor" href="#x5-meander-curve"></a>
 </h2>
-<p>Similarly, we can generate the expansion rules for the 5x5 Meander curve.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p>Similarly, we can generate the expansion rules for the 5x5 Meander curve with the following unit:</p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-13-1.png" width="288" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">UNIVERSE_5x5_MEANDER</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span></span>
 <span><span class="va">RULES_5x5_MEANDER</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IIIRIIRIRRLLILIILIIILIIIR"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_MEANDER</span><span class="op">)</span></span>
 <span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IIIRIIRIRRLLILIILIIILIIII"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_MEANDER</span><span class="op">)</span>      </span>
-<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"LIIRIIRIRRLLILIILIIILIIIR"</span>, </span>
-<span>                                 rot <span class="op">=</span> <span class="fl">270</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_MEANDER</span><span class="op">)</span>, <span class="fl">90</span><span class="op">)</span></span>
-<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">u</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_rotate</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span>
+<span><span class="va">u</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"R"</span>, rot <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">u</span></span>
+<span><span class="va">u</span> <span class="op">=</span> <span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">u</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">u</span></span>
+<span></span>
+<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_transformation.html">sfc_hflip</a></span><span class="op">(</span><span class="va">RULES_5x5_MEANDER</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">SFC_RULES_5x5_MEANDER</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_rules.html">sfc_rules</a></span><span class="op">(</span>rules <span class="op">=</span> <span class="va">RULES_5x5_MEANDER</span>,</span>
 <span>        name <span class="op">=</span> <span class="st">"Meander 5x5"</span>,</span>
 <span>        bases <span class="op">=</span> <span class="va">BASE_LIST</span><span class="op">[</span><span class="va">UNIVERSE_5x5_MEANDER</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>And the curve generator:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_generator.html">sfc_generator</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_MEANDER</span>, <span class="st">"5x5_meander"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The following two functions are exported to current top environment:</span></span>
+<pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
 <span><span class="co">##   - sfc_5x5_meander()</span></span>
 <span><span class="co">##   - draw_rules_5x5_meander()</span></span></code></pre>
 <p>For simplicity, currently the flipped expansion rules are not supported in <code><a href="../reference/sfc_generator.html">sfc_generator()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">draw_rules_5x5_meander</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-14-1.png" width="912" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">draw_rules_5x5_meander</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-16-1.png" width="912" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu">sfc_5x5_meander</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span>,</span>
 <span>    <span class="fu">sfc_5x5_meander</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">21</span><span class="op">)</span>,</span>
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="unit-with-1122-corners">Unit with 11/22 corners<a class="anchor" aria-label="anchor" href="#unit-with-1122-corners"></a>
+</h2>
+<p>We next demonstrate a 5x5 curve based on the <code>11/22</code> unit.</p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-18-1.png" width="288" style="display: block; margin: auto;"></p>
+<p>Similar as <code>SFC_RULES_PEANO</code>, we include base pattern <code>J</code>. In this example, <span class="math inline">\(J\)</span> is basically a letter switch from <span class="math inline">\(I\)</span> (i.e. <code>I &lt;-&gt; J, R &lt;-&gt; L</code>). <span class="math inline">\(R\)</span> is based on <span class="math inline">\(I\)</span> with the last letter changed to <code>R</code> and <span class="math inline">\(L\)</span> is based on <span class="math inline">\(J\)</span> with the last letter changed to <code>L</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">UNIVERSE_5x5_FOO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"J"</span>, <span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_FOO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IJRRILJILLJRILJRRIJRILLJI"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_FOO</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"J"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"JILLJRIJRRILJRILLJILJRRIJ"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_FOO</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IJRRILJILLJRILJRRIJRILLJR"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_FOO</span><span class="op">)</span></span>
+<span><span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"JILLJRIJRRILJRILLJILJRRIL"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_FOO</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">SFC_RULES_5x5_FOO</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_rules.html">sfc_rules</a></span><span class="op">(</span>rules <span class="op">=</span> <span class="va">RULES_5x5_FOO</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"Foo 5x5"</span>,</span>
+<span>        bases <span class="op">=</span> <span class="va">BASE_LIST</span><span class="op">[</span><span class="va">UNIVERSE_5x5_FOO</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p>Sometimes it may need several edits of the sequences in base units to make <code>I/J/R/L</code> in their correct forms. Directly plotting them helps to validate the units:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
+<span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"J"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"R"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span>, extend <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>We may also validate whether a transverse path exist, e.g. for <span class="math inline">\(I\)</span>:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_FOO</span>, <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>If everything works fine, we can generate the curve functions:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_generator.html">sfc_generator</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_FOO</span>, <span class="st">"5x5_foo"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
+<span><span class="co">##   - sfc_5x5_foo()</span></span>
+<span><span class="co">##   - draw_rules_5x5_foo()</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">draw_rules_5x5_foo</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-23-1.png" width="912" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">sfc_5x5_foo</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>We can manually flip the level-1 units to make every two neighbour units symmetric (you can also use <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code>):</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"4"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"18"</span>, <span class="st">"19"</span>, <span class="st">"20"</span>, <span class="st">"23"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>Please note for the curves based on <code>11/22</code> units, for the following structure (or its rotated form)</p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-26-1.png" width="192" style="display: block; margin: auto;"></p>
+<p>the minimal length of the two vertical segment should be an even number, or the segment should allow even numbers of units to be put in.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

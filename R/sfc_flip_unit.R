@@ -29,14 +29,14 @@ unit_orientation = function(p, index = "") {
 	} else if(length(index) == 0 || identical(index, "")) {
 		unit = p[index]
 
-		loc = reduce_loc_to_level_1(unit, p@n, Inf)
+		loc = sfc_segments(unit)
 	} else {
 		if(!is.character(index)) {
 			stop_wrap("`index` should be a character scalar.")
 		}
 		
 		unit = p[index]
-		loc = reduce_loc_to_level_1(unit, p@n, Inf)
+		loc = sfc_segments(unit)
 		
 	}
 
@@ -46,14 +46,14 @@ unit_orientation = function(p, index = "") {
 	min_y = min(loc[, 2])
 	max_y = max(loc[, 2])
 
-	if(equal_to(loc[1, 1], loc[n, 1])) {
-		return("vertical")
-	} else if(equal_to(loc[1, 2], loc[n, 2])) {
-		return("horizontal")
-	} else if( (loc[1,1] < loc[n, 1] && loc[1, 2] < loc[n, 2]) || (loc[1,1] > loc[n, 1] && loc[1, 2] > loc[n, 2]) ) {
+	if( (loc[1,1] < loc[n, 1] && loc[1, 2] < loc[n, 2]) || (loc[1,1] > loc[n, 1] && loc[1, 2] > loc[n, 2]) ) {
 		return("diagonal_1")
 	} else if( (loc[1,1] > loc[n, 1] && loc[1, 2] < loc[n, 2]) || (loc[1,1] < loc[n, 1] && loc[1, 2] > loc[n, 2]) ) {
 		return("diagonal_-1")
+	} else if(equal_to(loc[1, 1], loc[n, 1])) {
+		return("vertical")
+	} else if(equal_to(loc[1, 2], loc[n, 2])) {
+		return("horizontal")
 	} else {
 		return("unknown")
 	}
@@ -92,7 +92,7 @@ unit_orientation = function(p, index = "") {
 #'     p, 
 #'     sfc_flip_unit(p, ""),
 #'     sfc_flip_unit(p, "2"),
-#'     sfc_flip_unit(p, "21"),
+#'     sfc_flip_unit(p, "2:1"),
 #'     title = FALSE, nrow = 2)
 #' 
 #' p = sfc_peano("I", level = 2)
