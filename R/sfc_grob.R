@@ -3,7 +3,7 @@
 #' @rdname sfc_grob
 #' @param bases A list of base patterns, consider to use [`BASE_LIST`].
 #' @param extend Whether to add the entering and leaving segments?
-#' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
+#' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|expansion_code`, e.g. `I|111`.
 #'      Or the value is a string.
 #' @param closed Whether the curve is closed? 
 #' @param lwd Line width.

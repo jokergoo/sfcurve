@@ -2,7 +2,7 @@
 % Please edit documentation in R/sfc_rules.R
 \name{sfc_rules}
 \alias{sfc_rules}
-\title{Constructur of the sfc_rules class}
+\title{Constructor of the sfc_rules class}
 \usage{
 sfc_rules(rules, bases, flip = list(), name = "sfc_rules")
 }
@@ -16,12 +16,12 @@ sfc_rules(rules, bases, flip = list(), name = "sfc_rules")
 \item{name}{A self-defined string.}
 }
 \description{
-Constructur of the sfc_rules class
+Constructor of the sfc_rules class
 }
 \details{
 It is mainly used internally.
 
-\code{rules} is a two-level list. It is in a format of \code{rules[[ base ]][[ transverse_code]] = sfc_unit()}.
+\code{rules} is a two-level list. It is in a format of \code{rules[[ base ]][[ expansion_code ]] = sfc_unit()}.
 In the following example where we define the expansion rules for th Hilbert curve:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{UNIVERSE_HILBERT = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")

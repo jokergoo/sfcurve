@@ -12,7 +12,7 @@ setClass("sfc_3x3_combined",
 #'      it can be specified as a string of more than one base letters, then `rot` can be set to a single rotation scalar which controls the rotation of the
 #'      first letter, or a vector with the same length as the number of base letters.
 #' @param rot Rotation of the seed sequence, measured in the polar coordinate system, in degrees.
-#' @param level Level of the curve. Currently it is restricted to an integer less than 6.
+#' @param level Level of the curve. Currently it is restricted to an integer smaller than 6.
 #' @param flip The same setting as in [`sfc_peano()`] or [`sfc_meander()`].
 #' 
 #' @details
@@ -138,49 +138,60 @@ draw_rules_3x3_combined = function(flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    if(flip) {
+        rules = p@rules@flip
+    } else {
+        rules = p@rules@rules
+    }
+    equation_max_width = max(do.call("unit.c", lapply(names(rules), function(nm) {
+        do.call("unit.c", lapply(seq_along(rules[[nm]]), function(i) {
+            convertWidth(grobWidth(grob_math(tex_pattern(nm, i,  rules[[nm]][[i]]), x = 0, y = 0)), "mm")
+        }))
+    })))
+
+    gb1 = grob_single_base_rule(p, "I", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
-    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(25, "mm")
+    gb1$children[[nc]]$width = gb1$children[[nc]]$width
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "R", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
-    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(25, "mm")
+    gb2$children[[nc]]$width = gb2$children[[nc]]$width
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "L", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
-    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(25, "mm")
+    gb3$children[[nc]]$width = gb3$children[[nc]]$width
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "U", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "U", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb4$children)
-    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(35, "mm")
+    gb4$children[[nc]]$width = gb4$children[[nc]]$width
     grid.draw(gb4)
 
-	gb5 = grob_single_base_rule(p, "B", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height, just = c("left", "top"))
+	gb5 = grob_single_base_rule(p, "B", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb4$vp$height, just = c("left", "top"))
     nc = length(gb5$children)
-    gb5$children[[nc]]$width = gb5$children[[nc]]$width + unit(35, "mm")
+    gb5$children[[nc]]$width = gb5$children[[nc]]$width
     grid.draw(gb5)
 
-    gb6 = grob_single_base_rule(p, "D", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height, just = c("left", "top"))
+    gb6 = grob_single_base_rule(p, "D", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height, just = c("left", "top"))
     nc = length(gb6$children)
-    gb6$children[[nc]]$width = gb6$children[[nc]]$width + unit(35, "mm")
+    gb6$children[[nc]]$width = gb6$children[[nc]]$width
     grid.draw(gb6)
 
-    gb7 = grob_single_base_rule(p, "P", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
+    gb7 = grob_single_base_rule(p, "P", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
     nc = length(gb7$children)
-    gb7$children[[nc]]$width = gb7$children[[nc]]$width + unit(35, "mm")
+    gb7$children[[nc]]$width = gb7$children[[nc]]$width
     grid.draw(gb7)
 
-	gb8 = grob_single_base_rule(p, "Q", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
+	gb8 = grob_single_base_rule(p, "Q", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
     nc = length(gb8$children)
-    gb8$children[[nc]]$width = gb8$children[[nc]]$width + unit(35, "mm")
+    gb8$children[[nc]]$width = gb8$children[[nc]]$width
     grid.draw(gb8)
 
-    gb9 = grob_single_base_rule(p, "C", flip = flip, x = size + gb1$vp$width + size + unit(25, "mm"), y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
+    gb9 = grob_single_base_rule(p, "C", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb4$vp$height - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
     nc = length(gb9$children)
-    gb9$children[[nc]]$width = gb9$children[[nc]]$width + unit(35, "mm")
+    gb9$children[[nc]]$width = gb9$children[[nc]]$width
     grid.draw(gb9)
 
 }

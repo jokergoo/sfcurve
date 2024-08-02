@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Locality of various curves</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-30</h4>
+            <h4 data-toc-skip class="date">2024-08-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/locality.Rmd" class="external-link"><code>vignettes/locality.Rmd</code></a></small>
       <div class="d-none name"><code>locality.Rmd</code></div>
@@ -92,7 +92,7 @@
 
     
     
-<p>For the Hilbert curve, calculate their Euclidean distance in the 2D space.</p>
+<p>For the Hilbert curve, we calculate the Euclidean distances of its points in the 2D space. The distance matrix is visualized as a heatmap where rows and columns correspond to the ordered points on the curve.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/standard_curve.html">hilbert_curve</a></span><span class="op">(</span>level <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span></span>
@@ -144,11 +144,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">plot4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grid/viewports.html" class="external-link">popViewport</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="locality_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;"></p>
-<p>It seems all the four curves keep the locality very well that in the diagonals, the distance is quite small.</p>
-<p>For a curve represented as a list of <span class="math inline">\(n\)</span> sequential points denoted as <span class="math inline">\((p_i)_n\)</span>, we calculate the distance in the 2D space for points <span class="math inline">\(p_i\)</span> and <span class="math inline">\(p_{i+k}\)</span> where <span class="math inline">\(k \ge 1\)</span>. We name <span class="math inline">\(k\)</span> as the gap of two points.</p>
+<p>It seems all the four curves keep the locality very well, that in the diagonals, the distance are quite small.</p>
+<p>For a curve represented as a list of <span class="math inline">\(n\)</span> sequential points denoted as <span class="math inline">\((p_i)_n\)</span>, we calculate the distance in the 2D space for points <span class="math inline">\(p_i\)</span> and <span class="math inline">\(p_{i+k}\)</span> where <span class="math inline">\(k \ge 1\)</span>:</p>
 <p><span class="math display">\[
 d_\mathrm{2D}(p_i, p_{i+k})
 \]</span></p>
+<p>We name <span class="math inline">\(k\)</span> as the gap of two points.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gap_dist</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">gap</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>

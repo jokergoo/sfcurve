@@ -26,23 +26,23 @@ or a list of two-column coordinate matrices. I.e., all the forms that can repres
 
 \item{extend}{Whether to draw the entering and leaving segments? It is only used when input is a list of \code{sfc_sequence} objects.}
 
-\item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.
+\item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|expansion_codes}, e.g. \code{I|111}.
 The value can be a vector of user-defined strings.}
 
 \item{closed}{Whether the curves are closed? The value should be a logical vector. If it is \code{TRUE}, the last point
 is connected to the first point in the curve to form a closed curve.}
 
-\item{padding}{Space around each curve. The value should be a \code{\link[grid:grid.grob]{grid::grob}} object.}
+\item{padding}{Space around each curve. The value should be a \code{\link[grid:unit]{grid::unit}} object.}
 
 \item{lwd}{Line width.}
 
-\item{col}{Color for segments. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrweer} package.}
+\item{col}{Color for the segments. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrewer} package.}
 }
 \description{
 Draw multiple curves
 }
 \details{
-This function is used for quickly comparing curves.
+This function is used for quick comparison on curves.
 }
 \examples{
 # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3

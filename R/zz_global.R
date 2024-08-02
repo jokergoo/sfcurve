@@ -317,7 +317,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' A list of pre-defined base patterns. See the **Examples** section.
 #' 
 #' `BASE_I` and `BASE_J` are identical. They are only used to distinguish the two
-#' "going forward" patterns in the 3x3 mode for the Peano curves, i.e. bottom-left to top-right, and bottom-right
+#' "going forward" patterns for the level-1 units with 11/22 corner values, i.e. bottom-left to top-right, and bottom-right
 #' to top-left.
 #' @rdname base_patterns
 #' @export
@@ -419,7 +419,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' @rdname pre_defined_rules
 #' @details
 #' `SFC_RULES_4x4_MEANDER_1` and `SFC_RULES_4x4_MEANDER_2` are extension rules of `SFC_RULES_MEANDER`
-#' to the 4x4 curve. It is only for the demonstration purpose, thus only `I/R/L` are supported.
+#' on the 4x4 curve. It is only for the demonstration purpose, thus only `I/R/L` are supported.
 #' @export
 "SFC_RULES_4x4_MEANDER_2"
 

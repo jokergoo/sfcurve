@@ -25,5 +25,5 @@ if(require(rgl) && interactive()) {
 }
 }
 \seealso{
-Michael Bader. Space-Filling Curves: An Introduction with Applications in Scientific Computing, Springer Science & Business Media, 2012. \url{https://doi.org/10.1007/978-3-642-31046-1}.
+Michael Bader. Space-Filling Curves: An Introduction with Applications in Scientific Computing, Springer Science & Business Media, 2012. \doi{10.1007/978-3-642-31046-1}.
 }

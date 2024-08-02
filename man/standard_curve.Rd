@@ -27,7 +27,9 @@ h_curve(iteration = 2L)
 \item{by}{Which implementation? Only for the testing purpose.}
 
 \item{pattern}{The orientation of units on level-2, i.e. the orientation of the 9 3x3 units. The
-value should be a string with 9 letters of "v"/"h" (vertical or horizontal).}
+value should be a string with 9 letters of "v"/"h" (vertical or horizontal) for the Peano curve,
+and "f"/"b" (forward or backward) for the Meander curve. The length of the string should be maximal 9.
+If the length is smaller than 9, the stringis automatically recycled.}
 
 \item{iteration}{Number of iterations.}
 }
@@ -63,7 +65,7 @@ draw_multiple_curves(
     nrow = 1
 )
 draw_multiple_curves(
-    peano_curve(3, pattern = "vhvhvhvhv"),
+    peano_curve(3, pattern = "vh"),
     peano_curve(3, pattern = "vvvhhhvvv"),
     nrow = 1
 )
@@ -80,6 +82,6 @@ draw_multiple_curves(
 draw_multiple_curves(
     h_curve(1),
     h_curve(2),
-    nrow = 1
+    nrow = 1, closed = TRUE
 )
 }

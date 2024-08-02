@@ -16,7 +16,7 @@
 #'     p, 
 #'     sfc_reduce(p, 2), 
 #'     sfc_reduce(p, 1), 
-#'     title = FALSE, nrow = 1)
+#'     nrow = 1)
 setMethod("sfc_reduce",
 	signature = "sfc_nxn",
 	definition = function(p, to = sfc_level(p) - 1) {
@@ -51,7 +51,7 @@ setMethod("sfc_reduce",
 #'     p, 
 #'     sfc_reduce(p, 3), 
 #'     sfc_reduce(p, 2), 
-#'     title = FALSE, nrow = 1)
+#'     nrow = 1)
 setMethod("sfc_reduce",
 	signature = "matrix",
 	definition = function(p, to = level - 1) {

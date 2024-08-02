@@ -3,11 +3,11 @@
 #' @aliases sfc_expand
 #' @rdname sfc_expand
 #' @param p An `sfc_hilbert` object.
-#' @param code Transverse code, a single integer.
+#' @param code Expansion code, a single integer.
 #' 
 #' @details
-#' For the Hilbert curve and Meander curve, as long as the transverse code of the first base pattern in the sequence is determinted, 
-#' the transverse codes for other base patterns in the sequence are all determined. For the Peano curve, `code` is always 1.
+#' For the Hilbert curve and Meander curve, as long as the expansion code of the first base pattern in the sequence is determinted, 
+#' the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, `code` is always 1.
 #' 
 #' These functions are mainly used internally.
 #' 

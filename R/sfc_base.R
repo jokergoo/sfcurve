@@ -17,7 +17,7 @@ setClass("sfc_base",
 
 #' Constructor of the sfc_base class
 #' 
-#' @param letter A single letter (not necessarily) to represent the base pattern.
+#' @param letter A single letter to represent the base pattern.
 #' @param in_direction The direction of the segment that enters the point, measured in the polar coordinate system, in degrees.
 #' @param out_direction The direction of the segment that leaves the point, measured in the polar coordinate system, in degrees.
 #' @param grob A [`grid::grob()`] object of this base pattern. If it is not set, it is generated according to `in_direction` and `out_direction`.

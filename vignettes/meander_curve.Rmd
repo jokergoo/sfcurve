@@ -30,7 +30,7 @@ library(sfcurve)
 
 The Meander curve has a different set of base units.
 
-```{r, fig.width = 10.3, fig.height = 5.5, out.width = "100%"}
+```{r, fig.width = 11.1, fig.height = 5.3, out.width = "100%"}
 draw_rules_meander()
 ```
 
@@ -38,8 +38,14 @@ The expansions are very similar as the Hilbert curve, but it also has a
 flipped version where the units can be flipped horizontally or vertically
 on various levels.
 
-```{r, fig.width = 10.3, fig.height = 5.5, out.width = "100%"}
+```{r, fig.width = 11.1, fig.height = 5.3, out.width = "100%"}
 draw_rules_meander(flip = TRUE)
+```
+
+On each level expansion, there are two transverse paths:
+
+```{r, fig.width = 8, fig.height = 2.2}
+plot_transverse_paths(SFC_RULES_MEANDER, SFC_RULES_MEANDER@rules$I[[1]])
 ```
 
 ## Curves

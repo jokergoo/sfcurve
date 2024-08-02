@@ -15,7 +15,8 @@ plot_transverse_paths(rules, p, type = c("all", "11|22", "12|21"))
 \arguments{
 \item{rules}{An \code{sfc_rules} object.}
 
-\item{p}{An \code{sfc_sequence} sequence. \code{p} and \code{rules} should have the same universe base set.}
+\item{p}{An \code{sfc_sequence} sequence. \code{p} and \code{rules} should have the same universe base set.
+Please provide \code{p} as a small sequence because the total number of all transverse paths might be very huge.}
 
 \item{type}{If the value is \code{"11|22"}, it highlights the paths only via 1-1/2-2 corners. If the value is \code{"12|21"}, it highlights the paths
 only via 1-2/2-1 corners.}
@@ -24,7 +25,7 @@ only via 1-2/2-1 corners.}
 All transverse paths of a sequence
 }
 \details{
-Given an input sequence with rotations, \code{all_transverse_paths()} lists all combinations of transverse
+Given an input sequence with rotations, \code{all_transverse_paths()} lists all combinations of expansion
 codes from the first letter to the last letter in \code{p} (i.e. all possible transverse paths).
 
 \code{get_one_transverse_path()} returns one random transverse path.

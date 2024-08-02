@@ -28,9 +28,9 @@ library(sfcurve)
 
 ## Base patterns
 
-There are the following expansion rules from level-0 to level-1 for the Peanno curve. Note all these level-1 units are vertical.
+There are the following expansion rules from level 0 to level 1 for the Peanno curve. Note all these level 1 units are vertical.
 
-```{r, fig.width = 4.5, fig.height = 4.5}
+```{r, fig.width = 4.5, fig.height = 4.3}
 draw_rules_peano()
 ```
 
@@ -38,8 +38,14 @@ draw_rules_peano()
 patterns on level-1 as we only allow a pattern to rotate, but not to flip. Also separating
 `I` from `J` makes only one extension from level-0 to level-1 for each base pattern.
 
-Unlike the Hilbert curve where there are more than one transverse paths. For the Peano
-curve, we can simpliy specify the number of the level.
+Unlike the Hilbert curve where there are more than one transverse path, there is only one transverse path for each level k.
+
+```{r, fig.width = 6.5, fig.height = 2}
+plot_transverse_paths(SFC_RULES_PEANO, SFC_RULES_PEANO@rules$I[[1]])
+```
+
+This makes the expansion code on each level of a Peano curve is always 1.
+For the Peano curve, we can simpliy specify the number of the level.
 
 ```{r}
 p = sfc_peano("I", level = 3)
@@ -47,10 +53,13 @@ p = sfc_peano("I", level = 3)
 plot(p)
 ```
 
-By applying the expansion rules, a Peano curve is fixed on a level $k$. However, note each level-1 or level-$k$ ($k \ge 1$) pattern
-can be flipped against its diagonal line without affecting the structure of other parts of the curve. Then we can have a flipped version of the original expansion rules where all level-1 units are horizontal:
+By applying the expansion rules, a Peano curve is fixed on a level $k$.
+However, note each level-1 or level-$k$ ($k \ge 1$) pattern can be flipped
+against its diagonal line without affecting the structure of other parts of
+the curve. Then we can have a flipped version of the original expansion rules
+where all level-1 units are horizontal:
 
-```{r, fig.width = 4.5, fig.height = 4.5}
+```{r, fig.width = 4.5, fig.height = 4.3}
 draw_rules_peano(flip = TRUE)
 ```
 
@@ -108,6 +117,9 @@ the Peano curve is
 $$
 4 \cdot 4 \cdot 2^{\frac{9^k - 1}{8}}
 $$
+
+Although this number is very huge, in the vignette ["Standard curves"](standard_curves.html) we can still define
+a family of Peano curves which repeat certain flipping patterns recursively.
 
 ## Unit flipping 
 

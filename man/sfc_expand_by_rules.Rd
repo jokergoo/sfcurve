@@ -18,7 +18,7 @@
 
 \item{seq}{An \code{sfc_nxn} object or other objects.}
 
-\item{code}{The transverse code.}
+\item{code}{The expansion code.}
 
 \item{flip}{For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, \code{flip} should be a logical

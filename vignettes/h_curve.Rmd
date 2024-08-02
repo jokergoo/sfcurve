@@ -73,7 +73,7 @@ the following expansion rule:
 
 $$ H^{(1)} = H^{(0)} \cdot c \cdot H^{(0)} \cdot c \cdot H^{(0)} \cdot c \cdot H^{(0)} \cdot c, \quad c \in \{h, v\} $$
 
-where the four $H^{(0)}$ have the order of 1-2-3-4. $c$ is the action of how two units are connected and it takes values of $h$ (open
+where the four $H^{(0)}$ have the order of 1-2-3-4, $c$ is the action of how two units are connected and it takes values of $h$ (open
 the horiozntal segment) and $v$ (open the vertical segment). The fourth $H^{(0)}$ connects back to the first $H^{(0)}$.
 
 As there are two types of base units for the H-curve: $H_1$ and $H_2$, the four $H^{(0)}$ actually can be differently and independently selected. Then

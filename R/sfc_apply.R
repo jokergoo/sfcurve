@@ -13,6 +13,8 @@
 #' This function is mainly used to flip subunits on various levels on the curve, thus mainly on the Peano curve and the Meander curve.
 #' A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the nine first-level units, et al.
 #' 
+#' Currently, `sfc_apply()` only works on curves with a single base pattern as the seed.
+#' 
 #' @export
 #' @examples
 #' p = sfc_peano("I", level = 3)
@@ -54,7 +56,7 @@
 #'         x
 #'     }
 #' })
-#' draw_multiple_curves(p2, p3, title = FALSE, nrow = 1)
+#' draw_multiple_curves(p2, p3, nrow = 1)
 #' 
 #' # flip all level-1 patterns to vertical
 #' p3 = sfc_apply(p, 2, function(x) {
@@ -64,7 +66,7 @@
 #'         x
 #'     }
 #' })
-#' draw_multiple_curves(p, p3, title = FALSE, nrow = 1)
+#' draw_multiple_curves(p, p3, nrow = 1)
 setMethod("sfc_apply",
 	signature = "sfc_nxn",
 	definition = function(p, depth = 1, fun = function(x) x) {

@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Functions/Classes</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-30</h4>
+            <h4 data-toc-skip class="date">2024-08-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/functions.Rmd" class="external-link"><code>vignettes/functions.Rmd</code></a></small>
       <div class="d-none name"><code>functions.Rmd</code></div>
@@ -105,7 +105,7 @@
 <p><code><a href="../reference/standard_curve.html">hilbert_curve()</a></code>, <code><a href="../reference/standard_curve.html">moore_curve()</a></code>, <code><a href="../reference/standard_curve.html">beta_omega_curve()</a></code>, <code><a href="../reference/standard_curve.html">peano_curve()</a></code>, <code><a href="../reference/standard_curve.html">meander_curve()</a></code>, <code><a href="../reference/standard_curve.html">h_curve()</a></code>.</p>
 <p>Other curves:</p>
 <p><code><a href="../reference/sfc_3x3_combined.html">sfc_3x3_combined()</a></code>, <code><a href="../reference/sfc_4x4_meander.html">sfc_4x4_meander()</a></code>, <code><a href="../reference/hilbert_3d.html">hilbert_3d()</a></code>.</p>
-<p>Generate nxn curve based on a specific level-1 unit:</p>
+<p>Generate nxn curves based on specific level-1 units:</p>
 <p><code><a href="../reference/sfc_generator.html">sfc_generator()</a></code></p>
 </div>
 <div class="section level3">
@@ -140,7 +140,7 @@
 <li>
 <code>sfc_unit</code>: only used when constructing the expansion rules. It is a sequence on level-1 of the curve. There is also an additional slot <code>corner</code> which corresponds to the corners of the in and out-direction of the square level-1 unit.</li>
 <li>
-<code>sfc_nxn</code>: the base class for the general nxn curve</li>
+<code>sfc_nxn</code>: the base class for the general nxn curves.</li>
 <li>
 <code>sfc_hilbert</code>, <code>sfc_peano</code>, <code>sfc_meander</code>, <code>sfc_3x3_combined</code>, <code>sfc_meander_4x4</code> are all child classes of <code>sfc_nxn</code>.</li>
 <li>Specifically <code>sfc_meander_4x4</code> has two child classes <code>sfc_meander_4x4_1</code> and <code>sfc_meander_4x4_2</code> using two different sets of expansion rules.</li>
@@ -152,7 +152,7 @@
 <li>
 <code>sfc_rules</code>: It contains the expansion rules from level-0 to level-1.</li>
 </ul>
-<p>The UML of classes and their corresponding methods implemented in this package.</p>
+<p>The UML of classes and their corresponding methods implemented in this package (made by <a href="https://www.nomnoml.com/" class="external-link">nomnoml</a>).</p>
 <!--
 
 #direction: down

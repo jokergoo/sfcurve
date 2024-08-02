@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>H-Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-30</h4>
+            <h4 data-toc-skip class="date">2024-08-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/h_curve.Rmd" class="external-link"><code>vignettes/h_curve.Rmd</code></a></small>
       <div class="d-none name"><code>h_curve.Rmd</code></div>
@@ -111,7 +111,7 @@
 <p><img src="h_curve_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;"></p>
 <p>Then, denote <span class="math inline">\(H^{(0)}\)</span> as the base unit of H-curve, <span class="math inline">\(H^{(1)}\)</span> as the H-curve after the first iteration. We can have the following expansion rule:</p>
 <p><span class="math display">\[ H^{(1)} = H^{(0)} \cdot c \cdot H^{(0)} \cdot c \cdot H^{(0)} \cdot c \cdot H^{(0)} \cdot c, \quad c \in \{h, v\} \]</span></p>
-<p>where the four <span class="math inline">\(H^{(0)}\)</span> have the order of 1-2-3-4. <span class="math inline">\(c\)</span> is the action of how two units are connected and it takes values of <span class="math inline">\(h\)</span> (open the horiozntal segment) and <span class="math inline">\(v\)</span> (open the vertical segment). The fourth <span class="math inline">\(H^{(0)}\)</span> connects back to the first <span class="math inline">\(H^{(0)}\)</span>.</p>
+<p>where the four <span class="math inline">\(H^{(0)}\)</span> have the order of 1-2-3-4, <span class="math inline">\(c\)</span> is the action of how two units are connected and it takes values of <span class="math inline">\(h\)</span> (open the horiozntal segment) and <span class="math inline">\(v\)</span> (open the vertical segment). The fourth <span class="math inline">\(H^{(0)}\)</span> connects back to the first <span class="math inline">\(H^{(0)}\)</span>.</p>
 <p>As there are two types of base units for the H-curve: <span class="math inline">\(H_1\)</span> and <span class="math inline">\(H_2\)</span>, the four <span class="math inline">\(H^{(0)}\)</span> actually can be differently and independently selected. Then we can change the previous equation to:</p>
 <p><span class="math display">\[ H^{(1)} = H_1^{(0)} \cdot c \cdot H_2^{(0)} \cdot c \cdot H_3^{(0)} \cdot c \cdot H_4^{(0)} \cdot c, \quad H_i^{(0)} \in \{H_1, H_2\}, i \in \{1..4\}\]</span></p>
 <p>The next plots show all the forms of H-curves after the first iteration, with the connection method “h”:</p>

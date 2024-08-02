@@ -98,10 +98,10 @@ choosing specific base patterns and transverse path. For example, a standard Hil
 sfc_hilbert("R", code = "11111")
 ```
 
-And a standard Moore curve on level 5 is (where the last two digits should be `21`):
+And a standard Moore curve on level 5 is (where the first digits should be `2`):
 
 ```r
-sfc_hilbert("C", code = "11121", rot = 90)
+sfc_hilbert("C", code = "21111", rot = 90)
 ```
 
 

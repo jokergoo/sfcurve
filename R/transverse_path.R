@@ -5,9 +5,10 @@
 #' @rdname transverse_path
 #' @param rules An `sfc_rules` object.
 #' @param p An `sfc_sequence` sequence. `p` and `rules` should have the same universe base set.
+#'        Please provide `p` as a small sequence because the total number of all transverse paths might be very huge.
 #' @export
 #' @details
-#' Given an input sequence with rotations, `all_transverse_paths()` lists all combinations of transverse 
+#' Given an input sequence with rotations, `all_transverse_paths()` lists all combinations of expansion 
 #' codes from the first letter to the last letter in `p` (i.e. all possible transverse paths).
 all_transverse_paths = function(rules, p) {
 
@@ -182,7 +183,7 @@ plot_transverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
     grid.newpage()
     pushViewport(viewport(xscale = c(1, max(2, n)), yscale = c(1, max(2, maxr)), x = unit(25, "mm"), width = unit(1, "npc") - unit(40, "mm"), y = unit(25, "mm"), height = unit(1, "npc") - unit(35, "mm"), just = c("left", "bottom")))
     grid.text(1:maxr, unit(1, "native") - unit(10, "mm"), seq(1, maxr), default.units = "native", gp = gpar(fontsize = 10))
-    grid.text("Transverse code", unit(1, "native") - unit(18, "mm"), (1+maxr)/2, default.units = "native", rot = 90)
+    grid.text("Expansion code", unit(1, "native") - unit(18, "mm"), (1+maxr)/2, default.units = "native", rot = 90)
     grid.text(paste0(seq, "(", rot, ")"), 1:n, unit(1, "native") - unit(14, "mm"), default.units = "native", gp = gpar(fontsize = 10))
     
     type = match.arg(type)

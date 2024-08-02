@@ -25,7 +25,7 @@ Two functions will be exported:
 \item \verb{draw_rules_\{name\}()}
 }
 
-For the simplicity, flippng is not supported yet.
+For the simplicity, flipping is not supported yet.
 }
 \examples{
 UNIVERSE_4x4_PEANO = c("I", "R", "L")

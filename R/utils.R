@@ -6,16 +6,16 @@
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments? It is only used when input is a list of `sfc_sequence` objects.
-#' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|transverse_code`, e.g. `I|111`.
+#' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|expansion_codes`, e.g. `I|111`.
 #'   The value can be a vector of user-defined strings.
 #' @param closed Whether the curves are closed? The value should be a logical vector. If it is `TRUE`, the last point
 #'           is connected to the first point in the curve to form a closed curve.
-#' @param padding Space around each curve. The value should be a [`grid::grob`] object.
+#' @param padding Space around each curve. The value should be a [`grid::unit`] object.
 #' @param lwd Line width.
-#' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes from the **RColorBrweer** package.
+#' @param col Color for the segments. If the value is `NULL`, it uses the "Spectral" color palettes from the **RColorBrewer** package.
 #' 
 #' @details
-#' This function is used for quickly comparing curves.
+#' This function is used for quick comparison on curves.
 #' @export
 #' @examples
 #' # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3

@@ -18,7 +18,7 @@ the initial rotation of the base pattern. It also supports a sequence with more 
 it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scalar which controls the rotation of the
 first letter, or a vector with the same length as the number of base letters.}
 
-\item{level}{Level of the curve. Currently it is restricted to an integer less than 6.}
+\item{level}{Level of the curve. Currently it is restricted to an integer smaller than 6.}
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 

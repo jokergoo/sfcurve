@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Generalized Meander Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-07-30</h4>
+            <h4 data-toc-skip class="date">2024-08-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/meander_curve.Rmd" class="external-link"><code>vignettes/meander_curve.Rmd</code></a></small>
       <div class="d-none name"><code>meander_curve.Rmd</code></div>
@@ -103,12 +103,16 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_meander</a></span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="meander_curve_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>On each level expansion, there are two transverse paths:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_MEANDER</span>, <span class="va">SFC_RULES_MEANDER</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="curves">Curves<a class="anchor" aria-label="anchor" href="#curves"></a>
 </h2>
 <p>All possible forms of the Meander curve on level 3 taking <code>R(0)</code> as the seed:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"112"</span><span class="op">)</span>,</span>
@@ -119,9 +123,9 @@
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"221"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"222"</span><span class="op">)</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="meander_curve_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>The curves on level 3 taking the nine base patterns respectively:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span>,</span>
@@ -133,13 +137,13 @@
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"Q"</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"C"</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">3</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="meander_curve_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;"></p>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="unit-flipping">Unit flipping<a class="anchor" aria-label="anchor" href="#unit-flipping"></a>
 </h2>
 <p>Flipping (horizotal or vertical) can be applied by specifying the index of the hierarchical unit on the curve.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>,</span>
@@ -148,7 +152,7 @@
 <span>    <span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span><span class="op">)</span><span class="op">)</span>, <span class="co"># top left, four units</span></span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="meander_curve_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="number-of-different-forms">Number of different forms<a class="anchor" aria-label="anchor" href="#number-of-different-forms"></a>
@@ -161,13 +165,13 @@
 <div class="section level2">
 <h2 id="seed-as-a-sequence">Seed as a sequence<a class="anchor" aria-label="anchor" href="#seed-as-a-sequence"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seed</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"IILILILI"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span>, universe <span class="op">=</span> <span class="fu"><a href="../reference/sfc_universe.html">sfc_universe</a></span><span class="op">(</span><span class="va">SFC_RULES_MEANDER</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">seed</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="meander_curve_files/figure-html/unnamed-chunk-7-1.png" width="288" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-8-1.png" width="288" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_meander</a></span><span class="op">(</span><span class="va">seed</span>, code <span class="op">=</span> <span class="st">"111"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="meander_curve_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="meander_curve_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

@@ -1,5 +1,10 @@
 
 
+#' @keywords internal 
+#' @details
+#' Please go to the package's website: \url{https://jokergoo.github.io/sfcurve/} for more details.
+"_PACKAGE"
+
 setClass("sfc_sequence",
 	slots = c("seq" = "factor",
 		      "rot" = "integer",
@@ -57,7 +62,7 @@ setGeneric('sfc_universe', function(p, ...) standardGeneric('sfc_universe'))
 setGeneric('sfc_validate', function(p, ...) standardGeneric('sfc_validate'))
 setGeneric('sfc_previous_point', function(p, ...) standardGeneric('sfc_previous_point'))
 setGeneric('sfc_next_point', function(p, ...) standardGeneric('sfc_next_point'))
-setGeneric('sfc_is_compatible', function(p, ...) standardGeneric('sfc_is_compatible'))
+setGeneric('sfc_is_compatible', function(p1, p2, ...) standardGeneric('sfc_is_compatible'))
 setGeneric('sfc_index', function(p, ...) standardGeneric('sfc_index'))
 setGeneric('sfc_flip_unit', function(p, ...) standardGeneric('sfc_flip_unit'))
 setGeneric('sfc_apply', function(p, ...) standardGeneric('sfc_apply'))

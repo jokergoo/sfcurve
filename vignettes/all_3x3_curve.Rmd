@@ -36,7 +36,7 @@ and those from the Meander curve only contain the "forward" pattenrs (they are t
 rules for the two types of curves). "Horizontal"
 and "backward" patterns can be obtained by flipping.
 
-```{r, fig.width = 10.5, fig.height = 12, out.width = "100%"}
+```{r, fig.width = 11.1, fig.height = 12, out.width = "100%"}
 draw_rules_3x3_combined()
 ```
 

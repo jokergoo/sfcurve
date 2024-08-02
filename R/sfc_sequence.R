@@ -5,7 +5,7 @@
 #' @param seq A sequence of base patterns. The value can be a vector of letters or a single string.
 #' @param rot The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
 #'          `rot` controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
-#'          identified.
+#'          calculated.
 #' @param universe The universe of base patterns. A vector of letters.
 #' 
 #' @details
@@ -259,7 +259,7 @@ setMethod("sfc_universe",
 #' Whether two sfc_sequence objects are compatible
 #' @aliases sfc_is_compatible
 #' @rdname sfc_is_compatible
-#' @param p An `sfc_sequence` object.
+#' @param p1 An `sfc_sequence` object.
 #' @param p2 An `sfc_sequence` object.
 #' 
 #' @details
@@ -275,9 +275,25 @@ setMethod("sfc_universe",
 #' p2 = sfc_sequence("DEF")
 #' sfc_is_compatible(p1, p2)
 setMethod("sfc_is_compatible",
-	signature = "sfc_sequence",
-	definition = function(p, p2) {
-	identical(sfc_universe(p), sfc_universe(p2))
+	signature = c("sfc_sequence", "sfc_sequence"),
+	definition = function(p1, p2) {
+	identical(sfc_universe(p1), sfc_universe(p2))
+})
+
+#' @rdname sfc_is_compatible
+#' @export
+setMethod("sfc_is_compatible",
+	signature = c("sfc_sequence", "sfc_rules"),
+	definition = function(p1, p2) {
+	identical(sfc_universe(p1), sfc_universe(p2))
+})
+
+#' @rdname sfc_is_compatible
+#' @export
+setMethod("sfc_is_compatible",
+	signature = c("sfc_rules", "sfc_sequence"),
+	definition = function(p1, p2) {
+	identical(sfc_universe(p1), sfc_universe(p2))
 })
 
 

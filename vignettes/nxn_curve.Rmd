@@ -115,7 +115,7 @@ Here `"4x4_peano"` is the suffix of the two function names.
 sfc_generator(SFC_RULES_4x4_PEANO, "4x4_peano")
 ```
 
-```{r, fig.width = 7.5, fig.height = 4}
+```{r, fig.width = 7, fig.height = 4}
 draw_rules_4x4_peano()
 ```
 
@@ -165,7 +165,7 @@ sfc_generator(SFC_RULES_5x5_MEANDER, "5x5_meander")
 
 For simplicity, currently the flipped expansion rules are not supported in `sfc_generator()`.
 
-```{r, fig.width = 9.5, fig.height = 5}
+```{r, fig.width = 9.4, fig.height = 4.5}
 draw_rules_5x5_meander()
 ```
 
@@ -229,7 +229,7 @@ sfc_generator(SFC_RULES_5x5_FOO, "5x5_foo")
 ```
 
 
-```{r, fig.width = 9.5, fig.height = 6}
+```{r, fig.width = 8, fig.height = 5.9}
 draw_rules_5x5_foo()
 ```
 

@@ -65,7 +65,7 @@ A list of pre-defined base patterns. See the \strong{Examples} section.
 }
 \details{
 \code{BASE_I} and \code{BASE_J} are identical. They are only used to distinguish the two
-"going forward" patterns in the 3x3 mode for the Peano curves, i.e. bottom-left to top-right, and bottom-right
+"going forward" patterns for the level-1 units with 11/22 corner values, i.e. bottom-left to top-right, and bottom-right
 to top-left.
 }
 \examples{

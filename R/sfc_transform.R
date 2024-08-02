@@ -3,7 +3,7 @@
 #' Transformations of a sequence
 #' 
 #' @param p An `sfc_sequence` object.
-#' @param rot Rotation measured in the polar coordinate system, in degree.
+#' @param rot Rotation measured in the polar coordinate system, in degrees.
 #' 
 #' @rdname sfc_transformation
 #' @aliases sfc_rotate
@@ -97,7 +97,7 @@ validate_out_directions = function(p2, out_direction) {
 
 #' @rdname sfc_transformation
 #' @aliases sfc_hflip
-#' @param fix_ends Whether to keep the orientation and rotations of the two end base patterns (start and end)?
+#' @param fix_ends Whether to keep the orientation and rotations of the starting and ending base patterns?
 #' @param bases A list of base patterns, consider to use [`BASE_LIST`]. It is only used when `fix_ends = TRUE`.
 #' @export
 #' @examples
@@ -106,7 +106,7 @@ validate_out_directions = function(p2, out_direction) {
 #'     p, 
 #'     sfc_hflip(p), 
 #'     sfc_hflip(p, fix_ends = TRUE), 
-#'     nrow = 1, title = FALSE)
+#'     nrow = 1)
 setMethod("sfc_hflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -188,7 +188,7 @@ setMethod("sfc_hflip",
 #'     p, 
 #'     sfc_vflip(p), 
 #'     sfc_vflip(p, fix_ends = TRUE), 
-#'     nrow = 1, title = FALSE)
+#'     nrow = 1)
 setMethod("sfc_vflip",
 	signature = "sfc_sequence",
 	definition = function(p, fix_ends = FALSE, bases = NULL) {
@@ -259,7 +259,7 @@ setMethod("sfc_vflip",
 #'     p, 
 #'     sfc_dflip(p, 1), 
 #'     sfc_dflip(p, 1, fix_ends = TRUE), 
-#'     nrow = 1, title = FALSE)
+#'     nrow = 1)
 setMethod("sfc_dflip",
 	signature = "sfc_sequence",
 	definition = function(p, slop = 1, fix_ends = FALSE, bases = NULL) {

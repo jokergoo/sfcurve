@@ -26,7 +26,8 @@ library(sfcurve)
 ```
 
 
-For the Hilbert curve, calculate their Euclidean distance in the 2D space.
+For the Hilbert curve, we calculate the Euclidean distances of its points in the 2D space.
+The distance matrix is visualized as a heatmap where rows and columns correspond to the ordered points on the curve.
 
 ```{r}
 p = hilbert_curve(level = 5)
@@ -86,16 +87,17 @@ grid.draw(plot4)
 popViewport()
 ```
 
-It seems all the four curves keep the locality very well that in the diagonals, the distance is 
+It seems all the four curves keep the locality very well, that in the diagonals, the distance are 
 quite small.
 
 For a curve represented as a list of $n$ sequential points denoted as $(p_i)_n$, we calculate the
-distance in the 2D space for points $p_i$ and $p_{i+k}$ where $k \ge 1$. We name $k$ as the gap
-of two points.
+distance in the 2D space for points $p_i$ and $p_{i+k}$ where $k \ge 1$:
 
 $$
 d_\mathrm{2D}(p_i, p_{i+k})
 $$
+
+We name $k$ as the gap of two points.
 
 
 ```{r, fig.width = 8, fig.height = 4}

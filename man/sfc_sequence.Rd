@@ -17,7 +17,7 @@ sfc_unit(seq, rot = 0L, universe = NULL)
 
 \item{rot}{The corresponding rotations of base patterns. If it has length one and the sequence contains R/L/I (right/left/forward),
 \code{rot} controls the rotation of the first base pattern and the rotations for remaining base patterns in the sequence are automatically
-identified.}
+calculated.}
 
 \item{universe}{The universe of base patterns. A vector of letters.}
 }

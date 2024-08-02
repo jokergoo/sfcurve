@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +100,7 @@ or a list of two-column coordinate matrices. I.e., all the forms that can repres
 
 
 <dt>title</dt>
-<dd><p>Whether to add titles on each panel? The title is constructed in the form of <code>initial_seed|transverse_code</code>, e.g. <code>I|111</code>.
+<dd><p>Whether to add titles on each panel? The title is constructed in the form of <code>initial_seed|expansion_codes</code>, e.g. <code>I|111</code>.
 The value can be a vector of user-defined strings.</p></dd>
 
 
@@ -110,7 +110,7 @@ is connected to the first point in the curve to form a closed curve.</p></dd>
 
 
 <dt>padding</dt>
-<dd><p>Space around each curve. The value should be a <code><a href="https://rdrr.io/r/grid/grid-defunct.html" class="external-link">grid::grob</a></code> object.</p></dd>
+<dd><p>Space around each curve. The value should be a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit</a></code> object.</p></dd>
 
 
 <dt>lwd</dt>
@@ -118,12 +118,12 @@ is connected to the first point in the curve to form a closed curve.</p></dd>
 
 
 <dt>col</dt>
-<dd><p>Color for segments. If the value is <code>NULL</code>, it uses the "Spectral" color palettes from the <strong>RColorBrweer</strong> package.</p></dd>
+<dd><p>Color for the segments. If the value is <code>NULL</code>, it uses the "Spectral" color palettes from the <strong>RColorBrewer</strong> package.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is used for quickly comparing curves.</p>
+    <p>This function is used for quick comparison on curves.</p>
     </div>
 
     <div class="section level2">

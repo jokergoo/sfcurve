@@ -19,13 +19,14 @@
 
 \item{...}{Ignore.}
 
-\item{drop}{Ignore.}
+\item{drop}{A value of \code{TRUE} or \code{FALSE} that controls whether to keep the \code{sfc_nxn} class or degenerate to the \code{sfc_sequence} class.}
 
 \item{p}{An \code{sfc_nxn} object.}
 
 \item{index}{A string of digits representing the path on the hierarchy of the curve. The left side
-corresponds to the lower level and the right side corresponds to the high level in the curve. For the
-Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.}
+corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
+Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+Digits should be separated by non-number characters, see examples.}
 }
 \description{
 Subunit in the curve

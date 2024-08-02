@@ -39,13 +39,13 @@ draw_multiple_curves(
     p, 
     sfc_reduce(p, 2), 
     sfc_reduce(p, 1), 
-    title = FALSE, nrow = 1)
+    nrow = 1)
 p = hilbert_curve(level = 4)
 draw_multiple_curves(
     p, 
     sfc_reduce(p, 3), 
     sfc_reduce(p, 2), 
-    title = FALSE, nrow = 1)
+    nrow = 1)
 p = hilbert_curve(3)
 draw_multiple_curves(
     add_base_structure(p, level = 1),

@@ -27,7 +27,7 @@ Other curves:
 
 `sfc_3x3_combined()`, `sfc_4x4_meander()`, `hilbert_3d()`.
 
-Generate nxn curve based on a specific level-1 unit:
+Generate nxn curves based on specific level-1 units:
 
 `sfc_generator()`
 
@@ -64,7 +64,7 @@ There are the following classes defined:
 - `sfc_unit`: only used when constructing the expansion rules. It is a sequence on level-1 of the curve. 
    There is also an additional slot `corner` which corresponds to the corners of the in and out-direction
    of the square level-1 unit.
-- `sfc_nxn`: the base class for the general nxn curve
+- `sfc_nxn`: the base class for the general nxn curves.
 - `sfc_hilbert`, `sfc_peano`, `sfc_meander`, `sfc_3x3_combined`, `sfc_meander_4x4` are all child classes of `sfc_nxn`.
 - Specifically `sfc_meander_4x4` has two child classes `sfc_meander_4x4_1` and `sfc_meander_4x4_2` using two different
   sets of expansion rules.
@@ -75,7 +75,7 @@ The following two classes define how the curve is expanded:
 - `sfc_rules`: It contains the expansion rules from level-0 to level-1.
 
 
-The UML of classes and their corresponding methods implemented in this package.
+The UML of classes and their corresponding methods implemented in this package (made by [nomnoml](https://www.nomnoml.com/)).
 
 <!--
 

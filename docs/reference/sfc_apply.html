@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,6 +91,7 @@ the index of the current subunit in the curve.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is mainly used to flip subunits on various levels on the curve, thus mainly on the Peano curve and the Meander curve.
 A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the nine first-level units, et al.</p>
+<p>Currently, <code>sfc_apply()</code> only works on curves with a single base pattern as the seed.</p>
     </div>
 
     <div class="section level2">
@@ -137,7 +138,7 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 <span class="r-in"><span>        <span class="va">x</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all level-1 patterns to vertical</span></span></span>
@@ -148,7 +149,7 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 <span class="r-in"><span>        <span class="va">x</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p3</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p3</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_apply-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

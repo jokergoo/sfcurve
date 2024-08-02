@@ -14,7 +14,7 @@ sfc_base(
 )
 }
 \arguments{
-\item{letter}{A single letter (not necessarily) to represent the base pattern.}
+\item{letter}{A single letter to represent the base pattern.}
 
 \item{in_direction}{The direction of the segment that enters the point, measured in the polar coordinate system, in degrees.}
 

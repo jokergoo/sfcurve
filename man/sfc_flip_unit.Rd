@@ -17,8 +17,8 @@ unit_orientation(p, index = "")
 \item{p}{The corresponding object.}
 
 \item{index}{A string of digits representing the path on the hierarchy of the curve. The left
-side corresponds to the lower level and the right side corresponds to the high level
-in the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
+side corresponds to the top level and the right side corresponds to the bottom level
+on the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
 Meander curves, the digites can be 1-9. See examples in \code{\link[=sfc_index]{sfc_index()}}. The value can also
 be a vector where each flipping is applied in sequence.}
 
@@ -36,13 +36,15 @@ the original curve.}
 Flip units
 }
 \details{
-For \code{unit_orientation()}, it first reduce the unit to level-1, then it checks the orientation
+For \code{unit_orientation()}, it first reduces the unit to level-1, then it checks the orientation
 of the line connected by the in-corner and out-corner.
 
 An unit in the curve is represented as a square block (\verb{2^k x 2^k} for the Hilbert curve and \verb{3^k x 3^k} for the Peano and Meander curves, \code{k} between 1 and the level of the curve).
 In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
 The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.
+
+Currently, \code{sfc_flip_unit()} only works on curves with a single base pattern as the seed.
 }
 \examples{
 p = sfc_meander("I", 11)
@@ -51,7 +53,7 @@ draw_multiple_curves(
     sfc_flip_unit(p, "1"), # bottom left
     sfc_flip_unit(p, "2"), # bottom middle
     sfc_flip_unit(p, "3"), # bottom right
-    title = FALSE, nrow = 2)
+    nrow = 2)
 
 p = sfc_peano("I", level = 3)
 draw_multiple_curves(
@@ -59,11 +61,11 @@ draw_multiple_curves(
     sfc_flip_unit(p, ""),
     sfc_flip_unit(p, "2"),
     sfc_flip_unit(p, "2:1"),
-    title = FALSE, nrow = 2)
+    nrow = 2)
 
 p = sfc_peano("I", level = 2)
 draw_multiple_curves(p, 
     sfc_flip_unit(p, c("4", "7")),
     sfc_flip_unit(p, c("1", "2", "3", "5", "6", "8", "9")),
-    title = FALSE, nrow = 1)
+    nrow = 1)
 }

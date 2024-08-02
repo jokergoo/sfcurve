@@ -53,7 +53,7 @@
 
 \item{extend}{Whether to add the entering and leaving segments?}
 
-\item{title}{Whether to add title on the top of the plot? The title is constructed in the form of \code{initial_seed|transverse_code}, e.g. \code{I|111}.
+\item{title}{Whether to add title on the top of the plot? The title is constructed in the form of \code{initial_seed|expansion_code}, e.g. \code{I|111}.
 Or the value is a string.}
 
 \item{closed}{Whether the curve is closed?}

@@ -16,7 +16,7 @@
 \arguments{
 \item{p}{An \code{sfc_hilbert} object.}
 
-\item{code}{Transverse code, a single integer.}
+\item{code}{Expansion code, a single integer.}
 
 \item{flip}{Whethe to flip level-1 units? The value should be a logical vector of length one or the same as the length of \code{p}.}
 }
@@ -27,8 +27,8 @@ An object in the same class as the input.
 Expand the curve to the next level
 }
 \details{
-For the Hilbert curve and Meander curve, as long as the transverse code of the first base pattern in the sequence is determinted,
-the transverse codes for other base patterns in the sequence are all determined. For the Peano curve, \code{code} is always 1.
+For the Hilbert curve and Meander curve, as long as the expansion code of the first base pattern in the sequence is determinted,
+the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, \code{code} is always 1.
 
 These functions are mainly used internally.
 }

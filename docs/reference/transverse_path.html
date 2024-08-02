@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,8 @@
 
 
 <dt>p</dt>
-<dd><p>An <code>sfc_sequence</code> sequence. <code>p</code> and <code>rules</code> should have the same universe base set.</p></dd>
+<dd><p>An <code>sfc_sequence</code> sequence. <code>p</code> and <code>rules</code> should have the same universe base set.
+Please provide <code>p</code> as a small sequence because the total number of all transverse paths might be very huge.</p></dd>
 
 
 <dt>type</dt>
@@ -91,7 +92,7 @@ only via 1-2/2-1 corners.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Given an input sequence with rotations, <code>all_transverse_paths()</code> lists all combinations of transverse
+    <p>Given an input sequence with rotations, <code>all_transverse_paths()</code> lists all combinations of expansion
 codes from the first letter to the last letter in <code>p</code> (i.e. all possible transverse paths).</p>
 <p><code>get_one_transverse_path()</code> returns one random transverse path.</p>
     </div>

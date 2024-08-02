@@ -32,13 +32,13 @@
 \arguments{
 \item{p}{An \code{sfc_sequence} object.}
 
-\item{rot}{Rotation measured in the polar coordinate system, in degree.}
+\item{rot}{Rotation measured in the polar coordinate system, in degrees.}
 
 \item{e1}{An \code{sfc_sequence} object.}
 
 \item{e2}{The rotation.}
 
-\item{fix_ends}{Whether to keep the orientation and rotations of the two end base patterns (start and end)?}
+\item{fix_ends}{Whether to keep the orientation and rotations of the starting and ending base patterns?}
 
 \item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}. It is only used when \code{fix_ends = TRUE}.}
 
@@ -66,17 +66,17 @@ draw_multiple_curves(
     p, 
     sfc_hflip(p), 
     sfc_hflip(p, fix_ends = TRUE), 
-    nrow = 1, title = FALSE)
+    nrow = 1)
 p = sfc_meander("L", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_vflip(p), 
     sfc_vflip(p, fix_ends = TRUE), 
-    nrow = 1, title = FALSE)
+    nrow = 1)
 p = sfc_peano("I", 2)
 draw_multiple_curves(
     p, 
     sfc_dflip(p, 1), 
     sfc_dflip(p, 1, fix_ends = TRUE), 
-    nrow = 1, title = FALSE)
+    nrow = 1)
 }

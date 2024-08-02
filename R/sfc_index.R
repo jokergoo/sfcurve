@@ -4,7 +4,7 @@
 #' @param i Numeric index or a character index representing the hierarchy of the subunit in the curve.
 #' @param j A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
 #' @param ... Ignore.
-#' @param drop Ignore.
+#' @param drop A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
 #' @export
 #' @examples
 #' p = sfc_hilbert("I", "11111")
@@ -20,7 +20,15 @@
 	}
 
 	if(missing(j)) {
-		`[.sfc_sequence`(x, sfc_index(x, i))
+		if(drop) {
+			`[.sfc_sequence`(x, sfc_index(x, i))
+		} else {
+			x2 = x
+			ind = sfc_index(x, i)
+			x2@seq = x@seq[ind]
+			x2@rot = x@rot[ind]
+			x2
+		}
 	} else {
 		if(!is.logical(j)) {
 			stop_wrap("The second index should be TURE or FALSE.")
@@ -71,8 +79,9 @@ get_index_from_nxn = function(index, level, n) {
 #' @rdname sfc_index
 #' @param p An `sfc_nxn` object.
 #' @param index A string of digits representing the path on the hierarchy of the curve. The left side
-#'       corresponds to the lower level and the right side corresponds to the high level in the curve. For the
+#'       corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
 #'       Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+#'       Digits should be separated by non-number characters, see examples.
 #' @export
 #' @details
 #' `sfc_index()` only works on square curves (i.e. a curve with a single base letter as seed.)

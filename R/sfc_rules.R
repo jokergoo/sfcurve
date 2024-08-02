@@ -1,6 +1,6 @@
 
 
-#' Constructur of the sfc_rules class
+#' Constructor of the sfc_rules class
 #' 
 #' @param rules A list of rules.
 #' @param bases A list of base patterns.
@@ -10,7 +10,7 @@
 #' @details
 #' It is mainly used internally.
 #' 
-#' `rules` is a two-level list. It is in a format of `rules[[ base ]][[ transverse_code]] = sfc_unit()`.
+#' `rules` is a two-level list. It is in a format of `rules[[ base ]][[ expansion_code ]] = sfc_unit()`.
 #' In the following example where we define the expansion rules for th Hilbert curve:
 #' 
 #' ```
@@ -306,7 +306,7 @@ setMethod("sfc_mode",
 #' @aliases sfc_expand_by_rules
 #' @param p An `sfc_rules` object.
 #' @param seq An `sfc_nxn` object or other objects.
-#' @param code The transverse code.
+#' @param code The expansion code.
 #' @param flip For the Peano curve and the Meander curves, each unit can be flipped without affecting other parts in the curve. This argument
 #'        controls whether to flip the unit. Since currently it only works on the Peano curve and the Meander curve, `flip` should be a logical
 #'        vector of length one or with the same length as `seq`. Whether it flips horizontally, vertically or against the diagonal line is automatically choosen.
@@ -453,7 +453,7 @@ tex_pattern = function(x, which, p) {
     paste0("italic(", x, ")[", which, "] == paste(", expr, ")")
 }
 
-grob_single_base_rule = function(p, bp, flip = FALSE, ...) {
+grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
     rules = p@rules
     bases = rules@bases
 
@@ -484,15 +484,17 @@ grob_single_base_rule = function(p, bp, flip = FALSE, ...) {
 
     n = length(pl)
     nr = ceiling(n/2)
+    nc = ceiling(n/nr)
 
     k = as.integer(sqrt(length(pl[[1]]@seq)))
 
-    vp_xscale = c(0, 13+2*k)
+    vp_xscale = c(0, 4 + (nc*k + nc) +7)
     vp_yscale = c(-(nr-1)*(k+2)-1, k+1)
 
-    vp_width = diff(vp_xscale)*size
+    vp_width = (4 + (nc*k + nc))*size + equation_max_width + unit(8, "mm")
     vp_height = diff(vp_yscale)*size
 
+    vp_xscale[2] = convertWidth(vp_width, "mm", valueOnly = TRUE)/as.numeric(size)
     vp = viewport(xscale = vp_xscale, yscale = vp_yscale, width = vp_width, height = vp_height, ...)
 
     gbl = list()
@@ -553,31 +555,38 @@ draw_rules_hilbert = function() {
     p = sfc_hilbert("I")
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    rules = p@rules@rules
+    equation_max_width = max(do.call("unit.c", lapply(names(rules), function(nm) {
+        do.call("unit.c", lapply(seq_along(rules[[nm]]), function(i) {
+            convertWidth(grobWidth(grob_math(tex_pattern(nm, i,  rules[[nm]][[i]]), x = 0, y = 0)), "mm")
+        }))
+    })))
+
+    gb1 = grob_single_base_rule(p, "I", equation_max_width = equation_max_width, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "R", x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "R", equation_max_width = equation_max_width, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "L", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "L", equation_max_width = equation_max_width, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "U", x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "U", equation_max_width = equation_max_width, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     grid.draw(gb4)
 
-    gb5 = grob_single_base_rule(p, "B", x = size + gb1$vp$width + size, y = unit(1, "npc") - size, just = c("left", "top"))
+    gb5 = grob_single_base_rule(p, "B", equation_max_width = equation_max_width, x = size + gb1$vp$width + size, y = unit(1, "npc") - size, just = c("left", "top"))
     grid.draw(gb5)
 
-    gb6 = grob_single_base_rule(p, "D", x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
+    gb6 = grob_single_base_rule(p, "D", equation_max_width = equation_max_width, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
     grid.draw(gb6)
 
-    gb7 = grob_single_base_rule(p, "P", x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
+    gb7 = grob_single_base_rule(p, "P", equation_max_width = equation_max_width, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
     grid.draw(gb7)
 
-    gb8 = grob_single_base_rule(p, "Q", x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
+    gb8 = grob_single_base_rule(p, "Q", equation_max_width = equation_max_width, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
     grid.draw(gb8)
 
-    gb9 = grob_single_base_rule(p, "C", x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
+    gb9 = grob_single_base_rule(p, "C", equation_max_width = equation_max_width, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
     grid.draw(gb9)
 }
 
@@ -596,24 +605,35 @@ draw_rules_peano = function(flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    if(flip) {
+        rules = p@rules@flip
+    } else {
+        rules = p@rules@rules
+    }
+    equation_max_width = max(do.call("unit.c", lapply(names(rules), function(nm) {
+        do.call("unit.c", lapply(seq_along(rules[[nm]]), function(i) {
+            convertWidth(grobWidth(grob_math(tex_pattern(nm, i,  rules[[nm]][[i]]), x = 0, y = 0)), "mm")
+        }))
+    })))
+
+    gb1 = grob_single_base_rule(p, "I", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
-    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(10, "mm")
+    gb1$children[[nc]]$width = gb1$children[[nc]]$width
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "J", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "J", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
-    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(10, "mm")
+    gb2$children[[nc]]$width = gb2$children[[nc]]$width
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "R", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
-    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(10, "mm")
+    gb3$children[[nc]]$width = gb3$children[[nc]]$width
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "L", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     nc = length(gb4$children)
-    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(10, "mm")
+    gb4$children[[nc]]$width = gb4$children[[nc]]$width
     grid.draw(gb4)
 }
 
@@ -631,49 +651,60 @@ draw_rules_meander = function(flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    if(flip) {
+        rules = p@rules@flip
+    } else {
+        rules = p@rules@rules
+    }
+    equation_max_width = max(do.call("unit.c", lapply(names(rules), function(nm) {
+        do.call("unit.c", lapply(seq_along(rules[[nm]]), function(i) {
+            convertWidth(grobWidth(grob_math(tex_pattern(nm, i,  rules[[nm]][[i]]), x = 0, y = 0)), "mm")
+        }))
+    })))
+
+    gb1 = grob_single_base_rule(p, "I", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
-    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(25, "mm")
+    gb1$children[[nc]]$width = gb1$children[[nc]]$width
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "R", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
-    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(25, "mm")
+    gb2$children[[nc]]$width = gb2$children[[nc]]$width
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "L", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
-    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(25, "mm")
+    gb3$children[[nc]]$width = gb3$children[[nc]]$width
     grid.draw(gb3)
 
-    gb4 = grob_single_base_rule(p, "U", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
+    gb4 = grob_single_base_rule(p, "U", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height - gb3$vp$height, just = c("left", "top"))
     nc = length(gb4$children)
-    gb4$children[[nc]]$width = gb4$children[[nc]]$width + unit(25, "mm")
+    gb4$children[[nc]]$width = gb4$children[[nc]]$width
     grid.draw(gb4)
 
-    gb5 = grob_single_base_rule(p, "B", flip = flip, x = size + gb1$vp$width + unit(25, "mm") + size, y = unit(1, "npc") - size, just = c("left", "top"))
+    gb5 = grob_single_base_rule(p, "B", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb5$children)
-    gb5$children[[nc]]$width = gb5$children[[nc]]$width + unit(30, "mm")
+    gb5$children[[nc]]$width = gb5$children[[nc]]$width
     grid.draw(gb5)
 
-    gb6 = grob_single_base_rule(p, "D", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
+    gb6 = grob_single_base_rule(p, "D", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height, just = c("left", "top"))
     nc = length(gb6$children)
-    gb6$children[[nc]]$width = gb6$children[[nc]]$width + unit(30, "mm")
+    gb6$children[[nc]]$width = gb6$children[[nc]]$width
     grid.draw(gb6)
 
-    gb7 = grob_single_base_rule(p, "P", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
+    gb7 = grob_single_base_rule(p, "P", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height, just = c("left", "top"))
     nc = length(gb7$children)
-    gb7$children[[nc]]$width = gb7$children[[nc]]$width + unit(30, "mm")
+    gb7$children[[nc]]$width = gb7$children[[nc]]$width
     grid.draw(gb7)
 
-    gb8 = grob_single_base_rule(p, "Q", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
+    gb8 = grob_single_base_rule(p, "Q", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height, just = c("left", "top"))
     nc = length(gb8$children)
-    gb8$children[[nc]]$width = gb8$children[[nc]]$width + unit(30, "mm")
+    gb8$children[[nc]]$width = gb8$children[[nc]]$width
     grid.draw(gb8)
 
-    gb9 = grob_single_base_rule(p, "C", flip = flip, x = size + gb1$vp$width + unit(25, "mm")+ size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
+    gb9 = grob_single_base_rule(p, "C", equation_max_width = equation_max_width, flip = flip, x = size + gb1$vp$width + size, y = unit(1, "npc") - size - gb5$vp$height - gb6$vp$height - gb7$vp$height - gb8$vp$height, just = c("left", "top"))
     nc = length(gb9$children)
-    gb9$children[[nc]]$width = gb9$children[[nc]]$width + unit(30, "mm")
+    gb9$children[[nc]]$width = gb9$children[[nc]]$width
     grid.draw(gb9)
 
 }

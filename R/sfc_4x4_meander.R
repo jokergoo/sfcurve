@@ -20,14 +20,14 @@ setClass("sfc_4x4_meander_2",
 #'      the initial rotation of the base pattern. It also supports a sequence with more than one base patterns as the seed sequence. In this case,
 #'      it can be specified as a string of more than one base letters, then `rot` can be set to a single rotation scalar which controls the rotation of the
 #'      first letter, or a vector with the same length as the number of base letters.
-#' @param code A vector of the transverse code. The left side corresponds to the lower levels of the curve and the right side corresponds to the higher level of the curve.
+#' @param code A vector of the expansion code. The left side corresponds to the higher levels (more to the top-level) of the curve and the right side corresponds to the lower level (more to the bottom-level) of the curve.
 #'      The value can be set as a vector e.g. `c(1, 2, 1)`, or as a string e.g. `"121"`, or as a number e.g. `121`.
 #' @param rot Rotation of the seed sequence, measured in the polar coordinate system, in degrees.
 #' @param flip The same setting as in [`sfc_peano()`] or [`sfc_meander()`].
 #' @param type Which type of rules to use? 1 for [`SFC_RULES_4x4_MEANDER_1`] and 2 for [`SFC_RULES_4x4_MEANDER_2`].
 #' 
 #' @details
-#' It is an extension of the 3x3 Meander curves. For simplicity, it only supports `I/R/L` base patterns.
+#' It is an extension of the 3x3 Meander curves to mode 4. For simplicity, it only supports `I/R/L` base patterns.
 #' @export
 #' @examples
 #' draw_multiple_curves(
@@ -163,19 +163,30 @@ draw_rules_4x4_meander = function(type = 1, flip = FALSE) {
 
     grid.newpage()
 
-    gb1 = grob_single_base_rule(p, "I", flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
+    if(flip) {
+        rules = p@rules@flip
+    } else {
+        rules = p@rules@rules
+    }
+    equation_max_width = max(do.call("unit.c", lapply(names(rules), function(nm) {
+        do.call("unit.c", lapply(seq_along(rules[[nm]]), function(i) {
+            convertWidth(grobWidth(grob_math(tex_pattern(nm, i,  rules[[nm]][[i]]), x = 0, y = 0)), "mm")
+        }))
+    })))
+
+    gb1 = grob_single_base_rule(p, "I", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size, just = c("left", "top"))
     nc = length(gb1$children)
-    gb1$children[[nc]]$width = gb1$children[[nc]]$width + unit(70, "mm")
+    gb1$children[[nc]]$width = gb1$children[[nc]]$width 
     grid.draw(gb1)
 
-    gb2 = grob_single_base_rule(p, "R", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
+    gb2 = grob_single_base_rule(p, "R", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height, just = c("left", "top"))
     nc = length(gb2$children)
-    gb2$children[[nc]]$width = gb2$children[[nc]]$width + unit(70, "mm")
+    gb2$children[[nc]]$width = gb2$children[[nc]]$width 
     grid.draw(gb2)
 
-    gb3 = grob_single_base_rule(p, "L", flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
+    gb3 = grob_single_base_rule(p, "L", equation_max_width = equation_max_width, flip = flip, x = size, y = unit(1, "npc") - size - gb1$vp$height - gb2$vp$height, just = c("left", "top"))
     nc = length(gb3$children)
-    gb3$children[[nc]]$width = gb3$children[[nc]]$width + unit(70, "mm")
+    gb3$children[[nc]]$width = gb3$children[[nc]]$width
     grid.draw(gb3)
 
 }

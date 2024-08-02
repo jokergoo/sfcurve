@@ -3,12 +3,14 @@
 ![](https://github.com/user-attachments/assets/7e0e14e7-1300-421f-8ffe-113b80caee97)
 
 
-This package provides a way to encode all possible forms of 2x2 and 3x3 space-filling curves.
-For example, the following eight forms correspond to the 2x2 curve on level 3 and with `R(0)` (go-right base pattern with rotation of 0 degree) as the seed.
+This package provides a way to encode all possible forms of 2x2 and 3x3
+space-filling curves. For example, the following eight forms correspond to the
+2x2 curve on level 3 and with `R(0)` (going-right base pattern with rotation
+of 0 degree) as the seed.
 
 <img src="https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369" width=700 />
 
-It also support nxn curves expanded from specific level-1 units.
+It also supports nxn curves expanded from specific level-1 units.
 
 ## Install
 

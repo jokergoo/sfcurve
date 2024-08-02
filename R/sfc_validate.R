@@ -4,13 +4,17 @@
 #' Validate the sequence
 #' @aliases sfc_validate
 #' @rdname sfc_validate
-#' @param p An `sfc_sequence` object.
+#' @param p An `sfc_sequence` object or a character string. If it is a character string, rotations are all taken as zeros.
 #' @param by One of `sfc_hilbert`, `sfc_peano` and `sfc_meander`.
 #' 
 #' @details
 #' It is mainly used to validate a seed sequence whether they follow the forward-left-right rule.
 #' 
 #' @export
+#' @examples
+#' try(sfc_validate("LLLLL"))
+#' try(sfc_validate(sfc_sequence("IIIII", rot = c(0, 90, 180, 270, 0), 
+#'         universe = sfc_universe(SFC_RULES_HILBERT))))
 setMethod("sfc_validate",
 	signature = "sfc_sequence",
 	definition = function(p, by = "sfc_hilbert") {
@@ -79,4 +83,23 @@ setMethod("sfc_validate",
 
 	return(TRUE)
 })
+
+
+#' @rdname sfc_validate
+#' @export
+setMethod("sfc_validate",
+	signature = "character",
+	definition = function(p, by = "sfc_hilbert") {
+
+	if(by == "sfc_hilbert") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_HILBERT))
+	} else if(by == "sfc_peano") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_PEANO))
+	} else if(by == "sfc_meander") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_MEANDER))
+	}
+
+	sfc_validate(p, by = by)
+})
+
 

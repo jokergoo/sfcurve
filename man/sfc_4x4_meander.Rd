@@ -18,7 +18,7 @@ the initial rotation of the base pattern. It also supports a sequence with more 
 it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scalar which controls the rotation of the
 first letter, or a vector with the same length as the number of base letters.}
 
-\item{code}{A vector of the transverse code. The left side corresponds to the lower levels of the curve and the right side corresponds to the higher level of the curve.
+\item{code}{A vector of the expansion code. The left side corresponds to the higher levels (more to the top-level) of the curve and the right side corresponds to the lower level (more to the bottom-level) of the curve.
 The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \code{"121"}, or as a number e.g. \code{121}.}
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
@@ -33,7 +33,7 @@ The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \co
 4x4 space-filling curves in meander type
 }
 \details{
-It is an extension of the 3x3 Meander curves. For simplicity, it only supports \code{I/R/L} base patterns.
+It is an extension of the 3x3 Meander curves to mode 4. For simplicity, it only supports \code{I/R/L} base patterns.
 }
 \examples{
 draw_multiple_curves(

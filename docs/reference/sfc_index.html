@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">sfcurve</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,7 @@ sfc_index(p, index = "")</code></pre></div>
 
 
 <dt>drop</dt>
-<dd><p>Ignore.</p></dd>
+<dd><p>A value of <code>TRUE</code> or <code>FALSE</code> that controls whether to keep the <code>sfc_nxn</code> class or degenerate to the <code>sfc_sequence</code> class.</p></dd>
 
 
 <dt>p</dt>
@@ -102,8 +102,9 @@ sfc_index(p, index = "")</code></pre></div>
 
 <dt>index</dt>
 <dd><p>A string of digits representing the path on the hierarchy of the curve. The left side
-corresponds to the lower level and the right side corresponds to the high level in the curve. For the
-Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.</p></dd>
+corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
+Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+Digits should be separated by non-number characters, see examples.</p></dd>
 
 </dl></div>
     <div class="section level2">
