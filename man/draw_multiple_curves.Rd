@@ -6,6 +6,7 @@
 \usage{
 draw_multiple_curves(
   ...,
+  list = NULL,
   nrow = NULL,
   ncol = NULL,
   extend = TRUE,
@@ -19,6 +20,8 @@ draw_multiple_curves(
 \arguments{
 \item{...}{A list of \code{sfc_sequence} objects or objects in its child classes, a list of \code{\link[grid:grid.grob]{grid::grob}} objects
 or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.}
+
+\item{list}{The list of curve object can also be directly specified as a list object.}
 
 \item{nrow}{Number of rows in the layout.}
 
@@ -47,14 +50,14 @@ This function is used for quick comparison on curves.
 \examples{
 # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 draw_multiple_curves(
-    sfc_hilbert("R", "111"),
-    sfc_hilbert("R", "112"),
-    sfc_hilbert("R", "121"),
-    sfc_hilbert("R", "122"),
-    sfc_hilbert("R", "211"),
-    sfc_hilbert("R", "212"),
-    sfc_hilbert("R", "221"),
-    sfc_hilbert("R", "222"),
+    sfc_2x2("R", "111"),
+    sfc_2x2("R", "112"),
+    sfc_2x2("R", "121"),
+    sfc_2x2("R", "122"),
+    sfc_2x2("R", "211"),
+    sfc_2x2("R", "212"),
+    sfc_2x2("R", "221"),
+    sfc_2x2("R", "222"),
     nrow = 2, title = TRUE)
 
 # simply a list of sequences

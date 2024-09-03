@@ -12,7 +12,7 @@
 #' A two-column matrix of the coordinates of points on the curve.
 #' @export
 #' @examples
-#' p = sfc_hilbert("I", "11")
+#' p = sfc_2x2("I", "11")
 #' loc = sfc_segments(p)
 #' plot(loc, type = "l", asp = 1)
 setMethod("sfc_segments", 

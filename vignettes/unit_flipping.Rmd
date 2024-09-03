@@ -33,7 +33,7 @@ We will use the Peano curve as an example because it is easier to identify diffe
 patterns by eyes.
 
 ```{r}
-p = sfc_peano("I", rot = 90, level = 3)
+p = sfc_3x3_peano("I", rot = 90, level = 3)
 ```
 
 ## Flip individual units
@@ -80,14 +80,14 @@ It internally applies `sfc_apply()` on the depth of `sfc_level(p)-1` (i.e. level
 
 ## Set flipping when creating the curve
 
-As has already shown in the vignette ["Generalized Peano Curve"](peano_curve.html), `sfc_peano()` accepts
+As has already shown in the vignette ["Generalized Peano Curve"](peano_curve.html), `sfc_3x3_peano()` accepts
 its argument `flip` as a self-defined function.
 
 ```{r, fig.width = 9, fig.height = 3}
-p2 = sfc_peano("I", level = 3, flip = function(p) {
+p2 = sfc_3x3_peano("I", level = 3, flip = function(p) {
     p@rot %in% c(90, 270)
 })
-p3 = sfc_peano("I", level = 3, flip = function(p) {
+p3 = sfc_3x3_peano("I", level = 3, flip = function(p) {
     n = length(p)
     l = rep(FALSE, n)
     ind = seq(1, n/3)
@@ -142,7 +142,7 @@ Only the "flip" function works when the seed is a sequence.
 
 
 ```{r, fig.width = 6, fig.height = 3}
-sfc_peano("IJ", level = 3, rot = 90, flip = function(p) {
+sfc_3x3_peano("IJ", level = 3, rot = 90, flip = function(p) {
     p@rot %in% c(90, 270)
 }) |> plot()
 ```

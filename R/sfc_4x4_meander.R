@@ -23,7 +23,7 @@ setClass("sfc_4x4_meander_2",
 #' @param code A vector of the expansion code. The left side corresponds to the higher levels (more to the top-level) of the curve and the right side corresponds to the lower level (more to the bottom-level) of the curve.
 #'      The value can be set as a vector e.g. `c(1, 2, 1)`, or as a string e.g. `"121"`, or as a number e.g. `121`.
 #' @param rot Rotation of the seed sequence, measured in the polar coordinate system, in degrees.
-#' @param flip The same setting as in [`sfc_peano()`] or [`sfc_meander()`].
+#' @param flip The same setting as in [`sfc_3x3_peano()`] or [`sfc_3x3_meander()`].
 #' @param type Which type of rules to use? 1 for [`SFC_RULES_4x4_MEANDER_1`] and 2 for [`SFC_RULES_4x4_MEANDER_2`].
 #' 
 #' @details
@@ -104,6 +104,9 @@ setAs("sfc_sequence", "sfc_4x4_meander_1", function(from) {
 	p = new("sfc_4x4_meander_1")
 	p@seq = from@seq
 	levels(p@seq) = sfc_universe(SFC_RULES_4x4_MEANDER_1)
+	if(any(is.na(p@seq))) {
+		stop_wrap("Base letters should all be in `sfc_universe(SFC_RULES_4x4_MEANDER_1)`.")
+	}
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_4x4_MEANDER_1)
 	p@level = 0L
@@ -117,6 +120,9 @@ setAs("sfc_sequence", "sfc_4x4_meander_2", function(from) {
 	p = new("sfc_4x4_meander_2")
 	p@seq = from@seq
 	levels(p@seq) = sfc_universe(SFC_RULES_4x4_MEANDER_2)
+	if(any(is.na(p@seq))) {
+		stop_wrap("Base letters should all be in `sfc_universe(SFC_RULES_4x4_MEANDER_2)`.")
+	}
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_4x4_MEANDER_2)
 	p@level = 0L

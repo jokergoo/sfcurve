@@ -1,5 +1,5 @@
 ---
-title: "Generalized Peano Curve"
+title: "3x3 Peano Curve"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 
@@ -31,7 +31,7 @@ library(sfcurve)
 There are the following expansion rules from level 0 to level 1 for the Peanno curve. Note all these level 1 units are vertical.
 
 ```{r, fig.width = 4.5, fig.height = 4.3}
-draw_rules_peano()
+draw_rules_3x3_peano()
 ```
 
 `I` and `J` are the same on level-0 (i.e. going forward), but they correspond to different
@@ -41,14 +41,14 @@ patterns on level-1 as we only allow a pattern to rotate, but not to flip. Also 
 Unlike the Hilbert curve where there are more than one transverse path, there is only one transverse path for each level k.
 
 ```{r, fig.width = 6.5, fig.height = 2}
-plot_transverse_paths(SFC_RULES_PEANO, SFC_RULES_PEANO@rules$I[[1]])
+plot_transverse_paths(SFC_RULES_3x3_PEANO, SFC_RULES_3x3_PEANO@rules$I[[1]])
 ```
 
 This makes the expansion code on each level of a Peano curve is always 1.
 For the Peano curve, we can simpliy specify the number of the level.
 
 ```{r}
-p = sfc_peano("I", level = 3)
+p = sfc_3x3_peano("I", level = 3)
 # the same as sfc_peano("I", code = "111"), but 1 is only allowed
 plot(p)
 ```
@@ -60,7 +60,7 @@ the curve. Then we can have a flipped version of the original expansion rules
 where all level-1 units are horizontal:
 
 ```{r, fig.width = 4.5, fig.height = 4.3}
-draw_rules_peano(flip = TRUE)
+draw_rules_3x3_peano(flip = TRUE)
 ```
 
 Then, for example, when expanding $I^{(0)}$ to $I^{(1)} = RI^{(270)}L^{(270)}LJ^{(90)}R^{(90)}RI^{(270)}L^{(270)}$,
@@ -126,7 +126,7 @@ a family of Peano curves which repeat certain flipping patterns recursively.
 We can set a global flipping rule on every level expansion.
 
 ```{r}
-sfc_peano("I", level = 3, 
+sfc_3x3_peano("I", level = 3, 
     flip = c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE)) |> plot()
 
 ```
@@ -171,7 +171,7 @@ we replace it with the flipped version. The self-defined function `flip()` accep
 adjusting to the standard Peano curve can be easily done by:
 
 ```{r}
-sfc_peano("I", level = 4, flip = function(p) {
+sfc_3x3_peano("I", level = 4, flip = function(p) {
     p@rot %in% c(90, 270)
 }) |> plot(lwd = 1)
 ```
@@ -182,7 +182,7 @@ it is applied to level `sfc_level(p)-1`). The self-defined function accepts one 
 `x` which is the current unit.
 
 ```{r}
-p = sfc_peano("I", level = 4)
+p = sfc_3x3_peano("I", level = 4)
 sfc_apply(p, sfc_level(p)-1, function(u) {
     if(level1_unit_orientation(u) == "horizontal") {
         sfc_flip_unit(u)
@@ -203,14 +203,14 @@ but for the next two methods, the vertical pattern is only applied on level-1 wh
 of structures.
 
 ```{r}
-p = sfc_peano("I", rot = 90, level = 4)
+p = sfc_3x3_peano("I", rot = 90, level = 4)
 change_level1_unit_orientation(p, to = "vertical") |> plot(lwd = 1)
 ```
 
 And for the horizontal case:
 
 ```{r}
-p = sfc_peano("I", rot = 90, level = 4)
+p = sfc_3x3_peano("I", rot = 90, level = 4)
 change_level1_unit_orientation(p, to = "horizontal") |> plot(lwd = 1)
 ```
 
@@ -222,11 +222,11 @@ Unit flipping is a powerful way for adjusting curves. We will get to deeper expl
 Beside using a single base letter as the seed, a sequence can be used as the seed as well.
 
 ```{r, fig.width = 3, fig.height = 3}
-seed = sfc_sequence("IJILJILJILJI", rot = -90, universe = sfc_universe(SFC_RULES_PEANO))
+seed = sfc_sequence("IJILJILJILJI", rot = -90, universe = sfc_universe(SFC_RULES_3x3_PEANO))
 plot(seed, grid = TRUE)
 ```
 
 ```{r, fig.width = 6, fig.height = 6}
-sfc_peano(seed, level = 3) |> plot(lwd = 2)
+sfc_3x3_peano(seed, level = 3) |> plot(lwd = 2)
 ```
 

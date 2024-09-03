@@ -39,13 +39,13 @@ setMethod("sfc_grob",
 	
 	r = (diff(rgx) + 1)/(diff(rgy) + 1)
 
-	vp = viewport(name = "vp_sfc_sequence", xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
+	vp = viewport(name = "vp_sfc_sequence", xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), gp = gpar(lineend = "square", linejoin = "mitre"), ...)
 
 	gbl = list()
 
 	if(n > 1) {
 		if(is.null(col)) {
-			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#E0C785", "#E2E2AB", "#CDD993", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
 			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = lwd))
 		} else {
 			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col, lwd = lwd))
@@ -65,7 +65,7 @@ setMethod("sfc_grob",
 			gbl[[2]] = pointsGrob(loc[1, 1], loc[1, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
 		} else {
 			prev = sfc_previous_point(b, loc[1, ], rot[1], length = 0.6)
-			gbl[[2]] = segmentsGrob(prev[1], prev[2], 0, 0, default.units = "native", gp = gpar(col = "grey", lwd = 2))
+			gbl[[2]] = segmentsGrob(prev[1], prev[2], 0, 0, default.units = "native", gp = gpar(col = "grey", lwd = lwd))
 		}
 
 		b = bases[[ seq[n] ]]
@@ -74,7 +74,7 @@ setMethod("sfc_grob",
 			gbl[[3]] = pointsGrob(loc[n, 1], loc[n, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
 		} else {
 			last = sfc_next_point(b, loc[n, ], rot[n], length = 0.6)
-			gbl[[3]] = segmentsGrob(loc[n, 1], loc[n, 2], last[1], last[2], default.units = "native", gp = gpar(col = "grey", lwd = 2), arrow = arrow(length = unit(0.2, "native"), angle = 15))
+			gbl[[3]] = segmentsGrob(loc[n, 1], loc[n, 2], last[1], last[2], default.units = "native", gp = gpar(col = "grey", lwd = lwd), arrow = arrow(length = unit(0.2, "native"), angle = 15))
 		}
 
 		gbl = gbl[c(2, 3, 1)]
@@ -86,11 +86,11 @@ setMethod("sfc_grob",
 				seed = p@seed
 				pt = paste0("paste(", paste("italic(", seed@seq[1], ")^", seed@rot[1], sep = "", collapse = ","), ")")
 				pt = paste0("paste(", pt, ", symbol('|'), ", paste(p@expansion, collapse = ""), ")")
-				gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10, fontfamily = "Times"))
+				gbl[[ length(gbl) + 1 ]] = textGrob(parse(text = pt), x = unit(mean(rgx), "native"), y = unit(rgy[2]-0.25, "native"), gp = gpar(fontsize = 12, fontfamily = "Times"))
 			}
 		}
 	} else {
-		gbl[[ length(gbl) + 1 ]] = textGrob(title, x = unit(mean(rgx), "native"), y = unit(rgy[2], "native") - unit(1, "native") + unit(4, "pt"), just = "bottom", gp = gpar(fontsize = 10))
+		gbl[[ length(gbl) + 1 ]] = textGrob(title, x = unit(mean(rgx), "native"), y = unit(rgy[2]-0.25, "native"), gp = gpar(fontsize = 12))
 	}
 
 	args = gbl
@@ -105,8 +105,8 @@ setMethod("sfc_grob",
 #' @export
 #' @rdname sfc_grob
 #' @examples
-#' plot(sfc_hilbert("I", "11"))
-#' plot(sfc_hilbert("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
+#' plot(sfc_2x2("I", "11"))
+#' plot(sfc_2x2("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
 #' plot(sfc_sequence("IIIRRR"))
 plot.sfc_sequence = function(x, bases = NULL, grid = FALSE, 
 	extend = FALSE, title = FALSE, closed = FALSE, ...) {
@@ -205,13 +205,13 @@ setMethod("sfc_grob",
 	
 	r = (diff(rgx) + 1)/(diff(rgy) + 1)
 
-	vp = viewport(xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), ...)
+	vp = viewport(xscale = rgx, yscale = rgy, width = unit(r, "snpc"), height = unit(1, "snpc"), gp = gpar(lineend = "square", linejoin = "mitre"), ...)
 
 	gbl = list()
 
 	if(n > 1) {
 		if(is.null(col)) {
-			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#FEE08B", "#FFFFBF", "#E6F598", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
+			col_fun = colorRamp2(seq(1, n, length = 11), c("#9E0142", "#D53E4F", "#F46D43", "#FDAE61", "#E0C785", "#E2E2AB", "#CDD993", "#ABDDA4", "#66C2A5", "#3288BD", "#5E4FA2"))
 			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col_fun(1:(n-1)), lwd = lwd))
 		} else {
 			gbl[[1]] = segmentsGrob(loc[1:(n-1), 1], loc[1:(n-1), 2], loc[2:n, 1], loc[2:n, 2], default.units = "native", gp = gpar(col = col, lwd = lwd))

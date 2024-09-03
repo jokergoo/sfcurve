@@ -43,6 +43,9 @@
     <loc>/articles/peano_curve.html</loc>
   </url>
   <url>
+    <loc>/articles/sfc_2x2.html</loc>
+  </url>
+  <url>
     <loc>/articles/sfcurve.html</loc>
   </url>
   <url>
@@ -146,6 +149,9 @@
   </url>
   <url>
     <loc>/reference/sfc_sequence.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sfc_shape.html</loc>
   </url>
   <url>
     <loc>/reference/sfc_transformation.html</loc>

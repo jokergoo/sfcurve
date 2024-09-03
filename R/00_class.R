@@ -32,15 +32,15 @@ setClass("sfc_nxn",
 		      "n" = "integer"),
 	contains = "sfc_sequence")
 
-setClass("sfc_hilbert",
+setClass("sfc_2x2",
 	contains = "sfc_nxn",
 	prototype = list(n = 2L))
 
-setClass("sfc_peano",
+setClass("sfc_3x3_peano",
 	contains = "sfc_nxn",
 	prototype = list(n = 3L))
 
-setClass("sfc_meander",
+setClass("sfc_3x3_meander",
 	contains = "sfc_nxn",
 	prototype = list(n = 3L))
 
@@ -54,6 +54,7 @@ setGeneric('sfc_vflip', function(p, ...) standardGeneric('sfc_vflip'))
 setGeneric('sfc_dflip', function(p, ...) standardGeneric('sfc_dflip'))
 setGeneric('sfc_reverse', function(p, ...) standardGeneric('sfc_reverse'))
 setGeneric('sfc_segments', function(p, ...) standardGeneric('sfc_segments'))
+setGeneric('sfc_shape', function(p, ...) standardGeneric('sfc_shape'))
 setGeneric('sfc_vaidate', function(p, ...) standardGeneric('sfc_vaidate'))
 setGeneric('sfc_to_base', function(p, ...) standardGeneric('sfc_to_base'))
 setGeneric('sfc_level', function(p, ...) standardGeneric('sfc_level'))

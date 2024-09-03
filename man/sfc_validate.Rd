@@ -6,14 +6,14 @@
 \alias{sfc_validate,character-method}
 \title{Validate the sequence}
 \usage{
-\S4method{sfc_validate}{sfc_sequence}(p, by = "sfc_hilbert")
+\S4method{sfc_validate}{sfc_sequence}(p, by = "sfc_2x2")
 
-\S4method{sfc_validate}{character}(p, by = "sfc_hilbert")
+\S4method{sfc_validate}{character}(p, by = "sfc_2x2")
 }
 \arguments{
 \item{p}{An \code{sfc_sequence} object or a character string. If it is a character string, rotations are all taken as zeros.}
 
-\item{by}{One of \code{sfc_hilbert}, \code{sfc_peano} and \code{sfc_meander}.}
+\item{by}{One of \code{sfc_2x2}, \code{sfc_3x3_peano} and \code{sfc_3x3_meander}.}
 }
 \description{
 Validate the sequence
@@ -24,5 +24,5 @@ It is mainly used to validate a seed sequence whether they follow the forward-le
 \examples{
 try(sfc_validate("LLLLL"))
 try(sfc_validate(sfc_sequence("IIIII", rot = c(0, 90, 180, 270, 0), 
-        universe = sfc_universe(SFC_RULES_HILBERT))))
+        universe = sfc_universe(SFC_RULES_2x2))))
 }

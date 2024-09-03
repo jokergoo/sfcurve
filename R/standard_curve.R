@@ -6,7 +6,7 @@
 #' @param by Which implementation? Only for the testing purpose.
 #' 
 #' @details
-#' These are just special forms of [`sfc_hilbert()`], [`sfc_peano()`], [`sfc_meander()`] and [`sfc_h()`].
+#' These are just special forms of [`sfc_2x2()`], [`sfc_3x3_peano()`], [`sfc_3x3_meander()`] and [`sfc_h()`].
 #' @return
 #' A two-column matrix of the coordinates of points on the curve.
 #' @export
@@ -22,7 +22,7 @@ hilbert_curve = function(level = 2L, by = "Cpp") {
 		lt = hilbert_curve_cpp(level)
 		cbind(lt[[1]], lt[[2]])
 	} else {
-		p = sfc_hilbert("R", code = rep(1, level))
+		p = sfc_2x2("R", code = rep(1, level))
 		sfc_segments(p)
 	}
 }
@@ -37,9 +37,9 @@ hilbert_curve = function(level = 2L, by = "Cpp") {
 #' )
 moore_curve = function(level = 2L) {
 	
-	code = rep(1, level)
-	code[1] = 2
-	p = sfc_hilbert("C", code = code, rot = 90)
+	code = rep(2, level)
+	code[1] = 1
+	p = sfc_2x2("U", code = code)
 	sfc_segments(p)
 	
 }
@@ -55,16 +55,15 @@ moore_curve = function(level = 2L) {
 beta_omega_curve = function(level = 2L) {
 	
 	if(level %% 2 == 1) {
-		level = level + 1
-		code = rep(c(2, 1), times = level/2L)
-		code = code[-1]
+		code = rep(c(1L, 2L), times = (level-1)/2L)
+		code = c(2L, code)
 	} else {
-		code = rep(c(2, 1), times = level/2L)
+		code = rep(c(1L, 2L), times = level/2L - 1)
+		code = c(2L, code, 1L)
 	}
 
-	p = sfc_hilbert("C", code = code, rot = -90)
+	p = sfc_2x2("C", code = code)
 	sfc_segments(p)
-	
 }
 
 #' @rdname standard_curve
@@ -109,7 +108,7 @@ peano_curve = function(level = 2L, pattern = "vvvvvvvvv", by = "Cpp") {
 		bp = "I"
 		l_v = pattern == "v"
 		l_h = pattern == "h"
-		p = sfc_peano(bp, code = rep(1, level), rot = 0, flip = function(p) {
+		p = sfc_3x3_peano(bp, code = rep(1, level), rot = 0, flip = function(p) {
 			if(sfc_level(p) > 0) {
 				n = length(p)
 				l = rep(FALSE, n)
@@ -165,7 +164,7 @@ meander_curve = function(level = 2L, pattern = "fffffffff") {
 
 	l_f = pattern == "f"
 	l_b = pattern == "b"
-	p = sfc_meander(bp, code = rep(1, level), rot = 0, flip = function(p) {
+	p = sfc_3x3_meander(bp, code = rep(1, level), rot = 0, flip = function(p) {
 		if(sfc_level(p) > 0) {
 			n = length(p)
 			l = rep(FALSE, n)

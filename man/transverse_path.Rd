@@ -44,14 +44,14 @@ plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
 plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 
 # Hilbert curve
-p = sfc_hilbert("I", 11)
-plot_transverse_paths(SFC_RULES_HILBERT, p)
+p = sfc_2x2("I", 11)
+plot_transverse_paths(SFC_RULES_2x2, p)
 
 # Peano curve
-p = sfc_peano("I", 1)
-plot_transverse_paths(SFC_RULES_PEANO, p)
+p = sfc_3x3_peano("I", 1)
+plot_transverse_paths(SFC_RULES_3x3_PEANO, p)
 
 # Meander curve
-p = sfc_meander("I", 1)
-plot_transverse_paths(SFC_RULES_MEANDER, p)
+p = sfc_3x3_meander("I", 1)
+plot_transverse_paths(SFC_RULES_3x3_MEANDER, p)
 }

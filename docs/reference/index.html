@@ -21,12 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -82,7 +82,7 @@
         <dd>Draw multiple curves</dd>
       </dl><dl><dt>
           
-          <code><a href="draw_rules.html">draw_rules_hilbert()</a></code> <code><a href="draw_rules.html">draw_rules_peano()</a></code> <code><a href="draw_rules.html">draw_rules_meander()</a></code> 
+          <code><a href="draw_rules.html">draw_rules_2x2()</a></code> <code><a href="draw_rules.html">draw_rules_3x3_peano()</a></code> <code><a href="draw_rules.html">draw_rules_3x3_meander()</a></code> 
         </dt>
         <dd>Draw the expansion rules</dd>
       </dl><dl><dt>
@@ -102,7 +102,7 @@
         <dd>Three dimensional Hilbert curve</dd>
       </dl><dl><dt>
           
-          <code><a href="level1_unit.html">level1_unit_orientation(<i>&lt;sfc_peano&gt;</i>)</a></code> <code><a href="level1_unit.html">change_level1_unit_orientation(<i>&lt;sfc_peano&gt;</i>)</a></code> 
+          <code><a href="level1_unit_orientation.html">level1_unit_orientation(<i>&lt;sfc_3x3_peano&gt;</i>)</a></code> <code><a href="level1_unit_orientation.html">change_level1_unit_orientation(<i>&lt;sfc_3x3_peano&gt;</i>)</a></code> 
         </dt>
         <dd>Level-1 unit in the Peano curve</dd>
       </dl><dl><dt>
@@ -112,7 +112,7 @@
         <dd>Plot segments</dd>
       </dl><dl><dt>
           
-          <code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_1</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_2</a></code> 
+          <code><a href="pre_defined_rules.html">SFC_RULES_2x2</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_PEANO</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_MEANDER</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_1</a></code> <code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_2</a></code> 
         </dt>
         <dd>Rules</dd>
       </dl><dl><dt>
@@ -137,7 +137,7 @@
         <dd>Constructor of the sfc_base class</dd>
       </dl><dl><dt>
           
-          <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_hilbert&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_peano&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_meander&gt;</i>)</a></code> 
+          <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_2x2&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_3x3_peano&gt;</i>)</a></code> <code><a href="sfc_expand.html">sfc_expand(<i>&lt;sfc_3x3_meander&gt;</i>)</a></code> 
         </dt>
         <dd>Expand the curve to the next level</dd>
       </dl><dl><dt>
@@ -207,6 +207,11 @@
         <dd>Constructor of the sfc_sequence class</dd>
       </dl><dl><dt>
           
+          <code><a href="sfc_shape.html">sfc_shape(<i>&lt;sfc_2x2&gt;</i>)</a></code> <code><a href="sfc_shape.html">all_2x2_shapes()</a></code> 
+        </dt>
+        <dd>Shape of the curve</dd>
+      </dl><dl><dt>
+          
           <code><a href="sfc_transformation.html">sfc_rotate(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">`^`(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">sfc_hflip(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">sfc_vflip(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">sfc_dflip(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">sfc_reverse(<i>&lt;sfc_sequence&gt;</i>)</a></code> <code><a href="sfc_transformation.html">rev(<i>&lt;sfc_sequence&gt;</i>)</a></code> 
         </dt>
         <dd>Transformations of a sequence</dd>
@@ -227,7 +232,7 @@
         <dd>Print the object</dd>
       </dl><dl><dt>
           
-          <code><a href="spacefilling.html">sfc_hilbert()</a></code> <code><a href="spacefilling.html">sfc_peano()</a></code> <code><a href="spacefilling.html">sfc_meander()</a></code> 
+          <code><a href="spacefilling.html">sfc_2x2()</a></code> <code><a href="spacefilling.html">sfc_3x3_peano()</a></code> <code><a href="spacefilling.html">sfc_3x3_meander()</a></code> 
         </dt>
         <dd>Create space-filling curves</dd>
       </dl><dl><dt>

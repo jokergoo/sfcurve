@@ -1,5 +1,5 @@
 ---
-title: "Generalized Hilbert Curve"
+title: "2x2 space-Filling Curve"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 
@@ -98,7 +98,7 @@ and its in-direction and out-direction.
 
 
 ```{r, fig.width = 7.7, fig.height = 4.3, out.width = "100%"}
-draw_rules_hilbert()
+draw_rules_2x2()
 ```
 
 For example, base pattern $I$ is on level 0, explicitly denoted as $I^{(0)}$. When it 
@@ -359,7 +359,7 @@ Finally, the sequence of the transverse code for each base unit in the expansion
 the two different transverse paths of the $R_1$ 2x2 unit, determined by the expansion code of the first base pattern:
 
 ```{r, fig.width = 6, fig.height = 2.5}
-plot_transverse_paths(SFC_RULES_HILBERT, SFC_RULES_HILBERT@rules$R[[1]])
+plot_transverse_paths(SFC_RULES_2x2, SFC_RULES_2x2@rules$R[[1]])
 ```
 
 The two transverse paths can be written as:
@@ -388,17 +388,17 @@ Taking $R$ as the initial seed, the size of the full set of level-3 curves are 8
 
 Note the orientation of $R$ is bottom in and right out.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.width = 8, fig.height = 4.2}
 draw_multiple_curves(
-	sfc_hilbert("R", code = "111"),
-	sfc_hilbert("R", code = "112"),
-	sfc_hilbert("R", code = "121"),
-	sfc_hilbert("R", code = "122"),
-	sfc_hilbert("R", code = "211"),
-	sfc_hilbert("R", code = "212"),
-	sfc_hilbert("R", code = "221"),
-	sfc_hilbert("R", code = "222"),
-	nrow = 2)
+	sfc_2x2("R", code = "111"),
+	sfc_2x2("R", code = "112"),
+	sfc_2x2("R", code = "121"),
+	sfc_2x2("R", code = "122"),
+	sfc_2x2("R", code = "211"),
+	sfc_2x2("R", code = "212"),
+	sfc_2x2("R", code = "221"),
+	sfc_2x2("R", code = "222"),
+	nrow = 2, title = TRUE)
 ```
 
 
@@ -407,7 +407,7 @@ curve is fully determined. Then we can describe a $2^k \times 2^k$ curve
 denoted as $\mathcal{C}_k$ as:
 
 $$
-\mathcal{C}_k := X^{(0)}|\pi_1 \pi_2 ... \pi_k \quad \pi_i \in \{1, 2\}
+\mathcal{C}_k := X^{(0),\theta}|\pi_1 \pi_2 ... \pi_k \quad \pi_i \in \{1, 2\},\theta \in \{0,90,180,270\}
 $$
 
 where in the expansion code sequence, if the code is more to the left, it corresponds more to the top-level of the curve,
@@ -438,9 +438,9 @@ special expansion code sequences and seed base patterns.
 
 
 ```{r, fig.width = 6, fig.height = 2.5}
-p1 = sfc_hilbert("I", code =  "111", rot = -90)
-p2 = sfc_hilbert("U", code =  "211", rot = 180)
-p3 = sfc_hilbert("C", code = "2121", rot = -90)
+p1 = sfc_2x2("I", code =  "111", rot = -90)
+p2 = sfc_2x2("U", code =  "211", rot = 180)
+p3 = sfc_2x2("C", code = "2121", rot = -90)
 
 draw_multiple_curves(p1, p2, p3,
   title = c("Hilbert", "Moore", "Beta-Omega"))
@@ -457,8 +457,8 @@ is the most observable unit in the curve. If we define the following shape as th
 
 ```{r, fig.width = 4, fig.height = 2}
 draw_multiple_curves(
-    sfc_hilbert("R", "11"), 
-    sfc_hilbert("R", "22"), 
+    sfc_2x2("R", "11"), 
+    sfc_2x2("R", "22"), 
     extend = FALSE)
 ```
 
@@ -474,8 +474,8 @@ We can also define the $\beta$ unit and the $\Omega$ unit as the following two:
 
 ```{r, fig.width = 4, fig.height = 2}
 draw_multiple_curves(
-	sfc_hilbert("L", "21"),
-	sfc_hilbert("I", "12", rot = -90)
+	sfc_2x2("L", "21"),
+	sfc_2x2("I", "12", rot = -90)
 )
 ```
 
@@ -508,7 +508,7 @@ and expand the curve k-1 times, written as:
 $$
 \begin{align*}
 \mathcal{C}_k &= (X^{(0)}|\pi_1) | \pi_2 ... \pi_k \\
-              &=  X^{(1)_{<\pi_1>} | \pi_2 ... \pi_k
+              &=  X^{(1)}_{<\pi_1>} | \pi_2 ... \pi_k \\
 \end{align*}
 $$
 
@@ -535,12 +535,12 @@ The following example corresponds to the sequence $R|1212$.
 ```{r, fig.width= 12, fig.height = 2.5}
 initial = sfc_seed("R")
 draw_multiple_curves(
-	sfc_hilbert(initial, "1212"),
-	sfc_hilbert(sfc_hilbert(initial, "1"), "212"),
-	sfc_hilbert(sfc_hilbert(initial, "12"), "12"),
-	sfc_hilbert(sfc_hilbert(initial, "121"), "2"),
-	sfc_hilbert(sfc_hilbert(initial, "1212"), NULL),
-	sfc_hilbert(sfc_hilbert(sfc_hilbert(sfc_hilbert(initial, "1"), "2"), "1"), "2"),
+	sfc_2x2(initial, "1212"),
+	sfc_2x2(sfc_2x2(initial, "1"), "212"),
+	sfc_2x2(sfc_2x2(initial, "12"), "12"),
+	sfc_2x2(sfc_2x2(initial, "121"), "2"),
+	sfc_2x2(sfc_2x2(initial, "1212"), NULL),
+	sfc_2x2(sfc_2x2(sfc_2x2(sfc_2x2(initial, "1"), "2"), "1"), "2"),
     nrow = 1
 )
 ```
@@ -577,22 +577,22 @@ $$
 Next examples show the level 0-3 of the 4x4 expansions:
 
 ```{r, fig.width = 9, fig.height = 6}
-initial = sfc_hilbert("R")
+initial = sfc_2x2("R")
 sfc_4x4 = function(initial, code) {
 	map = c("1" = "11", "2" = "12", "3" = "21", "4" = "22")
 	code = strsplit(code, "")[[1]]
 	code2 = paste(map[code], collapse = "")
-	sfc_hilbert(initial, code2)
+	sfc_2x2(initial, code2)
 }
 draw_multiple_curves(
-	initial, grob(), grob(), grob(),
-	sfc_4x4(initial, "1"),
+    initial, grob(), grob(), grob(),
+    sfc_4x4(initial, "1"),
     sfc_4x4(initial, "2"),
-	sfc_4x4(initial, "3"),
+    sfc_4x4(initial, "3"),
     sfc_4x4(initial, "4"),
-	sfc_4x4(initial, "11"),
+    sfc_4x4(initial, "11"),
     sfc_4x4(initial, "12"),
-	sfc_4x4(initial, "23"),
+    sfc_4x4(initial, "23"),
     sfc_4x4(initial, "34"),
     nrow = 3
 )
@@ -609,21 +609,21 @@ In the following example, the global structure is $I^{90}RL$, horizonal staring 
 left, go straight, then turn right and turn left. We can expand it in the normal way.
 
 ```{r, fig.width = 4, fig.height = 4}
-p = sfc_hilbert("IRL", code = c(1, 1, 1, 1), rot = 90)
+p = sfc_2x2("IRL", code = c(1, 1, 1, 1), rot = 90)
 plot(p)
 ```
 
 A spiral seed sequence:
 
 ```{r, fig.width = 2, fig.height = 2}
-p = sfc_seed("LLLILILIILIILIIILIIILIIII", universe = sfc_universe(SFC_RULES_HILBERT))
-plot(p, grid = TRUE)
+p = sfc_seed("LLLILILIILIILIIILIIILIIII", universe = sfc_universe(SFC_RULES_2x2))
+plot(p, grid = TRUE, extend = TRUE)
 ```
 
 Expand the spiral with 2x2 curves:
 
 ```{r, fig.width = 5, fig.height = 5}
-p2 = sfc_hilbert(p, code = c(1, 1, 1, 1))
+p2 = sfc_2x2(p, code = c(1, 1, 1, 1))
 plot(p2)
 ```
 
@@ -636,7 +636,7 @@ Note the initiali squence can only be consturcted by "straight", "lef" and "righ
 
 
 ```{r, fig.width = 10, fig.height = 1}
-p = sfc_hilbert("IIIIIIIIII", code = "11111", rot = 90)
+p = sfc_2x2("IIIIIIIIII", code = "11111", rot = 90)
 plot(p)
 ```
 
@@ -646,7 +646,7 @@ plot(p)
 A curve is essentially a sequence which can be subsetted:
 
 ```{r, fig.width = 4, fig.height = 4}
-p = sfc_hilbert("R", "11111")
+p = sfc_2x2("R", "11111")
 length(p)
 plot(p[200:400])
 p[200:400]
@@ -845,21 +845,21 @@ in other vignettes.
 
 
 ```{r, fig.width = 8, fig.height = 8/3}
-p = sfc_meander("R", 2, rot = -90)
+p = sfc_3x3_meander("R", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_hflip(p), 
     sfc_hflip(p, fix_ends = TRUE), 
     nrow = 1)
 
-p = sfc_meander("L", 2, rot = -90)
+p = sfc_3x3_meander("L", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_vflip(p), 
     sfc_vflip(p, fix_ends = TRUE), 
     nrow = 1)
 
-p = sfc_peano("I", 2)
+p = sfc_3x3_peano("I", 2)
 draw_multiple_curves(
     p, 
     sfc_dflip(p, 1), 
@@ -874,7 +874,7 @@ We can make e.g. circular transformation of the original coordinates:
 
 
 ```{r, fig.width = 8, fig.height = 8}
-p = sfc_hilbert("IIIIIIIIII", "11111", rot = 90)
+p = sfc_2x2("IIIIIIIIII", "11111", rot = 90)
 loc = sfc_segments(p)
 n = nrow(loc)
 library(circlize)
@@ -890,7 +890,7 @@ circos.clear()
 Or in a spiral layout:
 
 ```{r, fig.width = 8, fig.height = 8}
-p = sfc_hilbert(strrep("I", 30), "11111", rot = 90)
+p = sfc_2x2(strrep("I", 30), "11111", rot = 90)
 loc = sfc_segments(p)
 n = nrow(loc)
 col_fun = colorRamp2(seq(1, n, length = 11), RColorBrewer::brewer.pal(11, "Spectral"))

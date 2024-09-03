@@ -47,7 +47,7 @@ curve only allows flipping horizontally or vertically. The type of flipping is c
 Currently, \code{sfc_flip_unit()} only works on curves with a single base pattern as the seed.
 }
 \examples{
-p = sfc_meander("I", 11)
+p = sfc_3x3_meander("I", 11)
 draw_multiple_curves(
     p, 
     sfc_flip_unit(p, "1"), # bottom left
@@ -55,7 +55,7 @@ draw_multiple_curves(
     sfc_flip_unit(p, "3"), # bottom right
     nrow = 2)
 
-p = sfc_peano("I", level = 3)
+p = sfc_3x3_peano("I", level = 3)
 draw_multiple_curves(
     p, 
     sfc_flip_unit(p, ""),
@@ -63,7 +63,7 @@ draw_multiple_curves(
     sfc_flip_unit(p, "2:1"),
     nrow = 2)
 
-p = sfc_peano("I", level = 2)
+p = sfc_3x3_peano("I", level = 2)
 draw_multiple_curves(p, 
     sfc_flip_unit(p, c("4", "7")),
     sfc_flip_unit(p, c("1", "2", "3", "5", "6", "8", "9")),

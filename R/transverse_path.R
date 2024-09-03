@@ -155,16 +155,16 @@ get_one_transverse_path = function(rules, p) {
 #' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 #' 
 #' # Hilbert curve
-#' p = sfc_hilbert("I", 11)
-#' plot_transverse_paths(SFC_RULES_HILBERT, p)
+#' p = sfc_2x2("I", 11)
+#' plot_transverse_paths(SFC_RULES_2x2, p)
 #' 
 #' # Peano curve
-#' p = sfc_peano("I", 1)
-#' plot_transverse_paths(SFC_RULES_PEANO, p)
+#' p = sfc_3x3_peano("I", 1)
+#' plot_transverse_paths(SFC_RULES_3x3_PEANO, p)
 #' 
 #' # Meander curve
-#' p = sfc_meander("I", 1)
-#' plot_transverse_paths(SFC_RULES_MEANDER, p)
+#' p = sfc_3x3_meander("I", 1)
+#' plot_transverse_paths(SFC_RULES_3x3_MEANDER, p)
 plot_transverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
@@ -184,7 +184,10 @@ plot_transverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
     pushViewport(viewport(xscale = c(1, max(2, n)), yscale = c(1, max(2, maxr)), x = unit(25, "mm"), width = unit(1, "npc") - unit(40, "mm"), y = unit(25, "mm"), height = unit(1, "npc") - unit(35, "mm"), just = c("left", "bottom")))
     grid.text(1:maxr, unit(1, "native") - unit(10, "mm"), seq(1, maxr), default.units = "native", gp = gpar(fontsize = 10))
     grid.text("Expansion code", unit(1, "native") - unit(18, "mm"), (1+maxr)/2, default.units = "native", rot = 90)
-    grid.text(paste0(seq, "(", rot, ")"), 1:n, unit(1, "native") - unit(14, "mm"), default.units = "native", gp = gpar(fontsize = 10))
+    # grid.text(paste0(seq, "(", rot, ")"), 1:n, unit(1, "native") - unit(14, "mm"), default.units = "native", gp = gpar(fontsize = 10))
+    for(i in 1:n) {
+        grid.draw(grob_math(paste0("italic(", seq[i], ")^", rot[i]), i, unit(1, "native") - unit(14, "mm"), default.units = "native", gp = gpar(fontsize = 12)))
+    }
     
     type = match.arg(type)
     l2 = lapply(paths, function(path) {

@@ -32,7 +32,7 @@ For the \code{sfc_segments()} on the \code{sfc_sequence} object, if \code{bases}
 it uses \code{\link{BASE_LIST}} internally. Make sure the sequence only contains the pre-defined base patterns.
 }
 \examples{
-p = sfc_hilbert("I", "11")
+p = sfc_2x2("I", "11")
 loc = sfc_segments(p)
 plot(loc, type = "l", asp = 1)
 }

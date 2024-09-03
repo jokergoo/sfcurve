@@ -7,7 +7,7 @@
 #' @param drop A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
 #' @export
 #' @examples
-#' p = sfc_hilbert("I", "11111")
+#' p = sfc_2x2("I", "11111")
 #' p["3:2:1"]
 #' p["3:2:1", TRUE]
 `[.sfc_nxn` = function(x, i, j, ..., drop = TRUE) {
@@ -87,7 +87,7 @@ get_index_from_nxn = function(index, level, n) {
 #' `sfc_index()` only works on square curves (i.e. a curve with a single base letter as seed.)
 #' @examples
 #' # only for testing
-#' p = sfc_hilbert("I", "11111")
+#' p = sfc_2x2("I", "11111")
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
 #' sfcurve:::test_sfc_index(p, "3")
@@ -96,7 +96,7 @@ get_index_from_nxn = function(index, level, n) {
 #' sfcurve:::test_sfc_index(p, "3:2:1:1")
 #' par(om)
 #' 
-#' p = sfc_meander("I", "11111")
+#' p = sfc_3x3_meander("I", "11111")
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
 #' sfcurve:::test_sfc_index(p, "7")

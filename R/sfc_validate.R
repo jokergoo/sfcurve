@@ -5,7 +5,7 @@
 #' @aliases sfc_validate
 #' @rdname sfc_validate
 #' @param p An `sfc_sequence` object or a character string. If it is a character string, rotations are all taken as zeros.
-#' @param by One of `sfc_hilbert`, `sfc_peano` and `sfc_meander`.
+#' @param by One of `sfc_2x2`, `sfc_3x3_peano` and `sfc_3x3_meander`.
 #' 
 #' @details
 #' It is mainly used to validate a seed sequence whether they follow the forward-left-right rule.
@@ -14,22 +14,22 @@
 #' @examples
 #' try(sfc_validate("LLLLL"))
 #' try(sfc_validate(sfc_sequence("IIIII", rot = c(0, 90, 180, 270, 0), 
-#'         universe = sfc_universe(SFC_RULES_HILBERT))))
+#'         universe = sfc_universe(SFC_RULES_2x2))))
 setMethod("sfc_validate",
 	signature = "sfc_sequence",
-	definition = function(p, by = "sfc_hilbert") {
+	definition = function(p, by = "sfc_2x2") {
 
 	n = length(p@seq)
 
-	if(by %in% c("sfc_hilbert", "sfc_meander")) {
+	if(by %in% c("sfc_2x2", "sfc_3x3_meander")) {
 
-		if(by == "sfc_hilbert") {
-			if(!sfc_is_compatible(p, SFC_RULES_HILBERT)) {
-				stop_wrap("The universe of `p` is not compatible with `SFC_RULES_HILBERT`")
+		if(by == "sfc_2x2") {
+			if(!sfc_is_compatible(p, SFC_RULES_2x2)) {
+				stop_wrap("The universe of `p` is not compatible with `SFC_RULES_2x2`")
 			}
-		} else if(by == "sfc_meander") {
-			if(!sfc_is_compatible(p, SFC_RULES_MEANDER)) {
-				stop_wrap("The universe of `p` is not compatible with `SFC_RULES_MEANDER`")
+		} else if(by == "sfc_3x3_meander") {
+			if(!sfc_is_compatible(p, SFC_RULES_3x3_MEANDER)) {
+				stop_wrap("The universe of `p` is not compatible with `SFC_RULES_3x3_MEANDER`")
 			}
 		}
 
@@ -60,9 +60,9 @@ setMethod("sfc_validate",
 				stop_wrap("If P/Q is in a sequence, P/Q should only be the end of the sequence.")
 			}
 		}
-	} else if(by %in% "sfc_peano") {
-		if(!sfc_is_compatible(p, SFC_RULES_PEANO)) {
-			stop_wrap("The universe of `p` is not compatible with `SFC_RULES_PEANO`")
+	} else if(by %in% "sfc_3x3_peano") {
+		if(!sfc_is_compatible(p, SFC_RULES_3x3_PEANO)) {
+			stop_wrap("The universe of `p` is not compatible with `SFC_RULES_3x3_PEANO`")
 		}
 	}
 
@@ -89,14 +89,14 @@ setMethod("sfc_validate",
 #' @export
 setMethod("sfc_validate",
 	signature = "character",
-	definition = function(p, by = "sfc_hilbert") {
+	definition = function(p, by = "sfc_2x2") {
 
-	if(by == "sfc_hilbert") {
-		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_HILBERT))
-	} else if(by == "sfc_peano") {
-		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_PEANO))
-	} else if(by == "sfc_meander") {
-		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_MEANDER))
+	if(by == "sfc_2x2") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_2x2))
+	} else if(by == "sfc_3x3_peano") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_3x3_PEANO))
+	} else if(by == "sfc_3x3_meander") {
+		p = sfc_sequence(p, universe = sfc_universe(SFC_RULES_3x3_MEANDER))
 	}
 
 	sfc_validate(p, by = by)

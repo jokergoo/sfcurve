@@ -23,7 +23,7 @@ The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \co
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 
-\item{flip}{The same setting as in \code{\link[=sfc_peano]{sfc_peano()}} or \code{\link[=sfc_meander]{sfc_meander()}}.}
+\item{flip}{The same setting as in \code{\link[=sfc_3x3_peano]{sfc_3x3_peano()}} or \code{\link[=sfc_3x3_meander]{sfc_3x3_meander()}}.}
 
 \item{type}{Which type of rules to use? 1 for \code{\link{SFC_RULES_4x4_MEANDER_1}} and 2 for \code{\link{SFC_RULES_4x4_MEANDER_2}}.}
 

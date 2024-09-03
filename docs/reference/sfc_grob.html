@@ -21,12 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -170,9 +170,9 @@ is already stored in <code>p</code> and it is passed to this function automatica
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sfc_grob</span><span class="op">(</span><span class="va">BASE_I</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gTree[GRID.gTree.4] </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_grob-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span>, extend <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="cn">TRUE</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"11"</span><span class="op">)</span>, extend <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="cn">TRUE</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_grob-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="sfc_sequence.html">sfc_sequence</a></span><span class="op">(</span><span class="st">"IIIRRR"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_grob-3.png" alt="" width="700" height="433"></span>

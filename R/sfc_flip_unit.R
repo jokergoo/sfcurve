@@ -82,7 +82,7 @@ unit_orientation = function(p, index = "") {
 #' @return
 #' `sfc_flip_unit` returns an `sfc_nxn` object.
 #' @examples
-#' p = sfc_meander("I", 11)
+#' p = sfc_3x3_meander("I", 11)
 #' draw_multiple_curves(
 #'     p, 
 #'     sfc_flip_unit(p, "1"), # bottom left
@@ -90,7 +90,7 @@ unit_orientation = function(p, index = "") {
 #'     sfc_flip_unit(p, "3"), # bottom right
 #'     nrow = 2)
 #' 
-#' p = sfc_peano("I", level = 3)
+#' p = sfc_3x3_peano("I", level = 3)
 #' draw_multiple_curves(
 #'     p, 
 #'     sfc_flip_unit(p, ""),
@@ -98,7 +98,7 @@ unit_orientation = function(p, index = "") {
 #'     sfc_flip_unit(p, "2:1"),
 #'     nrow = 2)
 #' 
-#' p = sfc_peano("I", level = 2)
+#' p = sfc_3x3_peano("I", level = 2)
 #' draw_multiple_curves(p, 
 #'     sfc_flip_unit(p, c("4", "7")),
 #'     sfc_flip_unit(p, c("1", "2", "3", "5", "6", "8", "9")),

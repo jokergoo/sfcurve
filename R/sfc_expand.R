@@ -2,7 +2,7 @@
 #' Expand the curve to the next level
 #' @aliases sfc_expand
 #' @rdname sfc_expand
-#' @param p An `sfc_hilbert` object.
+#' @param p An `sfc_2x2` object.
 #' @param code Expansion code, a single integer.
 #' 
 #' @details
@@ -14,10 +14,10 @@
 #' @return An object in the same class as the input.
 #' @export
 #' @examples
-#' p = sfc_hilbert("I", 11)
+#' p = sfc_2x2("I", 11)
 #' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
-	signature = "sfc_hilbert",
+	signature = "sfc_2x2",
 	definition = function(p, code) {
 
 	seq = p@seq
@@ -57,10 +57,10 @@ transverse_type_2x2 = function(t, r, r_next) {
 #' @param flip Whethe to flip level-1 units? The value should be a logical vector of length one or the same as the length of `p`.
 #' @export
 #' @examples
-#' p = sfc_peano("I", 11)
+#' p = sfc_3x3_peano("I", 11)
 #' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
-	signature = "sfc_peano",
+	signature = "sfc_3x3_peano",
 	definition = function(p, code = 1, flip = FALSE) {
 
 	seq = p@seq
@@ -88,10 +88,10 @@ setMethod("sfc_expand",
 #' @rdname sfc_expand
 #' @export
 #' @examples
-#' p = sfc_meander("I", 11)
+#' p = sfc_3x3_meander("I", 11)
 #' sfc_expand(p, 2) # I|211
 setMethod("sfc_expand",
-	signature = "sfc_meander",
+	signature = "sfc_3x3_meander",
 	definition = function(p, code, flip = FALSE) {
 
 	seq = p@seq

@@ -21,12 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -89,9 +89,9 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sfc_universe</span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sfc_universe</span><span class="op">(</span><span class="va">SFC_RULES_2x2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I" "R" "L" "U" "B" "D" "P" "Q" "C"</span>
-<span class="r-in"><span><span class="fu">sfc_universe</span><span class="op">(</span><span class="va">SFC_RULES_PEANO</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sfc_universe</span><span class="op">(</span><span class="va">SFC_RULES_3x3_PEANO</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I" "J" "R" "L"</span>
 </code></pre></div>
     </div>

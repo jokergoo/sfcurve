@@ -14,9 +14,9 @@
 #' In the following example where we define the expansion rules for th Hilbert curve:
 #' 
 #' ```
-#' UNIVERSE_HILBERT = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
-#' RULES_HILBERT = list()
-#' RULES_HILBERT[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
+#' UNIVERSE_2x2 = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
+#' RULES_2x2 = list()
+#' RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
 #' ```
 #' 
 #' `I` is the level-0 base pattern, `[[1]]` corresponds to the first form of expansion to level-1, and the value
@@ -33,9 +33,9 @@
 #' 
 #' There are the following pre-defined rules:
 #' 
-#' - [`SFC_RULES_HILBERT`]
-#' - [`SFC_RULES_PEANO`]
-#' - [`SFC_RULES_MEANDER`]
+#' - [`SFC_RULES_2x2`]
+#' - [`SFC_RULES_3x3_PEANO`]
+#' - [`SFC_RULES_3x3_MEANDER`]
 #' - [`SFC_RULES_3x3_COMBINED`]
 #' - [`SFC_RULES_4x4_MEANDER_1`]
 #' - [`SFC_RULES_4x4_MEANDER_2`]
@@ -276,8 +276,8 @@ setMethod("show",
 #' A vector of base patterns.
 #' @export
 #' @examples
-#' sfc_universe(SFC_RULES_HILBERT)
-#' sfc_universe(SFC_RULES_PEANO)
+#' sfc_universe(SFC_RULES_2x2)
+#' sfc_universe(SFC_RULES_3x3_PEANO)
 setMethod("sfc_universe",
     signature = "sfc_rules",
     definition = function(p) {
@@ -292,8 +292,8 @@ setMethod("sfc_universe",
 #' @param p The corresponding object.
 #' @export
 #' @examples
-#' sfc_mode(SFC_RULES_HILBERT)
-#' sfc_mode(SFC_RULES_PEANO)
+#' sfc_mode(SFC_RULES_2x2)
+#' sfc_mode(SFC_RULES_3x3_PEANO)
 setMethod("sfc_mode",
     signature = "sfc_rules",
     definition = function(p) {
@@ -317,7 +317,7 @@ setMethod("sfc_mode",
 #' If `seq` is an `sfc_nxn` object, the function also returns an "expanded" `sfc_nxn` object. Or else it returns an `sfc_sequence` object.
 #' @export
 #' @examples
-#' sfc_expand_by_rules(SFC_RULES_HILBERT, sfc_hilbert("I"))
+#' sfc_expand_by_rules(SFC_RULES_2x2, sfc_2x2("I"))
 setMethod("sfc_expand_by_rules", 
     signature = c("sfc_rules", "sfc_nxn"),
     definition = function(p, seq, code = 1L, flip = FALSE, by = "Cpp") {
@@ -457,12 +457,12 @@ grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
     rules = p@rules
     bases = rules@bases
 
-    if(inherits(p, "sfc_hilbert")) {
-        level0 = sfc_hilbert(bp)
-    } else if(inherits(p, "sfc_peano")) {
-        level0 = sfc_peano(bp, flip = flip)
-    } else if(inherits(p, "sfc_meander")) {
-        level0 = sfc_meander(bp, flip = flip)
+    if(inherits(p, "sfc_2x2")) {
+        level0 = sfc_2x2(bp)
+    } else if(inherits(p, "sfc_3x3_peano")) {
+        level0 = sfc_3x3_peano(bp, flip = flip)
+    } else if(inherits(p, "sfc_3x3_meander")) {
+        level0 = sfc_3x3_meander(bp, flip = flip)
     } else if(inherits(p, "sfc_3x3_combined")) {
         level0 = sfc_3x3_combined(bp, level = 0, flip = flip)
     } else if(inherits(p, "sfc_4x4_meander")) {
@@ -475,7 +475,7 @@ grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
     pl = rules@rules[[bp]]
 
     for(i in seq_along(pl)) {
-        if(inherits(level0, "sfc_peano") || inherits(level0, "sfc_meander") || inherits(level0, "sfc_3x3_combined") || inherits(level0, "sfc_4x4_meander")) {
+        if(inherits(level0, "sfc_3x3_peano") || inherits(level0, "sfc_3x3_meander") || inherits(level0, "sfc_3x3_combined") || inherits(level0, "sfc_4x4_meander")) {
             pl[[i]] = sfc_expand(level0, i, flip = flip)
         } else {
             pl[[i]] = sfc_expand(level0, i)
@@ -549,10 +549,10 @@ grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
 #' The expansion rules define how the curve is expanded from level-0 to level-1.
 #' @export
 #' @examples
-#' draw_rules_hilbert()
-draw_rules_hilbert = function() {
+#' draw_rules_2x2()
+draw_rules_2x2 = function() {
 
-    p = sfc_hilbert("I")
+    p = sfc_2x2("I")
     grid.newpage()
 
     rules = p@rules@rules
@@ -596,12 +596,12 @@ draw_rules_hilbert = function() {
 #' @export
 #' @examples
 #' # the units in the main rules of the Peano curve are vertical
-#' draw_rules_peano()
+#' draw_rules_3x3_peano()
 #' # the units in the flipped rules of the Peano curve are horizontal
-#' draw_rules_peano(flip = TRUE)
-draw_rules_peano = function(flip = FALSE) {
+#' draw_rules_3x3_peano(flip = TRUE)
+draw_rules_3x3_peano = function(flip = FALSE) {
 
-    p = sfc_peano("I", flip = flip)
+    p = sfc_3x3_peano("I", flip = flip)
 
     grid.newpage()
 
@@ -642,12 +642,12 @@ draw_rules_peano = function(flip = FALSE) {
 #' @examples
 #' # the units in the main rules of the Meander curve are "forward"
 #' # i.e. the direction of the "wave" is the same as the direction of the curve
-#' draw_rules_meander()
+#' draw_rules_3x3_meander()
 #' # the units in the flipped rules of the Meander curve are "backward"
-#' draw_rules_meander(flip = TRUE)
-draw_rules_meander = function(flip = FALSE) {
+#' draw_rules_3x3_meander(flip = TRUE)
+draw_rules_3x3_meander = function(flip = FALSE) {
 
-    p = sfc_meander("I", flip = flip)
+    p = sfc_3x3_meander("I", flip = flip)
 
     grid.newpage()
 

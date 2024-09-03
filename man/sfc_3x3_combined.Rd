@@ -22,7 +22,7 @@ first letter, or a vector with the same length as the number of base letters.}
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 
-\item{flip}{The same setting as in \code{\link[=sfc_peano]{sfc_peano()}} or \code{\link[=sfc_meander]{sfc_meander()}}.}
+\item{flip}{The same setting as in \code{\link[=sfc_3x3_peano]{sfc_3x3_peano()}} or \code{\link[=sfc_3x3_meander]{sfc_3x3_meander()}}.}
 
 \item{p}{An \code{sfc_3x3_combined} object.}
 

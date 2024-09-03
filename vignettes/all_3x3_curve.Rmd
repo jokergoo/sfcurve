@@ -1,5 +1,5 @@
 ---
-title: "3x3 Curve"
+title: "General 3x3 Curves"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 

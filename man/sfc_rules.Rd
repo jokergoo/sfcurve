@@ -24,9 +24,9 @@ It is mainly used internally.
 \code{rules} is a two-level list. It is in a format of \code{rules[[ base ]][[ expansion_code ]] = sfc_unit()}.
 In the following example where we define the expansion rules for th Hilbert curve:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{UNIVERSE_HILBERT = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
-RULES_HILBERT = list()
-RULES_HILBERT[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{UNIVERSE_2x2 = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
+RULES_2x2 = list()
+RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
 }\if{html}{\out{</div>}}
 
 \code{I} is the level-0 base pattern, \verb{[[1]]} corresponds to the first form of expansion to level-1, and the value
@@ -42,9 +42,9 @@ where e.g. \code{\link{BASE_I}} is a pre-defined base pattern in the \code{\link
 
 There are the following pre-defined rules:
 \itemize{
-\item \code{\link{SFC_RULES_HILBERT}}
-\item \code{\link{SFC_RULES_PEANO}}
-\item \code{\link{SFC_RULES_MEANDER}}
+\item \code{\link{SFC_RULES_2x2}}
+\item \code{\link{SFC_RULES_3x3_PEANO}}
+\item \code{\link{SFC_RULES_3x3_MEANDER}}
 \item \code{\link{SFC_RULES_3x3_COMBINED}}
 \item \code{\link{SFC_RULES_4x4_MEANDER_1}}
 \item \code{\link{SFC_RULES_4x4_MEANDER_2}}

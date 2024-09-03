@@ -33,3 +33,5 @@ vignettes/functions.Rmd
 vignettes/nomnoml.png
 vignettes/nomnoml.svg
 vignettes/nxn_curve.Rmd
+vignettes/uml.R
+vignettes/sfc_2x2.Rmd

@@ -6,17 +6,17 @@ navbar:
   left:
     - text: "Articles"
       menu:
-        - text: "1. Generalized Hilbert Curve"
-          href: articles/hilbert_curve.html
-        - text: "2. Generalized Peano Curve"
+        - text: "1. 2x2 space-Filling Curve"
+          href: articles/sfc_2x2.html
+        - text: "2. 3x3 Peano Curve"
           href: articles/peano_curve.html
-        - text: "3. Generalized Meander Curve"
+        - text: "3. 3x3 Meander Curve"
           href: articles/meander_curve.html
         - text: "4. Unit flipping"
           href: articles/unit_flipping.html
         - text: "5. Standard curves"
           href: articles/standard_curves.html
-        - text: "6. 3x3 Curve"
+        - text: "6. General 3x3 Curves"
           href: articles/all_3x3_curve.html
         - text: "7. 4x4 Meander Curve"
           href: articles/meander_4x4_curve.html

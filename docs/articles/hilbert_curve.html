@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Generalized Hilbert Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-08-02</h4>
+            <h4 data-toc-skip class="date">2024-08-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/hilbert_curve.Rmd" class="external-link"><code>vignettes/hilbert_curve.Rmd</code></a></small>
       <div class="d-none name"><code>hilbert_curve.Rmd</code></div>
@@ -263,11 +263,11 @@ P_2 &amp;= (IRR^{90}L^{180})^{90}(ILL^{270}R^{180})^{180}(RL^{90}LI^{270})^{90}(
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"212"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"221"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"222"</span><span class="op">)</span>,</span>
-<span>    nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span>    nrow <span class="op">=</span> <span class="fl">2</span>, title <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hilbert_curve_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>Then, with knowing the intial seed and the expansion code (the first base pattern) on each step, the curve is fully determined. Then we can describe a <span class="math inline">\(2^k \times 2^k\)</span> curve denoted as <span class="math inline">\(\mathcal{C}_k\)</span> as:</p>
 <p><span class="math display">\[
-\mathcal{C}_k := X^{(0)}|\pi_1 \pi_2 ... \pi_k \quad \pi_i \in \{1, 2\}
+\mathcal{C}_k := X^{(0),\theta}|\pi_1 \pi_2 ... \pi_k \quad \pi_i \in \{1, 2\},\theta \in \{0,90,180,270\}
 \]</span></p>
 <p>where in the expansion code sequence, if the code is more to the left, it corresponds more to the top-level of the curve, and if the code is more to the right of the sequence, it corresponds more to the bottom-level of the curve.</p>
 <p>Note the sequence <span class="math inline">\((\pi_1 \pi_2, ..., \pi_k)\)</span> can be represented as a sequence of binary bits, so the sequence of the expansion code on each level can also be described as an integer:</p>
@@ -334,7 +334,7 @@ X|222 = X|7_3
 <p><span class="math display">\[
 \begin{align*}
 \mathcal{C}_k &amp;= (X^{(0)}|\pi_1) | \pi_2 ... \pi_k \\
-              &amp;=  X^{(1)_{&lt;\pi_1&gt;} | \pi_2 ... \pi_k
+              &amp;=  X^{(1)}_{&lt;\pi_1&gt;} | \pi_2 ... \pi_k \\
 \end{align*}
 \]</span></p>
 <p>Similarlly we can move any <span class="math inline">\(\pi_i\)</span> to the left side:</p>
@@ -418,7 +418,7 @@ X|\lambda_1 \lambda_2 ... = X|\pi_1\pi_1' \pi_2 \pi_2' ...
 <p>A spiral seed sequence:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_seed</a></span><span class="op">(</span><span class="st">"LLLILILIILIILIIILIIILIIII"</span>, universe <span class="op">=</span> <span class="fu"><a href="../reference/sfc_universe.html">sfc_universe</a></span><span class="op">(</span><span class="va">SFC_RULES_HILBERT</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span>, grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span>, grid <span class="op">=</span> <span class="cn">TRUE</span>, extend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hilbert_curve_files/figure-html/unnamed-chunk-15-1.png" width="192" style="display: block; margin: auto;"></p>
 <p>Expand the spiral with 2x2 curves:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">

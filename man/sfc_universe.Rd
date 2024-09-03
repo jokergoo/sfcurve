@@ -20,6 +20,6 @@ A vector of base patterns.
 The universe base pattern set
 }
 \examples{
-sfc_universe(SFC_RULES_HILBERT)
-sfc_universe(SFC_RULES_PEANO)
+sfc_universe(SFC_RULES_2x2)
+sfc_universe(SFC_RULES_3x3_PEANO)
 }

@@ -35,7 +35,7 @@ With the same method, actually we can extend the Meander unit to higher modes ($
 
 
 ```{r, echo = FALSE, fig.width = 6, fig.height = 2}
-loc = sfc_meander("R", 1) |> sfc_segments()
+loc = sfc_4x4_meander("R", 1) |> sfc_segments()
 loc1 = sfc_4x4_meander("L", 2, rot = -90) |> sfc_segments()
 loc2 = sfc_4x4_meander("L", 2, rot = 90, type = 2) |> sfc_segments()
 loc2 = loc2 + 3

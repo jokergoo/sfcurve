@@ -112,6 +112,9 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()), verbose = 
 		p = new(cl)
 		p@seq = from@seq
 		levels(p@seq) = sfc_universe(RULES)
+		if(any(is.na(p@seq))) {
+			stop_wrap("Base letters should all be in `sfc_universe(RULES)`.")
+		}
 		p@rot = from@rot
 		p@universe = sfc_universe(RULES)
 		p@level = 0L

@@ -21,12 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -93,18 +93,18 @@
     <p>It is mainly used internally.</p>
 <p><code>rules</code> is a two-level list. It is in a format of <code>rules[[ base ]][[ expansion_code ]] = sfc_unit()</code>.
 In the following example where we define the expansion rules for th Hilbert curve:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIVERSE_HILBERT <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"C"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>RULES_HILBERT <span class="ot">=</span> <span class="fu">list</span>()</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>RULES_HILBERT[[<span class="st">"I"</span>]][[<span class="dv">1</span>]] <span class="ot">=</span> <span class="fu">sfc_unit</span>(<span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>), <span class="at">rot =</span> <span class="dv">0</span>, <span class="at">universe =</span> UNIVERSE_HILBERT)</span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UNIVERSE_2x2 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"U"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>, <span class="st">"P"</span>, <span class="st">"Q"</span>, <span class="st">"C"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>RULES_2x2 <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>RULES_2x2[[<span class="st">"I"</span>]][[<span class="dv">1</span>]] <span class="ot">=</span> <span class="fu">sfc_unit</span>(<span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>), <span class="at">rot =</span> <span class="dv">0</span>, <span class="at">universe =</span> UNIVERSE_HILBERT)</span></code></pre><p></p></div>
 <p><code>I</code> is the level-0 base pattern, <code>[[1]]</code> corresponds to the first form of expansion to level-1, and the value
 assigned is a <code><a href="sfc_sequence.html">sfc_unit()</a></code> object which is basically a list of base patterns.</p>
 <p>Then we also need to provide the base patterns which define how to extend the curve. The list of base patterns
 is assigned to the <code>bases</code> argument. In the same example, we set <code>bases</code> as:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="st">"I"</span> <span class="ot">=</span> BASE_I, <span class="st">"R"</span> <span class="ot">=</span> BASE_R, <span class="st">"L"</span> <span class="ot">=</span> BASE_L, <span class="st">"U"</span> <span class="ot">=</span> BASE_U, ...)</span></code></pre><p></p></div>
 <p>where e.g. <code><a href="base_patterns.html">BASE_I</a></code> is a pre-defined base pattern in the <code><a href="sfc_base.html">sfc_base</a></code> class.</p>
-<p>There are the following pre-defined rules:</p><ul><li><p><code><a href="pre_defined_rules.html">SFC_RULES_HILBERT</a></code></p></li>
-<li><p><code><a href="pre_defined_rules.html">SFC_RULES_PEANO</a></code></p></li>
-<li><p><code><a href="pre_defined_rules.html">SFC_RULES_MEANDER</a></code></p></li>
+<p>There are the following pre-defined rules:</p><ul><li><p><code><a href="pre_defined_rules.html">SFC_RULES_2x2</a></code></p></li>
+<li><p><code><a href="pre_defined_rules.html">SFC_RULES_3x3_PEANO</a></code></p></li>
+<li><p><code><a href="pre_defined_rules.html">SFC_RULES_3x3_MEANDER</a></code></p></li>
 <li><p><code><a href="pre_defined_rules.html">SFC_RULES_3x3_COMBINED</a></code></p></li>
 <li><p><code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_1</a></code></p></li>
 <li><p><code><a href="pre_defined_rules.html">SFC_RULES_4x4_MEANDER_2</a></code></p></li>

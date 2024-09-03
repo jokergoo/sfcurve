@@ -40,7 +40,7 @@ A two-column matrix of the coordinates of points on the curve.
 Various curves in their standard forms
 }
 \details{
-These are just special forms of \code{\link[=sfc_hilbert]{sfc_hilbert()}}, \code{\link[=sfc_peano]{sfc_peano()}}, \code{\link[=sfc_meander]{sfc_meander()}} and \code{\link[=sfc_h]{sfc_h()}}.
+These are just special forms of \code{\link[=sfc_2x2]{sfc_2x2()}}, \code{\link[=sfc_3x3_peano]{sfc_3x3_peano()}}, \code{\link[=sfc_3x3_meander]{sfc_3x3_meander()}} and \code{\link[=sfc_h]{sfc_h()}}.
 }
 \examples{
 hilbert_curve(2)

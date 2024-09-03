@@ -3,6 +3,7 @@
 #' 
 #' @param ... A list of `sfc_sequence` objects or objects in its child classes, a list of [`grid::grob`] objects 
 #'          or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.
+#' @param list The list of curve object can also be directly specified as a list object.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
 #' @param extend Whether to draw the entering and leaving segments? It is only used when input is a list of `sfc_sequence` objects.
@@ -20,14 +21,14 @@
 #' @examples
 #' # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3
 #' draw_multiple_curves(
-#'     sfc_hilbert("R", "111"),
-#'     sfc_hilbert("R", "112"),
-#'     sfc_hilbert("R", "121"),
-#'     sfc_hilbert("R", "122"),
-#'     sfc_hilbert("R", "211"),
-#'     sfc_hilbert("R", "212"),
-#'     sfc_hilbert("R", "221"),
-#'     sfc_hilbert("R", "222"),
+#'     sfc_2x2("R", "111"),
+#'     sfc_2x2("R", "112"),
+#'     sfc_2x2("R", "121"),
+#'     sfc_2x2("R", "122"),
+#'     sfc_2x2("R", "211"),
+#'     sfc_2x2("R", "212"),
+#'     sfc_2x2("R", "221"),
+#'     sfc_2x2("R", "222"),
 #'     nrow = 2, title = TRUE)
 #' 
 #' # simply a list of sequences
@@ -38,10 +39,14 @@
 #'     sfc_sequence("RRLL"),
 #'     nrow = 1
 #' )
-draw_multiple_curves = function(..., nrow = NULL, ncol = NULL, extend = TRUE, 
+draw_multiple_curves = function(..., list = NULL, nrow = NULL, ncol = NULL, extend = TRUE, 
 	title = FALSE, closed = FALSE, padding = unit(0, "pt"),
 	lwd = 4, col = NULL) {
+
 	pl = list(...)
+	if(length(list)) {
+		pl = c(pl, list)
+	}
 
 	n = length(pl)
 	if(n < 1) {
@@ -140,6 +145,12 @@ move_coord = function(x, offset) {
 	x
 }
 
+hflip_coord = function(x, v = 0) {
+	x2 = move_coord(x, c(-v, 0))
+	x2[, 1] = -x2[, 1]
+	x2 = move_coord(x2, c(v, 0))
+	x2
+}
 
 get_circular_index = function(ind, n) {
 	(ind-1) %% n + 1

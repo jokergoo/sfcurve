@@ -267,8 +267,8 @@ setMethod("sfc_universe",
 #' Note the order of universe base patterns should also be identical.
 #' @export
 #' @examples
-#' p1 = sfc_hilbert("I")
-#' p2 = sfc_hilbert("R")
+#' p1 = sfc_2x2("I")
+#' p2 = sfc_2x2("R")
 #' sfc_is_compatible(p1, p2)
 #' 
 #' p1 = sfc_sequence("ABC")

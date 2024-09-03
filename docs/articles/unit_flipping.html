@@ -38,12 +38,12 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Unit flipping</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-08-02</h4>
+            <h4 data-toc-skip class="date">2024-09-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/unit_flipping.Rmd" class="external-link"><code>vignettes/unit_flipping.Rmd</code></a></small>
       <div class="d-none name"><code>unit_flipping.Rmd</code></div>
@@ -95,7 +95,7 @@
 <p>If the level-1 unit is not symmetric, there will be a flipped version of the expansion rules. The flip can happen on the diagonal if the corner value of the unit is <code>11/22</code> or vertical/horizontal if the corner value of the unit is <code>12/21</code>.</p>
 <p>We will use the Peano curve as an example because it is easier to identify different flipped patterns by eyes.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="fl">90</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"I"</span>, rot <span class="op">=</span> <span class="fl">90</span>, level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="flip-individual-units">Flip individual units<a class="anchor" aria-label="anchor" href="#flip-individual-units"></a>
 </h2>
@@ -132,12 +132,12 @@
 <div class="section level2">
 <h2 id="set-flipping-when-creating-the-curve">Set flipping when creating the curve<a class="anchor" aria-label="anchor" href="#set-flipping-when-creating-the-curve"></a>
 </h2>
-<p>As has already shown in the vignette <a href="peano_curve.html">“Generalized Peano Curve”</a>, <code><a href="../reference/spacefilling.html">sfc_peano()</a></code> accepts its argument <code>flip</code> as a self-defined function.</p>
+<p>As has already shown in the vignette <a href="peano_curve.html">“Generalized Peano Curve”</a>, <code><a href="../reference/spacefilling.html">sfc_3x3_peano()</a></code> accepts its argument <code>flip</code> as a self-defined function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">p</span><span class="op">@</span><span class="va">rot</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">270</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span>    <span class="va">l</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="va">n</span><span class="op">)</span></span>
 <span>    <span class="va">ind</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span>
@@ -184,7 +184,7 @@
 </h2>
 <p><code><a href="../reference/sfc_flip_unit.html">sfc_flip_unit()</a></code>, <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code> and <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code> only work on curves with a single letter as the seed because internally they use <code><a href="../reference/sfc_index.html">sfc_index()</a></code> to get subunits and <code><a href="../reference/sfc_index.html">sfc_index()</a></code> only works on square curves. Only the “flip” function works when the seed is a sequence.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"IJ"</span>, level <span class="op">=</span> <span class="fl">3</span>, rot <span class="op">=</span> <span class="fl">90</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"IJ"</span>, level <span class="op">=</span> <span class="fl">3</span>, rot <span class="op">=</span> <span class="fl">90</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">p</span><span class="op">@</span><span class="va">rot</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">270</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="unit_flipping_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>

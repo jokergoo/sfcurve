@@ -38,12 +38,12 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/hilbert_curve.html">1. Generalized Hilbert Curve</a>
-    <a class="dropdown-item" href="../articles/peano_curve.html">2. Generalized Peano Curve</a>
-    <a class="dropdown-item" href="../articles/meander_curve.html">3. Generalized Meander Curve</a>
+    <a class="dropdown-item" href="../articles/sfc_2x2.html">1. 2x2 space-Filling Curve</a>
+    <a class="dropdown-item" href="../articles/peano_curve.html">2. 3x3 Peano Curve</a>
+    <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. 3x3 Curve</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
     <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
     <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
     <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Standard curves</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-08-02</h4>
+            <h4 data-toc-skip class="date">2024-09-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/standard_curves.Rmd" class="external-link"><code>vignettes/standard_curves.Rmd</code></a></small>
       <div class="d-none name"><code>standard_curves.Rmd</code></div>
@@ -131,19 +131,19 @@
 <p><img src="standard_curves_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>As a comparison, general Hilbert curves may not have the “Hilbert structure” on some higher levels:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"21211"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"21211"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_grob.html">sfc_grob</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_reduce.html">add_base_structure</a></span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    <span class="va">p</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_grob.html">sfc_grob</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_reduce.html">add_base_structure</a></span><span class="op">(</span>level <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
 <span>    <span class="va">p</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_grob.html">sfc_grob</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/sfc_reduce.html">add_base_structure</a></span><span class="op">(</span>level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span>, padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="standard_curves_files/figure-html/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;"></p>
-<p>The functions <code><a href="../reference/standard_curve.html">hilbert_curve()</a></code> and <code><a href="../reference/standard_curve.html">moore_curve()</a></code> are generated by the more general function <code><a href="../reference/spacefilling.html">sfc_hilbert()</a></code> by choosing specific base patterns and transverse path. For example, a standard Hilbert curve on level 5 is:</p>
+<p>The functions <code><a href="../reference/standard_curve.html">hilbert_curve()</a></code> and <code><a href="../reference/standard_curve.html">moore_curve()</a></code> are generated by the more general function <code><a href="../reference/spacefilling.html">sfc_2x2()</a></code> by choosing specific base patterns and transverse path. For example, a standard Hilbert curve on level 5 is:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"11111"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"R"</span>, code <span class="op">=</span> <span class="st">"11111"</span><span class="op">)</span></span></code></pre></div>
 <p>And a standard Moore curve on level 5 is (where the first digits should be <code>2</code>):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"C"</span>, code <span class="op">=</span> <span class="st">"21111"</span>, rot <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"C"</span>, code <span class="op">=</span> <span class="st">"21111"</span>, rot <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="beta-omega-curve">Beta-Omega curve<a class="anchor" aria-label="anchor" href="#beta-omega-curve"></a>
@@ -164,9 +164,9 @@
 <span>    <span class="fu"><a href="../reference/sfc_reduce.html">sfc_reduce</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    ncol <span class="op">=</span> <span class="fl">3</span>, padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="standard_curves_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
-<p>The function <code><a href="../reference/standard_curve.html">beta_omega_curve()</a></code> is also generated by <code><a href="../reference/spacefilling.html">sfc_hilbert()</a></code>. E.g., a <span class="math inline">\(\beta\Omega\)</span>-curve on level 5 is actually (digits <code>1</code> and <code>2</code> are in turn):</p>
+<p>The function <code><a href="../reference/standard_curve.html">beta_omega_curve()</a></code> is also generated by <code><a href="../reference/spacefilling.html">sfc_2x2()</a></code>. E.g., a <span class="math inline">\(\beta\Omega\)</span>-curve on level 5 is actually (digits <code>1</code> and <code>2</code> are in turn):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_hilbert</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"12121"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"12121"</span>, rot <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -204,7 +204,7 @@
 <p><img src="standard_curves_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>Since <code>pattern</code> is applied to every level in the curve generation, if you want the nine level-1 units with the pattern <code>"vvvhhhvvv"</code> only applied on level-1, you have to first generate a all-v curve then adjust the 1-3, 7-8 subunits to vertical and the 4-6 subunits to horizontal.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"I"</span>, level <span class="op">=</span> <span class="fl">3</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">p</span><span class="op">@</span><span class="va">rot</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">270</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_apply.html">sfc_apply</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">u</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
@@ -229,7 +229,7 @@
 </h3>
 <p>The Peano curve in the meander type (<a href="https://link.springer.com/book/10.1007/978-1-4612-0871-6" class="external-link">Hans Sagan, Space-Filling Curves, 1994 Springer, Figure 3.7.3</a>). It has the basic unit forms: forward (left) and backward (right). If thinking the top part of the unit representing the direction of the “wave”, then forward means the direction of the wave is the same as the direction of the curve and verse visa for backward.</p>
 <p><img src="standard_curves_files/figure-html/unnamed-chunk-13-1.png" width="384" style="display: block; margin: auto;"></p>
-<p>The expanding rules in <code><a href="../reference/draw_rules.html">draw_rules_meander()</a></code> use the “forward” unit for all patterns with transverse code 1.</p>
+<p>The expanding rules in <code>draw_rules_meander()</code> use the “forward” unit for all patterns with transverse code 1.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="../reference/standard_curve.html">meander_curve</a></span><span class="op">(</span>level <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>

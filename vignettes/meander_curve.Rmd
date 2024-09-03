@@ -1,5 +1,5 @@
 ---
-title: "Generalized Meander Curve"
+title: "3x3 Meander Curve"
 author: "Zuguang Gu (z.gu@dkfz.de)"
 date: '`r Sys.Date()`'
 output: 
@@ -31,7 +31,7 @@ library(sfcurve)
 The Meander curve has a different set of base units.
 
 ```{r, fig.width = 11.1, fig.height = 5.3, out.width = "100%"}
-draw_rules_meander()
+draw_rules_3x3_meander()
 ```
 
 The expansions are very similar as the Hilbert curve, but it also has a
@@ -39,13 +39,13 @@ flipped version where the units can be flipped horizontally or vertically
 on various levels.
 
 ```{r, fig.width = 11.1, fig.height = 5.3, out.width = "100%"}
-draw_rules_meander(flip = TRUE)
+draw_rules_3x3_meander(flip = TRUE)
 ```
 
 On each level expansion, there are two transverse paths:
 
 ```{r, fig.width = 8, fig.height = 2.2}
-plot_transverse_paths(SFC_RULES_MEANDER, SFC_RULES_MEANDER@rules$I[[1]])
+plot_transverse_paths(SFC_RULES_3x3_MEANDER, SFC_RULES_3x3_MEANDER@rules$I[[1]])
 ```
 
 ## Curves
@@ -54,14 +54,14 @@ All possible forms of the Meander curve on level 3 taking `R(0)` as the seed:
 
 ```{r, fig.width = 8, fig.height = 4}
 draw_multiple_curves(
-    sfc_meander("R", code = "111"),
-    sfc_meander("R", code = "112"),
-    sfc_meander("R", code = "121"),
-    sfc_meander("R", code = "122"),
-    sfc_meander("R", code = "211"),
-    sfc_meander("R", code = "212"),
-    sfc_meander("R", code = "221"),
-    sfc_meander("R", code = "222"),
+    sfc_3x3_meander("R", code = "111"),
+    sfc_3x3_meander("R", code = "112"),
+    sfc_3x3_meander("R", code = "121"),
+    sfc_3x3_meander("R", code = "122"),
+    sfc_3x3_meander("R", code = "211"),
+    sfc_3x3_meander("R", code = "212"),
+    sfc_3x3_meander("R", code = "221"),
+    sfc_3x3_meander("R", code = "222"),
     nrow = 2, lwd = 2)
 ```
 
@@ -69,15 +69,15 @@ The curves on level 3 taking the nine base patterns respectively:
 
 ```{r, fig.width = 9, fig.height = 9}
 draw_multiple_curves(
-    sfc_meander("I", code = "111"),
-    sfc_meander("R", code = "111"),
-    sfc_meander("L", code = "111"),
-    sfc_meander("U", code = "111"),
-    sfc_meander("B", code = "111"),
-    sfc_meander("D", code = "111"),
-    sfc_meander("P", code = "111"),
-    sfc_meander("Q", code = "111"),
-    sfc_meander("C", code = "111"),
+    sfc_3x3_meander("I", code = "111"),
+    sfc_3x3_meander("R", code = "111"),
+    sfc_3x3_meander("L", code = "111"),
+    sfc_3x3_meander("U", code = "111"),
+    sfc_3x3_meander("B", code = "111"),
+    sfc_3x3_meander("D", code = "111"),
+    sfc_3x3_meander("P", code = "111"),
+    sfc_3x3_meander("Q", code = "111"),
+    sfc_3x3_meander("C", code = "111"),
     nrow = 3, lwd = 2)
 ```
 
@@ -86,7 +86,7 @@ draw_multiple_curves(
 Flipping (horizotal or vertical) can be applied by specifying the index of the hierarchical unit on the curve.
 
 ```{r, fig.width = 6, fig.height = 6}
-p = sfc_meander("I", 11)
+p = sfc_3x3_meander("I", 11)
 draw_multiple_curves(
     p,
     sfc_flip_unit(p, "1"),  # bottom left
@@ -110,10 +110,10 @@ $$
 ## Seed as a sequence
 
 ```{r, fig.width = 3, fig.height = 3}
-seed = sfc_sequence("IILILILI", rot = -90, universe = sfc_universe(SFC_RULES_MEANDER))
+seed = sfc_sequence("IILILILI", rot = -90, universe = sfc_universe(SFC_RULES_3x3_MEANDER))
 plot(seed, grid = TRUE)
 ```
 
 ```{r, fig.width = 6, fig.height = 6}
-sfc_meander(seed, code = "111") |> plot(lwd = 2)
+sfc_3x3_meander(seed, code = "111") |> plot(lwd = 2)
 ```

@@ -101,7 +101,7 @@ validate_out_directions = function(p2, out_direction) {
 #' @param bases A list of base patterns, consider to use [`BASE_LIST`]. It is only used when `fix_ends = TRUE`.
 #' @export
 #' @examples
-#' p = sfc_meander("R", 2, rot = -90)
+#' p = sfc_3x3_meander("R", 2, rot = -90)
 #' draw_multiple_curves(
 #'     p, 
 #'     sfc_hflip(p), 
@@ -183,7 +183,7 @@ setMethod("sfc_hflip",
 #' @aliases sfc_vflip
 #' @export
 #' @examples
-#' p = sfc_meander("L", 2, rot = -90)
+#' p = sfc_3x3_meander("L", 2, rot = -90)
 #' draw_multiple_curves(
 #'     p, 
 #'     sfc_vflip(p), 
@@ -254,7 +254,7 @@ setMethod("sfc_vflip",
 #' @param slop Slop of the diagonal.
 #' @export
 #' @examples
-#' p = sfc_peano("I", 2)
+#' p = sfc_3x3_peano("I", 2)
 #' draw_multiple_curves(
 #'     p, 
 #'     sfc_dflip(p, 1), 

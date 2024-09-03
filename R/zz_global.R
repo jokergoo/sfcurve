@@ -52,7 +52,7 @@ C_base = function(...) {
 
     gbl = list()
     gbl[[1]] = linesGrob(x, y, default.units = "native", gp = gpar(col = "grey"))
-    gbl[[2]] = linesGrob(c(x[n-1]-0.002, x[n]), c(y[n-1], y[n]), default.units = "native", gp = gpar(col = "grey"), arrow = arrow(angle = 30, length = arrow_length))
+    gbl[[2]] = linesGrob(c(x[n-1]+0.002, x[n]), c(y[n-1], y[n]), default.units = "native", gp = gpar(col = "grey"), arrow = arrow(angle = 30, length = arrow_length, ends = "first"))
     gbl[[3]] = pointsGrob(0, 0, default.units = "native", pch = 16, size = unit(4, "pt"))
 
     grobTree(gbl[[1]], gbl[[2]], gbl[[3]], vp = viewport(xscale = c(-1, 1), yscale = c(-1, 1), width = 2*size, height = 2*size, ...))
@@ -155,45 +155,45 @@ BASE_LIST = list(
 UNIVERSE_GLOBAL = c("I", "J", "R", "L", "U", "B", "D", "P", "Q", "C")
 
 
-UNIVERSE_HILBERT = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
-RULES_HILBERT = list()
-RULES_HILBERT[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["I"]][[2]] = sfc_unit(c("L", "R", "R", "L"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["R"]][[1]] = sfc_unit(c("I", "R", "R", "L"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["R"]][[2]] = sfc_unit(c("L", "R", "R", "I"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["L"]][[1]] = sfc_unit(c("R", "L", "L", "I"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["L"]][[2]] = sfc_unit(c("I", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["U"]][[1]] = sfc_unit(c("I", "R", "R", "I"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["U"]][[2]] = sfc_unit(c("I", "L", "L", "I"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["B"]][[1]] = sfc_unit(c("R", "R", "R", "I"), rot = 270, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["B"]][[2]] = sfc_unit(c("L", "L", "L", "R"), rot = 180, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["D"]][[1]] = sfc_unit(c("L", "L", "L", "I"), rot = 90, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["D"]][[2]] = sfc_unit(c("R", "R", "R", "L"), rot = 180, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["P"]][[1]] = sfc_unit(c("I", "R", "R", "R"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["P"]][[2]] = sfc_unit(c("R", "L", "L", "L"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["Q"]][[1]] = sfc_unit(c("I", "L", "L", "L"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["Q"]][[2]] = sfc_unit(c("L", "R", "R", "R"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["C"]][[1]] = sfc_unit(c("L", "L", "L", "L"), rot = 0, universe = UNIVERSE_HILBERT)
-RULES_HILBERT[["C"]][[2]] = sfc_unit(c("R", "R", "R", "R"), rot = 0, universe = UNIVERSE_HILBERT)
+UNIVERSE_2x2 = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
+RULES_2x2 = list()
+RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["I"]][[2]] = sfc_unit(c("L", "R", "R", "L"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["R"]][[1]] = sfc_unit(c("I", "R", "R", "L"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["R"]][[2]] = sfc_unit(c("L", "R", "R", "I"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["L"]][[1]] = sfc_unit(c("R", "L", "L", "I"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["L"]][[2]] = sfc_unit(c("I", "L", "L", "R"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["U"]][[1]] = sfc_unit(c("I", "R", "R", "I"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["U"]][[2]] = sfc_unit(c("I", "L", "L", "I"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["B"]][[1]] = sfc_unit(c("L", "L", "L", "R"), rot = 180, universe = UNIVERSE_2x2)
+RULES_2x2[["B"]][[2]] = sfc_unit(c("R", "R", "R", "I"), rot = 270, universe = UNIVERSE_2x2)
+RULES_2x2[["D"]][[1]] = sfc_unit(c("L", "L", "L", "I"), rot = 90, universe = UNIVERSE_2x2)
+RULES_2x2[["D"]][[2]] = sfc_unit(c("R", "R", "R", "L"), rot = 180, universe = UNIVERSE_2x2)
+RULES_2x2[["P"]][[1]] = sfc_unit(c("R", "L", "L", "L"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["P"]][[2]] = sfc_unit(c("I", "R", "R", "R"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["Q"]][[1]] = sfc_unit(c("I", "L", "L", "L"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["Q"]][[2]] = sfc_unit(c("L", "R", "R", "R"), rot = 0, universe = UNIVERSE_2x2)
+RULES_2x2[["C"]][[1]] = sfc_unit(c("L", "L", "L", "L"), rot = 270, universe = UNIVERSE_2x2)
+RULES_2x2[["C"]][[2]] = sfc_unit(c("R", "R", "R", "R"), rot = 90, universe = UNIVERSE_2x2)
 
 
 
 ###=========================================
 
-UNIVERSE_PEANO = c("I", "J", "R", "L")
+UNIVERSE_3x3_PEANO = c("I", "J", "R", "L")
 
-RULES_PEANO = list()
-RULES_PEANO[["I"]][[1]] = sfc_unit("IJRRILLJI", rot = 0, universe = UNIVERSE_PEANO)  
-RULES_PEANO[["J"]][[1]] = sfc_unit("JILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)
-RULES_PEANO[["R"]][[1]] = sfc_unit("IJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)      
-RULES_PEANO[["L"]][[1]] = sfc_unit("JILLJRRIL", rot = 0, universe = UNIVERSE_PEANO) 
+RULES_3x3_PEANO = list()
+RULES_3x3_PEANO[["I"]][[1]] = sfc_unit("IJRRILLJI", rot = 0, universe = UNIVERSE_3x3_PEANO)  
+RULES_3x3_PEANO[["J"]][[1]] = sfc_unit("JILLJRRIJ", rot = 0, universe = UNIVERSE_3x3_PEANO)
+RULES_3x3_PEANO[["R"]][[1]] = sfc_unit("IJRRILLJR", rot = 0, universe = UNIVERSE_3x3_PEANO)      
+RULES_3x3_PEANO[["L"]][[1]] = sfc_unit("JILLJRRIL", rot = 0, universe = UNIVERSE_3x3_PEANO) 
 
 
-RULES_PEANO_FLIP = list()
-RULES_PEANO_FLIP[["I"]][[1]] = sfc_unit("RILLJRRIL", rot = 0, universe = UNIVERSE_PEANO)  
-RULES_PEANO_FLIP[["J"]][[1]] = sfc_unit("LJRRILLJR", rot = 0, universe = UNIVERSE_PEANO)
-RULES_PEANO_FLIP[["R"]][[1]] = sfc_unit("RILLJRRIJ", rot = 0, universe = UNIVERSE_PEANO)      
-RULES_PEANO_FLIP[["L"]][[1]] = sfc_unit("LJRRILLJI", rot = 0, universe = UNIVERSE_PEANO) 
+RULES_3x3_PEANO_FLIP = list()
+RULES_3x3_PEANO_FLIP[["I"]][[1]] = sfc_unit("RILLJRRIL", rot = 0, universe = UNIVERSE_3x3_PEANO)  
+RULES_3x3_PEANO_FLIP[["J"]][[1]] = sfc_unit("LJRRILLJR", rot = 0, universe = UNIVERSE_3x3_PEANO)
+RULES_3x3_PEANO_FLIP[["R"]][[1]] = sfc_unit("RILLJRRIJ", rot = 0, universe = UNIVERSE_3x3_PEANO)      
+RULES_3x3_PEANO_FLIP[["L"]][[1]] = sfc_unit("LJRRILLJI", rot = 0, universe = UNIVERSE_3x3_PEANO) 
 
 
 
@@ -201,27 +201,27 @@ RULES_PEANO_FLIP[["L"]][[1]] = sfc_unit("LJRRILLJI", rot = 0, universe = UNIVERS
 
 #===================================
 
-UNIVERSE_MEANDER = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
+UNIVERSE_3x3_MEANDER = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
 
-RULES_MEANDER = list()
-RULES_MEANDER[["I"]][[1]] = sfc_unit("RILILLRRI", rot = 0, universe = UNIVERSE_MEANDER)  
-RULES_MEANDER[["I"]][[2]] = sfc_unit("LIRIRRLLI", rot = 0, universe = UNIVERSE_MEANDER)
-RULES_MEANDER[["R"]][[1]] = sfc_unit("IIRIRRLLI", rot = 0, universe = UNIVERSE_MEANDER)      
-RULES_MEANDER[["R"]][[2]] = sfc_unit("LIRIRRLLR", rot = 0, universe = UNIVERSE_MEANDER)
-RULES_MEANDER[["L"]][[1]] = sfc_unit("RILILLRRL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["L"]][[2]] = sfc_unit("IILILLRRI", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["U"]][[1]] = sfc_unit("IIRIRRLLR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["U"]][[2]] = sfc_unit("IILILLRRL", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["B"]][[1]] = sfc_unit("LILILLRRI", rot = 180, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["B"]][[2]] = sfc_unit("RIRIRRLLR", rot = 270, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["D"]][[1]] = sfc_unit("LILILLRRL", rot = 90, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["D"]][[2]] = sfc_unit("RIRIRRLLI", rot = 180, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["P"]][[1]] = sfc_unit("IIRIRRLLL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["P"]][[2]] = sfc_unit("RILILLRRR", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["Q"]][[1]] = sfc_unit("IILILLRRR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["Q"]][[2]] = sfc_unit("LIRIRRLLL", rot = 0, universe = UNIVERSE_MEANDER) 
-RULES_MEANDER[["C"]][[1]] = sfc_unit("LILILLRRR", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
-RULES_MEANDER[["C"]][[2]] = sfc_unit("RIRIRRLLL", rot = 0, universe = UNIVERSE_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER = list()
+RULES_3x3_MEANDER[["I"]][[1]] = sfc_unit("RILILLRRI", rot = 0, universe = UNIVERSE_3x3_MEANDER)  
+RULES_3x3_MEANDER[["I"]][[2]] = sfc_unit("LIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_MEANDER)
+RULES_3x3_MEANDER[["R"]][[1]] = sfc_unit("IIRIRRLLI", rot = 0, universe = UNIVERSE_3x3_MEANDER)      
+RULES_3x3_MEANDER[["R"]][[2]] = sfc_unit("LIRIRRLLR", rot = 0, universe = UNIVERSE_3x3_MEANDER)
+RULES_3x3_MEANDER[["L"]][[1]] = sfc_unit("RILILLRRL", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["L"]][[2]] = sfc_unit("IILILLRRI", rot = 0, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["U"]][[1]] = sfc_unit("IIRIRRLLR", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["U"]][[2]] = sfc_unit("IILILLRRL", rot = 0, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["B"]][[1]] = sfc_unit("LILILLRRI", rot = 180, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["B"]][[2]] = sfc_unit("RIRIRRLLR", rot = 270, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["D"]][[1]] = sfc_unit("LILILLRRL", rot = 90, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["D"]][[2]] = sfc_unit("RIRIRRLLI", rot = 180, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["P"]][[1]] = sfc_unit("IIRIRRLLL", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["P"]][[2]] = sfc_unit("RILILLRRR", rot = 0, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["Q"]][[1]] = sfc_unit("IILILLRRR", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["Q"]][[2]] = sfc_unit("LIRIRRLLL", rot = 0, universe = UNIVERSE_3x3_MEANDER) 
+RULES_3x3_MEANDER[["C"]][[1]] = sfc_unit("LILILLRRR", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
+RULES_3x3_MEANDER[["C"]][[2]] = sfc_unit("RIRIRRLLL", rot = 0, universe = UNIVERSE_3x3_MEANDER)                    # 1, 2
 
 
 ####
@@ -267,25 +267,25 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 .onLoad = function(libname, pkgname) {
 
     parent = parent.env(environment())
-    SFC_RULES_HILBERT = sfc_rules(rules = RULES_HILBERT, name = "Hilbert",
-        bases = BASE_LIST[UNIVERSE_HILBERT])
+    SFC_RULES_2x2 = sfc_rules(rules = RULES_2x2, name = "2x2",
+        bases = BASE_LIST[UNIVERSE_2x2])
 
-    SFC_RULES_PEANO = sfc_rules(rules = RULES_PEANO, flip = RULES_PEANO_FLIP,
-        name = "Peano", bases = BASE_LIST[UNIVERSE_PEANO])
+    SFC_RULES_3x3_PEANO = sfc_rules(rules = RULES_3x3_PEANO, flip = RULES_3x3_PEANO_FLIP,
+        name = "3x3 Peano", bases = BASE_LIST[UNIVERSE_3x3_PEANO])
 
-    RULES_MEANDER_FLIP = lapply(RULES_MEANDER, function(x) {
+    RULES_3x3_MEANDER_FLIP = lapply(RULES_3x3_MEANDER, function(x) {
         lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
     })
-    SFC_RULES_MEANDER = sfc_rules(rules = RULES_MEANDER, flip = RULES_MEANDER_FLIP,
-        name = "Meander",
-        bases = BASE_LIST[UNIVERSE_MEANDER])
+    SFC_RULES_3x3_MEANDER = sfc_rules(rules = RULES_3x3_MEANDER, flip = RULES_3x3_MEANDER_FLIP,
+        name = "3x3 Meander",
+        bases = BASE_LIST[UNIVERSE_3x3_MEANDER])
 
     RULES_3x3_COMBINED_FLIP = lapply(RULES_3x3_COMBINED, function(x) {
         lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
     })
 
     SFC_RULES_3x3_COMBINED = sfc_rules(rules = RULES_3x3_COMBINED, flip = RULES_3x3_COMBINED_FLIP,
-        name = "3x3_combined",
+        name = "3x3 combined",
         bases = BASE_LIST[UNIVERSE_3x3_COMBINED])
 
 
@@ -294,19 +294,19 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
     })
 
     SFC_RULES_4x4_MEANDER_1 = sfc_rules(rules = RULES_4x4_MEANDER_1, flip = RULES_4x4_MEANDER_1_FLIP,
-        name = "Meander 4x4 type 1",
+        name = "4x4 Meander type 1",
         bases = BASE_LIST[UNIVERSE_4x4_MEANDER])
 
     RULES_4x4_MEANDER_2_FLIP = lapply(RULES_4x4_MEANDER_2, function(x) {
         lapply(x, function(u) sfc_flip_unit(u, BASE_LIST))
     })
     SFC_RULES_4x4_MEANDER_2 = sfc_rules(rules = RULES_4x4_MEANDER_2, flip = RULES_4x4_MEANDER_2_FLIP,
-        name = "Meander 4x4 type 2",
+        name = "4x4 Meander type 2",
         bases = BASE_LIST[UNIVERSE_4x4_MEANDER])
 
-    assign("SFC_RULES_HILBERT", SFC_RULES_HILBERT, envir = parent)
-    assign("SFC_RULES_PEANO", SFC_RULES_PEANO, envir = parent)
-    assign("SFC_RULES_MEANDER", SFC_RULES_MEANDER, envir = parent)
+    assign("SFC_RULES_2x2", SFC_RULES_2x2, envir = parent)
+    assign("SFC_RULES_3x3_PEANO", SFC_RULES_3x3_PEANO, envir = parent)
+    assign("SFC_RULES_3x3_MEANDER", SFC_RULES_3x3_MEANDER, envir = parent)
     assign("SFC_RULES_3x3_COMBINED", SFC_RULES_3x3_COMBINED, envir = parent)
     assign("SFC_RULES_4x4_MEANDER_1", SFC_RULES_4x4_MEANDER_1, envir = parent)
     assign("SFC_RULES_4x4_MEANDER_2", SFC_RULES_4x4_MEANDER_2, envir = parent)
@@ -385,30 +385,30 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' A list of pre-defined expansion rules for different curves.
 #' 
 #' @details
-#' `SFC_RULES_PEANO`, `SFC_RULES_MEANDER` and `SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2` also contain the "flipped" expansion rules.
+#' `SFC_RULES_3x3_PEANO`, `SFC_RULES_3x3_MEANDER` and `SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2` also contain the "flipped" expansion rules.
 #' @rdname pre_defined_rules
 #' @export
 #' @examples
-#' SFC_RULES_HILBERT
-#' SFC_RULES_PEANO
-#' SFC_RULES_MEANDER
+#' SFC_RULES_2x2
+#' SFC_RULES_3x3_PEANO
+#' SFC_RULES_3x3_MEANDER
 #' SFC_RULES_3x3_COMBINED
 #' SFC_RULES_4x4_MEANDER_1
 #' SFC_RULES_4x4_MEANDER_2
-"SFC_RULES_HILBERT"
+"SFC_RULES_2x2"
 
 #' @rdname pre_defined_rules
 #' @export
-"SFC_RULES_PEANO"
+"SFC_RULES_3x3_PEANO"
 
 #' @rdname pre_defined_rules
 #' @export
-"SFC_RULES_MEANDER"
+"SFC_RULES_3x3_MEANDER"
 
 #' @rdname pre_defined_rules
 #' @details
-#' `SFC_RULES_3x3_COMBINED` is a combination of `SFC_RULES_PEANO` and `SFC_RULES_PEANO` where
-#' in `SFC_RULES_PEANO`, `J` is replaced by its original pattern `I`.
+#' `SFC_RULES_3x3_COMBINED` is a combination of `SFC_RULES_3x3_PEANO` and `SFC_RULES_3x3_MEANDER` where
+#' in `SFC_RULES_3x3_PEANO`, `J` is replaced by its original pattern `I`.
 #' @export
 "SFC_RULES_3x3_COMBINED"
 
@@ -418,7 +418,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 
 #' @rdname pre_defined_rules
 #' @details
-#' `SFC_RULES_4x4_MEANDER_1` and `SFC_RULES_4x4_MEANDER_2` are extension rules of `SFC_RULES_MEANDER`
+#' `SFC_RULES_4x4_MEANDER_1` and `SFC_RULES_4x4_MEANDER_2` are extension rules of Meander curves (3x3)
 #' on the 4x4 curve. It is only for the demonstration purpose, thus only `I/R/L` are supported.
 #' @export
 "SFC_RULES_4x4_MEANDER_2"

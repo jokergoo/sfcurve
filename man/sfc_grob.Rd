@@ -81,7 +81,7 @@ is already stored in \code{p} and it is passed to this function automatically.
 }
 \examples{
 sfc_grob(BASE_I)
-plot(sfc_hilbert("I", "11"))
-plot(sfc_hilbert("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
+plot(sfc_2x2("I", "11"))
+plot(sfc_2x2("I", "11"), extend = TRUE, title = TRUE, grid = TRUE)
 plot(sfc_sequence("IIIRRR"))
 }

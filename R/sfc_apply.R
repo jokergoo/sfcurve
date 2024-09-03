@@ -17,7 +17,7 @@
 #' 
 #' @export
 #' @examples
-#' p = sfc_peano("I", level = 3)
+#' p = sfc_3x3_peano("I", level = 3)
 #' # flip the global curve
 #' draw_multiple_curves(
 #'     p, 

@@ -17,10 +17,10 @@
 The mode of the curve
 }
 \examples{
-p = sfc_hilbert("I", "1")
+p = sfc_2x2("I", "1")
 sfc_mode(p)
-p = sfc_peano("I", "1")
+p = sfc_3x3_peano("I", "1")
 sfc_mode(p)
-sfc_mode(SFC_RULES_HILBERT)
-sfc_mode(SFC_RULES_PEANO)
+sfc_mode(SFC_RULES_2x2)
+sfc_mode(SFC_RULES_3x3_PEANO)
 }

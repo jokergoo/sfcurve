@@ -61,19 +61,19 @@ Transformations of a sequence
 }
 }
 \examples{
-p = sfc_meander("R", 2, rot = -90)
+p = sfc_3x3_meander("R", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_hflip(p), 
     sfc_hflip(p, fix_ends = TRUE), 
     nrow = 1)
-p = sfc_meander("L", 2, rot = -90)
+p = sfc_3x3_meander("L", 2, rot = -90)
 draw_multiple_curves(
     p, 
     sfc_vflip(p), 
     sfc_vflip(p, fix_ends = TRUE), 
     nrow = 1)
-p = sfc_peano("I", 2)
+p = sfc_3x3_peano("I", 2)
 draw_multiple_curves(
     p, 
     sfc_dflip(p, 1), 

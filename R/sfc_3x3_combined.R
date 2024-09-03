@@ -13,7 +13,7 @@ setClass("sfc_3x3_combined",
 #'      first letter, or a vector with the same length as the number of base letters.
 #' @param rot Rotation of the seed sequence, measured in the polar coordinate system, in degrees.
 #' @param level Level of the curve. Currently it is restricted to an integer smaller than 6.
-#' @param flip The same setting as in [`sfc_peano()`] or [`sfc_meander()`].
+#' @param flip The same setting as in [`sfc_3x3_peano()`] or [`sfc_3x3_meander()`].
 #' 
 #' @details
 #' This type of 3x3 curve uses the combintation of base patterns from both the Peano curve and the Meander curve.
@@ -89,6 +89,9 @@ setAs("sfc_seed", "sfc_3x3_combined", function(from) {
 	p = new("sfc_3x3_combined")
 	p@seq = from@seq
 	levels(p@seq) = sfc_universe(SFC_RULES_3x3_COMBINED)
+	if(any(is.na(p@seq))) {
+		stop_wrap("Base letters should all be in `sfc_universe(SFC_RULES_3x3_COMBINED)`.")
+	}
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_3x3_COMBINED)
 	p@level = 0L

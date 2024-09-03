@@ -34,7 +34,7 @@ The reduction is applied on the coordinates of points.
 \code{add_base_structure()} adds a base structure on a certain level to the curve.
 }
 \examples{
-p = sfc_peano("I", level = 3)
+p = sfc_3x3_peano("I", level = 3)
 draw_multiple_curves(
     p, 
     sfc_reduce(p, 2), 

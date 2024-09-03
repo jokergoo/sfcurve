@@ -6,14 +6,14 @@ articles:
   functions: functions.html
   h_curve: h_curve.html
   hilbert_3d: hilbert_3d.html
-  hilbert_curve: hilbert_curve.html
   locality: locality.html
   meander_4x4_curve: meander_4x4_curve.html
   meander_curve: meander_curve.html
   nxn_curve: nxn_curve.html
   peano_curve: peano_curve.html
+  sfc_2x2: sfc_2x2.html
   sfcurve: sfcurve.html
   standard_curves: standard_curves.html
   unit_flipping: unit_flipping.html
-last_built: 2024-08-02T05:57Z
+last_built: 2024-09-03T14:07Z
 

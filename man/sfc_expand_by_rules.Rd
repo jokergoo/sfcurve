@@ -34,5 +34,5 @@ If \code{seq} is an \code{sfc_nxn} object, the function also returns an "expande
 Expand a sequence
 }
 \examples{
-sfc_expand_by_rules(SFC_RULES_HILBERT, sfc_hilbert("I"))
+sfc_expand_by_rules(SFC_RULES_2x2, sfc_2x2("I"))
 }

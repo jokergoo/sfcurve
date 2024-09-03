@@ -26,7 +26,7 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 Currently, \code{sfc_apply()} only works on curves with a single base pattern as the seed.
 }
 \examples{
-p = sfc_peano("I", level = 3)
+p = sfc_3x3_peano("I", level = 3)
 # flip the global curve
 draw_multiple_curves(
     p, 
