@@ -11,7 +11,7 @@
 \S4method{sfc_validate}{character}(p, by = "sfc_2x2")
 }
 \arguments{
-\item{p}{An \code{sfc_sequence} object or a character string. If it is a character string, rotations are all taken as zeros.}
+\item{p}{An \code{sfc_sequence} object or a character string. If it is a character string, rotation of zero is assigned to the first letter.}
 
 \item{by}{One of \code{sfc_2x2}, \code{sfc_3x3_peano} and \code{sfc_3x3_meander}.}
 }

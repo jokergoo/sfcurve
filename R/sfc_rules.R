@@ -4,19 +4,20 @@
 #' 
 #' @param rules A list of rules.
 #' @param bases A list of base patterns.
-#' @param flip A list of rules. They are "flipped" version of `rules`.
+#' @param flip A list of rules. They are "flipped" version of `rules`. The value can also simply be `TRUE`, then
+#'           the flipped version is automatically generated from `rules`.
 #' @param name A self-defined string.
 #' 
 #' @details
 #' It is mainly used internally.
 #' 
 #' `rules` is a two-level list. It is in a format of `rules[[ base ]][[ expansion_code ]] = sfc_unit()`.
-#' In the following example where we define the expansion rules for th Hilbert curve:
+#' In the following example where we define the expansion rules for the 2x2 curve:
 #' 
 #' ```
 #' UNIVERSE_2x2 = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
 #' RULES_2x2 = list()
-#' RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
+#' RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_2x2)
 #' ```
 #' 
 #' `I` is the level-0 base pattern, `[[1]]` corresponds to the first form of expansion to level-1, and the value
@@ -40,7 +41,7 @@
 #' - [`SFC_RULES_4x4_MEANDER_1`]
 #' - [`SFC_RULES_4x4_MEANDER_2`]
 #' 
-#' Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.
+#' Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R} to see how these pre-defined rules are constructed.
 #' 
 #' @export
 sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
@@ -60,6 +61,12 @@ sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
     r@bases = bases
     r@universe = universe
     r@name = name
+
+    if(identical(flip, TRUE)) {
+        flip = lapply(rules, function(x) {
+            lapply(x, function(u) sfc_flip_unit(u, rules@base))
+        })
+    }
 
     if(length(flip) > 0) {
         for(nm in names(flip)) {
@@ -206,6 +213,20 @@ validate_rule = function(rule, bp, i, bases) {
     }
 }
 
+
+#' @export
+`[.sfc_rules` = function(x, i) {
+    if(is.character(i)) {
+        i = intersect(names(x@rules), i)
+    } else if(is.numeric(i)) {
+        i = intersect(seq_along(x@rules), i)
+    }
+    x@rules = x@rules[i]
+    if(length(x@flip) > 0) {
+        x@flip = x@flip[i]
+    }
+    x
+}
 
 #' @rdname show
 #' @export
@@ -403,7 +424,7 @@ setMethod("sfc_expand_by_rules",
         p3@rot = p2@rot
         p3@universe = p2@universe
         p3@level = seq@level + 1L
-        p3@n = seq@n
+        p3@mode = seq@mode
         p3@seed = seq@seed
         p3@rules = seq@rules
         p3
@@ -469,17 +490,14 @@ grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
         level0 = sfc_4x4_meander(bp, type = p@type, flip = flip)
     } else {
         cl = getClass(class(p))
-        level0 = get(class(p), envir = as.environment(cl@package))(bp)
+        fun = get(class(p), envir = as.environment(cl@package))
+        level0 = fun(bp, flip = flip)
     }
 
     pl = rules@rules[[bp]]
 
     for(i in seq_along(pl)) {
-        if(inherits(level0, "sfc_3x3_peano") || inherits(level0, "sfc_3x3_meander") || inherits(level0, "sfc_3x3_combined") || inherits(level0, "sfc_4x4_meander")) {
-            pl[[i]] = sfc_expand(level0, i, flip = flip)
-        } else {
-            pl[[i]] = sfc_expand(level0, i)
-        }
+        pl[[i]] = sfc_expand(level0, i, flip = flip)
     }
 
     n = length(pl)

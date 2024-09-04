@@ -8,7 +8,7 @@
 #' @details
 #' These are just special forms of [`sfc_2x2()`], [`sfc_3x3_peano()`], [`sfc_3x3_meander()`] and [`sfc_h()`].
 #' @return
-#' A two-column matrix of the coordinates of points on the curve.
+#' A two-column matrix of coordinates of points on the curve.
 #' @export
 #' @examples
 #' hilbert_curve(2)
@@ -207,6 +207,10 @@ h_curve = function(iteration = 2L) {
 #' @export
 #' @details
 #' This function is only for a quick demonstration of curves represented as two-column coordinate matrices.
+#' @examples
+#' pos = cbind(c(0, 0, 1, 1, 2, 2, 3, 3, 2, 2, 1, 1),
+#'             c(1, 2, 2, 3, 3, 2, 2, 1, 1, 0, 0, 1))
+#' plot_segments(pos)
 plot_segments = function(x, grid = FALSE, title = FALSE, closed = FALSE, ...) {
 	gb = sfc_grob(x, title = title, closed = closed, ...)
 	grid.newpage()

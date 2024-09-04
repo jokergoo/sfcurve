@@ -34,7 +34,7 @@ If the length is smaller than 9, the stringis automatically recycled.}
 \item{iteration}{Number of iterations.}
 }
 \value{
-A two-column matrix of the coordinates of points on the curve.
+A two-column matrix of coordinates of points on the curve.
 }
 \description{
 Various curves in their standard forms

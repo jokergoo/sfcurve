@@ -49,12 +49,12 @@
 \arguments{
 \item{p}{The corresponding object.}
 
-\item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}.}
+\item{bases}{A list of base patterns, normally \code{\link{BASE_LIST}} is used.}
 
-\item{extend}{Whether to add the entering and leaving segments?}
+\item{extend}{Whether to add the entry and exit segments?}
 
 \item{title}{Whether to add title on the top of the plot? The title is constructed in the form of \code{initial_seed|expansion_code}, e.g. \code{I|111}.
-Or the value is a string.}
+The value can also be a string.}
 
 \item{closed}{Whether the curve is closed?}
 
@@ -75,7 +75,7 @@ A \code{\link[grid:grid.grob]{grid::grob()}} object.
 The graphics object
 }
 \details{
-If \code{p} is an \code{sfc_sequence} and if \code{p} contains base patterns defined in \code{"I/J/R/L/U/B/D/P/Q/C"},
+If \code{p} is an \code{sfc_sequence} and \code{p} contains base patterns defined in \code{"I/J/R/L/U/B/D/P/Q/C"},
 the default \code{\link{BASE_LIST}} is automatically used for \code{bases}. If \code{p} is an \code{sfc_nxn} object, \code{bases}
 is already stored in \code{p} and it is passed to this function automatically.
 }

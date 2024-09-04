@@ -4,14 +4,22 @@
 \alias{sfc_generator}
 \title{Generate a nxn curve based on expansion rules}
 \usage{
-sfc_generator(rules, name, envir = topenv(parent.frame()), verbose = TRUE)
+sfc_generator(
+  rules,
+  name,
+  envir = topenv(parent.frame()),
+  flippable = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{rules}{An \code{sfc_rules} object.}
 
-\item{name}{Name of the curve.}
+\item{name}{Name of the curve. The name will be used for the functions that will be generated.}
 
-\item{envir}{Environment where the functions are exported to.}
+\item{envir}{Environment where the functions are exported.}
+
+\item{flippable}{Whether \code{rules} can have flipped version? If it is \code{TRUE}, the generated function also accepts the \code{flip} argument.}
 
 \item{verbose}{Whether to print messages?}
 }
@@ -42,6 +50,7 @@ RULES_4x4_PEANO[["L"]][[2]] = sfc_hflip(RULES_4x4_PEANO[["R"]][[1]])
 SFC_RULES_4x4_PEANO = sfc_rules(rules = RULES_4x4_PEANO,
         name = "Peano 4x4",
         bases = BASE_LIST[UNIVERSE_4x4_PEANO])
+
 sfc_generator(SFC_RULES_4x4_PEANO, "4x4_peano")
 draw_rules_4x4_peano()
 sfc_4x4_peano("I", 111) |> plot()

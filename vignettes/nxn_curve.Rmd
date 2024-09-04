@@ -216,10 +216,10 @@ draw_multiple_curves(
 )
 ```
 
-We may also validate whether a transverse path exist, e.g. for $I$:
+We may also validate whether a traverse path exist, e.g. for $I$:
 
 ```{r, fig.width = 12, fig.height = 2, out.width = "100%"}
-plot_transverse_paths(SFC_RULES_5x5_FOO, RULES_5x5_FOO[["I"]][[1]])
+plot_traverse_paths(SFC_RULES_5x5_FOO, RULES_5x5_FOO[["I"]][[1]])
 ```
 
 If everything works fine, we can generate the curve functions:

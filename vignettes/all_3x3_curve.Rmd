@@ -43,33 +43,33 @@ draw_rules_3x3_combined()
 Note, `J` from the Peano curve is put into the `I` base group. And the vertical Peano
 patterns can also be expanded for the `B/D/P/Q/C` bases.
 
-## Transverse path
+## Traverse path
 
-Since now all Peano base units and Meander base units are included, the transverse paths from level $k$ to level $k+1$ are massive. Let's try to
+Since now all Peano base units and Meander base units are included, the traverse paths from level $k$ to level $k+1$ are massive. Let's try to
 expand $I_1^{(1)}$ to the next level.
 
 
 ```{r}
 p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
 p
-pl = all_transverse_paths(SFC_RULES_3x3_COMBINED, p)
+pl = all_traverse_paths(SFC_RULES_3x3_COMBINED, p)
 length(pl)
 ```
 
-The following plot shows all transverse
+The following plot shows all traverse
 paths for the sequence `I(0)I(0)R(0)R(270)I(180)L(180)L(270)I(0)I(0)` to level 2.
 
 
 ```{r, fig.width = 9, fig.height = 3}
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p)
+plot_traverse_paths(SFC_RULES_3x3_COMBINED, p)
 ```
 
-And the numbers of total transverse paths for other level-1 base patterns:
+And the numbers of total traverse paths for other level-1 base patterns:
 
 ```{r}
 for(b in c("I", "R", "L", "U", "B", "D", "P", "Q", "C")) {
     for(i in seq_along(SFC_RULES_3x3_COMBINED@rules[[b]])) {
-        pl = all_transverse_paths(
+        pl = all_traverse_paths(
             SFC_RULES_3x3_COMBINED, 
             SFC_RULES_3x3_COMBINED@rules[[b]][[i]])
         cat(b, "_", i, ": ", length(pl), "\n", sep = "")
@@ -78,36 +78,36 @@ for(b in c("I", "R", "L", "U", "B", "D", "P", "Q", "C")) {
 ```
 
 In the Peano curve, all level-1 patterns have the corner values of `(1, 1)` or `(2, 2)`.
-In the following, we can see the Peano curve only has one specific transverse path on
+In the following, we can see the Peano curve only has one specific traverse path on
 any level $k$.
 
 ```{r, fig.width = 9, fig.height = 3}
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
+plot_traverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
 ```
 
 For the Meander curve, the corner values are always `(1, 2)` or `(2, 1)`. 
-There are always two transverse paths for any given $k$. If the transverse code
-for the first base pattern is determined, the whole transverse path is then fixed.
+There are always two traverse paths for any given $k$. If the traverse code
+for the first base pattern is determined, the whole traverse path is then fixed.
 
 ```{r, fig.width = 9, fig.height = 3}
-plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
+plot_traverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 ```
 
 ## Number of different forms
 
 Let's make an assumption: for a general 3x3 curve that expands from level $k$ with $n$ points ($n = 9^{k}$) to level $k+1$, 
-the total number of transverse paths denoted as $t_k$ is:
+the total number of traverse paths denoted as $t_k$ is:
 
 $$
 t_k \approx \alpha^n
 $$
 
-Since in a 3x3 curve, base patterns have either three or four transverse codes,
+Since in a 3x3 curve, base patterns have either three or four traverse codes,
 let's consider a sequence with $n$ base patterns of $I$. Let's start from the first base pattern.
 From the second one, a base pattern can connect to two following base patterns (e.g. (1, 1) at position 1 can only connect to
-(2, 1) and (2, 2)), then the total number of transverse paths with a fixed position 1 is $2^{n-1}$.
-By taking all four base patterns at position 1, the final number of transverse paths for $n$ base patterns 
-are $4 \cdot 2^{n-1} = 2 \cdot 2^n$, which is the possible maximal number of total transverse paths for a sequence of length $n$.
+(2, 1) and (2, 2)), then the total number of traverse paths with a fixed position 1 is $2^{n-1}$.
+By taking all four base patterns at position 1, the final number of traverse paths for $n$ base patterns 
+are $4 \cdot 2^{n-1} = 2 \cdot 2^n$, which is the possible maximal number of total traverse paths for a sequence of length $n$.
 
 Then
 
@@ -124,7 +124,7 @@ $$
 \alpha_\mathrm{max} \approx 2
 $$
 
-For the minimal case, there is only one transverse path for $n$ base patterns, thus 
+For the minimal case, there is only one traverse path for $n$ base patterns, thus 
 
 $$\alpha_\mathrm{min} = 1$$
 
@@ -164,7 +164,7 @@ $$
 
 ## Curves
 
-`sfc_3x3_combined()` generates a curve where on each level, a transverse path is randomly
+`sfc_3x3_combined()` generates a curve where on each level, a traverse path is randomly
 selected.
 
 ```{r, fig.width = 8, fig.height = 8}

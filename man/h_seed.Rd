@@ -24,7 +24,7 @@ H2
 Seed sequences of the H-curve
 }
 \details{
-The three objects simply contain the coordinates of points on the three base curves.
+The three objects simply contain coordinates of points on the three base H-curves.
 }
 \examples{
 H0

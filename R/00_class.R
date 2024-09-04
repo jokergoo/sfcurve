@@ -29,20 +29,20 @@ setClass("sfc_nxn",
 	          "rules" = "sfc_rules",
 		      "expansion" = "integer",
 		      "level" = "integer",
-		      "n" = "integer"),
+		      "mode" = "integer"),
 	contains = "sfc_sequence")
 
 setClass("sfc_2x2",
 	contains = "sfc_nxn",
-	prototype = list(n = 2L))
+	prototype = list(mode = 2L))
 
 setClass("sfc_3x3_peano",
 	contains = "sfc_nxn",
-	prototype = list(n = 3L))
+	prototype = list(mode = 3L))
 
 setClass("sfc_3x3_meander",
 	contains = "sfc_nxn",
-	prototype = list(n = 3L))
+	prototype = list(mode = 3L))
 
 
 setGeneric('sfc_expand', function(p, ...) standardGeneric('sfc_expand'))

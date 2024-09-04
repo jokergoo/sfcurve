@@ -30,3 +30,12 @@ Utility functions
 \details{
 For efficiency, \code{c.sfc_sequence()} does not check whether the input \code{sfc_sequence} objects are compatible.
 }
+\examples{
+p = sfc_sequence("ABCDEFGH")
+p
+p[1:4]
+p[1:4] = p[8:5]
+p
+length(p)
+c(p, p)
+}

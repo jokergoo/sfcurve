@@ -116,6 +116,14 @@ next_rotation = function(letter, rot) {
 #' @param ... A list of `sfc_sequence` objects or other arguments.
 #' 
 #' @export
+#' @examples
+#' p = sfc_sequence("ABCDEFGH")
+#' p
+#' p[1:4]
+#' p[1:4] = p[8:5]
+#' p
+#' length(p)
+#' c(p, p)
 `[.sfc_sequence` = function(x, i) {
 	x2 = new("sfc_sequence")
 	x2@seq = x@seq[i]
@@ -128,9 +136,13 @@ next_rotation = function(letter, rot) {
 #' @rdname utility
 #' @export
 `[<-.sfc_sequence` = function(x, i, value) {
-	x@seq[i] = value@seq
-	x@rot[i] = value@rot
-	x
+	if(sfc_is_compatible(x, value)) {
+		x@seq[i] = value@seq
+		x@rot[i] = value@rot
+		x
+	} else {
+		stop_wrap("`x` and `value` should be compatible.")
+	}
 }
 
 #' @rdname utility

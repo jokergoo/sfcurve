@@ -4,16 +4,19 @@
 \alias{sfc_shape,sfc_2x2-method}
 \alias{sfc_shape}
 \alias{all_2x2_shapes}
+\alias{sfc_shape,sfc_3x3_peano-method}
 \title{Shape of the curve}
 \usage{
 \S4method{sfc_shape}{sfc_2x2}(p)
 
 all_2x2_shapes(level = 2)
+
+\S4method{sfc_shape}{sfc_3x3_peano}(p)
 }
 \arguments{
 \item{p}{An \code{sfc_2x2} object.}
 
-\item{level}{Level of the Hilbert curve.}
+\item{level}{Level of the 2x2 curve.}
 }
 \value{
 \code{sfc_shape()} returns a two-column data frame of the xy-coordinates of the shape curve.
@@ -25,8 +28,9 @@ the xy-coordnates of the corresponding shape curve.
 Shape of the curve
 }
 \details{
-The shape of the curve is defined as a form of the curve without considering rotation,
+The shape of the curve is defined as a form of the curve without considering entry/exit directions, rotation,
 flipping (reflection) nor reversing.
+\subsection{2x2 curve}{
 
 The process of selecting the shape segment of the curve denoted as \code{P} is:
 \enumerate{
@@ -40,9 +44,37 @@ x-coordinate (i.e. more to the left of the curve). If the x-coordinates of \code
 \code{P2} and \code{P3}, we select the one whose \code{p} has the smaller y-coordinate.
 }
 }
+
+\subsection{3x3 Peano curve}{
+
+The process of selecting the shape segment of the curve denoted as \code{P} is:
+\enumerate{
+\item The entry-point should locate in the bottom left subunit and the exit-point should
+locate in the top right subunit. We try the four rotations (0, 90, 180, 270). Once we find the transformed curve
+that satisfies this criterion, we term it as \code{P2}.
+\item We also generate \code{P3} which is a 180 degrees rotation on the reversed \code{P2}.
+\item We calculate the "UID" of \verb{P*} and pick the one with the smallest UID as the final curve.
+}
+
+The UID of a 3x3 Peano curve is based on the hierarchical indices of the units on it. The hierarchy of the
+Peano curve is traversed in a depth-first manner. On each node, the orientation of the corresponding unit is
+calculated where vertical is 1 and horizontal is 2. The digits are concatenated into a long string.
+}
+}
 \examples{
+p1 = sfc_2x2("I", 11)
+p2 = sfc_2x2("R", 22)
+draw_multiple_curves(
+    p1, p2, 
+    sfc_shape(p1), sfc_shape(p2), 
+    col = "black")
 sl = all_2x2_shapes(2)
 draw_multiple_curves(list = sl, lwd = 2, col = "black")
 sl = all_2x2_shapes(3)
 draw_multiple_curves(list = sl, lwd = 2, col = "black")
+p = sfc_3x3_peano("I", 11)
+draw_multiple_curves(
+    p, sfc_reverse(p),
+    sfc_shape(p), sfc_shape(sfc_reverse(p)),
+    col = "black")
 }

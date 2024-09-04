@@ -22,7 +22,7 @@
 \item{by}{Which implementation? Only for the testing purpose.}
 }
 \value{
-A two-column matrix of the coordinates of points on the curve.
+A two-column matrix of coordinates of points on the curve.
 }
 \description{
 Coordinates of the points on the curve

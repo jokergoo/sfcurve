@@ -1,7 +1,12 @@
 
 #' @rdname sfc_index
 #' @param x An `sfc_nxn` object.
-#' @param i Numeric index or a character index representing the hierarchy of the subunit in the curve.
+#' @param i,index A string of digits representing the path on the hierarchy of the curve. The left side
+#'       corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
+#'       2x2 curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+#'       The hierarchical index should be specified in a format of `i1:i2:i3:...`
+#'         where `:` can be replaced by any non-number character. For 2x2 and 3x3 curves, `:` can be omitted and the
+#'         hierarchical index can be specified as `i1i2i3...`. See the **Examples** section.
 #' @param j A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
 #' @param ... Ignore.
 #' @param drop A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
@@ -9,7 +14,9 @@
 #' @examples
 #' p = sfc_2x2("I", "11111")
 #' p["3:2:1"]
-#' p["3:2:1", TRUE]
+#' # for 2x2 and 3x3 curves, ":" can be omitted
+#' p["321"]
+#' p["3:2:1", TRUE] # or p["3:2:1", drop = FALSE]
 `[.sfc_nxn` = function(x, i, j, ..., drop = TRUE) {
 
 	if(missing(i)) {
@@ -46,12 +53,14 @@
 }
 
 get_index_from_nxn = function(index, level, n) {
-	# if(grepl("\\D", index)) {
+	if(grepl("\\D", index)) {
 		index = as.integer(strsplit(index, "\\D+")[[1]])
 		index = index[!is.na(index)]
-	# } else {
-	# 	index = as.integer(strsplit(as.character(index), "")[[1]])
-	# }
+	} else {
+		if(n <= 3) {
+			index = as.integer(strsplit(as.character(index), "")[[1]])
+		}
+	}
 
 	ind = seq_len( (n^2)^level )
 	for(i in index) {
@@ -78,10 +87,6 @@ get_index_from_nxn = function(index, level, n) {
 #' @aliases sfc_index
 #' @rdname sfc_index
 #' @param p An `sfc_nxn` object.
-#' @param index A string of digits representing the path on the hierarchy of the curve. The left side
-#'       corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
-#'       Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
-#'       Digits should be separated by non-number characters, see examples.
 #' @export
 #' @details
 #' `sfc_index()` only works on square curves (i.e. a curve with a single base letter as seed.)
@@ -108,6 +113,10 @@ setMethod("sfc_index",
 	signature = "sfc_nxn",
 	definition = function(p, index = "") {
 
+	if(length(p@seed) != 1) {
+		stop_wrap("`sfc_index()` only works on curves with a single base letter as seed.")
+	}
+
 	if(is.numeric(index)) {
 		return(index)
 	} else if(length(index) == 0) {
@@ -115,7 +124,7 @@ setMethod("sfc_index",
 	} else if(identical(index, "")) {
 		return(seq_len(length(p)))
 	} else {
-		get_index_from_nxn(as.character(index), p@level, p@n)
+		get_index_from_nxn(as.character(index), p@level, p@mode)
 	}
 })
 
@@ -135,7 +144,7 @@ test_sfc_index = function(p, index) {
 	} else {
 		lines(loc[index, 1], loc[index, 2], lwd = 2, col = "black")
 	}
-	title(paste0(class(p), ": level = ", p@level, ", ", p@n, "x", p@n, ", index = ", txt))
+	title(paste0(class(p), ": level = ", p@level, ", ", p@mode, "x", p@mode, ", index = ", txt))
 }
 
 

@@ -45,7 +45,7 @@ A list of pre-defined expansion rules for different curves.
 in \code{SFC_RULES_3x3_PEANO}, \code{J} is replaced by its original pattern \code{I}.
 
 \code{SFC_RULES_4x4_MEANDER_1} and \code{SFC_RULES_4x4_MEANDER_2} are extension rules of Meander curves (3x3)
-on the 4x4 curve. It is only for the demonstration purpose, thus only \code{I/R/L} are supported.
+on the 4x4 mode It is only for the demonstration purpose, thus only \code{I/R/L} are supported.
 }
 \examples{
 SFC_RULES_2x2

@@ -23,26 +23,26 @@
 
 \S4method{sfc_vflip}{sfc_sequence}(p, fix_ends = FALSE, bases = NULL)
 
-\S4method{sfc_dflip}{sfc_sequence}(p, slop = 1, fix_ends = FALSE, bases = NULL)
+\S4method{sfc_dflip}{sfc_sequence}(p, slop = 1L, fix_ends = FALSE, bases = NULL)
 
 \S4method{sfc_reverse}{sfc_sequence}(p)
 
 \method{rev}{sfc_sequence}(x)
 }
 \arguments{
-\item{p}{An \code{sfc_sequence} object.}
+\item{p, e1}{An \code{sfc_sequence} object.}
 
-\item{rot}{Rotation measured in the polar coordinate system, in degrees.}
+\item{rot, e2}{Rotation measured in the polar coordinate system, in degrees.}
 
-\item{e1}{An \code{sfc_sequence} object.}
-
-\item{e2}{The rotation.}
-
-\item{fix_ends}{Whether to keep the orientation and rotations of the starting and ending base patterns?}
+\item{fix_ends}{By default, the curve is flipped as a complete whole, which means, the associated entry and exit directions of the curve
+is also adjusted accordingly. When flipping subunits in a curve, e.g. level-1 subunits in a Peano curve, we want the
+entry and exit direction of the subunit not changed so that the subunits are still connected in the curve after the flipping. In this
+case, \code{fix_ends} can be set to \code{TRUE}, then only the subunits are flipped while the connections to neighbouring subunits are not affected.
+See the \strong{Examples} section.}
 
 \item{bases}{A list of base patterns, consider to use \code{\link{BASE_LIST}}. It is only used when \code{fix_ends = TRUE}.}
 
-\item{slop}{Slop of the diagonal.}
+\item{slop}{Slop of the diagonal. Value can only be 1 or -1.}
 
 \item{x}{An \code{sfc_sequence} object.}
 }

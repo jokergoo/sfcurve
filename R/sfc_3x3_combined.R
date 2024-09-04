@@ -1,7 +1,7 @@
 
 setClass("sfc_3x3_combined",
 	contains = "sfc_nxn",
-	prototype = list(n = 3L))
+	prototype = list(mode = 3L))
 
 
 #' General 3x3 space-filling curves 
@@ -12,12 +12,12 @@ setClass("sfc_3x3_combined",
 #'      it can be specified as a string of more than one base letters, then `rot` can be set to a single rotation scalar which controls the rotation of the
 #'      first letter, or a vector with the same length as the number of base letters.
 #' @param rot Rotation of the seed sequence, measured in the polar coordinate system, in degrees.
-#' @param level Level of the curve. Currently it is restricted to an integer smaller than 6.
+#' @param level Level of the curve. Currently it is restricted to an integer no bigger than 5.
 #' @param flip The same setting as in [`sfc_3x3_peano()`] or [`sfc_3x3_meander()`].
 #' 
 #' @details
 #' This type of 3x3 curve uses the combintation of base patterns from both the Peano curve and the Meander curve.
-#' On each level, the transverse path is randomly selected.
+#' On each level, the traverse path is randomly selected.
 #' @export
 #' @examples
 #' draw_multiple_curves(
@@ -43,7 +43,7 @@ sfc_3x3_combined = function(seed, level = 0, rot = 0L, flip = FALSE) {
 	p = as(seed, "sfc_3x3_combined")
 	p@seed = seed
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 
 	if(is.logical(flip)) {
 		if(!(length(flip) == length(seed) || length(flip) == 9 || length(flip) == 1)) {
@@ -95,7 +95,7 @@ setAs("sfc_seed", "sfc_3x3_combined", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_3x3_COMBINED)
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 	p@rules = SFC_RULES_3x3_COMBINED
 
 	p
@@ -103,7 +103,7 @@ setAs("sfc_seed", "sfc_3x3_combined", function(from) {
 
 #' @rdname sfc_3x3_combined
 #' @param p An `sfc_3x3_combined` object.
-#' @param code Ignore. The transverse code is selected randomly.
+#' @param code Ignore. The traverse codes are selected randomly.
 #' @export
 setMethod("sfc_expand",
 	signature = "sfc_3x3_combined",
@@ -115,14 +115,14 @@ setMethod("sfc_expand",
 
 	rules = p@rules
 
-	tl = get_one_transverse_path(rules, p)
+	tl = get_one_traverse_path(rules, p)
 	if(!is.null(code)) {
 		tl = as.integer(code)
 	}
 
 	k = 0
 	while(length(tl) == 0 && k < 10) {
-		tl = get_one_transverse_path(rules, p)
+		tl = get_one_traverse_path(rules, p)
 		k = k + 1
 	}
 

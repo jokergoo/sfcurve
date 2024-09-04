@@ -42,10 +42,10 @@ on various levels.
 draw_rules_3x3_meander(flip = TRUE)
 ```
 
-On each level expansion, there are two transverse paths:
+On each level expansion, there are two traverse paths:
 
 ```{r, fig.width = 8, fig.height = 2.2}
-plot_transverse_paths(SFC_RULES_3x3_MEANDER, SFC_RULES_3x3_MEANDER@rules$I[[1]])
+plot_traverse_paths(SFC_RULES_3x3_MEANDER, SFC_RULES_3x3_MEANDER@rules$I[[1]])
 ```
 
 ## Curves

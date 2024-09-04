@@ -4,13 +4,13 @@
 #' @param level The level of the curve.
 #' 
 #' @details
-#' There are many forms of 3D Hilbert curve. Here we only implement one specific form of it.
+#' There are many forms of 3D Hilbert curve. Here we only implement one specific form.
 #' 
 #' @export
 #' @import Rcpp
 #' @useDynLib sfcurve, .registration = TRUE
 #' @seealso Michael Bader. Space-Filling Curves: An Introduction with Applications in Scientific Computing, Springer Science & Business Media, 2012. \doi{10.1007/978-3-642-31046-1}.
-#' @return A three-column matrix of the coordinates of points on the 3D Hilbert curve
+#' @return A three-column matrix of coordinates of points on the 3D Hilbert curve.
 #' @examples
 #' pos = hilbert_3d(2)
 #' if(require(rgl) && interactive()) {

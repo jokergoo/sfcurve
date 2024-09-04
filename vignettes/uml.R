@@ -75,9 +75,11 @@ nomnoml("
             ]
 [sfc_2x2 | + sfc_expand()]
 [sfc_3x3_peano | + sfc_expand()
-             + level1_unit_orientation()
-             + change_level1_unit_orientation()]
-[sfc_3x3_meander | + sfc_expand()]
+                 + level1_unit_orientation()
+                 + change_level1_unit_orientation()]
+[sfc_3x3_meander | + sfc_expand()
+                   + level1_unit_orientation()
+                   + change_level1_unit_orientation()]
 [sfc_4x4_meander || + type <integer>
                  |  + sfc_expand()]
 [sfc_3x3_combined || + sfc_expand()]

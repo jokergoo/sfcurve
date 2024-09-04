@@ -419,7 +419,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' @rdname pre_defined_rules
 #' @details
 #' `SFC_RULES_4x4_MEANDER_1` and `SFC_RULES_4x4_MEANDER_2` are extension rules of Meander curves (3x3)
-#' on the 4x4 curve. It is only for the demonstration purpose, thus only `I/R/L` are supported.
+#' on the 4x4 mode It is only for the demonstration purpose, thus only `I/R/L` are supported.
 #' @export
 "SFC_RULES_4x4_MEANDER_2"
 

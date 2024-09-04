@@ -18,16 +18,16 @@ expand_h(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh")
 
 \item{random}{Whether to generate subunits randomly on each iteration.}
 
-\item{h1}{The first subunit.}
+\item{h1}{The first subunit on the bottom left.}
 
-\item{h2}{The second subunit.}
+\item{h2}{The second subunit on the top left.}
 
-\item{h3}{The third subunit.}
+\item{h3}{The third subunit on the top right.}
 
-\item{h4}{The fourth subunit.}
+\item{h4}{The fourth subunit on the bottom right.}
 }
 \value{
-A two-column matrix of the coordinates of points on the curve.
+A two-column matrix of coordinates of points on the curve.
 }
 \description{
 H-curve
@@ -41,12 +41,12 @@ An H-curve on level k is composed with four subunits on level k-1. If we number 
 
 where subunit 1 connects to subunit 2, subunit 2 connects to subunit 3, et al., and e.g. subunit 1 connects to subunit 2
 via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to
-subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
+subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horizontal
 segment and the vertical segment on the topright corner in subunit 1.
 
 In this way, in \code{sfc_h()}, the argument \code{connect} only accepts a single value of \code{"h"} or \code{"v"} where the types of segments for
 all the four subunits are the same, i.e. whether all the horizontal corner segments are opened or whether all the vertical corner
-segments are opened. In \code{expand_h()}, the argument \code{connect} can be set to a vector of length four where the type of segments of the
+segments are opened. In \code{expand_h()}, the argument \code{connect} can be set to a string with four letters or a vector of length four where the type of segments of the
 four subunits can be set separately.
 
 In the random mode, each subunit is generated randomly, the type of the open segment is choosen randomly, also each subunit has a probability of 0.5
@@ -77,8 +77,8 @@ h4 = expand_h(H0, connect = "hvvh")
 expand_h(h1, h2, h3, h4, connect = "vhvh") |> 
     plot_segments(closed = TRUE)
 
-fun = function(h, k) {
-    for(i in 1:k) h = expand_h(h, connect = "vhvh")
+fun = function(h, iteration) {
+    for(i in 1:iteration) h = expand_h(h, connect = "vhvh")
     h
 }
 fun(H0, 4) |> plot_segments(closed = TRUE)

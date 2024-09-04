@@ -5,12 +5,12 @@
 
 This package provides a way to encode all possible forms of 2x2 and 3x3
 space-filling curves. For example, the following eight forms correspond to the
-2x2 curve on level 3 and with `R(0)` (going-right base pattern with rotation
+2x2 curve on level 3 and with `R(0)` (bottom-in right-out base pattern with rotation
 of 0 degree) as the seed.
 
 <img src="https://github.com/user-attachments/assets/82b56013-8e9e-45f6-b77a-0875769c6369" width=700 />
 
-It also supports nxn curves expanded from specific level-1 units.
+It also supports nxn curves expanded from any valid level-1 unit.
 
 ## Install
 
@@ -24,11 +24,11 @@ devtools::install_github("jokergoo/sfcurve")
 Hilbert curve (2x2):
 
 ```
-> sfc_hilbert("I", "111")
-An sfc_hilbert object.
+> sfc_2x2("I", "111")
+An sfc_2x2 object.
   Increase mode: 2 x 2
   Level: 3
-  Expansion rule: Hilbert
+  Expansion rule: 2x2
 
 A sequence of 64 base patterns.
   R(0)L(270)L(0)R(90)     I(0)R(0)R(270)L(180)
@@ -44,11 +44,11 @@ Seed: A sequence of 1 base pattern.
 Peano curve (3x3):
 
 ```
-> sfc_peano("I", "111")
-An sfc_peano object.
+> sfc_3x3_peano("I", "111")
+An sfc_3x3_peano object.
   Increase mode: 3 x 3
   Level: 3
-  Expansion rule: Peano
+  Expansion rule: 3x3 Peano
 
 A sequence of 729 base patterns.
   I(0)J(0)R(0)R(270)  I(180)L(180)L(270)J(0)
@@ -64,11 +64,11 @@ Seed: A sequence of 1 base pattern.
 Meander curve (3x3):
 
 ```
-> sfc_meander("I", "111")
-An sfc_meander object.
+> sfc_3x3_meander("I", "111")
+An sfc_3x3_meander object.
   Increase mode: 3 x 3
   Level: 3
-  Expansion rule: Meander
+  Expansion rule: 3x3 Meander
 
 A sequence of 729 base patterns.
   R(0)I(270)L(270)I(0)  L(0)L(90)R(180)R(90)
@@ -86,12 +86,13 @@ It also allows using a sequence as the seed:
 
 ```
 p = sfc_seed("LLLILILIILIILIIILIIILIIII")
-p2 = sfc_hilbert(p, "1111")
+p2 = sfc_2x2(p, "1111")
 plot(p2)
 ```
 
 <img src="https://github.com/user-attachments/assets/f1144f7f-282f-4988-aafd-9f712dd3ed2d" width=500 />
 
+For more comprehensive introduction of the theory and the package, please refer to the vignettes.
 
 ## License
 

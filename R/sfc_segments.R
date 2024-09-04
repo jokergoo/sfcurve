@@ -9,7 +9,7 @@
 #' @param ... Other argument.
 #' 
 #' @return
-#' A two-column matrix of the coordinates of points on the curve.
+#' A two-column matrix of coordinates of points on the curve.
 #' @export
 #' @examples
 #' p = sfc_2x2("I", "11")

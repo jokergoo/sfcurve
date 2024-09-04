@@ -231,7 +231,7 @@ the $4^{k-1}$ 2x2 units are properly connected and makes the final curve in the 
 
 ### Corners
 
-All the level 1 units transverse through a $2 \times 2$ grids, thus they all have a
+All the level 1 units traverse through a $2 \times 2$ grids, thus they all have a
 square-shape with an in-direction and an out-direction. Denote the bottom
 left and top right have a value of 1 and the top left and bottom right
 have a value of 2:
@@ -350,19 +350,19 @@ $$
 
 By the way, the rotations from the second base pattern in the sequence can be automatically calculated from the first base pattern.
 
-When expanding a curve from level k-1 to level k, on level k-1, we only need to pre-select the transverse code for the
-first base pattern, then the transverse code for the remainingbase patterns on level k-1 is determined, which ensures
+When expanding a curve from level k-1 to level k, on level k-1, we only need to pre-select the traverse code for the
+first base pattern, then the traverse code for the remainingbase patterns on level k-1 is determined, which ensures
 the expanded $4^{k-1}$ 2x2 units are all connected.
 
 
-Finally, the sequence of the transverse code for each base unit in the expansion is called the **transverse path**. E.g. 
-the two different transverse paths of the $R_1$ 2x2 unit, determined by the expansion code of the first base pattern:
+Finally, the sequence of the traverse code for each base unit in the expansion is called the **traverse path**. E.g. 
+the two different traverse paths of the $R_1$ 2x2 unit, determined by the expansion code of the first base pattern:
 
 ```{r, fig.width = 6, fig.height = 2.5}
-plot_transverse_paths(SFC_RULES_2x2, SFC_RULES_2x2@rules$R[[1]])
+plot_traverse_paths(SFC_RULES_2x2, SFC_RULES_2x2@rules$R[[1]])
 ```
 
-The two transverse paths can be written as:
+The two traverse paths can be written as:
 
 $$
 \begin{align*}
@@ -375,7 +375,7 @@ $$
 ## Encode the curve
 
 Let's start from a single base pattern as the initial seed. As has been explained, on each level
-of expansion, an expansion code should be selected for the first base pattern to determine the transverse
+of expansion, an expansion code should be selected for the first base pattern to determine the traverse
 path of the whole sequence. Then the possible expansions from a single base pattern can be described in
 the following diagram.
 
@@ -383,7 +383,7 @@ the following diagram.
 include_graphics("hc_expand.png")
 ```
 
-So, on level k, the total number of different forms of the 2x2 curve are $2^k$ because on each level there are two transverse paths to select.
+So, on level k, the total number of different forms of the 2x2 curve are $2^k$ because on each level there are two traverse paths to select.
 Taking $R$ as the initial seed, the size of the full set of level-3 curves are 8:
 
 Note the orientation of $R$ is bottom in and right out.

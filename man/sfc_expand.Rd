@@ -7,14 +7,14 @@
 \alias{sfc_expand,sfc_3x3_meander-method}
 \title{Expand the curve to the next level}
 \usage{
-\S4method{sfc_expand}{sfc_2x2}(p, code)
+\S4method{sfc_expand}{sfc_2x2}(p, code, flip = FALSE)
 
 \S4method{sfc_expand}{sfc_3x3_peano}(p, code = 1, flip = FALSE)
 
 \S4method{sfc_expand}{sfc_3x3_meander}(p, code, flip = FALSE)
 }
 \arguments{
-\item{p}{An \code{sfc_2x2} object.}
+\item{p}{An \code{sfc_2x2} object or other related objects.}
 
 \item{code}{Expansion code, a single integer.}
 
@@ -28,7 +28,8 @@ Expand the curve to the next level
 }
 \details{
 For the Hilbert curve and Meander curve, as long as the expansion code of the first base pattern in the sequence is determinted,
-the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, \code{code} is always 1.
+the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, since
+there is only one traverse path on any level, \code{code} is ignored.
 
 These functions are mainly used internally.
 }

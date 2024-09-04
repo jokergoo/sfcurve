@@ -1,16 +1,16 @@
 
 ######
 
-#' All transverse paths of a sequence
-#' @rdname transverse_path
+#' All traverse paths of a sequence
+#' @rdname traverse_path
 #' @param rules An `sfc_rules` object.
 #' @param p An `sfc_sequence` sequence. `p` and `rules` should have the same universe base set.
-#'        Please provide `p` as a small sequence because the total number of all transverse paths might be very huge.
+#'        Please provide `p` as a small sequence because the total number of all traverse paths might be very huge.
 #' @export
 #' @details
-#' Given an input sequence with rotations, `all_transverse_paths()` lists all combinations of expansion 
-#' codes from the first letter to the last letter in `p` (i.e. all possible transverse paths).
-all_transverse_paths = function(rules, p) {
+#' Given an input sequence with rotations, `all_traverse_paths()` lists all combinations of expansion 
+#' codes from the first letter to the last letter in `p` (i.e. all possible traverse paths).
+all_traverse_paths = function(rules, p) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
         stop_wrap("Universe set of `rules` and `p` should be identical.")
@@ -80,18 +80,18 @@ rev_corner = function(corner) {
     ifelse(corner == 1L, 2L, 1L)
 }
 
-#' @rdname transverse_path
+#' @rdname traverse_path
 #' @export
 #' @details
-#' `get_one_transverse_path()` returns one random transverse path.
+#' `get_one_traverse_path()` returns one random traverse path.
 #' @examples
 #' # expansion rules for the general 3x3 curves
 #' p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
-#' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
-#' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
-#' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
-#' get_one_transverse_path(SFC_RULES_3x3_COMBINED, p)
-get_one_transverse_path = function(rules, p) {
+#' get_one_traverse_path(SFC_RULES_3x3_COMBINED, p)
+#' get_one_traverse_path(SFC_RULES_3x3_COMBINED, p)
+#' get_one_traverse_path(SFC_RULES_3x3_COMBINED, p)
+#' get_one_traverse_path(SFC_RULES_3x3_COMBINED, p)
+get_one_traverse_path = function(rules, p) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
         stop_wrap("Universe set of `rules` and `p` should be identical.")
@@ -143,35 +143,35 @@ get_one_transverse_path = function(rules, p) {
     as.integer(gsub("^\\d+-", "", pp))
 }
 
-#' @rdname transverse_path
+#' @rdname traverse_path
 #' @param type If the value is `"11|22"`, it highlights the paths only via 1-1/2-2 corners. If the value is `"12|21"`, it highlights the paths
 #'       only via 1-2/2-1 corners.
 #' @export
 #' @examples
 #' # 
 #' p = SFC_RULES_3x3_COMBINED@rules$I[[3]]
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p)
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
-#' plot_transverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
+#' plot_traverse_paths(SFC_RULES_3x3_COMBINED, p)
+#' plot_traverse_paths(SFC_RULES_3x3_COMBINED, p, type = "11|22")
+#' plot_traverse_paths(SFC_RULES_3x3_COMBINED, p, type = "12|21")
 #' 
-#' # Hilbert curve
+#' # 2x2 curve
 #' p = sfc_2x2("I", 11)
-#' plot_transverse_paths(SFC_RULES_2x2, p)
+#' plot_traverse_paths(SFC_RULES_2x2, p)
 #' 
 #' # Peano curve
 #' p = sfc_3x3_peano("I", 1)
-#' plot_transverse_paths(SFC_RULES_3x3_PEANO, p)
+#' plot_traverse_paths(SFC_RULES_3x3_PEANO, p)
 #' 
 #' # Meander curve
 #' p = sfc_3x3_meander("I", 1)
-#' plot_transverse_paths(SFC_RULES_3x3_MEANDER, p)
-plot_transverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
+#' plot_traverse_paths(SFC_RULES_3x3_MEANDER, p)
+plot_traverse_paths = function(rules, p, type = c("all", "11|22", "12|21")) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
         stop_wrap("Universe set of `rules` and `p` should be identical.")
     }
 
-    paths = all_transverse_paths(rules, p)
+    paths = all_traverse_paths(rules, p)
 
     rules = rules@rules
     seq = p@seq

@@ -23,19 +23,19 @@ rotate_90 = function(pos) {
 #' 
 #' where subunit 1 connects to subunit 2, subunit 2 connects to subunit 3, et al., and e.g. subunit 1 connects to subunit 2 
 #' via its toprigth corner. Since H-curve can be thought of as a closed curve, to, e.g. let subunit 1 to connect to  
-#' subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horiozntal
+#' subunit 2, its topright corner needs to be opened. There are two segments on subunit 1 that can be removed/opened: the horizontal
 #' segment and the vertical segment on the topright corner in subunit 1.
 #' 
 #' In this way, in `sfc_h()`, the argument `connect` only accepts a single value of `"h"` or `"v"` where the types of segments for 
 #' all the four subunits are the same, i.e. whether all the horizontal corner segments are opened or whether all the vertical corner
-#' segments are opened. In `expand_h()`, the argument `connect` can be set to a vector of length four where the type of segments of the
+#' segments are opened. In `expand_h()`, the argument `connect` can be set to a string with four letters or a vector of length four where the type of segments of the
 #' four subunits can be set separately.
 #' 
 #' In the random mode, each subunit is generated randomly, the type of the open segment is choosen randomly, also each subunit has a probability of 0.5
 #' to rotate by 90 degrees.
 #' 
 #' @return
-#' A two-column matrix of the coordinates of points on the curve.
+#' A two-column matrix of coordinates of points on the curve.
 #' @export
 #' @importFrom stats runif
 #' @examples
@@ -50,6 +50,10 @@ rotate_90 = function(pos) {
 #'     closed = TRUE, nrow = 1
 #' )
 sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
+
+	if(!(identical(h, H0) || identical(h, H1) || identical(h, H2))) {
+		stop_wrap("`h` can only take values from the three pre-defined objects: `H0/H1/H2`.")
+	}
 
 	if(random) {
 		hl = list(h, h, h, h)
@@ -101,10 +105,10 @@ sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 }
 
 #' @rdname h_curve
-#' @param h1 The first subunit.
-#' @param h2 The second subunit.
-#' @param h3 The third subunit.
-#' @param h4 The fourth subunit.
+#' @param h1 The first subunit on the bottom left.
+#' @param h2 The second subunit on the top left.
+#' @param h3 The third subunit on the top right.
+#' @param h4 The fourth subunit on the bottom right.
 #' @export
 #' @examples
 #' draw_multiple_curves(
@@ -121,8 +125,8 @@ sfc_h = function(h, iteration = 1, connect = c("h", "v"), random = FALSE) {
 #' expand_h(h1, h2, h3, h4, connect = "vhvh") |> 
 #'     plot_segments(closed = TRUE)
 #' 
-#' fun = function(h, k) {
-#'     for(i in 1:k) h = expand_h(h, connect = "vhvh")
+#' fun = function(h, iteration) {
+#'     for(i in 1:iteration) h = expand_h(h, connect = "vhvh")
 #'     h
 #' }
 #' fun(H0, 4) |> plot_segments(closed = TRUE)
@@ -136,6 +140,9 @@ expand_h = function(h1, h2 = h1, h3 = h1, h4 = h1, connect = "hhhh") {
 		if(length(connect) == 1) {
 			connect = rep(connect, 4)
 		}
+	}
+	if(length(connect) != 4) {
+		stop_wrap("`connect` should be a string or a vector with four letters.")
 	}
 
 	h1 = open_h(h1, 3, connect[1])
@@ -224,7 +231,7 @@ H2 = expand_h(H0, connect = "v")
 #' @rdname h_seed
 #' @export
 #' @details
-#' The three objects simply contain the coordinates of points on the three base curves.
+#' The three objects simply contain coordinates of points on the three base H-curves.
 #' @examples
 #' H0
 #' draw_multiple_curves(H0, H1, H2, nrow = 1, closed = TRUE)

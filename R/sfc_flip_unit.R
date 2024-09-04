@@ -18,8 +18,8 @@ reduce_loc_to_level_1 = function(p, n, step = 1) {
 
 #' @rdname sfc_flip_unit
 #' @details
-#' For `unit_orientation()`, it first reduces the unit to level-1, then it checks the orientation
-#' of the line connected by the in-corner and out-corner.
+#' The orientation of a unit is the orientation
+#' of the line connected by the entry-corner and exit-corner of that unit.
 #' @return
 #' `unit_orientation()` returns a string one of "vertical", "horizontal", "diagonal_1" and "diagonal_-1".
 #' @export
@@ -65,14 +65,16 @@ unit_orientation = function(p, index = "") {
 #' @param p The corresponding object.
 #' @param index A string of digits representing the path on the hierarchy of the curve. The left 
 #'         side corresponds to the top level and the right side corresponds to the bottom level 
-#'         on the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and 
-#'         Meander curves, the digites can be 1-9. See examples in [`sfc_index()`]. The value can also
+#'         on the curve. For the 2x2 curve, the digits can only be 1-4, and for the Peano and 
+#'         Meander curves, the digits can be 1-9. The hierarchical index should be specified in a format of `i1:i2:i3:...`
+#'         where `:` can be replaced by any non-number character. For 2x2 and 3x3 curves, `:` can be omitted and the
+#'         hierarchical index can be specified as `i1i2i3...`. See examples in [`sfc_index()`]. The value can also
 #'         be a vector where each flipping is applied in sequence.
 #' @param to The orientation to flip to. If the specified unit already has such orientation, the function returns
 #'       the original curve.
 #' @details
-#' An unit in the curve is represented as a square block (`2^k x 2^k` for the Hilbert curve and `3^k x 3^k` for the Peano and Meander curves, `k` between 1 and the level of the curve).
-#' In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
+#' A unit in the curve is represented as a square block (e.g. `2^k x 2^k` for the 2x2 curve and `3^k x 3^k` for the Peano and Meander curves, `k` between 1 and the level of the curve).
+#' In the 2x2 curve, if an unit can be flipped, it is symmetric, thus flipping in the 2x2 curve does not change its form.
 #' The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 #' curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.
 #'
@@ -107,9 +109,13 @@ setMethod("sfc_flip_unit",
 	signature = "sfc_nxn",
 	definition = function(p, index = "", to = NULL) {
 
-	if(length(p) < (p@n^2)^p@level) {
-		if(!length(p) %in% (p@n^2)^(seq_len(p@level))) {
-			stop_wrap("Since `p` is only a fragment of the curve, it should be represented as a square with length of ", paste((p@n^2)^(seq_len(p@level)), collapse = ", "), ".")
+	if(length(p@seed) != 1) {
+		stop_wrap("Currently `sfc_flip_unit()` only works on curves with a single base pattern as the seed.")
+	}
+
+	if(length(p) < (p@mode^2)^p@level) {
+		if(!length(p) %in% (p@mode^2)^(seq_len(p@level))) {
+			stop_wrap("Since `p` is only a fragment of the curve, it should be represented as a square with length of ", paste((p@mode^2)^(seq_len(p@level)), collapse = ", "), ".")
 		}
 	}
 
@@ -140,7 +146,7 @@ setMethod("sfc_flip_unit",
 	} else if(orientation == "diagonal_-1") {
 		unit = sfc_dflip(unit, slop = -1, fix_ends = TRUE, bases = p@rules@bases)
 	} else {
-		stop_wrap("Cannot identify the orientation of the unit")
+		stop_wrap("Cannot identify the orientation of the unit.")
 	}
 
 	p[sfc_index(p, index)] = unit

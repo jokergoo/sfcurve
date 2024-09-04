@@ -25,11 +25,11 @@ setMethod("sfc_reduce",
 		stop_wrap("`to` should take values in [", 1, ", ", sfc_level(p) - 1, "]")
 	}
 
-	n = p@n
+	mode = p@mode
 	level = sfc_level(p)
 
-	n_block = (n^2)^to
-	block_size = (n^2)^(level - to)
+	n_block = (mode^2)^to
+	block_size = (mode^2)^(level - to)
 
 	loc = sfc_segments(p)
 	loc2 = matrix(NA_real_, nrow = n_block, ncol = 2)
@@ -44,6 +44,7 @@ setMethod("sfc_reduce",
 })
 
 #' @rdname sfc_reduce
+#' @param mode Mode of the curve.
 #' @export
 #' @examples
 #' p = hilbert_curve(level = 4)
@@ -54,19 +55,20 @@ setMethod("sfc_reduce",
 #'     nrow = 1)
 setMethod("sfc_reduce",
 	signature = "matrix",
-	definition = function(p, to = level - 1) {
+	definition = function(p, to = level - 1, mode = NULL) {
 
 	N = nrow(p)
-	if( abs(round(log(N)/2/log(2)) - log(N)/2/log(2)) < 1e-4) {
-		n = 2
-		level = round(log(N)/2/log(2))
-	} else if( abs(round(log(N)/2/log(3)) - log(N)/2/log(3)) < 1e-4) {
-		n = 3
-		level = round(log(N)/2/log(3))
+	if(is.null(mode)) {
+		if( abs(round(log(N)/2/log(2)) - log(N)/2/log(2)) < 1e-4) {
+			mode = 2
+		} else if( abs(round(log(N)/2/log(3)) - log(N)/2/log(3)) < 1e-4) {
+			mode = 3
+		}
 	}
+	level = round(log(N)/2/log(mode))
 	
-	n_block = (n^2)^to
-	block_size = (n^2)^(level - to)
+	n_block = (mode^2)^to
+	block_size = (mode^2)^(level - to)
 
 	loc = p
 	loc2 = matrix(NA_real_, nrow = n_block, ncol = 2)

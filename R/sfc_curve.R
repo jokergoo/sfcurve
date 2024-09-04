@@ -43,7 +43,7 @@ sfc_2x2 = function(seed, code = integer(0), rot = 0L) {
 	p = as(seed, "sfc_2x2")
 	p@seed = seed
 	p@level = 0L
-	p@n = 2L
+	p@mode = 2L
 
 	for(i in seq_along(code)) {
 		p = sfc_expand(p, code[i])
@@ -127,7 +127,7 @@ sfc_3x3_peano = function(seed, code = integer(0), rot = 0L, level = NULL, flip =
 	p = as(seed, "sfc_3x3_peano")
 	p@seed = seed
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 
 	if(is.logical(flip)) {
 		if(!(length(flip) == length(seed) || length(flip) == 9 || length(flip) == 1)) {
@@ -192,7 +192,7 @@ sfc_3x3_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE) {
 	p = as(seed, "sfc_3x3_meander")
 	p@seed = seed
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 
 	if(is.logical(flip)) {
 		if(!(length(flip) == length(seed) || length(flip) == 9 || length(flip) == 1)) {
@@ -279,7 +279,7 @@ setAs("sfc_seed", "sfc_2x2", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_2x2)
 	p@level = 0L
-	p@n = 2L
+	p@mode = 2L
 	p@rules = SFC_RULES_2x2
 
 	p
@@ -296,7 +296,7 @@ setAs("sfc_sequence", "sfc_3x3_peano", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_3x3_PEANO)
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 	p@rules = SFC_RULES_3x3_PEANO
 
 	p
@@ -313,7 +313,7 @@ setAs("sfc_sequence", "sfc_3x3_meander", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_3x3_MEANDER)
 	p@level = 0L
-	p@n = 3L
+	p@mode = 3L
 	p@rules = SFC_RULES_3x3_MEANDER
 
 	p
@@ -338,11 +338,11 @@ setMethod("show",
 	definition = function(object) {
 
 	cat("An", class(object)[1], "object.\n")
-	cat("  Increase mode: ", object@n, " x ", object@n, "\n", sep = "")
+	cat("  Increase mode: ", object@mode, " x ", object@mode, "\n", sep = "")
 	cat("  Level: ", object@level, "\n", sep = "")
 	cat("  Expansion rule:", object@rules@name, "\n")
 
-	if(length(object) < (object@n^2)^object@level) {
+	if(length(object) < (object@mode^2)^object@level) {
 		cat("  A fragment from the original curve.\n")
 	}
 	cat("\n")
@@ -355,24 +355,26 @@ setMethod("show",
 })
 
 
-#' Level-1 unit in the Peano curve
+#' Level-1 unit in the Peano curve and Meander curve
 #' @aliases level1_unit_orientation
 #' @rdname level1_unit_orientation
-#' @param p For `level1_unit_orientation()`, it is an `sfc_3x3_peano` unit on level-1.
-#'       For `change_level1_unit_orientation()`, it is a normal `sfc_3x3_peano` object.
-#' @return `level1_unit_orientation()` returns `"vertical"` or `"horizontal"`.
+#' @param p For `level1_unit_orientation()`, it is an `sfc_3x3_peano` or `sfc_3x3_meander` unit on level 1.
+#'       For `change_level1_unit_orientation()`, it is a normal `sfc_3x3_peano` or `sfc_3x3_meander` object.
+#' @return `level1_unit_orientation()` returns "verticalhorizontal" (on the `sfc_3x3_peano` object) or "forward/backward" (on the `sfc_3x3_meander` object).
 #' @details
+#' "vertical" and "horizontal" correspond to the direction of the "long segments" in a Peano curve (see **Examples**).
+#' 
 #' `level1_unit_orientation()` is normally used inside [`sfc_apply()`]. `change_level1_unit_orientation()`
-#' changes all level-1 units of a Peano curves simultaneously.
+#' changes all level-1 units of a Peano curve or a Meander curve simultaneously.
 #' @export
 setMethod("level1_unit_orientation",
 	signature = "sfc_3x3_peano",
 	definition = function(p) {
 	if(length(p) != 9) {
-		stop_wrap("`u` should be an sfc_3x3_peano unit with length of 9 (level-1).")
+		stop_wrap("`u` should be an sfc_3x3_peano unit with length of 9.")
 	}
     loc = sfc_segments(p)
-    if(loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) {
+    if(equal_to(loc[1, 1], loc[2, 1]) && equal_to(loc[2, 1], loc[3, 1])) {
         "vertical"
     } else {
         "horizontal"
@@ -380,21 +382,62 @@ setMethod("level1_unit_orientation",
 })
  
 #' @aliases change_level1_unit_orientation
-#' @param to A string of "vertical" or "horizontal".
-#' @return `change_level1_unit_orientation()` returns an `sfc_3x3_peano` object.
+#' @param to A string of "vertical/horizontal" (on the `sfc_3x3_peano` object) or "forward/backward" (on the `sfc_3x3_meander` object).
+#' @return `change_level1_unit_orientation()` returns an `sfc_3x3_peano` or `sfc_3x3_meander` object.
 #' @export
 #' @rdname level1_unit_orientation
 #' @examples
 #' p = sfc_3x3_peano("I", 111)
+#' # the first level-1 unit
 #' level1_unit_orientation(p[1:9, TRUE])
+#' # the fourth level-1 unit
 #' level1_unit_orientation(p[1:9 + 27, TRUE])
-#' p2 = change_level1_unit_orientation(p)
+#' p2 = change_level1_unit_orientation(p, "horizontal")
 #' p3 = change_level1_unit_orientation(p, "vertical")
 #' draw_multiple_curves(p, p2, p3, 
 #'     title = c("original", "all horizontal", "all vertical"), nrow = 1)
 setMethod("change_level1_unit_orientation",
 	signature = "sfc_3x3_peano",
 	definition = function(p, to = c("horizontal", "vertical")) {
+	to = match.arg(to)
+	sfc_apply(p, log(length(p))/log(9) - 1, function(x) {
+	    if(level1_unit_orientation(x) != to) {
+	        sfc_flip_unit(x)
+	    } else {
+	        x
+	    }
+	})
+})
+
+
+#' @rdname level1_unit_orientation
+#' @export
+setMethod("level1_unit_orientation",
+	signature = "sfc_3x3_meander",
+	definition = function(p) {
+	if(length(p) != 9) {
+		stop_wrap("`u` should be an sfc_3x3_meander unit with length of 9.")
+	}
+    loc = sfc_segments(p)
+    if( (loc[1, 1] == loc[2, 1] && loc[2, 1] == loc[3, 1]) || (loc[1, 2] == loc[2, 2] && loc[2, 2] == loc[3, 2])) {
+        "forward"
+    } else {
+        "backward"
+    }
+})
+ 
+#' @export
+#' @rdname level1_unit_orientation
+#' @examples
+#' # by default, orientations of all level-1 units in Meander curve are forward
+#' p = sfc_3x3_meander("I", 111)
+#' level1_unit_orientation(p[1:9, TRUE])
+#' p2 = change_level1_unit_orientation(p, "backward")
+#' draw_multiple_curves(p, p2,
+#'    title = c("all forward", "all backward"), nrow = 1)
+setMethod("change_level1_unit_orientation",
+	signature = "sfc_3x3_meander",
+	definition = function(p, to = c("forward", "backward")) {
 	to = match.arg(to)
 	sfc_apply(p, log(length(p))/log(9) - 1, function(x) {
 	    if(level1_unit_orientation(x) != to) {

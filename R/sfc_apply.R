@@ -76,11 +76,14 @@ setMethod("sfc_apply",
 	if(depth < 0) {
 		stop_wrap("`depth` should be zero or a positive integer.")
 	}
+	if(length(p@seed) != 1) {
+		stop_wrap("Currently, `sfc_apply()` only works on curves with a single base pattern as the seed.")
+	}
 
-	n = p@n
+	mode = p@mode
 
-	n_block = (n^2)^depth
-	block_size = (n^2)^(p@level - depth)
+	n_block = (mode^2)^depth
+	block_size = (mode^2)^(p@level - depth)
 
 	fm = formals(fun)
 	narg = length(fm)

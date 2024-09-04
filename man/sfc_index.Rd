@@ -13,7 +13,12 @@
 \arguments{
 \item{x}{An \code{sfc_nxn} object.}
 
-\item{i}{Numeric index or a character index representing the hierarchy of the subunit in the curve.}
+\item{i, index}{A string of digits representing the path on the hierarchy of the curve. The left side
+corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
+2x2 curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+The hierarchical index should be specified in a format of \code{i1:i2:i3:...}
+where \code{:} can be replaced by any non-number character. For 2x2 and 3x3 curves, \code{:} can be omitted and the
+hierarchical index can be specified as \code{i1i2i3...}. See the \strong{Examples} section.}
 
 \item{j}{A value of \code{TRUE} or \code{FALSE} that controls whether to keep the \code{sfc_nxn} class or degenerate to the \code{sfc_sequence} class.}
 
@@ -22,11 +27,6 @@
 \item{drop}{A value of \code{TRUE} or \code{FALSE} that controls whether to keep the \code{sfc_nxn} class or degenerate to the \code{sfc_sequence} class.}
 
 \item{p}{An \code{sfc_nxn} object.}
-
-\item{index}{A string of digits representing the path on the hierarchy of the curve. The left side
-corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
-Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
-Digits should be separated by non-number characters, see examples.}
 }
 \description{
 Subunit in the curve
@@ -37,7 +37,9 @@ Subunit in the curve
 \examples{
 p = sfc_2x2("I", "11111")
 p["3:2:1"]
-p["3:2:1", TRUE]
+# for 2x2 and 3x3 curves, ":" can be omitted
+p["321"]
+p["3:2:1", TRUE] # or p["3:2:1", drop = FALSE]
 # only for testing
 p = sfc_2x2("I", "11111")
 om = par(no.readonly = TRUE)

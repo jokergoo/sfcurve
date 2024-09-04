@@ -2,7 +2,7 @@
 setClass("sfc_4x4_meander",
 	slots = c("type" = "integer"),
 	contains = "sfc_nxn",
-	prototype = list(n = 4L))
+	prototype = list(mode = 4L))
 
 setClass("sfc_4x4_meander_1",
 	contains = "sfc_4x4_meander",
@@ -58,7 +58,7 @@ sfc_4x4_meander = function(seed, code = integer(0), rot = 0L, flip = FALSE, type
 	}
 	p@seed = seed
 	p@level = 0L
-	p@n = 4L
+	p@mode = 4L
 
 	if(is.logical(flip)) {
 		if(!(length(flip) == length(seed) || length(flip) == 16 || length(flip) == 1)) {
@@ -110,7 +110,7 @@ setAs("sfc_sequence", "sfc_4x4_meander_1", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_4x4_MEANDER_1)
 	p@level = 0L
-	p@n = 4L
+	p@mode = 4L
 	p@rules = SFC_RULES_4x4_MEANDER_1
 
 	p
@@ -126,7 +126,7 @@ setAs("sfc_sequence", "sfc_4x4_meander_2", function(from) {
 	p@rot = from@rot
 	p@universe = sfc_universe(SFC_RULES_4x4_MEANDER_2)
 	p@level = 0L
-	p@n = 4L
+	p@mode = 4L
 	p@rules = SFC_RULES_4x4_MEANDER_2
 
 	p
@@ -150,7 +150,7 @@ setMethod("sfc_expand",
 
 	if(n > 1) {
 		for(i in 2:n) {
-			tl[i] = transverse_type_2x2(tl[i-1], rot[i-1], rot[i])
+			tl[i] = traverse_type_2x2(tl[i-1], rot[i-1], rot[i])
 		}
 	}
 

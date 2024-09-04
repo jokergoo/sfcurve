@@ -1,17 +1,17 @@
 
 #' @aliases sfc_grob
 #' @rdname sfc_grob
-#' @param bases A list of base patterns, consider to use [`BASE_LIST`].
-#' @param extend Whether to add the entering and leaving segments?
+#' @param bases A list of base patterns, normally [`BASE_LIST`] is used.
+#' @param extend Whether to add the entry and exit segments?
 #' @param title Whether to add title on the top of the plot? The title is constructed in the form of `initial_seed|expansion_code`, e.g. `I|111`.
-#'      Or the value is a string.
+#'      The value can also be a string.
 #' @param closed Whether the curve is closed? 
 #' @param lwd Line width.
 #' @param col Color for segments. If the value is `NULL`, it uses the "Spectral" color palettes.
 #' @param ... Other arguments passed to [`grid::viewport()`] or `sfc_grob()`.
 #' 
 #' @details
-#' If `p` is an `sfc_sequence` and if `p` contains base patterns defined in `"I/J/R/L/U/B/D/P/Q/C"`,
+#' If `p` is an `sfc_sequence` and `p` contains base patterns defined in `"I/J/R/L/U/B/D/P/Q/C"`,
 #' the default [`BASE_LIST`] is automatically used for `bases`. If `p` is an `sfc_nxn` object, `bases`
 #' is already stored in `p` and it is passed to this function automatically.
 #' 

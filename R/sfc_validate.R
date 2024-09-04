@@ -4,7 +4,7 @@
 #' Validate the sequence
 #' @aliases sfc_validate
 #' @rdname sfc_validate
-#' @param p An `sfc_sequence` object or a character string. If it is a character string, rotations are all taken as zeros.
+#' @param p An `sfc_sequence` object or a character string. If it is a character string, rotation of zero is assigned to the first letter.
 #' @param by One of `sfc_2x2`, `sfc_3x3_peano` and `sfc_3x3_meander`.
 #' 
 #' @details

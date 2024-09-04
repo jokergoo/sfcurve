@@ -18,7 +18,7 @@ the initial rotation of the base pattern. It also supports a sequence with more 
 it can be specified as a string of more than one base letters, then \code{rot} can be set to a single rotation scalar which controls the rotation of the
 first letter, or a vector with the same length as the number of base letters.}
 
-\item{level}{Level of the curve. Currently it is restricted to an integer smaller than 6.}
+\item{level}{Level of the curve. Currently it is restricted to an integer no bigger than 5.}
 
 \item{rot}{Rotation of the seed sequence, measured in the polar coordinate system, in degrees.}
 
@@ -26,14 +26,14 @@ first letter, or a vector with the same length as the number of base letters.}
 
 \item{p}{An \code{sfc_3x3_combined} object.}
 
-\item{code}{Ignore. The transverse code is selected randomly.}
+\item{code}{Ignore. The traverse codes are selected randomly.}
 }
 \description{
 General 3x3 space-filling curves
 }
 \details{
 This type of 3x3 curve uses the combintation of base patterns from both the Peano curve and the Meander curve.
-On each level, the transverse path is randomly selected.
+On each level, the traverse path is randomly selected.
 }
 \examples{
 draw_multiple_curves(

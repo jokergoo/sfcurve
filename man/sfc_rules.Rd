@@ -11,7 +11,8 @@ sfc_rules(rules, bases, flip = list(), name = "sfc_rules")
 
 \item{bases}{A list of base patterns.}
 
-\item{flip}{A list of rules. They are "flipped" version of \code{rules}.}
+\item{flip}{A list of rules. They are "flipped" version of \code{rules}. The value can also simply be \code{TRUE}, then
+the flipped version is automatically generated from \code{rules}.}
 
 \item{name}{A self-defined string.}
 }
@@ -22,11 +23,11 @@ Constructor of the sfc_rules class
 It is mainly used internally.
 
 \code{rules} is a two-level list. It is in a format of \code{rules[[ base ]][[ expansion_code ]] = sfc_unit()}.
-In the following example where we define the expansion rules for th Hilbert curve:
+In the following example where we define the expansion rules for the 2x2 curve:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{UNIVERSE_2x2 = c("I", "R", "L", "U", "B", "D", "P", "Q", "C")
 RULES_2x2 = list()
-RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_HILBERT)
+RULES_2x2[["I"]][[1]] = sfc_unit(c("R", "L", "L", "R"), rot = 0, universe = UNIVERSE_2x2)
 }\if{html}{\out{</div>}}
 
 \code{I} is the level-0 base pattern, \verb{[[1]]} corresponds to the first form of expansion to level-1, and the value
@@ -50,5 +51,5 @@ There are the following pre-defined rules:
 \item \code{\link{SFC_RULES_4x4_MEANDER_2}}
 }
 
-Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R#L155} to see how these pre-defined rules are constructed.
+Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R} to see how these pre-defined rules are constructed.
 }

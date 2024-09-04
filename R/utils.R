@@ -2,18 +2,18 @@
 #' Draw multiple curves
 #' 
 #' @param ... A list of `sfc_sequence` objects or objects in its child classes, a list of [`grid::grob`] objects 
-#'          or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.
-#' @param list The list of curve object can also be directly specified as a list object.
+#'          or a list of two-column coordinate matrices, i.e., all the forms that can represent curves in this package.
+#' @param list The list of curve object can also be directly specified as a "list" object.
 #' @param nrow Number of rows in the layout.
 #' @param ncol Number of columns in the layout.
-#' @param extend Whether to draw the entering and leaving segments? It is only used when input is a list of `sfc_sequence` objects.
+#' @param extend Whether to draw the entry and exit segments? It is only used when input is a list of `sfc_sequence` objects.
 #' @param title Whether to add titles on each panel? The title is constructed in the form of `initial_seed|expansion_codes`, e.g. `I|111`.
 #'   The value can be a vector of user-defined strings.
 #' @param closed Whether the curves are closed? The value should be a logical vector. If it is `TRUE`, the last point
-#'           is connected to the first point in the curve to form a closed curve.
-#' @param padding Space around each curve. The value should be a [`grid::unit`] object.
-#' @param lwd Line width.
-#' @param col Color for the segments. If the value is `NULL`, it uses the "Spectral" color palettes from the **RColorBrewer** package.
+#'           is connected to the first point in the curve to form a closed curve. Length of `closed` can be 1 or the number of curves.
+#' @param padding Space around each curve. The value should be a [`grid::unit`] object with length 1.
+#' @param lwd Line width with length 1.
+#' @param col Color for the segments with length 1. If the value is `NULL`, it uses the "Spectral" color palettes from the **RColorBrewer** package.
 #' 
 #' @details
 #' This function is used for quick comparison on curves.
@@ -149,6 +149,17 @@ hflip_coord = function(x, v = 0) {
 	x2 = move_coord(x, c(-v, 0))
 	x2[, 1] = -x2[, 1]
 	x2 = move_coord(x2, c(v, 0))
+	x2
+}
+
+dflip_coord = function(x, center = c(0, 0), type = 1) {
+	x2 = move_coord(x, -center)
+	if(type == 1) {
+		x2 = hflip_coord(rotate_coord(x2, 90))
+	} else {
+		x2 = hflip_coord(rotate_coord(x2, -90))
+	}
+	x2 = move_coord(x2, center)
 	x2
 }
 

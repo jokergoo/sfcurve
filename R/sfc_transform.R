@@ -2,8 +2,8 @@
 
 #' Transformations of a sequence
 #' 
-#' @param p An `sfc_sequence` object.
-#' @param rot Rotation measured in the polar coordinate system, in degrees.
+#' @param p,e1 An `sfc_sequence` object.
+#' @param rot,e2 Rotation measured in the polar coordinate system, in degrees.
 #' 
 #' @rdname sfc_transformation
 #' @aliases sfc_rotate
@@ -25,8 +25,6 @@ setMethod("sfc_rotate",
 
 
 #' @rdname sfc_transformation
-#' @param e1 An `sfc_sequence` object.
-#' @param e2 The rotation.
 #' @export
 `^.sfc_sequence` = function(e1, e2) {
 	sfc_rotate(e1, e2)
@@ -97,7 +95,11 @@ validate_out_directions = function(p2, out_direction) {
 
 #' @rdname sfc_transformation
 #' @aliases sfc_hflip
-#' @param fix_ends Whether to keep the orientation and rotations of the starting and ending base patterns?
+#' @param fix_ends By default, the curve is flipped as a complete whole, which means, the associated entry and exit directions of the curve
+#'       is also adjusted accordingly. When flipping subunits in a curve, e.g. level-1 subunits in a Peano curve, we want the 
+#'       entry and exit direction of the subunit not changed so that the subunits are still connected in the curve after the flipping. In this 
+#'       case, `fix_ends` can be set to `TRUE`, then only the subunits are flipped while the connections to neighbouring subunits are not affected. 
+#'       See the **Examples** section.
 #' @param bases A list of base patterns, consider to use [`BASE_LIST`]. It is only used when `fix_ends = TRUE`.
 #' @export
 #' @examples
@@ -251,7 +253,7 @@ setMethod("sfc_vflip",
 #' @rdname sfc_transformation
 #' @aliases sfc_dflip
 #' 
-#' @param slop Slop of the diagonal.
+#' @param slop Slop of the diagonal. Value can only be 1 or -1.
 #' @export
 #' @examples
 #' p = sfc_3x3_peano("I", 2)
@@ -262,8 +264,9 @@ setMethod("sfc_vflip",
 #'     nrow = 1)
 setMethod("sfc_dflip",
 	signature = "sfc_sequence",
-	definition = function(p, slop = 1, fix_ends = FALSE, bases = NULL) {
+	definition = function(p, slop = 1L, fix_ends = FALSE, bases = NULL) {
 
+	slop = as.integer(slop)
 	if(fix_ends) {
 		if(is.null(bases)) {
 			if(!inherits(p, "sfc_nxn")) {
@@ -303,7 +306,7 @@ setMethod("sfc_dflip",
 
 		p2
 	} else {
-		if(slop == 1) {
+		if(slop == 1L) {
 			p2 = sfc_rotate(sfc_hflip(p), -90L)
 		} else {
 			p2 = sfc_rotate(sfc_hflip(p), 90L)

@@ -38,10 +38,10 @@ draw_rules_3x3_peano()
 patterns on level-1 as we only allow a pattern to rotate, but not to flip. Also separating
 `I` from `J` makes only one extension from level-0 to level-1 for each base pattern.
 
-Unlike the Hilbert curve where there are more than one transverse path, there is only one transverse path for each level k.
+Unlike the Hilbert curve where there are more than one traverse path, there is only one traverse path for each level k.
 
 ```{r, fig.width = 6.5, fig.height = 2}
-plot_transverse_paths(SFC_RULES_3x3_PEANO, SFC_RULES_3x3_PEANO@rules$I[[1]])
+plot_traverse_paths(SFC_RULES_3x3_PEANO, SFC_RULES_3x3_PEANO@rules$I[[1]])
 ```
 
 This makes the expansion code on each level of a Peano curve is always 1.

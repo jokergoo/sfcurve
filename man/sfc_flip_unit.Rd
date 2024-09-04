@@ -18,8 +18,10 @@ unit_orientation(p, index = "")
 
 \item{index}{A string of digits representing the path on the hierarchy of the curve. The left
 side corresponds to the top level and the right side corresponds to the bottom level
-on the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
-Meander curves, the digites can be 1-9. See examples in \code{\link[=sfc_index]{sfc_index()}}. The value can also
+on the curve. For the 2x2 curve, the digits can only be 1-4, and for the Peano and
+Meander curves, the digits can be 1-9. The hierarchical index should be specified in a format of \code{i1:i2:i3:...}
+where \code{:} can be replaced by any non-number character. For 2x2 and 3x3 curves, \code{:} can be omitted and the
+hierarchical index can be specified as \code{i1i2i3...}. See examples in \code{\link[=sfc_index]{sfc_index()}}. The value can also
 be a vector where each flipping is applied in sequence.}
 
 \item{to}{The orientation to flip to. If the specified unit already has such orientation, the function returns
@@ -36,11 +38,11 @@ the original curve.}
 Flip units
 }
 \details{
-For \code{unit_orientation()}, it first reduces the unit to level-1, then it checks the orientation
-of the line connected by the in-corner and out-corner.
+The orientation of a unit is the orientation
+of the line connected by the entry-corner and exit-corner of that unit.
 
-An unit in the curve is represented as a square block (\verb{2^k x 2^k} for the Hilbert curve and \verb{3^k x 3^k} for the Peano and Meander curves, \code{k} between 1 and the level of the curve).
-In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
+A unit in the curve is represented as a square block (e.g. \verb{2^k x 2^k} for the 2x2 curve and \verb{3^k x 3^k} for the Peano and Meander curves, \code{k} between 1 and the level of the curve).
+In the 2x2 curve, if an unit can be flipped, it is symmetric, thus flipping in the 2x2 curve does not change its form.
 The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.
 

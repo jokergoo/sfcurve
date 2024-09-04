@@ -9,7 +9,7 @@
 \usage{
 \S4method{sfc_reduce}{sfc_nxn}(p, to = sfc_level(p) - 1)
 
-\S4method{sfc_reduce}{matrix}(p, to = level - 1)
+\S4method{sfc_reduce}{matrix}(p, to = level - 1, mode = NULL)
 
 add_base_structure(gb, level = 1)
 }
@@ -17,6 +17,8 @@ add_base_structure(gb, level = 1)
 \item{p}{An \code{sfc_nxn} object.}
 
 \item{to}{Which level to reduce to? Value should be between 1 and \code{sfc_level(p) - 1}.}
+
+\item{mode}{Mode of the curve.}
 
 \item{gb}{A \code{grob} object returned by \code{\link[=sfc_grob]{sfc_grob()}} or a \code{sfc_nxn} object then \code{\link[=sfc_grob]{sfc_grob()}} is internally applied.}
 

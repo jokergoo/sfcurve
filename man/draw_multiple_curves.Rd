@@ -19,27 +19,27 @@ draw_multiple_curves(
 }
 \arguments{
 \item{...}{A list of \code{sfc_sequence} objects or objects in its child classes, a list of \code{\link[grid:grid.grob]{grid::grob}} objects
-or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.}
+or a list of two-column coordinate matrices, i.e., all the forms that can represent curves in this package.}
 
-\item{list}{The list of curve object can also be directly specified as a list object.}
+\item{list}{The list of curve object can also be directly specified as a "list" object.}
 
 \item{nrow}{Number of rows in the layout.}
 
 \item{ncol}{Number of columns in the layout.}
 
-\item{extend}{Whether to draw the entering and leaving segments? It is only used when input is a list of \code{sfc_sequence} objects.}
+\item{extend}{Whether to draw the entry and exit segments? It is only used when input is a list of \code{sfc_sequence} objects.}
 
 \item{title}{Whether to add titles on each panel? The title is constructed in the form of \code{initial_seed|expansion_codes}, e.g. \code{I|111}.
 The value can be a vector of user-defined strings.}
 
 \item{closed}{Whether the curves are closed? The value should be a logical vector. If it is \code{TRUE}, the last point
-is connected to the first point in the curve to form a closed curve.}
+is connected to the first point in the curve to form a closed curve. Length of \code{closed} can be 1 or the number of curves.}
 
-\item{padding}{Space around each curve. The value should be a \code{\link[grid:unit]{grid::unit}} object.}
+\item{padding}{Space around each curve. The value should be a \code{\link[grid:unit]{grid::unit}} object with length 1.}
 
-\item{lwd}{Line width.}
+\item{lwd}{Line width with length 1.}
 
-\item{col}{Color for the segments. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrewer} package.}
+\item{col}{Color for the segments with length 1. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrewer} package.}
 }
 \description{
 Draw multiple curves

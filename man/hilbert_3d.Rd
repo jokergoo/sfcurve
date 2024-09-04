@@ -10,13 +10,13 @@ hilbert_3d(level = 2L)
 \item{level}{The level of the curve.}
 }
 \value{
-A three-column matrix of the coordinates of points on the 3D Hilbert curve
+A three-column matrix of coordinates of points on the 3D Hilbert curve.
 }
 \description{
 Three dimensional Hilbert curve
 }
 \details{
-There are many forms of 3D Hilbert curve. Here we only implement one specific form of it.
+There are many forms of 3D Hilbert curve. Here we only implement one specific form.
 }
 \examples{
 pos = hilbert_3d(2)

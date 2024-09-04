@@ -5,36 +5,52 @@
 \alias{level1_unit_orientation}
 \alias{change_level1_unit_orientation,sfc_3x3_peano-method}
 \alias{change_level1_unit_orientation}
-\title{Level-1 unit in the Peano curve}
+\alias{level1_unit_orientation,sfc_3x3_meander-method}
+\alias{change_level1_unit_orientation,sfc_3x3_meander-method}
+\title{Level-1 unit in the Peano curve and Meander curve}
 \usage{
 \S4method{level1_unit_orientation}{sfc_3x3_peano}(p)
 
 \S4method{change_level1_unit_orientation}{sfc_3x3_peano}(p, to = c("horizontal", "vertical"))
+
+\S4method{level1_unit_orientation}{sfc_3x3_meander}(p)
+
+\S4method{change_level1_unit_orientation}{sfc_3x3_meander}(p, to = c("forward", "backward"))
 }
 \arguments{
-\item{p}{For \code{level1_unit_orientation()}, it is an \code{sfc_3x3_peano} unit on level-1.
-For \code{change_level1_unit_orientation()}, it is a normal \code{sfc_3x3_peano} object.}
+\item{p}{For \code{level1_unit_orientation()}, it is an \code{sfc_3x3_peano} or \code{sfc_3x3_meander} unit on level 1.
+For \code{change_level1_unit_orientation()}, it is a normal \code{sfc_3x3_peano} or \code{sfc_3x3_meander} object.}
 
-\item{to}{A string of "vertical" or "horizontal".}
+\item{to}{A string of "vertical/horizontal" (on the \code{sfc_3x3_peano} object) or "forward/backward" (on the \code{sfc_3x3_meander} object).}
 }
 \value{
-\code{level1_unit_orientation()} returns \code{"vertical"} or \code{"horizontal"}.
+\code{level1_unit_orientation()} returns "verticalhorizontal" (on the \code{sfc_3x3_peano} object) or "forward/backward" (on the \code{sfc_3x3_meander} object).
 
-\code{change_level1_unit_orientation()} returns an \code{sfc_3x3_peano} object.
+\code{change_level1_unit_orientation()} returns an \code{sfc_3x3_peano} or \code{sfc_3x3_meander} object.
 }
 \description{
-Level-1 unit in the Peano curve
+Level-1 unit in the Peano curve and Meander curve
 }
 \details{
+"vertical" and "horizontal" correspond to the direction of the "long segments" in a Peano curve (see \strong{Examples}).
+
 \code{level1_unit_orientation()} is normally used inside \code{\link[=sfc_apply]{sfc_apply()}}. \code{change_level1_unit_orientation()}
-changes all level-1 units of a Peano curves simultaneously.
+changes all level-1 units of a Peano curve or a Meander curve simultaneously.
 }
 \examples{
 p = sfc_3x3_peano("I", 111)
+# the first level-1 unit
 level1_unit_orientation(p[1:9, TRUE])
+# the fourth level-1 unit
 level1_unit_orientation(p[1:9 + 27, TRUE])
-p2 = change_level1_unit_orientation(p)
+p2 = change_level1_unit_orientation(p, "horizontal")
 p3 = change_level1_unit_orientation(p, "vertical")
 draw_multiple_curves(p, p2, p3, 
     title = c("original", "all horizontal", "all vertical"), nrow = 1)
+# by default, orientations of all level-1 units in Meander curve are forward
+p = sfc_3x3_meander("I", 111)
+level1_unit_orientation(p[1:9, TRUE])
+p2 = change_level1_unit_orientation(p, "backward")
+draw_multiple_curves(p, p2,
+   title = c("all forward", "all backward"), nrow = 1)
 }
