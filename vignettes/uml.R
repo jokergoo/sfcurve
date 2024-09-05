@@ -61,7 +61,7 @@ nomnoml("
             + rules <sfc_rules>
             + expansion <integer>
             + level <integer>
-            + n <integer>
+            + mode <integer>
          |  + sfc_apply()
             + sfc_level()
             + sfc_mode()
