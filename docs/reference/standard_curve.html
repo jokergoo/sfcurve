@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -75,7 +76,7 @@
 <span></span>
 <span><span class="fu">peano_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, pattern <span class="op">=</span> <span class="st">"vvvvvvvvv"</span>, by <span class="op">=</span> <span class="st">"Cpp"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">meander_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, pattern <span class="op">=</span> <span class="st">"fffffffff"</span><span class="op">)</span></span>
+<span><span class="fu">meander_curve</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2L</span>, pattern <span class="op">=</span> <span class="st">"fffffffff"</span>, code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">level</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">h_curve</span><span class="op">(</span>iteration <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -97,6 +98,10 @@ and "f"/"b" (forward or backward) for the Meander curve. The length of the strin
 If the length is smaller than 9, the stringis automatically recycled.</p></dd>
 
 
+<dt>code</dt>
+<dd><p>Internally used.</p></dd>
+
+
 <dt>iteration</dt>
 <dd><p>Number of iterations.</p></dd>
 
@@ -105,7 +110,7 @@ If the length is smaller than 9, the stringis automatically recycled.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A two-column matrix of the coordinates of points on the curve.</p>
+<p>A two-column matrix of coordinates of points on the curve.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

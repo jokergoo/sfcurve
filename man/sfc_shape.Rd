@@ -5,6 +5,9 @@
 \alias{sfc_shape}
 \alias{all_2x2_shapes}
 \alias{sfc_shape,sfc_3x3_peano-method}
+\alias{all_3x3_peano_shapes}
+\alias{sfc_shape,sfc_3x3_meander-method}
+\alias{all_3x3_meander_shapes}
 \title{Shape of the curve}
 \usage{
 \S4method{sfc_shape}{sfc_2x2}(p)
@@ -12,6 +15,12 @@
 all_2x2_shapes(level = 2)
 
 \S4method{sfc_shape}{sfc_3x3_peano}(p)
+
+all_3x3_peano_shapes(level = 2)
+
+\S4method{sfc_shape}{sfc_3x3_meander}(p)
+
+all_3x3_meander_shapes(level = 2)
 }
 \arguments{
 \item{p}{An \code{sfc_2x2} object.}
@@ -37,7 +46,7 @@ The process of selecting the shape segment of the curve denoted as \code{P} is:
 \item The entry-point should locate in the bottom left subunit and the exit-point should
 locate in the bottom right subunit. We try the four rotations (0, 90, 180, 270), and
 the four rotations on the horizontally flipped curve. Once we find the transformed curve
-that satisfies this criterion, we term it as \code{P2}.
+that satisfies this criterion, we name it as \code{P2}.
 \item We also generate \code{P3} which is a horizontally flipped version of \code{rev(P2)}.
 \item We compare the first point \code{p} of \code{P2} and \code{P3}, and select the one whose \code{p} has the smaller
 x-coordinate (i.e. more to the left of the curve). If the x-coordinates of \code{p} are the same in
@@ -51,15 +60,20 @@ The process of selecting the shape segment of the curve denoted as \code{P} is:
 \enumerate{
 \item The entry-point should locate in the bottom left subunit and the exit-point should
 locate in the top right subunit. We try the four rotations (0, 90, 180, 270). Once we find the transformed curve
-that satisfies this criterion, we term it as \code{P2}.
-\item We also generate \code{P3} which is a 180 degrees rotation on the reversed \code{P2}.
-\item We calculate the "UID" of \verb{P*} and pick the one with the smallest UID as the final curve.
+that satisfies this criterion, we name it as \code{P2}.
+\item We also generate \code{P3} which is a 180 degrees rotation on the reversed \code{P2}, \code{P4} which is a diagonal flip with slop of 1 on \code{P2}
+and \code{P5} which is a diagonal flip with slop of 1 on \code{P3}.
+\item We calculate the "UID" of \code{P(2-5)} and pick the one with the smallest UID as the final curve.
 }
 
 The UID of a 3x3 Peano curve is based on the hierarchical indices of the units on it. The hierarchy of the
 Peano curve is traversed in a depth-first manner. On each node, the orientation of the corresponding unit is
 calculated where vertical is 1 and horizontal is 2. The digits are concatenated into a long string.
 }
+
+\code{all_3x3_peano_shapes()} only calculates all shapes for Peano curve on level 2.
+
+\code{all_3x3_meander_shapes()} only considers the Meander curve with all subunits on all levels in forward orientation.
 }
 \examples{
 p1 = sfc_2x2("I", 11)
@@ -77,4 +91,12 @@ draw_multiple_curves(
     p, sfc_reverse(p),
     sfc_shape(p), sfc_shape(sfc_reverse(p)),
     col = "black")
+\dontrun{
+sl = all_3x3_peano_shapes()
+length(sl)
+# the first 8 shapes
+draw_multiple_curves(sl[1:8], col = "black")
+}
+sl = all_3x3_meander_shapes(2)
+draw_multiple_curves(list = sl, lwd = 2, col = "black")
 }

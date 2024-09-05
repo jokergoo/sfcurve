@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -85,8 +86,10 @@
 <dt>index</dt>
 <dd><p>A string of digits representing the path on the hierarchy of the curve. The left
 side corresponds to the top level and the right side corresponds to the bottom level
-on the curve. For the Hilbert curve, the digits can only be 1-4, and for the Peano and
-Meander curves, the digites can be 1-9. See examples in <code><a href="sfc_index.html">sfc_index()</a></code>. The value can also
+on the curve. For the 2x2 curve, the digits can only be 1-4, and for the Peano and
+Meander curves, the digits can be 1-9. The hierarchical index should be specified in a format of <code>i1:i2:i3:...</code>
+where <code>:</code> can be replaced by any non-number character. For 2x2 and 3x3 curves, <code>:</code> can be omitted and the
+hierarchical index can be specified as <code>i1i2i3...</code>. See examples in <code><a href="sfc_index.html">sfc_index()</a></code>. The value can also
 be a vector where each flipping is applied in sequence.</p></dd>
 
 
@@ -110,10 +113,10 @@ the original curve.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For <code>unit_orientation()</code>, it first reduces the unit to level-1, then it checks the orientation
-of the line connected by the in-corner and out-corner.</p>
-<p>An unit in the curve is represented as a square block (<code>2^k x 2^k</code> for the Hilbert curve and <code>3^k x 3^k</code> for the Peano and Meander curves, <code>k</code> between 1 and the level of the curve).
-In the Hilbert curve, if an unit can be flipped, it is symmetric, thus flipping in the Hilbert curve does not change its form.
+    <p>The orientation of a unit is the orientation
+of the line connected by the entry-corner and exit-corner of that unit.</p>
+<p>A unit in the curve is represented as a square block (e.g. <code>2^k x 2^k</code> for the 2x2 curve and <code>3^k x 3^k</code> for the Peano and Meander curves, <code>k</code> between 1 and the level of the curve).
+In the 2x2 curve, if an unit can be flipped, it is symmetric, thus flipping in the 2x2 curve does not change its form.
 The flipping is mainly applied on the Peano curve and the Meander curves. Peano curve only allows flippings by the diagonals and the Meander
 curve only allows flipping horizontally or vertically. The type of flipping is choosen automatically in the function.</p>
 <p>Currently, <code>sfc_flip_unit()</code> only works on curves with a single base pattern as the seed.</p>

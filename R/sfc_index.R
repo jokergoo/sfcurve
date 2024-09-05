@@ -61,6 +61,7 @@ get_index_from_nxn = function(index, level, n) {
 			index = as.integer(strsplit(as.character(index), "")[[1]])
 		}
 	}
+	index = as.integer(index)
 
 	ind = seq_len( (n^2)^level )
 	for(i in index) {

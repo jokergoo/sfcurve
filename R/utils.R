@@ -44,6 +44,11 @@ draw_multiple_curves = function(..., list = NULL, nrow = NULL, ncol = NULL, exte
 	lwd = 4, col = NULL) {
 
 	pl = list(...)
+	if(length(pl) == 1) {
+		if(is.list(pl[[1]])) {
+			pl = pl[[1]]
+		}
+	}
 	if(length(list)) {
 		pl = c(pl, list)
 	}

@@ -73,8 +73,10 @@ nomnoml("
             + `\[`()
             + sfc_reduce()
             ]
-[sfc_2x2 | + sfc_expand()]
+[sfc_2x2 | + sfc_expand()
+           + sfc_shape()]
 [sfc_3x3_peano | + sfc_expand()
+                 + sfc_shape()
                  + level1_unit_orientation()
                  + change_level1_unit_orientation()]
 [sfc_3x3_meander | + sfc_expand()

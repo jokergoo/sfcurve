@@ -43,12 +43,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -84,7 +85,7 @@
       <img src="" class="logo" alt=""><h1>3x3 Meander Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-09-03</h4>
+            <h4 data-toc-skip class="date">2024-09-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/meander_curve.Rmd" class="external-link"><code>vignettes/meander_curve.Rmd</code></a></small>
       <div class="d-none name"><code>meander_curve.Rmd</code></div>
@@ -103,9 +104,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_rules.html">draw_rules_3x3_meander</a></span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="meander_curve_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>On each level expansion, there are two transverse paths:</p>
+<p>On each level expansion, there are two traverse paths:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_MEANDER</span>, <span class="va">SFC_RULES_3x3_MEANDER</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/traverse_path.html">plot_traverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_3x3_MEANDER</span>, <span class="va">SFC_RULES_3x3_MEANDER</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">I</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="meander_curve_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">

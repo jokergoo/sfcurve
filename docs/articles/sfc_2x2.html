@@ -43,12 +43,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -84,7 +85,7 @@
       <img src="" class="logo" alt=""><h1>2x2 space-Filling Curve</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-09-03</h4>
+            <h4 data-toc-skip class="date">2024-09-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/sfc_2x2.Rmd" class="external-link"><code>vignettes/sfc_2x2.Rmd</code></a></small>
       <div class="d-none name"><code>sfc_2x2.Rmd</code></div>
@@ -168,7 +169,7 @@ P_2 = X^{(1)}_{&lt;i_1&gt;,1} X^{(1)}_{&lt;i_2&gt;,2} X^{(1)}_{&lt;i_3&gt;,3} X^
 <div class="section level3">
 <h3 id="corners">Corners<a class="anchor" aria-label="anchor" href="#corners"></a>
 </h3>
-<p>All the level 1 units transverse through a <span class="math inline">\(2 \times 2\)</span> grids, thus they all have a square-shape with an in-direction and an out-direction. Denote the bottom left and top right have a value of 1 and the top left and bottom right have a value of 2:</p>
+<p>All the level 1 units traverse through a <span class="math inline">\(2 \times 2\)</span> grids, thus they all have a square-shape with an in-direction and an out-direction. Denote the bottom left and top right have a value of 1 and the top left and bottom right have a value of 2:</p>
 <p><img src="sfc_2x2_files/figure-html/unnamed-chunk-5-1.png" width="192" style="display: block; margin: auto;"></p>
 <p>We define the <strong>corner value</strong> <span class="math inline">\(\tau\)</span> of the level 1 unit <span class="math inline">\(X^{(1)}\)</span> as a 2-tuple <span class="math inline">\((c_1, c_2)\)</span> where <span class="math inline">\(c_1\)</span> is the value of the entering corner and <span class="math inline">\(c_2\)</span> is the value of the leaving corner of <span class="math inline">\(X^{(1)}\)</span>:</p>
 <p><span class="math display">\[
@@ -232,12 +233,12 @@ P_2 &amp;= (IRR^{90}L^{180})^{90}(ILL^{270}R^{180})^{180}(RL^{90}LI^{270})^{90}(
 \end{align*}
 \]</span></p>
 <p>By the way, the rotations from the second base pattern in the sequence can be automatically calculated from the first base pattern.</p>
-<p>When expanding a curve from level k-1 to level k, on level k-1, we only need to pre-select the transverse code for the first base pattern, then the transverse code for the remainingbase patterns on level k-1 is determined, which ensures the expanded <span class="math inline">\(4^{k-1}\)</span> 2x2 units are all connected.</p>
-<p>Finally, the sequence of the transverse code for each base unit in the expansion is called the <strong>transverse path</strong>. E.g. the two different transverse paths of the <span class="math inline">\(R_1\)</span> 2x2 unit, determined by the expansion code of the first base pattern:</p>
+<p>When expanding a curve from level k-1 to level k, on level k-1, we only need to pre-select the traverse code for the first base pattern, then the traverse code for the remainingbase patterns on level k-1 is determined, which ensures the expanded <span class="math inline">\(4^{k-1}\)</span> 2x2 units are all connected.</p>
+<p>Finally, the sequence of the traverse code for each base unit in the expansion is called the <strong>traverse path</strong>. E.g. the two different traverse paths of the <span class="math inline">\(R_1\)</span> 2x2 unit, determined by the expansion code of the first base pattern:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_2x2</span>, <span class="va">SFC_RULES_2x2</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">R</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/traverse_path.html">plot_traverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_2x2</span>, <span class="va">SFC_RULES_2x2</span><span class="op">@</span><span class="va">rules</span><span class="op">$</span><span class="va">R</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="sfc_2x2_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>The two transverse paths can be written as:</p>
+<p>The two traverse paths can be written as:</p>
 <p><span class="math display">\[
 \begin{align*}
 \mathcal{p}_1 &amp;= (1, 1, 2, 1) \\
@@ -249,9 +250,9 @@ P_2 &amp;= (IRR^{90}L^{180})^{90}(ILL^{270}R^{180})^{180}(RL^{90}LI^{270})^{90}(
 <div class="section level2">
 <h2 id="encode-the-curve">Encode the curve<a class="anchor" aria-label="anchor" href="#encode-the-curve"></a>
 </h2>
-<p>Let’s start from a single base pattern as the initial seed. As has been explained, on each level of expansion, an expansion code should be selected for the first base pattern to determine the transverse path of the whole sequence. Then the possible expansions from a single base pattern can be described in the following diagram.</p>
+<p>Let’s start from a single base pattern as the initial seed. As has been explained, on each level of expansion, an expansion code should be selected for the first base pattern to determine the traverse path of the whole sequence. Then the possible expansions from a single base pattern can be described in the following diagram.</p>
 <p><img src="hc_expand.png" width="100%" style="display: block; margin: auto;"></p>
-<p>So, on level k, the total number of different forms of the 2x2 curve are <span class="math inline">\(2^k\)</span> because on each level there are two transverse paths to select. Taking <span class="math inline">\(R\)</span> as the initial seed, the size of the full set of level-3 curves are 8:</p>
+<p>So, on level k, the total number of different forms of the 2x2 curve are <span class="math inline">\(2^k\)</span> because on each level there are two traverse paths to select. Taking <span class="math inline">\(R\)</span> as the initial seed, the size of the full set of level-3 curves are 8:</p>
 <p>Note the orientation of <span class="math inline">\(R\)</span> is bottom in and right out.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>

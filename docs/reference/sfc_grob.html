@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -117,16 +118,16 @@
 
 
 <dt>bases</dt>
-<dd><p>A list of base patterns, consider to use <code><a href="base_patterns.html">BASE_LIST</a></code>.</p></dd>
+<dd><p>A list of base patterns, normally <code><a href="base_patterns.html">BASE_LIST</a></code> is used.</p></dd>
 
 
 <dt>extend</dt>
-<dd><p>Whether to add the entering and leaving segments?</p></dd>
+<dd><p>Whether to add the entry and exit segments?</p></dd>
 
 
 <dt>title</dt>
 <dd><p>Whether to add title on the top of the plot? The title is constructed in the form of <code>initial_seed|expansion_code</code>, e.g. <code>I|111</code>.
-Or the value is a string.</p></dd>
+The value can also be a string.</p></dd>
 
 
 <dt>closed</dt>
@@ -161,7 +162,7 @@ Or the value is a string.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>If <code>p</code> is an <code>sfc_sequence</code> and if <code>p</code> contains base patterns defined in <code>"I/J/R/L/U/B/D/P/Q/C"</code>,
+    <p>If <code>p</code> is an <code>sfc_sequence</code> and <code>p</code> contains base patterns defined in <code>"I/J/R/L/U/B/D/P/Q/C"</code>,
 the default <code><a href="base_patterns.html">BASE_LIST</a></code> is automatically used for <code>bases</code>. If <code>p</code> is an <code>sfc_nxn</code> object, <code>bases</code>
 is already stored in <code>p</code> and it is passed to this function automatically.</p>
     </div>

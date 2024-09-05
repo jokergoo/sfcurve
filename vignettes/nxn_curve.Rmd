@@ -163,7 +163,7 @@ And the curve generator:
 sfc_generator(SFC_RULES_5x5_MEANDER, "5x5_meander")
 ```
 
-For simplicity, currently the flipped expansion rules are not supported in `sfc_generator()`.
+The expansion rules:
 
 ```{r, fig.width = 9.4, fig.height = 4.5}
 draw_rules_5x5_meander()
@@ -173,6 +173,28 @@ draw_rules_5x5_meander()
 draw_multiple_curves(
 	sfc_5x5_meander("I", 11),
 	sfc_5x5_meander("I", 21),
+	lwd = 2, nrow = 1
+)
+```
+
+This 5x5 base unit is not symmetric, thus it has a flipped version. To generate a curve generator function
+that also supports flipping, we can set the argument `flippable = TRUE`.
+
+```{r}
+sfc_generator(SFC_RULES_5x5_MEANDER, "5x5_meander2", flippable = TRUE)
+```
+
+Then the same as `sfc_3x3_meander()`, we can use the `flip` argument in `sfc_5x5_meander2()`.
+
+
+```{r, fig.width = 9.4, fig.height = 4.5}
+draw_rules_5x5_meander2(flip = TRUE)
+```
+
+```{r, fig.width = 8, fig.height = 4}
+draw_multiple_curves(
+	sfc_5x5_meander2("I", 11),
+	sfc_5x5_meander2("I", 11, flip = TRUE),
 	lwd = 2, nrow = 1
 )
 ```
@@ -222,7 +244,8 @@ We may also validate whether a traverse path exist, e.g. for $I$:
 plot_traverse_paths(SFC_RULES_5x5_FOO, RULES_5x5_FOO[["I"]][[1]])
 ```
 
-If everything works fine, we can generate the curve functions:
+If everything works fine, we can generate the curve functions. Please note, you can set `flippable = TRUE` to also
+include the flipped rules.
 
 ```{r}
 sfc_generator(SFC_RULES_5x5_FOO, "5x5_foo")

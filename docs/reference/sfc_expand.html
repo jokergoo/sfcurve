@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -68,7 +69,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for sfc_2x2</span></span>
-<span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="va">code</span><span class="op">)</span></span>
+<span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, <span class="va">code</span>, flip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sfc_3x3_peano</span></span>
 <span><span class="fu">sfc_expand</span><span class="op">(</span><span class="va">p</span>, code <span class="op">=</span> <span class="fl">1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -80,7 +81,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>p</dt>
-<dd><p>An <code>sfc_2x2</code> object.</p></dd>
+<dd><p>An <code>sfc_2x2</code> object or other related objects.</p></dd>
 
 
 <dt>code</dt>
@@ -100,7 +101,8 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For the Hilbert curve and Meander curve, as long as the expansion code of the first base pattern in the sequence is determinted,
-the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, <code>code</code> is always 1.</p>
+the expansion codes for other base patterns in the sequence are all determined. For the Peano curve, since
+there is only one traverse path on any level, <code>code</code> is ignored.</p>
 <p>These functions are mainly used internally.</p>
     </div>
 

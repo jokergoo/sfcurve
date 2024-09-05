@@ -17,7 +17,7 @@ beta_omega_curve(level = 2L)
 
 peano_curve(level = 2L, pattern = "vvvvvvvvv", by = "Cpp")
 
-meander_curve(level = 2L, pattern = "fffffffff")
+meander_curve(level = 2L, pattern = "fffffffff", code = rep(1, level))
 
 h_curve(iteration = 2L)
 }
@@ -30,6 +30,8 @@ h_curve(iteration = 2L)
 value should be a string with 9 letters of "v"/"h" (vertical or horizontal) for the Peano curve,
 and "f"/"b" (forward or backward) for the Meander curve. The length of the string should be maximal 9.
 If the length is smaller than 9, the stringis automatically recycled.}
+
+\item{code}{Internally used.}
 
 \item{iteration}{Number of iterations.}
 }

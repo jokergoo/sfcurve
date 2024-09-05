@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -80,7 +81,7 @@ sfc_hflip(p, fix_ends = FALSE, bases = NULL)
 sfc_vflip(p, fix_ends = FALSE, bases = NULL)
 
 # S4 method for sfc_sequence
-sfc_dflip(p, slop = 1, fix_ends = FALSE, bases = NULL)
+sfc_dflip(p, slop = 1L, fix_ends = FALSE, bases = NULL)
 
 # S4 method for sfc_sequence
 sfc_reverse(p)
@@ -91,24 +92,20 @@ rev(x)</code></pre></div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>p</dt>
+    <dl><dt>p, e1</dt>
 <dd><p>An <code>sfc_sequence</code> object.</p></dd>
 
 
-<dt>rot</dt>
+<dt>rot, e2</dt>
 <dd><p>Rotation measured in the polar coordinate system, in degrees.</p></dd>
 
 
-<dt>e1</dt>
-<dd><p>An <code>sfc_sequence</code> object.</p></dd>
-
-
-<dt>e2</dt>
-<dd><p>The rotation.</p></dd>
-
-
 <dt>fix_ends</dt>
-<dd><p>Whether to keep the orientation and rotations of the starting and ending base patterns?</p></dd>
+<dd><p>By default, the curve is flipped as a complete whole, which means, the associated entry and exit directions of the curve
+is also adjusted accordingly. When flipping subunits in a curve, e.g. level-1 subunits in a Peano curve, we want the
+entry and exit direction of the subunit not changed so that the subunits are still connected in the curve after the flipping. In this
+case, <code>fix_ends</code> can be set to <code>TRUE</code>, then only the subunits are flipped while the connections to neighbouring subunits are not affected.
+See the <strong>Examples</strong> section.</p></dd>
 
 
 <dt>bases</dt>
@@ -116,7 +113,7 @@ rev(x)</code></pre></div>
 
 
 <dt>slop</dt>
-<dd><p>Slop of the diagonal.</p></dd>
+<dd><p>Slop of the diagonal. Value can only be 1 or -1.</p></dd>
 
 
 <dt>x</dt>

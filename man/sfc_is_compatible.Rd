@@ -7,7 +7,7 @@
 \alias{sfc_is_compatible,sfc_rules,sfc_sequence-method}
 \title{Whether two sfc_sequence objects are compatible}
 \usage{
-\S4method{sfc_is_compatible}{sfc_sequence,sfc_sequence}(p1, p2)
+\S4method{sfc_is_compatible}{sfc_sequence,sfc_sequence}(p1, p2, strict = TRUE)
 
 \S4method{sfc_is_compatible}{sfc_sequence,sfc_rules}(p1, p2)
 
@@ -17,18 +17,26 @@
 \item{p1}{An \code{sfc_sequence} object.}
 
 \item{p2}{An \code{sfc_sequence} object.}
+
+\item{strict}{\code{TRUE} or \code{FALSE}, see \strong{Details}.}
 }
 \description{
 Whether two sfc_sequence objects are compatible
 }
 \details{
 The function compares whether the two universe base pattern sets are identical.
-Note the order of universe base patterns should also be identical.
+If \code{strict} is \code{TRUE}, the order of the two universe sets should also be the same.
+If \code{strict} is \code{FALSE}, the universe set of \code{p2} can be a subset of the universe set of \code{p1}.
 }
 \examples{
 p1 = sfc_2x2("I")
 p2 = sfc_2x2("R")
 sfc_is_compatible(p1, p2)
+
+p1 = sfc_2x2("I")
+p2 = sfc_sequence("R")
+sfc_is_compatible(p1, p2)
+sfc_is_compatible(p1, p2, strict = FALSE)
 
 p1 = sfc_sequence("ABC")
 p2 = sfc_sequence("DEF")

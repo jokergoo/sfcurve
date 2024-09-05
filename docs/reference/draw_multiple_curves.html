@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -85,11 +86,11 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>A list of <code>sfc_sequence</code> objects or objects in its child classes, a list of <code><a href="https://rdrr.io/r/grid/grid-defunct.html" class="external-link">grid::grob</a></code> objects
-or a list of two-column coordinate matrices. I.e., all the forms that can represent curves in this package.</p></dd>
+or a list of two-column coordinate matrices, i.e., all the forms that can represent curves in this package.</p></dd>
 
 
 <dt>list</dt>
-<dd><p>The list of curve object can also be directly specified as a list object.</p></dd>
+<dd><p>The list of curve object can also be directly specified as a "list" object.</p></dd>
 
 
 <dt>nrow</dt>
@@ -101,7 +102,7 @@ or a list of two-column coordinate matrices. I.e., all the forms that can repres
 
 
 <dt>extend</dt>
-<dd><p>Whether to draw the entering and leaving segments? It is only used when input is a list of <code>sfc_sequence</code> objects.</p></dd>
+<dd><p>Whether to draw the entry and exit segments? It is only used when input is a list of <code>sfc_sequence</code> objects.</p></dd>
 
 
 <dt>title</dt>
@@ -111,19 +112,19 @@ The value can be a vector of user-defined strings.</p></dd>
 
 <dt>closed</dt>
 <dd><p>Whether the curves are closed? The value should be a logical vector. If it is <code>TRUE</code>, the last point
-is connected to the first point in the curve to form a closed curve.</p></dd>
+is connected to the first point in the curve to form a closed curve. Length of <code>closed</code> can be 1 or the number of curves.</p></dd>
 
 
 <dt>padding</dt>
-<dd><p>Space around each curve. The value should be a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit</a></code> object.</p></dd>
+<dd><p>Space around each curve. The value should be a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit</a></code> object with length 1.</p></dd>
 
 
 <dt>lwd</dt>
-<dd><p>Line width.</p></dd>
+<dd><p>Line width with length 1.</p></dd>
 
 
 <dt>col</dt>
-<dd><p>Color for the segments. If the value is <code>NULL</code>, it uses the "Spectral" color palettes from the <strong>RColorBrewer</strong> package.</p></dd>
+<dd><p>Color for the segments with length 1. If the value is <code>NULL</code>, it uses the "Spectral" color palettes from the <strong>RColorBrewer</strong> package.</p></dd>
 
 </dl></div>
     <div class="section level2">

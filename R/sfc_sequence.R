@@ -136,7 +136,7 @@ next_rotation = function(letter, rot) {
 #' @rdname utility
 #' @export
 `[<-.sfc_sequence` = function(x, i, value) {
-	if(sfc_is_compatible(x, value)) {
+	if(sfc_is_compatible(x, value, strict = FALSE)) {
 		x@seq[i] = value@seq
 		x@rot[i] = value@rot
 		x
@@ -273,23 +273,34 @@ setMethod("sfc_universe",
 #' @rdname sfc_is_compatible
 #' @param p1 An `sfc_sequence` object.
 #' @param p2 An `sfc_sequence` object.
+#' @param strict `TRUE` or `FALSE`, see **Details**.
 #' 
 #' @details
 #' The function compares whether the two universe base pattern sets are identical.
-#' Note the order of universe base patterns should also be identical.
+#' If `strict` is `TRUE`, the order of the two universe sets should also be the same.
+#' If `strict` is `FALSE`, the universe set of `p2` can be a subset of the universe set of `p1`.
 #' @export
 #' @examples
 #' p1 = sfc_2x2("I")
 #' p2 = sfc_2x2("R")
 #' sfc_is_compatible(p1, p2)
 #' 
+#' p1 = sfc_2x2("I")
+#' p2 = sfc_sequence("R")
+#' sfc_is_compatible(p1, p2)
+#' sfc_is_compatible(p1, p2, strict = FALSE)
+#' 
 #' p1 = sfc_sequence("ABC")
 #' p2 = sfc_sequence("DEF")
 #' sfc_is_compatible(p1, p2)
 setMethod("sfc_is_compatible",
 	signature = c("sfc_sequence", "sfc_sequence"),
-	definition = function(p1, p2) {
-	identical(sfc_universe(p1), sfc_universe(p2))
+	definition = function(p1, p2, strict = TRUE) {
+	if(strict) {
+		identical(sfc_universe(p1), sfc_universe(p2))
+	} else {
+		length(setdiff(sfc_universe(p2), sfc_universe(p1))) == 0
+	}
 })
 
 #' @rdname sfc_is_compatible

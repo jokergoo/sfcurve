@@ -49,6 +49,9 @@
     <loc>/articles/sfcurve.html</loc>
   </url>
   <url>
+    <loc>/articles/shape.html</loc>
+  </url>
+  <url>
     <loc>/articles/standard_curves.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>/reference/base_patterns.html</loc>
+  </url>
+  <url>
+    <loc>/reference/change_level1_unit_orientation-sfc_3x3_peano-method.html</loc>
   </url>
   <url>
     <loc>/reference/draw_multiple_curves.html</loc>
@@ -86,6 +92,12 @@
   </url>
   <url>
     <loc>/reference/level1_unit.html</loc>
+  </url>
+  <url>
+    <loc>/reference/level1_unit_orientation-sfc_3x3_peano-method.html</loc>
+  </url>
+  <url>
+    <loc>/reference/level1_unit_orientation.html</loc>
   </url>
   <url>
     <loc>/reference/plot_segments.html</loc>
@@ -176,6 +188,9 @@
   </url>
   <url>
     <loc>/reference/transverse_path.html</loc>
+  </url>
+  <url>
+    <loc>/reference/traverse_path.html</loc>
   </url>
   <url>
     <loc>/reference/utility.html</loc>

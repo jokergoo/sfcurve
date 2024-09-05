@@ -54,6 +54,10 @@ Draw these rules:
 
 `sfc_segments()`
 
+#### Shapes
+
+`sfc_shape()`, `all_2x2_shapes()`, `all_3x3_peano_shapes()`, `all_3x3_meander_shapes()`.
+
 ## Classes
 
 There are the following classes defined:

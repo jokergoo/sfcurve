@@ -43,12 +43,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -84,7 +85,7 @@
       <img src="" class="logo" alt=""><h1>Unit flipping</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-09-03</h4>
+            <h4 data-toc-skip class="date">2024-09-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/unit_flipping.Rmd" class="external-link"><code>vignettes/unit_flipping.Rmd</code></a></small>
       <div class="d-none name"><code>unit_flipping.Rmd</code></div>
@@ -118,10 +119,10 @@
 <div class="section level2">
 <h2 id="flip-level-1-units">Flip level-1 units<a class="anchor" aria-label="anchor" href="#flip-level-1-units"></a>
 </h2>
-<p>There is a helper function <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code> which change the orientation of all level-1 units simultaneously.</p>
+<p>There is a helper function <code><a href="../reference/level1_unit_orientation.html">change_level1_unit_orientation()</a></code> which change the orientation of all level-1 units simultaneously.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>,  <span class="st">"vertical"</span><span class="op">)</span></span>
-<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>,  <span class="st">"horizontal"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit_orientation.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>,  <span class="st">"vertical"</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">=</span> <span class="fu"><a href="../reference/level1_unit_orientation.html">change_level1_unit_orientation</a></span><span class="op">(</span><span class="va">p</span>,  <span class="st">"horizontal"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">p</span>, <span class="va">p2</span>, <span class="va">p3</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -153,7 +154,7 @@
 <span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">p2</span>, <span class="va">p3</span>, </span>
 <span>    nrow <span class="op">=</span> <span class="fl">1</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="unit_flipping_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;"></p>
-<p>Being different from <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code> which is only applied on level 1, the self-defined function <code>flip()</code> is appied to every level of the curve.</p>
+<p>Being different from <code><a href="../reference/level1_unit_orientation.html">change_level1_unit_orientation()</a></code> which is only applied on level 1, the self-defined function <code>flip()</code> is appied to every level of the curve.</p>
 </div>
 <div class="section level2">
 <h2 id="adjust-flipping-on-a-generated-curve">Adjust flipping on a generated curve<a class="anchor" aria-label="anchor" href="#adjust-flipping-on-a-generated-curve"></a>
@@ -182,7 +183,7 @@
 <div class="section level2">
 <h2 id="seed-as-a-sequence">Seed as a sequence<a class="anchor" aria-label="anchor" href="#seed-as-a-sequence"></a>
 </h2>
-<p><code><a href="../reference/sfc_flip_unit.html">sfc_flip_unit()</a></code>, <code><a href="../reference/level1_unit.html">change_level1_unit_orientation()</a></code> and <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code> only work on curves with a single letter as the seed because internally they use <code><a href="../reference/sfc_index.html">sfc_index()</a></code> to get subunits and <code><a href="../reference/sfc_index.html">sfc_index()</a></code> only works on square curves. Only the “flip” function works when the seed is a sequence.</p>
+<p><code><a href="../reference/sfc_flip_unit.html">sfc_flip_unit()</a></code>, <code><a href="../reference/level1_unit_orientation.html">change_level1_unit_orientation()</a></code> and <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code> only work on curves with a single letter as the seed because internally they use <code><a href="../reference/sfc_index.html">sfc_index()</a></code> to get subunits and <code><a href="../reference/sfc_index.html">sfc_index()</a></code> only works on square curves. Only the “flip” function works when the seed is a sequence.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"IJ"</span>, level <span class="op">=</span> <span class="fl">3</span>, rot <span class="op">=</span> <span class="fl">90</span>, flip <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">p</span><span class="op">@</span><span class="va">rot</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">270</span><span class="op">)</span></span>

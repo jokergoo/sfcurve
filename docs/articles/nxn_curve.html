@@ -43,12 +43,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -84,7 +85,7 @@
       <img src="" class="logo" alt=""><h1>General nxn Curves</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-09-03</h4>
+            <h4 data-toc-skip class="date">2024-09-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/sfcurve/blob/HEAD/vignettes/nxn_curve.Rmd" class="external-link"><code>vignettes/nxn_curve.Rmd</code></a></small>
       <div class="d-none name"><code>nxn_curve.Rmd</code></div>
@@ -203,7 +204,7 @@
 <pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
 <span><span class="co">##   - sfc_5x5_meander()</span></span>
 <span><span class="co">##   - draw_rules_5x5_meander()</span></span></code></pre>
-<p>For simplicity, currently the flipped expansion rules are not supported in <code><a href="../reference/sfc_generator.html">sfc_generator()</a></code>.</p>
+<p>The expansion rules:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">draw_rules_5x5_meander</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="nxn_curve_files/figure-html/unnamed-chunk-16-1.png" width="902.4" style="display: block; margin: auto;"></p>
@@ -214,14 +215,32 @@
 <span>    lwd <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="nxn_curve_files/figure-html/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>This 5x5 base unit is not symmetric, thus it has a flipped version. To generate a curve generator function that also supports flipping, we can set the argument <code>flippable = TRUE</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_generator.html">sfc_generator</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_MEANDER</span>, <span class="st">"5x5_meander2"</span>, flippable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
+<span><span class="co">##   - sfc_5x5_meander2()</span></span>
+<span><span class="co">##   - draw_rules_5x5_meander2()</span></span>
+<span><span class="co">## flipping is supported.</span></span></code></pre>
+<p>Then the same as <code><a href="../reference/spacefilling.html">sfc_3x3_meander()</a></code>, we can use the <code>flip</code> argument in <code>sfc_5x5_meander2()</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">draw_rules_5x5_meander2</span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-19-1.png" width="902.4" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
+<span>    <span class="fu">sfc_5x5_meander2</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span>,</span>
+<span>    <span class="fu">sfc_5x5_meander2</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span>, flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    lwd <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="unit-with-1122-corners">Unit with 11/22 corners<a class="anchor" aria-label="anchor" href="#unit-with-1122-corners"></a>
 </h2>
 <p>We next demonstrate a 5x5 curve based on the <code>11/22</code> unit.</p>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-18-1.png" width="288" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-21-1.png" width="288" style="display: block; margin: auto;"></p>
 <p>Similar as <code>SFC_RULES_PEANO</code>, we include base pattern <code>J</code>. In this example, <span class="math inline">\(J\)</span> is basically a letter switch from <span class="math inline">\(I\)</span> (i.e. <code>I &lt;-&gt; J, R &lt;-&gt; L</code>). <span class="math inline">\(R\)</span> is based on <span class="math inline">\(I\)</span> with the last letter changed to <code>R</code> and <span class="math inline">\(L\)</span> is based on <span class="math inline">\(J\)</span> with the last letter changed to <code>L</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">UNIVERSE_5x5_FOO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"J"</span>, <span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span></span>
 <span><span class="va">RULES_5x5_FOO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="../reference/sfc_sequence.html">sfc_unit</a></span><span class="op">(</span><span class="st">"IJRRILJILLJRILJRRIJRILLJI"</span>, rot <span class="op">=</span> <span class="fl">0</span>, universe <span class="op">=</span> <span class="va">UNIVERSE_5x5_FOO</span><span class="op">)</span></span>
@@ -233,7 +252,7 @@
 <span>        name <span class="op">=</span> <span class="st">"Foo 5x5"</span>,</span>
 <span>        bases <span class="op">=</span> <span class="va">BASE_LIST</span><span class="op">[</span><span class="va">UNIVERSE_5x5_FOO</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Sometimes it may need several edits of the sequences in base units to make <code>I/J/R/L</code> in their correct forms. Directly plotting them helps to validate the units:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span>
 <span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"J"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
@@ -241,30 +260,30 @@
 <span>    <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"L"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>    nrow <span class="op">=</span> <span class="fl">2</span>, extend <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>We may also validate whether a transverse path exist, e.g. for <span class="math inline">\(I\)</span>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transverse_path.html">plot_transverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_FOO</span>, <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>If everything works fine, we can generate the curve functions:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>We may also validate whether a traverse path exist, e.g. for <span class="math inline">\(I\)</span>:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/traverse_path.html">plot_traverse_paths</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_FOO</span>, <span class="va">RULES_5x5_FOO</span><span class="op">[[</span><span class="st">"I"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>If everything works fine, we can generate the curve functions. Please note, you can set <code>flippable = TRUE</code> to also include the flipped rules.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_generator.html">sfc_generator</a></span><span class="op">(</span><span class="va">SFC_RULES_5x5_FOO</span>, <span class="st">"5x5_foo"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## The following two functions are exported to the current top environment:</span></span>
 <span><span class="co">##   - sfc_5x5_foo()</span></span>
 <span><span class="co">##   - draw_rules_5x5_foo()</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">draw_rules_5x5_foo</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-23-1.png" width="768" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">sfc_5x5_foo</span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>We can manually flip the level-1 units to make every two neighbour units symmetric (you can also use <code><a href="../reference/sfc_apply.html">sfc_apply()</a></code>):</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">p</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"4"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"18"</span>, <span class="st">"19"</span>, <span class="st">"20"</span>, <span class="st">"23"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Please note for the curves based on <code>11/22</code> units, for the following structure (or its rotated form)</p>
-<p><img src="nxn_curve_files/figure-html/unnamed-chunk-26-1.png" width="192" style="display: block; margin: auto;"></p>
+<p><img src="nxn_curve_files/figure-html/unnamed-chunk-29-1.png" width="192" style="display: block; margin: auto;"></p>
 <p>the minimal length of the two vertical segment should be an even number, or the segment should allow even numbers of units to be put in.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

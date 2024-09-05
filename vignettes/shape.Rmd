@@ -1,0 +1,97 @@
+---
+title: "Shapes"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  html_document:
+    self_contained: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+```{r, echo = FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center")
+
+library(grid)
+library(sfcurve)
+```
+
+## Shapes in 2x2 curves
+
+```{r, fig.width = 8, fig.height = 2}
+draw_multiple_curves(
+    sfc_2x2("I", 11), 
+    sfc_2x2("R", 22),
+    sfc_2x2("I", 22), 
+    sfc_2x2("L", 11, rot = 90),
+    nrow = 1
+)
+```
+
+```{r, fig.width = 8, fig.height = 2}
+draw_multiple_curves(
+    sfc_shape(sfc_2x2("I", 11)), 
+    sfc_shape(sfc_2x2("R", 22)),
+    sfc_shape(sfc_2x2("I", 22)), 
+    sfc_shape(sfc_2x2("L", 11, rot = 90)),
+    nrow = 1, col = "black"
+)
+```
+
+
+```{r, fig.width = 6, fig.height = 4}
+sl = all_2x2_shapes(2)
+draw_multiple_curves(list = sl, lwd = 2, col = "black", nrow = 2)
+```
+
+```{r, fig.width = 8, fig.height = 4}
+sl = all_2x2_shapes(3)
+draw_multiple_curves(list = sl, lwd = 2, col = "black", nrow = 3)
+```
+
+
+## Shapes in 3x3 Peano curves
+
+
+```{r, fig.width = 4, fig.height = 4}
+p = sfc_3x3_peano("I", 11)
+draw_multiple_curves(
+    p, 
+    sfc_dflip(p),
+    sfc_shape(p), 
+    sfc_shape(sfc_dflip(p, slop = 1)),
+    nrow = 2, col = "black")
+```
+
+```{r}
+sl = all_3x3_peano_shapes()
+length(sl)
+```
+
+
+```{r, fig.width = 8, fig.height = 8/6*2}
+draw_multiple_curves(sl[1:12], lwd = 2, col = "black", nrow = 2)
+```
+
+## Shapes in 3x3 Meander curves
+
+
+```{r, fig.width = 8, fig.height = 4}
+sl = all_3x3_meander_shapes(2)
+draw_multiple_curves(list = sl, lwd = 2, col = "black", ncol = 4)
+```
+
+```{r, fig.width = 8, fig.height = 8/4*7}
+sl = all_3x3_meander_shapes(3)
+draw_multiple_curves(list = sl, lwd = 2, col = "black", ncol = 4)
+```
+

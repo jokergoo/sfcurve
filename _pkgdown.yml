@@ -16,17 +16,19 @@ navbar:
           href: articles/unit_flipping.html
         - text: "5. Standard curves"
           href: articles/standard_curves.html
-        - text: "6. General 3x3 Curves"
+        - text: "6. Shapes"
+          href: "articles/shape.html"
+        - text: "7. General 3x3 Curves"
           href: articles/all_3x3_curve.html
-        - text: "7. 4x4 Meander Curve"
+        - text: "8. 4x4 Meander Curve"
           href: articles/meander_4x4_curve.html
-        - text: "8. General nxn Curves"
+        - text: "9. General nxn Curves"
           href: "articles/nxn_curve.html"
-        - text: "9. H-Curve"
+        - text: "10. H-Curve"
           href: articles/h_curve.html
-        - text: "10. 3D Hilbert curve"
+        - text: "11. 3D Hilbert curve"
           href: articles/hilbert_3d.html
-        - text: "11. Locality of various curves"
+        - text: "12. Locality of various curves"
           href: articles/locality.html
     - text: "Functions/Classes"
       href: articles/functions.html

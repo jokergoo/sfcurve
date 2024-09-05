@@ -140,15 +140,15 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()),
 							p = sfc_expand(p, code[i], flip = flip[1])
 						}
 					} else if (i == 2) {
-						if(length(flip) == 9) {
+						if(length(flip) == p@mode^2) {
 
 						} else {
-							flip = rep(flip, each = 9)
+							flip = rep(flip, each = p@mode^2)
 						}
 						
 						p = sfc_expand(p, code[i], flip = flip)
 					} else {
-						flip = rep(flip, each = 9)
+						flip = rep(flip, each = p@mode^2)
 						p = sfc_expand(p, code[i], flip = flip)
 					}
 				}

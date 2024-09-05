@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -70,7 +71,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for sfc_2x2</span></span>
 <span><span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">all_2x2_shapes</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">all_2x2_shapes</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sfc_3x3_peano</span></span>
+<span><span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">all_3x3_peano_shapes</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sfc_3x3_meander</span></span>
+<span><span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">all_3x3_meander_shapes</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -80,7 +91,7 @@
 
 
 <dt>level</dt>
-<dd><p>Level of the Hilbert curve.</p></dd>
+<dd><p>Level of the 2x2 curve.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -95,26 +106,72 @@ the xy-coordnates of the corresponding shape curve.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The shape of the curve is defined as a form of the curve without considering rotation,
-flipping (reflection) nor reversing.</p>
+    <p>The shape of the curve is defined as a form of the curve without considering entry/exit directions, rotation,
+flipping (reflection) nor reversing.</p><div class="section">
+<h3 id="-x-curve">2x2 curve<a class="anchor" aria-label="anchor" href="#-x-curve"></a></h3>
+
+
 <p>The process of selecting the shape segment of the curve denoted as <code>P</code> is:</p><ol><li><p>The entry-point should locate in the bottom left subunit and the exit-point should
 locate in the bottom right subunit. We try the four rotations (0, 90, 180, 270), and
 the four rotations on the horizontally flipped curve. Once we find the transformed curve
-that satisfies this criterion, we term it as <code>P2</code>.</p></li>
+that satisfies this criterion, we name it as <code>P2</code>.</p></li>
 <li><p>We also generate <code>P3</code> which is a horizontally flipped version of <code>rev(P2)</code>.</p></li>
 <li><p>We compare the first point <code>p</code> of <code>P2</code> and <code>P3</code>, and select the one whose <code>p</code> has the smaller
 x-coordinate (i.e. more to the left of the curve). If the x-coordinates of <code>p</code> are the same in
 <code>P2</code> and <code>P3</code>, we select the one whose <code>p</code> has the smaller y-coordinate.</p></li>
 </ol></div>
 
+<div class="section">
+<h3 id="-x-peano-curve">3x3 Peano curve<a class="anchor" aria-label="anchor" href="#-x-peano-curve"></a></h3>
+
+
+<p>The process of selecting the shape segment of the curve denoted as <code>P</code> is:</p><ol><li><p>The entry-point should locate in the bottom left subunit and the exit-point should
+locate in the top right subunit. We try the four rotations (0, 90, 180, 270). Once we find the transformed curve
+that satisfies this criterion, we name it as <code>P2</code>.</p></li>
+<li><p>We also generate <code>P3</code> which is a 180 degrees rotation on the reversed <code>P2</code>, <code>P4</code> which is a diagonal flip with slop of 1 on <code>P2</code>
+and <code>P5</code> which is a diagonal flip with slop of 1 on <code>P3</code>.</p></li>
+<li><p>We calculate the "UID" of <code>P(2-5)</code> and pick the one with the smallest UID as the final curve.</p></li>
+</ol><p>The UID of a 3x3 Peano curve is based on the hierarchical indices of the units on it. The hierarchy of the
+Peano curve is traversed in a depth-first manner. On each node, the orientation of the corresponding unit is
+calculated where vertical is 1 and horizontal is 2. The digits are concatenated into a long string.</p>
+</div>
+
+<p><code>all_3x3_peano_shapes()</code> only calculates all shapes for Peano curve on level 2.</p>
+<p><code>all_3x3_meander_shapes()</code> only considers the Meander curve with all subunits on all levels in forward orientation.</p>
+    </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_2x2_shapes</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span>list <span class="op">=</span> <span class="va">sl</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">p1</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_2x2</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="fl">22</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p1</span>, <span class="va">p2</span>, </span></span>
+<span class="r-in"><span>    <span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>    col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_shape-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_2x2_shapes</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_2x2_shapes</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span>list <span class="op">=</span> <span class="va">sl</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sfc_shape-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_2x2_shapes</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span>list <span class="op">=</span> <span class="va">sl</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sfc_shape-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="spacefilling.html">sfc_3x3_peano</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="fl">11</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p</span>, <span class="fu"><a href="sfc_transformation.html">sfc_reverse</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">sfc_shape</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, <span class="fu">sfc_shape</span><span class="op">(</span><span class="fu"><a href="sfc_transformation.html">sfc_reverse</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sfc_shape-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_3x3_peano_shapes</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sl</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 272</span>
+<span class="r-in"><span><span class="co"># the first 8 shapes</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span><span class="va">sl</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sfc_shape-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="va">sl</span> <span class="op">=</span> <span class="fu">all_3x3_meander_shapes</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="draw_multiple_curves.html">draw_multiple_curves</a></span><span class="op">(</span>list <span class="op">=</span> <span class="va">sl</span>, lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sfc_shape-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -18,7 +18,7 @@
 #' 1. The entry-point should locate in the bottom left subunit and the exit-point should 
 #'    locate in the bottom right subunit. We try the four rotations (0, 90, 180, 270), and 
 #'    the four rotations on the horizontally flipped curve. Once we find the transformed curve
-#'    that satisfies this criterion, we term it as `P2`.
+#'    that satisfies this criterion, we name it as `P2`.
 #' 2. We also generate `P3` which is a horizontally flipped version of `rev(P2)`.
 #' 3. We compare the first point `p` of `P2` and `P3`, and select the one whose `p` has the smaller
 #'    x-coordinate (i.e. more to the left of the curve). If the x-coordinates of `p` are the same in
@@ -168,9 +168,10 @@ uid_3x3_peano = function(loc, mode) {
 #' 
 #' 1. The entry-point should locate in the bottom left subunit and the exit-point should 
 #'    locate in the top right subunit. We try the four rotations (0, 90, 180, 270). Once we find the transformed curve
-#'    that satisfies this criterion, we term it as `P2`.
-#' 2. We also generate `P3` which is a 180 degrees rotation on the reversed `P2`.
-#' 3. We calculate the "UID" of `P*` and pick the one with the smallest UID as the final curve.
+#'    that satisfies this criterion, we name it as `P2`.
+#' 2. We also generate `P3` which is a 180 degrees rotation on the reversed `P2`, `P4` which is a diagonal flip with slop of 1 on `P2`
+#'    and `P5` which is a diagonal flip with slop of 1 on `P3`.
+#' 3. We calculate the "UID" of `P(2-5)` and pick the one with the smallest UID as the final curve.
 #' 
 #' The UID of a 3x3 Peano curve is based on the hierarchical indices of the units on it. The hierarchy of the
 #' Peano curve is traversed in a depth-first manner. On each node, the orientation of the corresponding unit is
@@ -179,14 +180,18 @@ uid_3x3_peano = function(loc, mode) {
 #' @examples
 #' p = sfc_3x3_peano("I", 11)
 #' draw_multiple_curves(
-#'     p, sfc_reverse(p),
-#'     sfc_shape(p), sfc_shape(sfc_reverse(p)),
+#'     p, sfc_dflip(p),
+#'     sfc_shape(p), sfc_shape(sfc_dflip(p)),
 #'     col = "black")
 setMethod("sfc_shape", 
 	signature = "sfc_3x3_peano",
 	definition = function(p) {
 
 	loc = sfc_segments(p)
+	sfc_shape_3x3_peano_internal(loc, p@mode)
+})
+
+sfc_shape_3x3_peano_internal = function(loc, mode) {
 	np = nrow(loc)
 
 	# center of the curve set to (0, 0)
@@ -203,13 +208,17 @@ setMethod("sfc_shape",
 	}
 
 	loc_flip1 = rotate_coord(reverse_coord(loc2), 180)
+	loc_flip2 = dflip_coord(loc2, type = 1)
+	loc_flip3 = dflip_coord(loc_flip1, type = 1)
 	
-	uid1 = uid_3x3_peano(loc2, p@mode)
-	uid2 = uid_3x3_peano(loc_flip1, p@mode)
-	
-	lt = list(loc2, loc_flip1)
+	uid1 = uid_3x3_peano(loc2, mode)
+	uid2 = uid_3x3_peano(loc_flip1, mode)
+	uid3 = uid_3x3_peano(loc_flip2, mode)
+	uid4 = uid_3x3_peano(loc_flip3, mode)
 
-	ind = which.min(c(uid1, uid2))
+	lt = list(loc2, loc_flip1, loc_flip2, loc_flip3)
+
+	ind = which.min(c(uid1, uid2, uid3, uid4))
 	loc_final = lt[[ind]]
 
 	loc_final[, 1] = round(loc_final[, 1] - min(loc_final[, 1]))
@@ -218,4 +227,161 @@ setMethod("sfc_shape",
 
 	dim(loc_final) = c(nrow(loc), 2)
 	loc_final
+}
+
+#' @rdname sfc_shape
+#' @details
+#' `all_3x3_peano_shapes()` only calculates all shapes for Peano curve on level 2.
+#' @export
+#' @examples
+#' \dontrun{
+#' sl = all_3x3_peano_shapes()
+#' length(sl)
+#' # the first 8 shapes
+#' draw_multiple_curves(sl[1:8], col = "black")
+#' }
+all_3x3_peano_shapes = function(level = 2) {
+
+	pl = list()
+	p = c("v", "h")
+	for(x in 1:2^9) {
+		ind = int_to_binary(x-1, 9)+1
+		code = paste(p[ind], collapse = "")
+		pl[[code]] = peano_curve(level = 2, pattern = code)
+	}
+
+	sl = lapply(pl, sfc_shape_3x3_peano_internal, mode = 3)
+
+	hash = sapply(sl, digest::digest)
+	l = !duplicated(hash)
+	sl[l]
+}
+
+
+
+
+uid_3x3_meander = function(loc, mode) {
+
+	v = c("forward" = 1L, "backward" = 2L)
+
+	unit_orientation = function(loc) {
+		if(equal_to(loc[1, 1], loc[2, 1]) && equal_to(loc[2, 1], loc[3, 1])) {
+	        "forward"
+	    } else {
+	        "backward"
+	    }
+	}
+
+	go_next_level = function(loc, res) {
+		n = nrow(loc)
+		if(n == 9) {
+			return(res)
+		} else {
+			block_size = n/mode^2
+			for(i in 1:9) {
+				loc2 = loc[seq((i-1)*block_size+1, i*block_size), ]
+				loc1 = sfc_reduce(loc2, to = 1)
+				res = c(res, v[unit_orientation(loc1)])
+				res = go_next_level(loc2, res)
+			}
+			return(res)
+		}
+	}
+
+	if(nrow(loc) == 1) {
+		return(integer(0))
+	}
+
+	if(nrow(loc) == 9) {
+		return(v[unit_orientation(loc)])
+	}
+
+	loc1 = sfc_reduce(loc, to = 1)
+	res = v[unit_orientation(loc1)]
+	res = go_next_level(loc, res)
+
+	paste(res, collapse = "")
+}
+
+#' @rdname sfc_shape
+#' @export
+setMethod("sfc_shape", 
+	signature = "sfc_3x3_meander",
+	definition = function(p) {
+
+	loc = sfc_segments(p)
+	sfc_shape_3x3_meander_internal(loc, p@mode)
+	
 })
+
+sfc_shape_3x3_meander_internal = function(loc, mode) {
+	np = nrow(loc)
+
+	# center of the curve set to (0, 0)
+	loc[, 1] = loc[, 1] - mean(loc[, 1])
+	loc[, 2] = loc[, 2] - mean(loc[, 2])
+
+	ok = FALSE
+	for(theta in c(0, 90, 180, 270)) {
+		loc2 = rotate_coord(loc, theta)
+		if(loc2[1, 1] < 0 & loc2[1, 2] < 0 & loc2[np, 1] > 0 & loc2[np, 2] < 0) {
+			ok = TRUE
+			break
+		}
+	}
+
+	if(!ok) {
+		loc = hflip_coord(loc, 0)
+		for(theta in c(0, 90, 180, 270)) {
+			loc2 = rotate_coord(loc, theta)
+			if(loc2[1, 1] < 0 & loc2[1, 2] < 0 & loc2[np, 1] > 0 & loc2[np, 2] < 0) {
+				ok = TRUE
+				break
+			}
+		}
+	}
+
+	loc_flip1 = rotate_coord(reverse_coord(loc2), 180)
+	loc_flip2 = dflip_coord(loc2, type = 1)
+	loc_flip3 = dflip_coord(loc_flip1, type = 1)
+	
+	uid1 = uid_3x3_meander(loc2, mode)
+	uid2 = uid_3x3_meander(loc_flip1, mode)
+	uid3 = uid_3x3_meander(loc_flip2, mode)
+	uid4 = uid_3x3_meander(loc_flip3, mode)
+
+	lt = list(loc2, loc_flip1, loc_flip2, loc_flip3)
+
+	ind = which.min(c(uid1, uid2, uid3, uid4))
+	loc_final = lt[[ind]]
+
+	loc_final[, 1] = round(loc_final[, 1] - min(loc_final[, 1]))
+	loc_final[, 2] = round(loc_final[, 2] - min(loc_final[, 2]))
+	loc_final = as.integer(loc_final)
+
+	dim(loc_final) = c(nrow(loc), 2)
+	loc_final
+}
+
+#' @rdname sfc_shape
+#' @details
+#' `all_3x3_meander_shapes()` only considers the Meander curve with all subunits on all levels in forward orientation.
+#' @export
+#' @examples
+#' sl = all_3x3_meander_shapes(2)
+#' draw_multiple_curves(list = sl, lwd = 2, col = "black")
+all_3x3_meander_shapes = function(level = 2) {
+
+	pl = list()
+	for(bp in names(SFC_RULES_3x3_MEANDER@rules)) {
+		pl = c(pl, lapply(1:2^level, function(x) {
+			sfc_3x3_meander(bp, code = int_to_binary(x-1, level)+1)
+		}))
+	}
+
+	sl = lapply(pl, sfc_shape)
+
+	hash = sapply(sl, digest::digest)
+	l = !duplicated(hash)
+	sl[l]
+}

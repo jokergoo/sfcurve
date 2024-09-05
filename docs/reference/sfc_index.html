@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -80,8 +81,13 @@ sfc_index(p, index = "")</code></pre></div>
 <dd><p>An <code>sfc_nxn</code> object.</p></dd>
 
 
-<dt>i</dt>
-<dd><p>Numeric index or a character index representing the hierarchy of the subunit in the curve.</p></dd>
+<dt>i, index</dt>
+<dd><p>A string of digits representing the path on the hierarchy of the curve. The left side
+corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
+2x2 curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
+The hierarchical index should be specified in a format of <code>i1:i2:i3:...</code>
+where <code>:</code> can be replaced by any non-number character. For 2x2 and 3x3 curves, <code>:</code> can be omitted and the
+hierarchical index can be specified as <code>i1i2i3...</code>. See the <strong>Examples</strong> section.</p></dd>
 
 
 <dt>j</dt>
@@ -99,13 +105,6 @@ sfc_index(p, index = "")</code></pre></div>
 <dt>p</dt>
 <dd><p>An <code>sfc_nxn</code> object.</p></dd>
 
-
-<dt>index</dt>
-<dd><p>A string of digits representing the path on the hierarchy of the curve. The left side
-corresponds to the top level and the right side corresponds to the bottom level on the curve. For the
-Hilbert curve, the digits can only be 1-4, and for the Peano and Meander curves, the digites can be 1-9.
-Digits should be separated by non-number characters, see examples.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -119,7 +118,12 @@ Digits should be separated by non-number characters, see examples.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A sequence of 16 base patterns.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   I(270)L(270)L(0)R(90)   I(0)R(0)R(270)L(180)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   L(270)R(0)R(270)I(180)  R(180)L(90)L(180)I(270)</span>
-<span class="r-in"><span><span class="va">p</span><span class="op">[</span><span class="st">"3:2:1"</span>, <span class="cn">TRUE</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># for 2x2 and 3x3 curves, ":" can be omitted</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">[</span><span class="st">"321"</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A sequence of 16 base patterns.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   I(270)L(270)L(0)R(90)   I(0)R(0)R(270)L(180)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   L(270)R(0)R(270)I(180)  R(180)L(90)L(180)I(270)</span>
+<span class="r-in"><span><span class="va">p</span><span class="op">[</span><span class="st">"3:2:1"</span>, <span class="cn">TRUE</span><span class="op">]</span> <span class="co"># or p["3:2:1", drop = FALSE]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An sfc_2x2 object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Increase mode: 2 x 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Level: 5</span>

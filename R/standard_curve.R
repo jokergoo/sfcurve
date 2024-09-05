@@ -130,6 +130,7 @@ peano_curve = function(level = 2L, pattern = "vvvvvvvvv", by = "Cpp") {
 }
 
 #' @rdname standard_curve
+#' @param code Internally used.
 #' @export
 #' @examples
 #' draw_multiple_curves(
@@ -142,7 +143,7 @@ peano_curve = function(level = 2L, pattern = "vvvvvvvvv", by = "Cpp") {
 #'     meander_curve(3, pattern = "bbbbbffff"),
 #'     nrow = 1
 #' )
-meander_curve = function(level = 2L, pattern = "fffffffff") {
+meander_curve = function(level = 2L, pattern = "fffffffff", code = rep(1, level)) {
 	
 	if(length(pattern) != 1) {
 		stop_wrap("Length of `pattern` can only be 1.")
@@ -164,7 +165,7 @@ meander_curve = function(level = 2L, pattern = "fffffffff") {
 
 	l_f = pattern == "f"
 	l_b = pattern == "b"
-	p = sfc_3x3_meander(bp, code = rep(1, level), rot = 0, flip = function(p) {
+	p = sfc_3x3_meander(bp, code = code, rot = 0, flip = function(p) {
 		if(sfc_level(p) > 0) {
 			n = length(p)
 			l = rep(FALSE, n)

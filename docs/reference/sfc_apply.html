@@ -26,12 +26,13 @@
     <a class="dropdown-item" href="../articles/meander_curve.html">3. 3x3 Meander Curve</a>
     <a class="dropdown-item" href="../articles/unit_flipping.html">4. Unit flipping</a>
     <a class="dropdown-item" href="../articles/standard_curves.html">5. Standard curves</a>
-    <a class="dropdown-item" href="../articles/all_3x3_curve.html">6. General 3x3 Curves</a>
-    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">7. 4x4 Meander Curve</a>
-    <a class="dropdown-item" href="../articles/nxn_curve.html">8. General nxn Curves</a>
-    <a class="dropdown-item" href="../articles/h_curve.html">9. H-Curve</a>
-    <a class="dropdown-item" href="../articles/hilbert_3d.html">10. 3D Hilbert curve</a>
-    <a class="dropdown-item" href="../articles/locality.html">11. Locality of various curves</a>
+    <a class="dropdown-item" href="../articles/shape.html">6. Shapes</a>
+    <a class="dropdown-item" href="../articles/all_3x3_curve.html">7. General 3x3 Curves</a>
+    <a class="dropdown-item" href="../articles/meander_4x4_curve.html">8. 4x4 Meander Curve</a>
+    <a class="dropdown-item" href="../articles/nxn_curve.html">9. General nxn Curves</a>
+    <a class="dropdown-item" href="../articles/h_curve.html">10. H-Curve</a>
+    <a class="dropdown-item" href="../articles/hilbert_3d.html">11. 3D Hilbert curve</a>
+    <a class="dropdown-item" href="../articles/locality.html">12. Locality of various curves</a>
   </div>
 </li>
 <li class="nav-item">
@@ -124,7 +125,7 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 <span class="r-in"><span><span class="co"># flip all level-1 patterns on the Peano curve to horizontal</span></span></span>
 <span class="r-in"><span><span class="co"># only works on the lowest subunit, </span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">=</span> <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit_orientation.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"vertical"</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="fu"><a href="sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">x</span></span></span>
@@ -143,7 +144,7 @@ A depth of 0 corresponds to the complete curve. A depth of 1 corresponds to the 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># flip all level-1 patterns to vertical</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">=</span> <span class="fu">sfc_apply</span><span class="op">(</span><span class="va">p</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="level1_unit_orientation.html">level1_unit_orientation</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="st">"horizontal"</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="fu"><a href="sfc_flip_unit.html">sfc_flip_unit</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">x</span></span></span>
