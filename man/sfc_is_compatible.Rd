@@ -20,6 +20,9 @@
 
 \item{strict}{\code{TRUE} or \code{FALSE}, see \strong{Details}.}
 }
+\value{
+A logical scalar.
+}
 \description{
 Whether two sfc_sequence objects are compatible
 }

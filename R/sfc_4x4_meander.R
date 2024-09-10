@@ -29,6 +29,8 @@ setClass("sfc_4x4_meander_2",
 #' @details
 #' It is an extension of the 3x3 Meander curves to mode 4. For simplicity, it only supports `I/R/L` base patterns.
 #' @export
+#' @return
+#' `sfc_4x4_meander()` returns an `sfc_4x4_meander` object.
 #' @examples
 #' draw_multiple_curves(
 #'     sfc_4x4_meander("I", "11", type = 1),

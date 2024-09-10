@@ -20,6 +20,9 @@ H1
 
 H2
 }
+\value{
+Two-column matrices.
+}
 \description{
 Seed sequences of the H-curve
 }

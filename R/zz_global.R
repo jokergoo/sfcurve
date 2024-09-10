@@ -320,6 +320,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' "going forward" patterns for the level-1 units with 11/22 corner values, i.e. bottom-left to top-right, and bottom-right
 #' to top-left.
 #' @rdname base_patterns
+#' @return `sfc_base` objects.
 #' @export
 #' @examples
 #' BASE_I
@@ -387,6 +388,7 @@ RULES_3x3_COMBINED[["C"]][[4]] = sfc_unit("LILLIRRIR", rot = 270, universe = UNI
 #' @details
 #' `SFC_RULES_3x3_PEANO`, `SFC_RULES_3x3_MEANDER` and `SFC_RULES_3x3_COMBINED`, `SFC_RULES_MEANDER_4x4_1`, `SFC_RULES_MEANDER_4x4_2` also contain the "flipped" expansion rules.
 #' @rdname pre_defined_rules
+#' @return `sfc_rules` objects.
 #' @export
 #' @examples
 #' SFC_RULES_2x2

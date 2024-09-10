@@ -16,6 +16,8 @@
 #' Currently, `sfc_apply()` only works on curves with a single base pattern as the seed.
 #' 
 #' @export
+#' @return
+#' An `sfc_nxn` object.
 #' @examples
 #' p = sfc_3x3_peano("I", level = 3)
 #' # flip the global curve

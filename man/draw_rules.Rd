@@ -16,6 +16,9 @@ draw_rules_3x3_meander(flip = FALSE)
 \item{flip}{Whether to use the "flipped" rules? For the Peano curve and the Meander curve, there is also a "fliiped" version
 of the curve expansion rules. See the vignettes for details.}
 }
+\value{
+No value is returned.
+}
 \description{
 Draw the expansion rules
 }

@@ -232,6 +232,7 @@ H2 = expand_h(H0, connect = "v")
 #' @export
 #' @details
 #' The three objects simply contain coordinates of points on the three base H-curves.
+#' @return Two-column matrices.
 #' @examples
 #' H0
 #' draw_multiple_curves(H0, H1, H2, nrow = 1, closed = TRUE)

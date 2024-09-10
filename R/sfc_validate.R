@@ -11,6 +11,7 @@
 #' It is mainly used to validate a seed sequence whether they follow the forward-left-right rule.
 #' 
 #' @export
+#' @return A logical scalar.
 #' @examples
 #' try(sfc_validate("LLLLL"))
 #' try(sfc_validate(sfc_sequence("IIIII", rot = c(0, 90, 180, 270, 0), 

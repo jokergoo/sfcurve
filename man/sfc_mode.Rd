@@ -13,6 +13,9 @@
 \arguments{
 \item{p}{The corresponding object.}
 }
+\value{
+An integer.
+}
 \description{
 The mode of the curve
 }

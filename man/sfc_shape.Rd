@@ -88,10 +88,10 @@ sl = all_2x2_shapes(3)
 draw_multiple_curves(list = sl, lwd = 2, col = "black")
 p = sfc_3x3_peano("I", 11)
 draw_multiple_curves(
-    p, sfc_reverse(p),
-    sfc_shape(p), sfc_shape(sfc_reverse(p)),
+    p, sfc_dflip(p),
+    sfc_shape(p), sfc_shape(sfc_dflip(p)),
     col = "black")
-\dontrun{
+\donttest{
 sl = all_3x3_peano_shapes()
 length(sl)
 # the first 8 shapes

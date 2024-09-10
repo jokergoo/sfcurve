@@ -29,6 +29,9 @@ The value can be set as a vector e.g. \code{c(1, 2, 1)}, or as a string e.g. \co
 
 \item{p}{An \code{sfc_4x4_meander} object.}
 }
+\value{
+\code{sfc_4x4_meander()} returns an \code{sfc_4x4_meander} object.
+}
 \description{
 4x4 space-filling curves in meander type
 }

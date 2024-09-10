@@ -255,6 +255,7 @@ setMethod("sfc_level",
 
 #' @rdname sfc_mode
 #' @export
+#' @return An integer.
 #' @examples
 #' p = sfc_2x2("I", "1")
 #' sfc_mode(p)

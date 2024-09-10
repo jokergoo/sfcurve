@@ -17,6 +17,7 @@
 #' For the simplicity, flipping is not supported yet.
 #' 
 #' @export
+#' @return No value is returned.
 #' @examples
 #' UNIVERSE_4x4_PEANO = c("I", "R", "L")
 #'

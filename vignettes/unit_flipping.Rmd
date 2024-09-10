@@ -44,9 +44,9 @@ examples:
 
 ```{r, fig.width = 9, fig.height = 3}
 par(mfrow = c(1, 3))
-sfcurve:::test_sfc_index(p, "") # the complete curve
-sfcurve:::test_sfc_index(p, "4")
-sfcurve:::test_sfc_index(p, "4:2")
+test_sfc_index(p, "") # the complete curve
+test_sfc_index(p, "4")
+test_sfc_index(p, "4:2")
 ```
 
 `sfc_flip_unit()` flips a single unit or a list of units. Whether it is a diagonal flip or a 

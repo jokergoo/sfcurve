@@ -21,6 +21,9 @@ calculated.}
 
 \item{universe}{The universe of base patterns. A vector of letters.}
 }
+\value{
+An \code{sfc_sequence} object.
+}
 \description{
 Constructor of the sfc_sequence class
 }

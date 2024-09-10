@@ -28,6 +28,9 @@ first letter, or a vector with the same length as the number of base letters.}
 
 \item{code}{Ignore. The traverse codes are selected randomly.}
 }
+\value{
+\code{sfc_3x3_combined()} returns an \code{sfc_3x3_combined} object.
+}
 \description{
 General 3x3 space-filling curves
 }

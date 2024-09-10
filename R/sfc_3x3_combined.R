@@ -18,6 +18,8 @@ setClass("sfc_3x3_combined",
 #' @details
 #' This type of 3x3 curve uses the combintation of base patterns from both the Peano curve and the Meander curve.
 #' On each level, the traverse path is randomly selected.
+#' @return
+#' `sfc_3x3_combined()` returns an `sfc_3x3_combined` object.
 #' @export
 #' @examples
 #' draw_multiple_curves(

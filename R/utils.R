@@ -17,6 +17,7 @@
 #' 
 #' @details
 #' This function is used for quick comparison on curves.
+#' @return No value is returned.
 #' @export
 #' @examples
 #' # for all forms of curves initialized by base pattern 'R', with rotation 0, and on level 3

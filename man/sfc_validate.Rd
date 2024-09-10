@@ -15,6 +15,9 @@
 
 \item{by}{One of \code{sfc_2x2}, \code{sfc_3x3_peano} and \code{sfc_3x3_meander}.}
 }
+\value{
+A logical scalar.
+}
 \description{
 Validate the sequence
 }

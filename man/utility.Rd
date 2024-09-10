@@ -24,6 +24,11 @@
 
 \item{...}{A list of \code{sfc_sequence} objects or other arguments.}
 }
+\value{
+\code{length.sfc_sequence()} returns an integer scalar.
+
+\code{c.sfc_sequence()} returns an \code{sfc_sequence} object.
+}
 \description{
 Utility functions
 }

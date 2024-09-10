@@ -17,6 +17,9 @@ plot_segments(x, grid = FALSE, title = FALSE, closed = FALSE, ...)
 
 \item{...}{Other arguments passed to \code{\link[=sfc_grob]{sfc_grob()}}.}
 }
+\value{
+No value is returned.
+}
 \description{
 Plot segments
 }

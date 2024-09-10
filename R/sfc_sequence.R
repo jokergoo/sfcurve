@@ -12,6 +12,7 @@
 #' This funtion is very low-level. Normally, users do not need to directly use this constructor.
 #' 
 #' @export
+#' @return An `sfc_sequence` object.
 #' @examples
 #' sfc_sequence("ABCD", rot = c(0, 90, 180, 270), universe = c("A", "B", "C", "D"))
 sfc_sequence = function(seq, rot = 0L, universe = NULL) {
@@ -146,6 +147,8 @@ next_rotation = function(letter, rot) {
 }
 
 #' @rdname utility
+#' @return 
+#' `length.sfc_sequence()` returns an integer scalar.
 #' @export
 length.sfc_sequence = function(x) {
 	length(x@seq)
@@ -154,6 +157,8 @@ length.sfc_sequence = function(x) {
 #' @rdname utility
 #' @details
 #' For efficiency, `c.sfc_sequence()` does not check whether the input `sfc_sequence` objects are compatible.
+#' @return
+#' `c.sfc_sequence()` returns an `sfc_sequence` object.
 #' @export
 c.sfc_sequence = function(...) {
 	lt = list(...)
@@ -172,6 +177,7 @@ c.sfc_sequence = function(...) {
 #' @param object The corresponding object.
 #' @rdname show
 #' @export
+#' @return No value is returned.
 setMethod("show",
 	signature = "sfc_sequence",
 	definition = function(object) {
@@ -280,6 +286,7 @@ setMethod("sfc_universe",
 #' If `strict` is `TRUE`, the order of the two universe sets should also be the same.
 #' If `strict` is `FALSE`, the universe set of `p2` can be a subset of the universe set of `p1`.
 #' @export
+#' @return A logical scalar.
 #' @examples
 #' p1 = sfc_2x2("I")
 #' p2 = sfc_2x2("R")

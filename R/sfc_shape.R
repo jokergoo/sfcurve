@@ -234,7 +234,7 @@ sfc_shape_3x3_peano_internal = function(loc, mode) {
 #' `all_3x3_peano_shapes()` only calculates all shapes for Peano curve on level 2.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' sl = all_3x3_peano_shapes()
 #' length(sl)
 #' # the first 8 shapes

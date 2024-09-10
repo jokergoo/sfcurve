@@ -11,6 +11,8 @@
 #' @param ... Ignore.
 #' @param drop A value of `TRUE` or `FALSE` that controls whether to keep the `sfc_nxn` class or degenerate to the `sfc_sequence` class.
 #' @export
+#' @return
+#' `sfc_index()` returns an integer vector.
 #' @examples
 #' p = sfc_2x2("I", "11111")
 #' p["3:2:1"]
@@ -96,19 +98,19 @@ get_index_from_nxn = function(index, level, n) {
 #' p = sfc_2x2("I", "11111")
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
-#' sfcurve:::test_sfc_index(p, "3")
-#' sfcurve:::test_sfc_index(p, "3:2")
-#' sfcurve:::test_sfc_index(p, "3:2:1")
-#' sfcurve:::test_sfc_index(p, "3:2:1:1")
+#' test_sfc_index(p, "3")
+#' test_sfc_index(p, "3:2")
+#' test_sfc_index(p, "3:2:1")
+#' test_sfc_index(p, "3:2:1:1")
 #' par(om)
 #' 
 #' p = sfc_3x3_meander("I", "11111")
 #' om = par(no.readonly = TRUE)
 #' par(mfrow = c(2, 2))
-#' sfcurve:::test_sfc_index(p, "7")
-#' sfcurve:::test_sfc_index(p, "7:5")
-#' sfcurve:::test_sfc_index(p, "7:5:9")
-#' sfcurve:::test_sfc_index(p, "7:5:9:2")
+#' test_sfc_index(p, "7")
+#' test_sfc_index(p, "7:5")
+#' test_sfc_index(p, "7:5:9")
+#' test_sfc_index(p, "7:5:9:2")
 #' par(om)
 setMethod("sfc_index",
 	signature = "sfc_nxn",
@@ -129,7 +131,11 @@ setMethod("sfc_index",
 	}
 })
 
+#' @rdname sfc_index
 #' @import graphics
+#' @export
+#' @details
+#' `test_sfc_index()` is a helper function for demonstrating `sfc_index()`.
 test_sfc_index = function(p, index) {
 	loc = sfc_segments(p)
 

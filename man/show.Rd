@@ -19,6 +19,9 @@
 \arguments{
 \item{object}{The corresponding object.}
 }
+\value{
+No value is returned.
+}
 \description{
 Print the object
 }

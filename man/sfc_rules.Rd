@@ -16,6 +16,9 @@ the flipped version is automatically generated from \code{rules}.}
 
 \item{name}{A self-defined string.}
 }
+\value{
+An \code{sfc_rules} object.
+}
 \description{
 Constructor of the sfc_rules class
 }

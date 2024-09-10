@@ -4,11 +4,14 @@
 \alias{[.sfc_nxn}
 \alias{sfc_index,sfc_nxn-method}
 \alias{sfc_index}
+\alias{test_sfc_index}
 \title{Subunit in the curve}
 \usage{
 \method{[}{sfc_nxn}(x, i, j, ..., drop = TRUE)
 
 \S4method{sfc_index}{sfc_nxn}(p, index = "")
+
+test_sfc_index(p, index)
 }
 \arguments{
 \item{x}{An \code{sfc_nxn} object.}
@@ -28,11 +31,16 @@ hierarchical index can be specified as \code{i1i2i3...}. See the \strong{Example
 
 \item{p}{An \code{sfc_nxn} object.}
 }
+\value{
+\code{sfc_index()} returns an integer vector.
+}
 \description{
 Subunit in the curve
 }
 \details{
 \code{sfc_index()} only works on square curves (i.e. a curve with a single base letter as seed.)
+
+\code{test_sfc_index()} is a helper function for demonstrating \code{sfc_index()}.
 }
 \examples{
 p = sfc_2x2("I", "11111")
@@ -44,18 +52,18 @@ p["3:2:1", TRUE] # or p["3:2:1", drop = FALSE]
 p = sfc_2x2("I", "11111")
 om = par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
-sfcurve:::test_sfc_index(p, "3")
-sfcurve:::test_sfc_index(p, "3:2")
-sfcurve:::test_sfc_index(p, "3:2:1")
-sfcurve:::test_sfc_index(p, "3:2:1:1")
+test_sfc_index(p, "3")
+test_sfc_index(p, "3:2")
+test_sfc_index(p, "3:2:1")
+test_sfc_index(p, "3:2:1:1")
 par(om)
 
 p = sfc_3x3_meander("I", "11111")
 om = par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
-sfcurve:::test_sfc_index(p, "7")
-sfcurve:::test_sfc_index(p, "7:5")
-sfcurve:::test_sfc_index(p, "7:5:9")
-sfcurve:::test_sfc_index(p, "7:5:9:2")
+test_sfc_index(p, "7")
+test_sfc_index(p, "7:5")
+test_sfc_index(p, "7:5:9")
+test_sfc_index(p, "7:5:9:2")
 par(om)
 }

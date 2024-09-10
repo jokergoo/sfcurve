@@ -10,6 +10,8 @@
 #' @details
 #' Given an input sequence with rotations, `all_traverse_paths()` lists all combinations of expansion 
 #' codes from the first letter to the last letter in `p` (i.e. all possible traverse paths).
+#' @return
+#' `all_traverse_paths()` returns a list of integer vectors.
 all_traverse_paths = function(rules, p) {
 
     if(!identical(sfc_universe(rules), sfc_universe(p))) {
@@ -84,6 +86,8 @@ rev_corner = function(corner) {
 #' @export
 #' @details
 #' `get_one_traverse_path()` returns one random traverse path.
+#' @return
+#' `get_one_traverse_path()` returns an integer vector.
 #' @examples
 #' # expansion rules for the general 3x3 curves
 #' p = SFC_RULES_3x3_COMBINED@rules$I[[3]]

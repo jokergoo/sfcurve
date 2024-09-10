@@ -44,6 +44,8 @@
 #' Check \url{https://github.com/jokergoo/sfcurve/blob/master/R/zz_global.R} to see how these pre-defined rules are constructed.
 #' 
 #' @export
+#' @return
+#' An `sfc_rules` object.
 sfc_rules = function(rules, bases, flip = list(), name = "sfc_rules") {
     r = new("sfc_rules")
 
@@ -566,6 +568,7 @@ grob_single_base_rule = function(p, bp, equation_max_width, flip = FALSE, ...) {
 #' @details
 #' The expansion rules define how the curve is expanded from level-0 to level-1.
 #' @export
+#' @return No value is returned.
 #' @examples
 #' draw_rules_2x2()
 draw_rules_2x2 = function() {

@@ -35,6 +35,9 @@ SFC_RULES_4x4_MEANDER_1
 
 SFC_RULES_4x4_MEANDER_2
 }
+\value{
+\code{sfc_rules} objects.
+}
 \description{
 A list of pre-defined expansion rules for different curves.
 }

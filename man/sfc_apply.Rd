@@ -16,6 +16,9 @@
 The function should return an \code{sfc_seuqence} object with the same length as of \code{x}. The function can take an optional second argument which
 the index of the current subunit in the curve.}
 }
+\value{
+An \code{sfc_nxn} object.
+}
 \description{
 Apply to every unit in the sfc_nxn curve
 }

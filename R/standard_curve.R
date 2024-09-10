@@ -208,6 +208,7 @@ h_curve = function(iteration = 2L) {
 #' @export
 #' @details
 #' This function is only for a quick demonstration of curves represented as two-column coordinate matrices.
+#' @return No value is returned.
 #' @examples
 #' pos = cbind(c(0, 0, 1, 1, 2, 2, 3, 3, 2, 2, 1, 1),
 #'             c(1, 2, 2, 3, 3, 2, 2, 1, 1, 0, 0, 1))

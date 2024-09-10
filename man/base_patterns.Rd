@@ -60,6 +60,9 @@ BASE_C
 
 BASE_LIST
 }
+\value{
+\code{sfc_base} objects.
+}
 \description{
 A list of pre-defined base patterns. See the \strong{Examples} section.
 }

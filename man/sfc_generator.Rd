@@ -23,6 +23,9 @@ sfc_generator(
 
 \item{verbose}{Whether to print messages?}
 }
+\value{
+No value is returned.
+}
 \description{
 Generate a nxn curve based on expansion rules
 }

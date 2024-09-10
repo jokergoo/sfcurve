@@ -21,6 +21,11 @@ Please provide \code{p} as a small sequence because the total number of all trav
 \item{type}{If the value is \code{"11|22"}, it highlights the paths only via 1-1/2-2 corners. If the value is \code{"12|21"}, it highlights the paths
 only via 1-2/2-1 corners.}
 }
+\value{
+\code{all_traverse_paths()} returns a list of integer vectors.
+
+\code{get_one_traverse_path()} returns an integer vector.
+}
 \description{
 All traverse paths of a sequence
 }

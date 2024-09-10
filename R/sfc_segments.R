@@ -62,3 +62,11 @@ setMethod("sfc_segments",
 
 	pos2
 })
+
+
+as_sfc_segment = function(x) {
+	class(x) = union("sfc_segment", class(x))
+	x
+}
+
+

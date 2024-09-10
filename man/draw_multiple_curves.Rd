@@ -41,6 +41,9 @@ is connected to the first point in the curve to form a closed curve. Length of \
 
 \item{col}{Color for the segments with length 1. If the value is \code{NULL}, it uses the "Spectral" color palettes from the \strong{RColorBrewer} package.}
 }
+\value{
+No value is returned.
+}
 \description{
 Draw multiple curves
 }
