@@ -62,19 +62,19 @@ setMethod("sfc_grob",
 		b = bases[[ seq[1] ]]
 
 		if(is.na(b@in_direction)) {
-			gbl[[2]] = pointsGrob(loc[1, 1], loc[1, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
+			gbl[[2]] = pointsGrob(loc[1, 1], loc[1, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "#A0A0A0"))
 		} else {
 			prev = sfc_previous_point(b, loc[1, ], rot[1], length = 0.6)
-			gbl[[2]] = segmentsGrob(prev[1], prev[2], 0, 0, default.units = "native", gp = gpar(col = "grey", lwd = lwd))
+			gbl[[2]] = segmentsGrob(prev[1], prev[2], 0, 0, default.units = "native", gp = gpar(col = "#A0A0A0", lwd = lwd))
 		}
 
 		b = bases[[ seq[n] ]]
 
 		if(is.na(b@out_direction)) {
-			gbl[[3]] = pointsGrob(loc[n, 1], loc[n, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "grey"))
+			gbl[[3]] = pointsGrob(loc[n, 1], loc[n, 2], default.units = "native", pch = 4, size = unit(4, "pt"), gp = gpar(col = "#A0A0A0"))
 		} else {
 			last = sfc_next_point(b, loc[n, ], rot[n], length = 0.6)
-			gbl[[3]] = segmentsGrob(loc[n, 1], loc[n, 2], last[1], last[2], default.units = "native", gp = gpar(col = "grey", lwd = lwd), arrow = arrow(length = unit(0.2, "native"), angle = 15))
+			gbl[[3]] = segmentsGrob(loc[n, 1], loc[n, 2], last[1], last[2], default.units = "native", gp = gpar(col = "#A0A0A0", lwd = lwd), arrow = arrow(length = unit(0.2, "native"), angle = 15))
 		}
 
 		gbl = gbl[c(2, 3, 1)]

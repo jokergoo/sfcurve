@@ -1,5 +1,9 @@
 # sfcurve: 2x2, 3x3 and nxn Space-Filling Curves
 
+[![CRAN](https://www.r-pkg.org/badges/version/sfcurve)](https://cran.r-project.org/web/packages/sfcurve/index.html)
+[![CRAN](https://cranlogs.r-pkg.org/badges/grand-total/sfcurve)](https://cran.r-project.org/web/packages/sfcurve/index.html)
+
+
 ![](https://github.com/user-attachments/assets/7e0e14e7-1300-421f-8ffe-113b80caee97)
 
 
@@ -14,6 +18,11 @@ It also supports nxn curves expanded from any valid level-1 unit.
 
 ## Install
 
+```r
+install.packages("sfcurve")
+```
+
+or the devel version:
 
 ```r
 devtools::install_github("jokergoo/sfcurve")
