@@ -126,6 +126,17 @@ plot.sfc_sequence = function(x, bases = NULL, grid = FALSE,
 
 #' @rdname sfc_grob
 #' @export
+plot.grob_sfc_sequence = function(x, grid = FALSE, ...) {
+	grid.newpage()
+	grid.draw(x)
+
+	if(grid) {
+		add_grid_lines()
+	}
+}
+
+#' @rdname sfc_grob
+#' @export
 setMethod("sfc_grob",
 	signature = "sfc_nxn",
 	definition = function(p, bases = p@rules@bases, extend = FALSE, title = FALSE, closed = FALSE, ...) {

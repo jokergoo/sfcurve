@@ -117,3 +117,51 @@ add_base_structure = function(gb, level = 1) {
 
 	gb
 }
+
+#' @rdname sfc_reduce
+#' @param k Number of subunits
+#' @export
+#' @details
+#' `mark_local_units()` highlights `k` subunits on level `level`. `k` subunits are picked
+#' randomly.
+#' @examples
+#' p = hilbert_curve(4)
+#' draw_multiple_curves(
+#'     mark_local_units(p, level = 1),
+#'     mark_local_units(p, level = 2),
+#'     nrow = 1
+#' )
+mark_local_units = function(gb, level = 1, k = 5) {
+	if(inherits(gb, "sfc_nxn")) {
+		gb = sfc_grob(gb)
+	} else if(inherits(gb, "matrix")) {
+		gb = sfc_grob(gb)
+	}
+
+	block_size = 4^level
+	col = gb$children[[1]]$gp$col
+	col[] = "grey"
+
+	n = as.integer(round(length(col)/block_size))
+	if(k > n) {
+		stop_wrap("`k` should not be larger than ", n, ".")
+	}
+	ind = sort(sample(n, k))
+	ind2 = as.vector(outer(block_size*(ind - 1), seq_len(block_size-1), "+"))
+
+	col[ind2] = "black"
+	gb$children[[1]]$gp$col = col
+
+	v = rep(0, length(col))
+	v[ind2] = 100
+	od = order(v, decreasing = FALSE)
+
+	gb$children[[1]]$gp$col = gb$children[[1]]$gp$col[od]
+	gb$children[[1]]$x0 = gb$children[[1]]$x0[od]
+	gb$children[[1]]$y0 = gb$children[[1]]$y0[od]
+	gb$children[[1]]$x1 = gb$children[[1]]$x1[od]
+	gb$children[[1]]$y1 = gb$children[[1]]$y1[od]
+	gb
+}
+
+

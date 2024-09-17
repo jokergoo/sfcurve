@@ -5,6 +5,7 @@
 \alias{sfc_expand}
 \alias{sfc_expand,sfc_3x3_peano-method}
 \alias{sfc_expand,sfc_3x3_meander-method}
+\alias{|.sfc_nxn}
 \title{Expand the curve to the next level}
 \usage{
 \S4method{sfc_expand}{sfc_2x2}(p, code, flip = FALSE)
@@ -12,6 +13,8 @@
 \S4method{sfc_expand}{sfc_3x3_peano}(p, code = 1, flip = FALSE)
 
 \S4method{sfc_expand}{sfc_3x3_meander}(p, code, flip = FALSE)
+
+\method{|}{sfc_nxn}(e1, e2)
 }
 \arguments{
 \item{p}{An \code{sfc_2x2} object or other related objects.}
@@ -19,6 +22,10 @@
 \item{code}{Expansion code, a single integer.}
 
 \item{flip}{Whethe to flip level-1 units? The value should be a logical vector of length one or the same as the length of \code{p}.}
+
+\item{e1}{An \code{sfc_nxn} object or object in its child class.}
+
+\item{e2}{Expansion codes.}
 }
 \value{
 An object in the same class as the input.
@@ -40,4 +47,9 @@ p = sfc_3x3_peano("I", 11)
 sfc_expand(p, 2) # I|211
 p = sfc_3x3_meander("I", 11)
 sfc_expand(p, 2) # I|211
+p = sfc_2x2("I")
+p|1
+p|121
+p|"121"
+p|1|1|1
 }

@@ -4,7 +4,7 @@
 \name{sfcurve-package}
 \alias{sfcurve}
 \alias{sfcurve-package}
-\title{sfcurve: 2x2, 3x3 and nxn Space-Filling Curves}
+\title{sfcurve: 2x2, 3x3 and Nxn Space-Filling Curves}
 \description{
 Implementation of all possible forms of 2x2 and 3x3 space-filling curves, i.e., the generalized forms of the Hilbert curve \url{https://en.wikipedia.org/wiki/Hilbert_curve}, the Peano curve \url{https://en.wikipedia.org/wiki/Peano_curve} and the Peano curve in the meander type (Figure 5 in \url{https://eudml.org/doc/141086}). It can generates nxn curves expanded from any specific level-1 units. It also implements the H-curve and the three-dimensional Hilbert curve.
 }

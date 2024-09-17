@@ -196,6 +196,9 @@ sfc_generator = function(rules, name, envir = topenv(parent.frame()),
 
 		if(code_num == 2) {
 			tl[1] = code
+			if(length(code) != 1) {
+				stop_wrap("`code` should be a single integer")
+			}
 			if(n > 1) {
 				for(i in 2:n) {
 					tl[i] = traverse_type_2x2(tl[i-1], rot[i-1], rot[i])

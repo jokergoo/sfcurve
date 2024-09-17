@@ -5,6 +5,7 @@
 \alias{sfc_grob,sfc_sequence-method}
 \alias{sfc_grob}
 \alias{plot.sfc_sequence}
+\alias{plot.grob_sfc_sequence}
 \alias{sfc_grob,sfc_nxn-method}
 \alias{plot.sfc_nxn}
 \alias{sfc_grob,matrix-method}
@@ -32,6 +33,8 @@
   closed = FALSE,
   ...
 )
+
+\method{plot}{grob_sfc_sequence}(x, grid = FALSE, ...)
 
 \S4method{sfc_grob}{sfc_nxn}(
   p,

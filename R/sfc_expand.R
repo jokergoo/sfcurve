@@ -29,6 +29,9 @@ setMethod("sfc_expand",
 
 	tl = integer(n)
 	tl[1] = code
+	if(length(code) != 1) {
+		stop_wrap("`code` should be a single integer")
+	}
 
 	if(n > 1) {
 		for(i in 2:n) {
@@ -74,6 +77,9 @@ setMethod("sfc_expand",
 
 	tl = integer(n)
 	tl[1] = code
+	if(length(code) != 1) {
+		stop_wrap("`code` should be a single integer")
+	}
 
 	if(n > 1) {
 		for(i in 2:n) {
@@ -103,6 +109,9 @@ setMethod("sfc_expand",
 
 	tl = integer(n)
 	tl[1] = code
+	if(length(code) != 1) {
+		stop_wrap("`code` should be a single integer")
+	}
 
 	if(n > 1) {
 		for(i in 2:n) {
@@ -113,3 +122,26 @@ setMethod("sfc_expand",
 	sfc_expand_by_rules(rules, p, code = tl, flip = flip)
 
 })
+
+
+#' @rdname sfc_expand
+#' @param e1 An `sfc_nxn` object or object in its child class.
+#' @param e2 Expansion codes.
+#' @export
+#' @examples
+#' p = sfc_2x2("I")
+#' p|1
+#' p|121
+#' p|"121"
+#' p|1|1|1
+"|.sfc_nxn" = function(e1, e2) {
+	e2 = as.character(e2)
+	code = as.integer(strsplit(e2, "")[[1]])
+	if(any(is.na(code))) {
+		stop_wrap("text on the right side of '|' should only contain integers.")
+	}
+	for(cd in code) {
+		e1 = sfc_expand(e1, code = cd)
+	}
+	e1
+}

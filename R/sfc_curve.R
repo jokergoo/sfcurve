@@ -339,7 +339,7 @@ setMethod("show",
 	definition = function(object) {
 
 	cat("An", class(object)[1], "object.\n")
-	cat("  Increase mode: ", object@mode, " x ", object@mode, "\n", sep = "")
+	cat("  Increase mode: ", object@mode, "x", object@mode, "\n", sep = "")
 	cat("  Level: ", object@level, "\n", sep = "")
 	cat("  Expansion rule:", object@rules@name, "\n")
 
@@ -353,6 +353,7 @@ setMethod("show",
 	cat("\n")
 	cat("Seed: ")
 	callNextMethod(object@seed)
+	cat("Expansion code:", paste(object@expansion, collapse = ""), "\n")
 })
 
 

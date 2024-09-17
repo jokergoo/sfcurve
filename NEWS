@@ -1,0 +1,5 @@
+## Changes in 1.0.1
+
+- add `|.sfc_nxn()` function
+- add `mark_local_units()` function
+- add `plot.grob_sfc_sequence()` function

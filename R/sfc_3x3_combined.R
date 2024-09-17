@@ -120,6 +120,9 @@ setMethod("sfc_expand",
 	tl = get_one_traverse_path(rules, p)
 	if(!is.null(code)) {
 		tl = as.integer(code)
+		if(length(code) != 1) {
+			stop_wrap("`code` should be a single integer")
+		}
 	}
 
 	k = 0

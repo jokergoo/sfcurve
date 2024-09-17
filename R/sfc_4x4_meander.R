@@ -149,6 +149,9 @@ setMethod("sfc_expand",
 
 	tl = integer(n)
 	tl[1] = code
+	if(length(code) != 1) {
+		stop_wrap("`code` should be a single integer")
+	}
 
 	if(n > 1) {
 		for(i in 2:n) {

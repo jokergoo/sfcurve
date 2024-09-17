@@ -5,6 +5,7 @@
 \alias{sfc_reduce}
 \alias{sfc_reduce,matrix-method}
 \alias{add_base_structure}
+\alias{mark_local_units}
 \title{Reduce a curve}
 \usage{
 \S4method{sfc_reduce}{sfc_nxn}(p, to = sfc_level(p) - 1)
@@ -12,6 +13,8 @@
 \S4method{sfc_reduce}{matrix}(p, to = level - 1, mode = NULL)
 
 add_base_structure(gb, level = 1)
+
+mark_local_units(gb, level = 1, k = 5)
 }
 \arguments{
 \item{p}{An \code{sfc_nxn} object.}
@@ -23,6 +26,8 @@ add_base_structure(gb, level = 1)
 \item{gb}{A \code{grob} object returned by \code{\link[=sfc_grob]{sfc_grob()}} or a \code{sfc_nxn} object then \code{\link[=sfc_grob]{sfc_grob()}} is internally applied.}
 
 \item{level}{The level of the unit.}
+
+\item{k}{Number of subunits}
 }
 \value{
 A two-column matrix of coordinates of the reduced curve.
@@ -34,6 +39,9 @@ Reduce a curve
 The reduction is applied on the coordinates of points.
 
 \code{add_base_structure()} adds a base structure on a certain level to the curve.
+
+\code{mark_local_units()} highlights \code{k} subunits on level \code{level}. \code{k} subunits are picked
+randomly.
 }
 \examples{
 p = sfc_3x3_peano("I", level = 3)
@@ -52,6 +60,12 @@ p = hilbert_curve(3)
 draw_multiple_curves(
     add_base_structure(p, level = 1),
     add_base_structure(p, level = 2),
+    nrow = 1
+)
+p = hilbert_curve(4)
+draw_multiple_curves(
+    mark_local_units(p, level = 1),
+    mark_local_units(p, level = 2),
     nrow = 1
 )
 }
